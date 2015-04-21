@@ -12,35 +12,35 @@
             <div role="tabpanel" class="tab-pane fade active in" id="tab-import">
                 <form id="form_upload_manifest" method="post" action="<?=site_url('manifest/ajax/upload')?>">
                 <div class="row">
-                	<div class="col-lg-12" style="padding:0px;">
-	                    <div class="col-lg-6">
+                	<div class="col-lg-12 col-sm-12 col-xs-12" style="padding:0px;">
+	                    <div class="col-lg-6 col-sm-6 col-xs-6">
 	                        <div class="form-group">
 	                            <label>Mawb No</label>
 	                            <input class="form-control" name="mawb_no" required>
 	                        </div>
 	                    </div>
-	                    <div class="col-lg-6">
+	                    <div class="col-lg-6 col-sm-6 col-xs-6">
 	                        <div class="form-group">
 	                            <label>Consign To</label>
 	                            <input class="form-control" name="consign_to" required>
 	                        </div>
 	                    </div>
 	                </div>
-                    <div class="col-lg-12" style="padding:0px;">
-		                <div class="col-lg-6">
+                    <div class="col-lg-12 col-sm-12 col-xs-12" style="padding:0px;">
+		                <div class="col-lg-6 col-sm-6 col-xs-6">
 	                        <div class="form-group">
 	                            <label>Flight No</label>
 	                            <input class="form-control" name="flight_no" required>
 	                        </div>
 	                    </div>
-	                    <div class="col-lg-6">
+	                    <div class="col-lg-6 col-sm-6 col-xs-6">
 	                        <div class="form-group">
 	                            <label>Gross Weight</label>
 	                            <input class="form-control" name="gross_weight" required>
 	                        </div>
 	                    </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label>Partner</label>
                             <select class="form-control flight_from" name="partner_id">
@@ -48,8 +48,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-12" style="padding:0px;">
-	                    <div class="col-lg-6">
+                    <div class="col-lg-12 col-sm-12 col-xs-12" style="padding:0px;">
+	                    <div class="col-lg-6 col-sm-6 col-xs-6">
 	                        <div class="form-group">
 	                            <label>From</label>
 	                            <select class="form-control flight_from" name="flight_from" required>
@@ -61,7 +61,7 @@
 	                            </select>                                     
 	                        </div>
 	                    </div>
-		                <div class="col-lg-6">
+		                <div class="col-lg-6 col-sm-6 col-xs-6">
 	                        <div class="form-group">
 	                            <label>To</label>
 	                            <select class="form-control flight_to" name="flight_to" required>
@@ -74,7 +74,7 @@
 	                        </div>
 	                    </div>
 	                </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <input id="fileupload" type="file" name="userfile" required>
                         </div>
