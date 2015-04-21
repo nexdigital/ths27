@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session');
+$autoload['libraries'] = array('database','session','form_validation');
 
 
 /*
@@ -111,9 +111,17 @@ $autoload['language'] = array();
 
 $autoload['model'] = array(
 							'manifest_model',
-							'tool_model'
+							'tool_model',
+							'master_currency'
 							);
 
+
+define('PATH',realpath('./'));
+define('path_app',PATH.'/application/');
+define('path_attachment',PATH.'/asset/attachment/');
+define('path_barcode',PATH.'/asset/barcode/');
+define('path_pdf',PATH.'/asset/pdf/');
+define('path_download',PATH.'/download/');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

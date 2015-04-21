@@ -1,6 +1,6 @@
  <head>
         <meta charset="UTF-8">
-        <title>AdminLTE | Dashboard</title>
+        <title>THS 27</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link href="<?php echo base_url()?>style/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url()?>style/css/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -18,7 +18,8 @@
         <link href="<?php echo base_url() ?>style/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="<?php echo base_url() ?>style/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-        <link href="//cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url() ?>style/lib/select2/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url() ?>style/lib/select2/select2.min.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,42 +27,6 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-
-        <script src="<?php echo base_url()?>style/js/jquery.min.js"></script>
-        <script src="<?php echo base_url()?>style/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url()?>style/js/jquery-ui.min.js" type="text/javascript"></script>
-        <!-- Morris.js charts -->
-        <script src="<?php echo base_url()?>style/js/raphael-min.js"></script>
-        <script src="<?php echo base_url()?>style/js/plugins/morris/morris.min.js" type="text/javascript"></script>
-        <!-- Sparkline -->
-        <script src="<?php echo base_url()?>style/js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-        <!-- jvectormap -->
-        <script src="<?php echo base_url()?>style/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url()?>style/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="<?php echo base_url()?>style/js/plugins/jqueryKnob/jquery.knob.js" type="text/javascript"></script>
-        <!-- daterangepicker -->
-        <script src="<?php echo base_url()?>style/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-        <!-- datepicker -->
-        <script src="<?php echo base_url()?>style/js/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-        <!-- Bootstrap WYSIHTML5 -->
-        <script src="<?php echo base_url()?>style/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
-        <!-- iCheck -->
-        <script src="<?php echo base_url()?>style/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-
-        <!-- AdminLTE App -->
-        <script src="<?php echo base_url()?>style/js/AdminLTE/app.js" type="text/javascript"></script>
-
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="<?php echo base_url()?>style/js/AdminLTE/dashboard.js" type="text/javascript"></script>
-
-        <!-- AdminLTE for demo purposes -->
-        <script src="<?php echo base_url()?>style/js/AdminLTE/demo.js" type="text/javascript"></script>
-        <script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url()?>style/js/jquery.site.js" type="text/javascript"></script>
-
-        <script src="<?php echo base_url()?>style/js/jquery.validate.js" type="text/javascript"></script>
-        <script src="<?php echo base_url()?>style/js/jquery.form.js" type="text/javascript"></script>
     </head>
 
 <style>
@@ -73,9 +38,9 @@
 </style>
 
     <header class="header">
-            <a href="index.html" class="logo">
+            <a href="<?php echo base_url() ?>" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                AdminLTE
+                THS 27
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">

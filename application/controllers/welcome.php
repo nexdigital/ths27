@@ -28,8 +28,7 @@ class Welcome extends CI_Controller {
 		$this->load->library(array('form_validation','email'));
 	}
 
-	public function index()
-	{
+	public function index() {
 		
 		$data['heading']	= "Dashboard";
 		$data['view'] 		= "welcome_message";
