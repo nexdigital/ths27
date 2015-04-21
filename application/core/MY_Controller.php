@@ -4,7 +4,7 @@ class MY_Controller extends CI_Controller {
 	
 	function __construct() {
 		parent::__construct();
-		$this->system->set_all_activity_log();
+		#$this->system->set_all_activity_log();
 	}
 	
 	function set_page($page = null, $data = null) {
