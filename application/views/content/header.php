@@ -10,8 +10,8 @@
         <link href="<?php echo base_url() ?>style/css/morris/morris.css" rel="stylesheet" type="text/css" />
         <!-- jvectormap -->
         <link href="<?php echo base_url() ?>style/css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
-        <!-- Date Picker -->
-        <link href="<?php echo base_url() ?>style/css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+        <!-- Date Picker 
+        <link href="<?php echo base_url() ?>style/css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />-->
         <!-- Daterange picker -->
         <link href="<?php echo base_url() ?>style/css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
         <!-- bootstrap wysihtml5 - text editor -->
@@ -20,6 +20,8 @@
         <link href="<?php echo base_url() ?>style/css/AdminLTE.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>style/lib/select2/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>style/lib/select2/select2.min.css" rel="stylesheet" type="text/css" />
+
+        <link href="<?php echo base_url() ?>style/css/datepicker.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -323,7 +325,7 @@
                             </a>
                             <ul class="treeview-menu">
                               <!--  <li id="data_customers"><a href="#"><i class="fa fa-angle-double-right"></i> Data</a></li>-->
-                                <li><a href="javascript:;" onClick="setPage('<?php echo base_url('customers');?>')"><i class="fa fa-angle-double-right"></i>All Customers</a></li>
+                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>All Customers</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -333,6 +335,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
+                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i> Customer Group</a></li>
                                 <li id="upload_menu"><a href="#"><i class="fa fa-angle-double-right"></i> Currency</a></li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Arilines</a></li>
                             </ul>

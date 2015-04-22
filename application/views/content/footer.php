@@ -13,8 +13,8 @@
 <script src="<?php echo base_url()?>style/js/plugins/jqueryKnob/jquery.knob.js" type="text/javascript"></script>
 <!-- daterangepicker -->
 <script src="<?php echo base_url()?>style/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<!-- datepicker -->
-<script src="<?php echo base_url()?>style/js/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- datepicker 
+<script src="<?php echo base_url()?>style/js/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>-->
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo base_url()?>style/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
 <!-- iCheck -->
@@ -33,3 +33,4 @@
 
 <script src="<?php echo base_url()?>style/js/jquery.validate.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery.form.js" type="text/javascript"></script>   
+<script src="<?php echo base_url()?>style/js/bootstrap-datepicker.js" type="text/javascript"></script>   

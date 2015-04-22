@@ -1,3 +1,5 @@
+<a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>
+
 <div class="table-responsive">
 
                 
@@ -19,7 +21,7 @@
               if($get_customers > 0 ){
               foreach($get_customers as $key => $val){
               echo "<tr>";
-              echo "<td><a href='javascript:;' onClick='setPage(".base_url('customer/view_customer/'.$val->reference_id).")' class='view_cust'>".$val->reference_id."</a></td>";
+              echo "<td><a href='javascript:;' class='view_cust'>".$val->reference_id."</a></td>";
               echo "<td>".$val->name."</td>";
               echo "<td>".$val->address."</td>";
               echo "<td>".$val->city."</td>";

@@ -29,11 +29,11 @@ class Customers extends CI_Controller {
 
 	}
 
-	public function index()
+	public function home()
 	{
 		
 		$data['get_customers']  = $this->customers_model->get_data();
-		$json['content']		= $this->load->view('customers/customers',$data,true);
+		$json['content']		= $this->load->view('customers/customers_list',$data,true);
 		$json['title']			= 'Customers';
 		echo json_encode($json);
 		//break;
@@ -44,11 +44,19 @@ class Customers extends CI_Controller {
 	function view_customer($reference_id){
 
 		$data['get_customers']  = $this->customers_model->get_by_id($reference_id);
-		$json['content']		= $this->load->view('customers/customers',$data,true);
-		$json['title']			= 'Customers';
+		$json['content']		= $this->load->view('customers/customer_view',$data,true);
+		$json['title']			= 'View Customers';
 		echo json_encode($json);
 	}
 
+	function add_customer(){
+		$data = array('list_partners');
+		$json['content'] 	= $this->load->view('customers/customer_add',$data,true);
+		$json['title']			= 'Add Customers';
+		echo json_encode($json);
+	}
+
+	
 
 
 	
