@@ -26,15 +26,30 @@ class Customers extends CI_Controller {
 
 		$this->load->helper(array('form', 'url'));
 		$this->load->library(array('form_validation','email'));
+
 	}
 
 	public function index()
 	{
 		
-	
-		$this->load->view('customers/customers');
+		$data['get_customers']  = $this->customers_model->get_data();
+		$json['content']		= $this->load->view('customers/customers',$data,true);
+		$json['title']			= 'Customers';
+		echo json_encode($json);
+		//break;
+		
 	
 	}
+
+	function view_customer($reference_id){
+
+		$data['get_customers']  = $this->customers_model->get_by_id($reference_id);
+		$json['content']		= $this->load->view('customers/customers',$data,true);
+		$json['title']			= 'Customers';
+		echo json_encode($json);
+	}
+
+
 
 	
 }
