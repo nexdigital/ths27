@@ -64,15 +64,15 @@
                       <div class="stepwizard">
                         <div class="stepwizard-row setup-panel">
                           <div class="stepwizard-step">
-                            <a href="#step-1" type="button" class="btn btn-primary btn-circle step-1">1</a>
+                            <a href="#step-1" type="button" class="btn btn-primary btn-circle step-1 step-button" step="1">1</a>
                             <p>Step 1</p>
                           </div>
                           <div class="stepwizard-step">
-                            <a href="#step-2" type="button" class="btn btn-default btn-circle step-2">2</a>
+                            <a href="#step-2" type="button" class="btn btn-default btn-circle step-2 step-button" step="2">2</a>
                             <p>Step 2</p>
                           </div>
                           <div class="stepwizard-step">
-                            <a href="#step-3" type="button" class="btn btn-default btn-circle step-3">3</a>
+                            <a href="#step-3" type="button" class="btn btn-default btn-circle step-3 step-button" step="3">3</a>
                             <p>Step 3</p>
                           </div>
                         </div>
@@ -301,13 +301,13 @@
               if(json.status == true) {
                      $('.message').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
                       setTimeout(function(){   
-                                    $('.message').fadeOut();
-                                    $('#form_step_1,#form_step_2,#form_step_3 ').trigger("reset");
+                          $('.message').fadeOut();
+                          $('#form_step_1,#form_step_2,#form_step_3 ').trigger("reset");
 
-                                    step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
-                                    step_elm.find('.step-1').addClass('btn-primary');
-                                    step_cont.hide();
-                                    $('#step-1').show();           
+                          step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+                          step_elm.find('.step-1').addClass('btn-primary');
+                          step_cont.hide();
+                          $('#step-1').show();           
                         },800);    
               }
             }
@@ -332,6 +332,14 @@
       $('#step-' + prev).show();
     }
   })
+
+$('a.step-button').click(function(){
+  var goto_step = $(this).attr('step');
+  var step_now = $('.stepwizard-step').find('.btn-primary').attr('step');
+
+  alert(goto_step);
+  alert(step_now);
+})
 
 </script>
   
