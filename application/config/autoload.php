@@ -112,7 +112,9 @@ $autoload['language'] = array();
 $autoload['model'] = array(
 							'manifest_model',
 							'tool_model',
-							'master_currency'
+							'master_currency',
+							'customers_model',
+							'master_customer'
 							);
 
 

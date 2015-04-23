@@ -1,4 +1,4 @@
-<script src="<?php echo base_url()?>style/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script src="<?php echo base_url()?>style/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Morris.js charts -->
@@ -23,8 +23,8 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url()?>style/js/AdminLTE/app.js" type="text/javascript"></script>
 
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url()?>style/js/AdminLTE/dashboard.js" type="text/javascript"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->h
+<!--<script src="<?php echo base_url()?>style/js/AdminLTE/dashboard.js" type="text/javascript"></script> -->
 
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url()?>style/js/AdminLTE/demo.js" type="text/javascript"></script>
@@ -34,3 +34,6 @@
 <script src="<?php echo base_url()?>style/js/jquery.validate.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery.form.js" type="text/javascript"></script>   
 <script src="<?php echo base_url()?>style/js/bootstrap-datepicker.js" type="text/javascript"></script>   
+<script src="<?php echo base_url()?>style/js/select2.min.js" type="text/javascript"></script>   
+
+

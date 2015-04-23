@@ -50,12 +50,41 @@ class Customers extends CI_Controller {
 	}
 
 	function add_customer(){
-		$data = array('list_partners');
+		$reference_id = $this->customers_model->customer_new_id();
+		$data = array('reference_id'=> $reference_id);
 		$json['content'] 	= $this->load->view('customers/customer_add',$data,true);
 		$json['title']			= 'Add Customers';
 		echo json_encode($json);
 	}
 
+	function ajax($page = null){
+			switch ($page) {
+				case 'add_customer':
+
+						$data['reference_id'] = $_POST['reference_id'];
+						$data['name'] 		  = $_POST['name'];
+						$data['email'] 		  = $_POST['email'];
+						$data['address'] 	  = $_POST['address'];
+						$data['attn'] 		  = $_POST['attn'];
+						$data['city']         = $_POST['city'];
+						$data['country']      = $_POST['country'];
+						$data['pos_code'] 	  = $_POST['pos_code'];
+						$data['phone'] 		  = $_POST['phone'];
+						$data['mobile'] 	  = $_POST['mobile'];
+						$data['fax'] 		  = $_POST['fax'];
+						$data['tax_class'] 	  = $_POST['tax_class'];
+						$data['vat_doc'] 	  = $_POST['vat_doc'];
+						$data['status'] 	  = $_POST['status'];
+						//$data['register_date']= $_POST['register_date'];
+						$data['register_date']= "2015-02-12";
+						$data['payment_type'] = $_POST['payment_type'];
+						$data['description']  = $_POST['description'];
+						$data['status_active']= "Active";
+						$this->customers_model->save_customer($data);
+
+				break;
+		}
+	}
 	
 
 
