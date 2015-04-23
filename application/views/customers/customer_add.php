@@ -301,8 +301,13 @@
               if(json.status == true) {
                      $('.message').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
                       setTimeout(function(){   
-                                     $('.message').fadeOut();
-                                     $('#form_step_1,#form_step_2,#form_step_3 ').trigger("reset");           
+                                    $('.message').fadeOut();
+                                    $('#form_step_1,#form_step_2,#form_step_3 ').trigger("reset");
+
+                                    step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+                                    step_elm.find('.step-1').addClass('btn-primary');
+                                    step_cont.hide();
+                                    $('#step-1').show();           
                         },800);    
               }
             }
