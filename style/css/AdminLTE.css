@@ -3407,3 +3407,8 @@ fieldset[disabled] .btn-vk.active {
 label.error {
   color: #ff0000;
 }
+
+table {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Customers extends CI_Controller {
+class Customers extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -29,27 +29,40 @@ class Customers extends CI_Controller {
 
 	}
 
-	public function home()
-	{
-		
+	public function home() {
+		$data['get_customers']	= $this->customers_model->get_data();
+		$data['title']			= 'Customers';
+		$this->set_content('customers/customers_list',$data);
+
+		/**
 		$data['get_customers']  = $this->customers_model->get_data();
 		$json['content']		= $this->load->view('customers/customers_list',$data,true);
 		$json['title']			= 'Customers';
 		echo json_encode($json);
 		//break;
-		
-	
+		**/
 	}
 
 	function view_customer($reference_id){
+		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
+		$data['title']			= 'View Customers';
+		$this->set_content('customers/customer_view',$data);
 
+		/**
 		$data['get_customers']  = $this->customers_model->get_by_id($reference_id);
 		$json['content']		= $this->load->view('customers/customer_view',$data,true);
 		$json['title']			= 'View Customers';
 		echo json_encode($json);
+		**/
 	}
 
 	function add_customer(){
+		$data['reference_id']	= $this->customers_model->customer_new_id();
+		$data['get_group']		= $this->master_customer->get_group();
+		$data['title']			= 'Add Customer';
+		$this->set_content('customers/customer_add',$data);
+
+		/**
 		$reference_id = $this->customers_model->customer_new_id();
 		$get_group = $this->master_customer->get_group();
 		$data = array('reference_id'=> $reference_id,
@@ -58,6 +71,7 @@ class Customers extends CI_Controller {
 		$json['content'] 	= $this->load->view('customers/customer_add',$data,true);
 		$json['title']			= 'Add Customers';
 		echo json_encode($json);
+		**/
 	}
 
 	function ajax($page = null){

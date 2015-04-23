@@ -1,4 +1,3 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script src="<?php echo base_url()?>style/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Morris.js charts -->
@@ -34,6 +33,5 @@
 <script src="<?php echo base_url()?>style/js/jquery.validate.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery.form.js" type="text/javascript"></script>   
 <script src="<?php echo base_url()?>style/js/bootstrap-datepicker.js" type="text/javascript"></script>   
-<script src="<?php echo base_url()?>style/js/select2.min.js" type="text/javascript"></script>   
-
-
+<script src="<?php echo base_url()?>style/lib/select2/select2.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>style/lib/sumoselect/jquery.sumoselect.js" type="text/javascript"></script>

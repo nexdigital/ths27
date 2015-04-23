@@ -14,12 +14,26 @@ class Manifest extends MY_Controller {
 	function view($page = null) {
 		switch ($page) {
 			case 'upload':
-				$data = array('list_partners');
-				$json['content'] 	= $this->load->view('manifest/upload',$data,true);
-				$json['title']		= 'Upload Manifest';
-				echo json_encode($json);
+				$this->set_content('manifest/upload',array('title' => 'Upload File'));
 			break;
-			
+			case 'create_host':
+				$this->set_content('manifest/create_host',array('title' => 'Create Host'));
+			break;
+			case 'data':
+				$data['data']	= '';
+				$data['title']	= 'Master Data Manifest';
+				$this->set_content('manifest/master_data',$data);
+			break;
+			case 'verification':
+				$data['data']	= '';
+				$data['title']	= 'List Manifest Unverified';
+				$this->set_content('manifest/verification',$data);				
+			break;
+			case 'download':
+				$data['data']	= '';
+				$data['title']	= 'Download Manifest Data';
+				$this->set_content('manifest/verification',$data);
+			break;
 			default:
 				header("HTTP/1.0 404 Not Found");
 			break;

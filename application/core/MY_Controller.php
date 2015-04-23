@@ -7,6 +7,12 @@ class MY_Controller extends CI_Controller {
 		#$this->system->set_all_activity_log();
 	}
 	
+	function set_content($page,$data){
+		$this->load->view('content/top_content',$data);
+		$this->load->view($page,$data);
+		$this->load->view('content/bottom_content',$data);
+	}
+
 	function set_page($page = null, $data = null) {
 		$this->load->view('content/header');
 		if($page != null) $this->load->view($page,$data);
