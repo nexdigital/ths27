@@ -336,11 +336,34 @@
 $('a.step-button').click(function(){
   var goto_step = $(this).attr('step');
   var step_now = $('.stepwizard-step').find('.btn-primary').attr('step');
+  if(step_now == 1) {
+    if($('#form_step_1').valid()) {
+      step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+      step_elm.find('.step-2').addClass('btn-primary');
+      step_cont.hide();
+      $('#step-2').show();
 
-  alert(goto_step);
-  alert(step_now);
+      if($('#form_step_2').valid()) {
+        step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+        step_elm.find('.step-' + goto_step).addClass('btn-primary');
+        step_cont.hide();
+        $('#step-' + goto_step).show();
+      }
+    }
+  } else if(step_now == 2) {
+      if($('#form_step_2').valid()) {
+        step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+        step_elm.find('.step-' + goto_step).addClass('btn-primary');
+        step_cont.hide();
+        $('#step-' + goto_step).show();
+      }
+  } else {
+    step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+    step_elm.find('.step-' + goto_step).addClass('btn-primary');
+    step_cont.hide();
+    $('#step-' + goto_step).show();    
+  }
 })
 
 </script>
-  
   
