@@ -10,7 +10,7 @@
                           <th>Name</th>
                           <th>Address</th>
                           <th>City</th>
-                          <th>State</th>
+                        <!--  <th>State</th> -->
                           <th>Country</th>
                           <th>Email</th>
                           <th>Edit</th>
@@ -25,7 +25,7 @@
               echo "<td>".$val->name."</td>";
               echo "<td>".$val->address."</td>";
               echo "<td>".$val->city."</td>";
-              echo "<td>".$val->state."</td>";
+            //  echo "<td>".$val->state."</td>";
               echo "<td>".$val->country."</td>";
               echo "<td>".$val->email."</td>";
               echo  "<td><p data-placement='top' data-toggle='tooltip' title='Edit'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal' data-target='#edit' ><span class='glyphicon glyphicon-pencil'></span></button></p></td>";

@@ -60,7 +60,7 @@
                        Customer Form
                     </div>
                     <div class="panel-body">
-                  
+                    <p class="message" style="padding:15px 15px; display:none;"></p>
                       <div class="stepwizard">
                         <div class="stepwizard-row setup-panel">
                           <div class="stepwizard-step">
@@ -128,8 +128,8 @@
                             </div>
 
                             <div class="form-group">
-                              <label >Post Code</label>
-                              <input id="post_code" name="post_code" type="text" class="form-control">
+                              <label >Zip Code</label>
+                              <input id="post_code" name="zip_code" type="text" class="form-control">
                             </div>
                             <nav>
                               <ul class="pager">
@@ -183,15 +183,23 @@
                               </select>
                             </div>
 
-                            <div class="form-group group_by">
+                           <!-- <div class="form-group group_by">
                               <label>Group by</label>
-                                    <select class="form-control group_by" name="group_by">
-                                            <option>-</option>
-                                            <option>-</option>
+                                    <select class="form-control group_by" name="id_group">
+                                           <option></option>
+                                           <?php 
+                                                    foreach ($get_group as $key => $value) {
+                                                         
+                                                        echo "<option value='".$value->id_group."'>".$value->business_type."</option>";       
+
+                                                    }
+
+
+                                           ?>
 
 
                                     </select>
-                            </div>
+                            </div> -->
 
                            
 
@@ -227,7 +235,7 @@
 
                             <div class="form-group">
                               <label >Description</label>
-                              <textarea class="form-control" id="remark" name="remark" rows="5" style="resize:none"></textarea>
+                              <textarea class="form-control" id="remark" name="description" rows="5" style="resize:none"></textarea>
                             </div>
                             <nav>
                               <ul class="pager">
@@ -291,9 +299,11 @@
             data: data,
             success: function(json) {
               if(json.status == true) {
-                bootbox.alert("Register success", function(){
-                  //window.location = '<?php echo base_url()?>';
-                })
+                     $('.message').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
+                      setTimeout(function(){   
+                                     $('.message').fadeOut();
+                                     $('#form_step_1,#form_step_2,#form_step_3 ').trigger("reset");           
+                        },800);    
               }
             }
           })
