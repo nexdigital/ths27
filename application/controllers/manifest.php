@@ -25,9 +25,23 @@ class Manifest extends MY_Controller {
 				$this->set_content('manifest/master_data',$data);
 			break;
 			case 'verification':
-				$data['data']	= '';
+				$data['data']	= $this->manifest_model->get_data_unverified();
 				$data['title']	= 'List Manifest Unverified';
 				$this->set_content('manifest/verification',$data);				
+			break;
+			case 'verification_details':
+				$mawb_no = $_GET['mawb_no'];
+				$data['data']	= $this->manifest_model->get_data__details_unverified($mawb_no);
+				$data['title']	= 'Host Unverified From Master Airwaybill #'.$mawb_no;
+				$this->set_content('manifest/verification_details',$data);				
+			break;
+			case 'similar_question':
+				$hawb_no = $_GET['hawb_no'];
+				$customer_type = $_GET['customer_type'];
+
+				$data['similar_customer']	= $this->manifest_model->get_similar_customer($hawb_no,$customer_type);
+				$data['title']				= 'List Similar Customer';
+				$this->set_content('manifest/similar_customer',$data);
 			break;
 			case 'download':
 				$data['data']	= '';

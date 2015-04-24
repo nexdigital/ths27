@@ -22,7 +22,7 @@
         <link href="<?php echo base_url() ?>style/lib/select2/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>style/lib/sumoselect/sumoselect.css" rel="stylesheet" type="text/css" />
 
-        <link href="<?php echo base_url() ?>style/css/datepicker.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url() ?>style/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css" />
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     </head>

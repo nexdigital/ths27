@@ -22,7 +22,7 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url()?>style/js/AdminLTE/app.js" type="text/javascript"></script>
 
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->h
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!--<script src="<?php echo base_url()?>style/js/AdminLTE/dashboard.js" type="text/javascript"></script> -->
 
 <!-- AdminLTE for demo purposes -->

@@ -50,7 +50,10 @@ body > .header {
   z-index: 1030;
 }
 /* Define 2 column template */
-.right-side,
+.right-side {
+  min-height: 600px;
+  display: block;
+}
 .left-side {
   min-height: 100%;
   display: block;
@@ -449,6 +452,7 @@ body > .header .logo .icon {
 .right-side > .content-header > .breadcrumb > li + li:before {
   content: '>\00a0';
 }
+
 @media screen and (max-width: 767px) {
   .right-side > .content-header > .breadcrumb {
     position: relative;
@@ -3411,4 +3415,17 @@ label.error {
 table {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
+}
+table tbody tr td {
+  word-wrap:break-word;
+}
+div.customer-details-unverified {
+  height: 70px;
+  text-align: justify;
+  font-size: 13px;
+  line-height: 16px;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom:10px;
 }

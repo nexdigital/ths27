@@ -100,6 +100,7 @@ $(function() {
      * 
      **/
     function _fix() {
+        /*
         //Get window height and the wrapper height
         var height = $(window).height() - $("body > .header").height();
         $(".wrapper").css("min-height", height + "px");
@@ -112,6 +113,7 @@ $(function() {
             //Otherwise, set the sidebar to the height of the window
             $(".left-side, html, body").css("min-height", height + "px");
         }
+        */
     }
     //Fire upon load
     _fix();
@@ -134,7 +136,7 @@ $(function() {
         radioClass: 'iradio_minimal'
     });
 
-    /* For demo purposes */
+    /* For demo purposes
     var demo = $("<div />").css({
         position: "fixed",
         top: "150px",
@@ -147,7 +149,7 @@ $(function() {
         cursor: "pointer",
         color: "#ddd"
     }).html("<i class='fa fa-gear'></i>").addClass("no-print");
-
+    
     var demo_settings = $("<div />").css({
         "padding": "10px",
         position: "fixed",
@@ -204,6 +206,7 @@ $(function() {
 
     $("body").append(demo);
     $("body").append(demo_settings);
+    */
 });
 function fix_sidebar() {
     //Make sure the body tag has the .fixed class
