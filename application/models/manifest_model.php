@@ -20,7 +20,7 @@ class Manifest_model extends CI_Model {
 		$this->db->query("update manifest_data_table set ".$field." = ".$field." + ".$value." where hawb_no = '".$hawb_no."'");
 	}
 	function get_by_hawb($hawb_no) {
-		$query = $this->db->query("select d.*, f.mawb_no from manifest_data_table d join manifest_file_table f on f.file_id = d.file_id where d.hawb_no='$hawb_no'");
+		$query = $this->db->query("select * from manifest_data_table where hawb_no='$hawb_no'");
 		if($query->num_rows() > 0) return $query->row();
 		else return false;
 	}
@@ -29,7 +29,7 @@ class Manifest_model extends CI_Model {
 		return $query->result();
 	}
 	function get_data__details_unverified($mawb_no){
-		$query = $this->db->query("select d.*, f.mawb_no from manifest_data_table d join manifest_file_table f on f.file_id = d.file_id where lower(f.mawb_no) = '$mawb_no' and lower(d.status) = 'unverified' order by d.created_date desc");
+		$query = $this->db->query("select d.* from manifest_data_table d join manifest_file_table f on f.file_id = d.file_id where lower(f.mawb_no) = '$mawb_no' and lower(d.status) = 'unverified' order by d.created_date desc");
 		return $query->result();		
 	}
 	function get_similar_customer($hawb_no,$customer_type) {

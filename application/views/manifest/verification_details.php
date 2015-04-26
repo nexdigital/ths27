@@ -1,9 +1,9 @@
 <table class="table table-bordered table-striped table-hovered">
 	<thead>
 		<tr>
-			<th width="150px">Hawb No</th>
-			<th width="300px">Shipper</th>
-			<th width="300px">Consignee</th>
+			<th width="15%;">Hawb No</th>
+			<th width="30%;">Shipper</th>
+			<th width="30%;">Consignee</th>
 			<th>Pp</th>
 			<th>Cc</th>
 			<th>Pkg</th>
@@ -35,14 +35,14 @@
 					</div>
 				</td>
 				<td class="shipper-'.$row->hawb_no.'">
-					<div class="customer-details-unverified" title="'.$row->shipper.'">'.$row->shipper.'</div>
+					<div class="customer-details-unverified">'.$row->shipper.'</div>
 					<div class="btn-group" role="group" aria-label="...">
 					  <button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=shipper\')">Similar ['.$total_similar_shipper.']</button>
 					  <button type="button" class="btn btn-xs btn-primary">Add Customer</button>
 					</div>
 				</td>
 				<td class="consignee-'.$row->hawb_no.'">
-					<div class="customer-details-unverified" title="'.$row->consignee.'">'.$row->consignee.'</div>
+					<div class="customer-details-unverified">'.$row->consignee.'</div>
 					<div class="btn-group" role="group" aria-label="...">
 					  <button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=consignee\')">Similar ['.$total_similar_consignee.']</button>
 					  <button type="button" class="btn btn-xs btn-primary">Add Customer</button>

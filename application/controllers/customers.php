@@ -43,9 +43,11 @@ class Customers extends MY_Controller {
 		**/
 	}
 
-	function view_customer($reference_id){
-		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
-		$data['title']			= 'View Customers';
+	//function view_customer($reference_id){
+	function view_customer(){
+		//$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
+		$data        	        = array();
+		$data['title']			= 'Customer View';
 		$this->set_content('customers/customer_view',$data);
 
 		/**
