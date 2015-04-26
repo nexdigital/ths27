@@ -43,11 +43,13 @@
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button" style="color:#72afd2" title="Fullscreen">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="glyphicon glyphicon-fullscreen"></span>
+                </a>
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button" style="color:#72afd2" title="Reload content" onCLick="reloadContent()">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="glyphicon glyphicon-refresh"></span>
                 </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
@@ -333,8 +335,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i> Customer Group</a></li>
-                                <li id="upload_menu"><a href="#"><i class="fa fa-angle-double-right"></i> Currency</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Arilines</a></li>
+                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Currency</a></li>
                             </ul>
                         </li>                       
                     </ul>

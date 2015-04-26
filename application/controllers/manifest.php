@@ -39,8 +39,9 @@ class Manifest extends MY_Controller {
 				$hawb_no = $_GET['hawb_no'];
 				$customer_type = $_GET['customer_type'];
 
-				$data['similar_customer']	= $this->manifest_model->get_similar_customer($hawb_no,$customer_type);
-				$data['title']				= 'List Similar Customer';
+				$data['data_similar']	= $this->manifest_model->get_similar_customer($hawb_no,$customer_type);
+				$data['data']			= $this->manifest_model->get_by_hawb($hawb_no);
+				$data['title']			= 'List Similar Customer';
 				$this->set_content('manifest/similar_customer',$data);
 			break;
 			case 'download':

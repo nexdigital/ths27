@@ -1,9 +1,10 @@
-<a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>
+<div class="toolbar"><button class="btn btn-primary" onClick="setPage('<?php echo base_url('customers/add_customer')?>')">Add Customer</button></div>
+
 
 <div class="table-responsive">
 
                 
-              <table id="mytable" class="table table-bordred table-striped">
+              <table id="mytable" class="table table-bordered table-striped">
                    
                    <thead>
                           <th>Reference ID</th>

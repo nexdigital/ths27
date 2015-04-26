@@ -3422,10 +3422,13 @@ table tbody tr td {
 div.customer-details-unverified {
   height: 70px;
   text-align: justify;
-  font-size: 13px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 14px;
 
   text-overflow: ellipsis;
   overflow: hidden;
   margin-bottom:10px;
+}
+.toolbar {
+  margin-bottom: 20px;
 }

@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label>Currency</label>
                 <select class="form-control txt-currency" id="select-payment" name="currency" required>
-                	<?php foreach($this->master_currency->list_currency('Kurs Transaction') as $row) {
+                	<?php foreach($this->master_currency->list_currency_by_type('Kurs Transaction') as $row) {
                 		echo '<option value="'.$row->currency_name.'">'.$row->currency_name.' ('.number_format($row->currency_value).')</option>';
                 	} ?>
                 </select>
