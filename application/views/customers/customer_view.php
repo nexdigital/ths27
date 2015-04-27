@@ -137,6 +137,20 @@ border-color: rgb(53, 126, 189);
                                                         </tr>
 
                                                         <tr>
+                                                            <td>Group</td>
+                                                            <td>
+                                                                    <select class="form-control" id="group"name="status" disabled>
+                                                                            <option>online shop</option>
+                                                                            <option>tekstil</option>
+
+
+                                                                    </select>
+
+                                                            </td>   
+
+                                                        </tr>
+
+                                                        <tr>
                                                             <td>Description</td>
                                                             <td>
                                                                 <textarea name="description" class="form-control" style=" resize: none;"></textarea>
@@ -157,7 +171,9 @@ border-color: rgb(53, 126, 189);
                                                 </tbody>
 
                                 </table>
+                                <a href="#" onClick="setPage('<?php echo base_url('customers/email')?>')"><button class="btn btn-primary btn_email"><i class="fa fa-envelope"></i> Email</button></a>
                                 <button class="btn btn-success btn_edit"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                                <button class="btn btn-danger btn_disable"><i class="fa fa-trash"></i> Disable</button>
                         </div>
                     </div>
                 </div>
@@ -170,8 +186,28 @@ border-color: rgb(53, 126, 189);
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="row">
+                                       <div class="col-md-2">
+                                             <input type="text" class="form-control" placeholder="hawb no">
+                                    </div>
+
+                                     <div class="col-md-4">
+                                           <div class="input-group merged">
+                       
+                                              <span class="add-on"><i class="icon-calendar"></i></span><input class="form-control"type="text" name="selectdaterange" id="selectdaterange" placeholder="Search by Date"/>
+                                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    </div>
+                                    </div>
+                                      
+                                 </div>       
+                             </div> 
+                 
+
                             <table class="table table-bordered table-striped table-hovered">
                                     <thead>
+                                            <th></th>
                                             <th>Hawb No</th>
                                             <th>shipper</th>
                                             <th>Consignee</th>
@@ -182,12 +218,13 @@ border-color: rgb(53, 126, 189);
                                     <tbody>
                                             <tr>
                                             
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><input type="checkbox"></td>
+                                            <td>123</td>
+                                            <td>test</td>
+                                            <td>test</td>
+                                            <td>23 November 2015</td>
+                                            <td>Paid</td>
+                                            <td>user 1</td>
                                             </tr>   
                                     </tbody>
 
@@ -195,6 +232,8 @@ border-color: rgb(53, 126, 189);
 
 
                             </table>   
+
+                            <button class="btn btn-primary">Print</button>
                         
                         </div>
                     </div>
@@ -209,8 +248,26 @@ border-color: rgb(53, 126, 189);
                                     </div>
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="row">
+                                       <div class="col-md-2">
+                                             <input type="text" class="form-control" placeholder="Invoice No">
+                                    </div>
+
+                                     <div class="col-md-4">
+                                           <div class="input-group merged">
+                       
+                                              <span class="add-on"><i class="icon-calendar"></i></span><input class="form-control"type="text" name="selectdaterange" id="selectdaterange2" placeholder="Search by Date"/>
+                                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    </div>
+                                    </div>
+                                      
+                                 </div>       
+                             </div> 
                             <table class="table table-striped">
                                        <thead>
+                                            <th></th>
                                             <th>Invoice No</th>
                                             <th>Hawb No</th>
                                             <th>Payment Date</th>
@@ -221,12 +278,13 @@ border-color: rgb(53, 126, 189);
 
                                     <tbody>
                                             <tr>
-                                                 <td></td>
-                                                 <td></td>
-                                                 <td></td>
-                                                 <td></td>
-                                                 <td></td> 
-                                                 <td></td>     
+                                                 <td><input type="checkbox"></td>
+                                                 <td>123</td>
+                                                 <td>123</td>
+                                                 <td>23 January 2015</td>
+                                                 <td>12345</td>
+                                                 <td>Cash</td> 
+                                                 <td>user 12345</td>     
                                             </tr>
 
                                     </tbody>
@@ -242,12 +300,17 @@ border-color: rgb(53, 126, 189);
 
     <script>
 
+$(document).ready(function() {
+
+
+            $('#group').select2();
+            $('#selectdaterange,#selectdaterange2').daterangepicker();
             $('.btn_edit').click(function (){
                 $('input[type="text"]').attr("readonly", false);
                 $('input[type="text"]').attr("readonly", false);
 
             });
 
-
+});
     </script>
 

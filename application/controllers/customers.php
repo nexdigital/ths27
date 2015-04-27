@@ -76,6 +76,12 @@ class Customers extends MY_Controller {
 		**/
 	}
 
+	function email(){
+		$data['data']		= array('');
+		$data['title']		= 'Email Form';
+		$this->set_content('customers/email',$data);
+	}
+
 	function ajax($page = null){
 			switch ($page) {
 				case 'add_customer':

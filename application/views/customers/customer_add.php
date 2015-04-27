@@ -234,6 +234,17 @@
 
 
                             <div class="form-group">
+                              <label>Group</label>
+                              <select class="form-control" name="group" id="group">
+                                  <option></option>
+                                 <option>online shop</option>
+                                 <option>tekstil</option>
+
+                              </select>
+                            </div>
+
+
+                            <div class="form-group">
                               <label >Description</label>
                               <textarea class="form-control" id="remark" name="description" rows="5" style="resize:none"></textarea>
                             </div>
@@ -269,7 +280,7 @@
 
 
 
-
+$('#group').select2();
 
   $('#dp1').datepicker({
                 format: 'dd-mm-yyyy'
