@@ -176,11 +176,13 @@ border-color: rgb(53, 126, 189);
                                             <th>shipper</th>
                                             <th>Consignee</th>
                                             <th>Dead Line</th>
+                                            <th>Payment Status</th>
                                             <th>User Upload</th>
                                     </thead>
                                     <tbody>
                                             <tr>
                                             
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

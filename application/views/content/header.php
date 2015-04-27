@@ -325,6 +325,18 @@
                                 <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>All Customers</a></li>
                             </ul>
                         </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o"></i>
+                                <span>Finance</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                              <!--  <li id="data_customers"><a href="#"><i class="fa fa-angle-double-right"></i> Data</a></li>-->
+                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('finance/home')?>')"><i class="fa fa-angle-double-right"></i>Data Payment</a></li>
+                            </ul>
+                        </li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-bar-chart-o"></i>
@@ -335,6 +347,7 @@
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i> Customer Group</a></li>
                                 <li id="upload_menu"><a href="#"><i class="fa fa-angle-double-right"></i> Currency</a></li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Arilines</a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('master/business')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
                             </ul>
                         </li>                       
                     </ul>

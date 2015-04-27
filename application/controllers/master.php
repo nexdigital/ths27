@@ -21,6 +21,19 @@ class Master extends MY_Controller {
 		**/
 	}
 
+	function business(){
+		$data['get_customers']	= $this->customers_model->get_data();
+		$data['title']			= 'Master Business';
+		$this->set_content('master/master_business',$data);
+
+	}
+
+	function add_business(){
+		$data['get_customers']	= array('');
+		$data['title']			= 'Add Business';
+		$this->set_content('master/business_form',$data);
+	}
+
 	function ajax($page = null){
 		switch ($page) {
 			case 'create_group':
@@ -43,6 +56,10 @@ class Master extends MY_Controller {
 					} */
 				
 					echo json_encode(array('status'=>$status,'message'=>$message));
+			break;
+
+			case 'create_business':
+
 			break;
 		}
 	}
