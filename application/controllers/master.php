@@ -10,6 +10,29 @@ class Master extends MY_Controller {
 
 	}
 
+	function view($master = null,$page = null) {
+		switch ($master) {
+			case 'currency':
+				switch ($page) {
+					case 'index':
+						$data['data']	= $this->master_currency->list_currency();
+						$data['title']	= 'Master Currency';
+						$this->set_content('master/currency_list',$data);
+					break;
+					case 'add':
+						$this->set_content('master/currency_add',array('title' => 'Create New Currency'));
+					break;
+					default:
+						header("HTTP/1.0 404 Not Found");
+					break;
+				}
+				break;
+			default:
+				header("HTTP/1.0 404 Not Found");
+			break;
+		}
+	}
+
 	function master_customer_group(){
 		$this->set_content('master/master_group',array('title' => 'Master Customers Group'));
 
@@ -34,8 +57,30 @@ class Master extends MY_Controller {
 		$this->set_content('master/business_form',$data);
 	}
 
-	function ajax($page = null){
+	function ajax($page = null, $method){
 		switch ($page) {
+			case 'currency':
+				switch ($method) {
+					case 'add':
+						$currency_name = $_POST['currency_name'];
+						$currency_type = array('Kurs Transaction' => $_POST['kurs_transaction'], 'Kurs Special' => $_POST['kurs_special']);
+						$currency_id = $this->master_currency->add($currency_name);
+						foreach($currency_type as $key => $value) {
+							$this->master_currency->add_type($currency_id,$key,$value);
+						}
+						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
+					break;
+					case 'check_available_currency':
+						$currency_name = $_GET['currency_name'];
+						$get = $this->db->query("select * from master_currency_table where lower(currency_name) = '".strtolower($currency_name)."'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+					break;
+					default:
+						header("HTTP/1.0 404 Not Found");
+					break;
+				}
+			break;
 			case 'create_group':
 
 					$originalDate = $_POST['payment_date'];
