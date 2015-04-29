@@ -33,7 +33,7 @@
 			</tr>
 			<tr>
 				<td>Rate Date</td>
-				<td><input type="text" name="currency_date" class="form-control" required></td>
+				<td><input type="text" name="currency_date" class="form-control datepicker" value="<?php echo date('Y-m-d') ?>" required></td>
 			</tr>
 			<tr>
 				<td>Exhange Rate</td>
@@ -52,6 +52,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('.datepicker').datepicker({
+	        format: "yyyy-mm-dd"
+	    })
 		$('form#form_currency').ajaxForm({
 			dataType:'json',
 			success:function(data){			
