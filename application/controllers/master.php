@@ -12,6 +12,21 @@ class Master extends MY_Controller {
 
 	function view($master = null,$page = null) {
 		switch ($master) {
+			case 'country':
+				switch ($page) {
+					case 'index':
+						$data['data']	= $this->master_country->list_country();
+						$data['title']	= 'Master Country';
+						$this->set_content('master/country_list',$data);
+					break;
+					case 'add':
+						$this->set_content('master/country_add',array('title' => 'Create New Country'));
+					break;					
+					default:
+						header("HTTP/1.0 404 Not Found");
+					break;
+				}
+			break;
 			case 'currency':
 				switch ($page) {
 					case 'index':
@@ -20,7 +35,10 @@ class Master extends MY_Controller {
 						$this->set_content('master/currency_list',$data);
 					break;
 					case 'add':
-						$this->set_content('master/currency_add',array('title' => 'Create New Currency'));
+						$data['list_country']	= $this->master_country->list_country();
+						$data['list_currency_type'] = $this->master_currency->list_currency_type();
+						$data['title']			= 'Create Currency';
+						$this->set_content('master/currency_add',$data);
 					break;
 					default:
 						header("HTTP/1.0 404 Not Found");
@@ -59,15 +77,33 @@ class Master extends MY_Controller {
 
 	function ajax($page = null, $method){
 		switch ($page) {
+			case 'country':
+				switch ($method) {
+					case 'add':
+						$this->db->set('country_name',$_POST['country_name']);
+						$this->db->set('country_symbol',$_POST['country_symbol']);
+						$this->db->insert('master_country_table');
+						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New country has been added'));
+					break;
+					case 'check_available_country':
+						$country_name = $_GET['country_name'];
+						$get = $this->db->query("select * from master_country_table where lower(country_name) = '".strtolower($country_name)."'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+					break;
+					default:
+						header("HTTP/1.0 404 Not Found");
+					break;
+				}
+			break;
 			case 'currency':
 				switch ($method) {
 					case 'add':
-						$currency_name = $_POST['currency_name'];
-						$currency_type = array('Kurs Transaction' => $_POST['kurs_transaction'], 'Kurs Special' => $_POST['kurs_special']);
-						$currency_id = $this->master_currency->add($currency_name);
-						foreach($currency_type as $key => $value) {
-							$this->master_currency->add_type($currency_id,$key,$value);
-						}
+						$this->db->set('currency_from',$_POST['currency_from']);
+						$this->db->set('currency_to',$_POST['currency_to']);
+						$this->db->set('currency_type',$_POST['currency_type']);
+						$this->db->set('currency_date',$_POST['currency_date']);
+						$this->db->insert('master_currency_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
 					break;
 					case 'check_available_currency':
