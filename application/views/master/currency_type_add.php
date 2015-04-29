@@ -3,7 +3,7 @@
 		<tbody>
 			<tr>
 				<td width="150px">Rate Type</td>
-				<td><input type="text" name="currnecy_type_name" class="form-control" required></td>
+				<td><input type="text" name="currency_type_name" class="form-control" required></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
