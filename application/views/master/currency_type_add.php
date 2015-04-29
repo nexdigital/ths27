@@ -6,6 +6,10 @@
 				<td><input type="text" name="currency_type_name" class="form-control" required></td>
 			</tr>
 			<tr>
+				<td>Description</td>
+				<td><textarea class="form-control" required></textarea></td>
+			</tr>
+			<tr>
 				<td>&nbsp;</td>
 				<td>
 					<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>

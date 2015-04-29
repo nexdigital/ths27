@@ -35,6 +35,12 @@ class Master extends MY_Controller {
 						$data['title']	= 'Master Currency';
 						$this->set_content('master/currency_list',$data);
 					break;
+					case 'type_index':
+						$data['list_currency']	= $this->master_currency->list_currency();
+						$data['list_currency_type'] = $this->master_currency->list_currency_type();
+						$data['title']	= 'Master Currency';
+						$this->set_content('master/currency_type_list',$data);
+					break;
 					case 'add':
 						$data['list_country']	= $this->master_country->list_country();
 						$data['list_currency_type'] = $this->master_currency->list_currency_type();
