@@ -22,6 +22,9 @@ class Master extends MY_Controller {
 					case 'add':
 						$this->set_content('master/country_add',array('title' => 'Create New Country'));
 					break;					
+					case 'edit':
+						$this->set_content('master/country_add',array('title' => 'Edit Country'));
+					break;
 					default:
 						header("HTTP/1.0 404 Not Found");
 					break;
@@ -44,8 +47,18 @@ class Master extends MY_Controller {
 					case 'add':
 						$data['list_country']	= $this->master_country->list_country();
 						$data['list_currency_type'] = $this->master_currency->list_currency_type();
-						$data['title']			= 'Create Currency';
+						$data['title']			= 'Create Currency Rate';
 						$this->set_content('master/currency_add',$data);
+					break;
+					case 'edit':
+						$data['list_country']	= $this->master_country->list_country();
+						$data['list_currency_type'] = $this->master_currency->list_currency_type();
+						$data['title']			= 'Edit Currency Rate';
+						$this->set_content('master/currency_add',$data);
+					break;
+					case 'edit_type':
+						$data['title']			= 'Edit Rate Type';
+						$this->set_content('master/currency_type_add',$data);
 					break;
 					case 'add_type':
 						$data['title']			= 'Add Rate Type';
