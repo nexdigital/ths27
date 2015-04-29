@@ -1,6 +1,4 @@
-<div class="toolbar">
-	<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/view/currency/add_type'?>')">Add Rate Type</button>
-</div>
+
 
 <table class="table table-bordered table-striped">
 	<thead>
@@ -23,3 +21,5 @@
 	}?>
 	</tbody>
 </table>
+
+<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/view/currency/add_type'?>')">Add Rate Type</button>
