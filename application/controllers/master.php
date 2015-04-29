@@ -10,6 +10,10 @@ class Master extends MY_Controller {
 
 	}
 
+	function dashboard(){
+		$this->set_content('content/blank',array('title' => 'Dashboard'));
+	}
+
 	function view($master = null,$page = null) {
 		switch ($master) {
 			case 'country':
