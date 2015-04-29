@@ -108,6 +108,7 @@ class Master extends MY_Controller {
 						$this->db->set('currency_to',$_POST['currency_to']);
 						$this->db->set('currency_type',$_POST['currency_type']);
 						$this->db->set('currency_date',$_POST['currency_date']);
+						$this->db->set('currency_rate',$_POST['currency_rate']);
 						$this->db->insert('master_currency_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
 					break;

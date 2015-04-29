@@ -2,12 +2,24 @@
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
+				<td width="150px">Country ID</td>
+				<td><input type="text" name="country_id" class="form-control" required></td>
+			</tr>
+			<tr>
 				<td width="150px">Country Name</td>
 				<td><input type="text" name="country_name" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td>Country Symbol</td>
-				<td><input type="text" name="country_symbol" class="form-control" required></td>
+				<td>Currency Symbbol</td>
+				<td><input type="text" name="currency_symbol" class="form-control" required></td>
+			</tr>
+			<tr>
+				<td>Currency Name</td>
+				<td><input type="text" name="currency_name" class="form-control" required></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="checkbox"> Active</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

@@ -36,6 +36,10 @@
 				<td><input type="text" name="currency_date" class="form-control" required></td>
 			</tr>
 			<tr>
+				<td>Exhange Rate</td>
+				<td><input type="text" name="currency_rate" class="form-control" required></td>
+			</tr>
+			<tr>
 				<td>&nbsp;</td>
 				<td><button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button></td>
 			</tr>
