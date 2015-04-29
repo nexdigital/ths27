@@ -23,7 +23,10 @@
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td><button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button></td>
+				<td>
+					<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
+					<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
