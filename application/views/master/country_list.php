@@ -4,7 +4,8 @@
 	<thead>
 		<tr>
 			<th>Country Name</th>
-			<th width="20%">Country Symbol</th>
+			<th width="20%">Currency Symbol</th>
+			<th width="20%">Currency Name</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -12,7 +13,8 @@
 		echo '
 			<tr>
 				<td>'.$row->country_name.'</td>
-				<td>'.$row->country_symbol.'</td>
+				<td>'.$row->currency_symbol.'</td>
+				<td>'.$row->currency_name.'</td>
 			</tr>
 		';
 	}?>

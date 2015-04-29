@@ -6,7 +6,7 @@
 				<td>
 					<select name="currency_from" class="form-control">
 						<?php foreach ($list_country as $row) {
-							echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
+							echo '<option value="'.$row->country_id.'">'.$row->country_name.' - '.$row->currency_name.' - '.$row->currency_symbol.'</option>';
 						} ?>
 					</select>
 				</td>
@@ -16,7 +16,7 @@
 				<td>
 					<select name="currency_to" class="form-control">
 						<?php foreach ($list_country as $row) {
-							echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
+							echo '<option value="'.$row->country_id.'">'.$row->country_name.' - '.$row->currency_name.' - '.$row->currency_symbol.'</option>';
 						} ?>
 					</select>
 				</td>
