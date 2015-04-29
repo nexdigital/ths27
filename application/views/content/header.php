@@ -23,8 +23,7 @@
         <link href="<?php echo base_url() ?>style/lib/sumoselect/sumoselect.css" rel="stylesheet" type="text/css" />
 
         <link href="<?php echo base_url() ?>style/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css" />
-        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+       
     </head>
 
 <style>
@@ -350,6 +349,12 @@
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Currency Rate</a></li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Airlines</a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('master/business')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
+                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/user/index')?>')"><i class="fa fa-angle-double-right"></i> User</a></li>
+                            </ul>
+
+                            <ul class="treeview-menu">
+                              
+                              
                             </ul>
                         </li>                       
                     </ul>

@@ -1,4 +1,4 @@
-<div class="toolbar"><button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/view/country/add'?>')">Add Country</button></div>
+
 
 <table class="table table-bordered table-striped">
 	<thead>
@@ -25,3 +25,5 @@
 	}?>
 	</tbody>
 </table>
+
+<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/view/country/add'?>')">Add Country</button>

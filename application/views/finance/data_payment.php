@@ -47,7 +47,7 @@
 </div>
 <table class="table table-bordered table-striped table-hovered">
 		<thead>
-				<th></th>
+				<th>Action</th>
 				<th>No</th>
 				<th>Invoice No</th>
 				<th>Hawb No</th>
@@ -58,11 +58,13 @@
 				<th>payment amount</th>
 				<th>Total</th>
 				<th>User</th>
+				<th>Status</th>
 
 		</thead>
 
 		<tbody>
-			    <td><input type="checkbox"></td>
+			    <td> <a href="#"><button class="btn btn-primary"  data-toggle="tooltip" title="print"><i class="fa fa-print"></i></button></a>
+			    	<a href="#"><button class="btn btn-primary" data-toggle="tooltip" title="verification"><i class="fa fa-check"></i></button></a></td>
 				<td>1</td>
 				<td>123</td>
 				<td>PT XYX</td>
@@ -73,6 +75,7 @@
 				<td>123</td>
 				<td>12300</td>
 				<td>User 1</td>
+				<td><font class="alert-warning">unverified</font></td>
 
 
 
@@ -80,8 +83,7 @@
 
 </table>
 
- <a href="#" onClick="setPage('<?php echo base_url('finance/ajax/add_payment')?>')"><button class="btn btn-success">Add Payment</button></a> 
- <a href="#"><button class="btn btn-primary">Print Invoice</button></a>     
+ <a href="#" onClick="setPage('<?php echo base_url('finance/ajax/add_payment')?>')"><button class="btn btn-primary">Add Payment</button></a> 
 
 
 <script type="text/javascript">

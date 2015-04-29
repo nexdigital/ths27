@@ -10,7 +10,9 @@
 
 		<tbody>
 			<tr>
-				<td><input type="checkbox"></td>
+				<td>
+					<button class="btn btn-primary" data-toogle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-primary" data-toogle="tooltip" title="Non Active"><i class="fa fa-times"></i></button></td>
 				<td>1</td>
 				<td>Online Shop</td>
 				<td>23 November 2015</td>
@@ -23,5 +25,5 @@
 
 
 </table>
-<a href="#" onClick="setPage('<?php echo base_url('master/add_business')?>')"><button class="btn btn-success">Add Business</button></a> 
-<a href="#" onClick="setPage('<?php echo base_url('master/add_business')?>')"><button class="btn btn-danger">Disable Business</button></a>   
+<a href="#" onClick="setPage('<?php echo base_url('master/add_business')?>')"><button class="btn btn-primary">Add Business</button></a> 
+  

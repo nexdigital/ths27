@@ -33,8 +33,20 @@
                      <div class="form-group">
                         <label for="amount" class="col-sm-3 control-label">Payment Type</label>
                         <div class="col-sm-9">
-                             <input type="radio" name="optradio"> Cash
-                             <input type="radio" name="optradio"> Transfer
+                             <input type="radio" name="type_payment" value="cash" id="cash"checked> Cash
+                             <input type="radio" name="type_payment" value="transfer" id="transfer"> Transfer
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display:none" id="bank_type">
+                        <label for="amount" class="col-sm-3 control-label">Bank</label>
+                        <div class="col-sm-9">
+                            <select class="form-control bank" id="bank">
+                                        <option></option>
+                                        <option>BCA</option>
+                                        <option>Mandiri</option>
+
+                               </select>
                         </div>
                     </div>
 
@@ -47,7 +59,14 @@
                                 <option>Dollar</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
+
+                     <div class="form-group">
+                        <label for="status" class="col-sm-3 control-label">Currency Rate</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="Rp.9000" readonly>
+                        </div>
+                    </div>  
 
                     <div class="form-group">
                         <label for="status" class="col-sm-3 control-label">Tax</label>
@@ -80,15 +99,29 @@
                             <button type="button" class="btn btn-success">
                                 <span class="glyphicon glyphicon-plus"></span> Add Payment
                             </button>
+                             <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>finance/home')">Cancel</button>
                         </div>
                     </div>
+
+        
 
                 </div>
             </div>            
 
 
     <script>
+         $('.bank').select2({ placeholder: "Search Bank...", });
          $('#hawb_no').select2({ placeholder: "Search Hawb No...", });
          $('#customer').select2({ placeholder: "Search Customer...", });
 
+          $('#transfer').click(function() {
+            
+                    $('#bank_type').fadeIn();
+          });
+
+           $('#cash').click(function() {
+            
+                    $('#bank_type').fadeOut();
+          });
+        
     </script>

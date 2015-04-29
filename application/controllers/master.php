@@ -73,6 +73,11 @@ class Master extends MY_Controller {
 					break;
 				}
 				break;
+
+				case 'add_group':
+						$data['title']			= 'Add Group Customer';
+						$this->set_content('master/group_form',$data);
+				break;
 			default:
 				header("HTTP/1.0 404 Not Found");
 			break;
@@ -183,5 +188,25 @@ class Master extends MY_Controller {
 
 			break;
 		}
+	}
+
+
+	function user($page=null){
+
+		switch ($page) {
+			case 'index':
+						$data['data']	= '';
+						$data['title']			= 'User Access';
+						$this->set_content('master/master_user',$data);
+			break;
+
+			case'add_user':
+
+						$data['data']	= '';
+						$data['title']	= 'Add User';
+						$this->set_content('master/user_form',$data);
+			break;
+		}
+
 	}
 }

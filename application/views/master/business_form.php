@@ -11,6 +11,7 @@
                        
                         <div class="col-sm-9">
                             <button class="btn btn-success">Add</button>
+                             <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/business')">Cancel</button>
                         </div>
                     </div>
                    

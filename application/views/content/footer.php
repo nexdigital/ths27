@@ -1,3 +1,5 @@
+<script src="<?php echo base_url()?>style/js/jquery-1.11.2.min.js"></script>
+<script src="<?php echo base_url()?>style/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo base_url()?>style/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Morris.js charts -->
@@ -27,7 +29,7 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url()?>style/js/AdminLTE/demo.js" type="text/javascript"></script>
-<script src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>style/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/js/jquery.site.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url()?>style/js/jquery.validate.js" type="text/javascript"></script>
@@ -35,6 +37,7 @@
 <script src="<?php echo base_url()?>style/js/bootstrap-datepicker.js" type="text/javascript"></script>   
 <script src="<?php echo base_url()?>style/lib/select2/select2.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/lib/sumoselect/jquery.sumoselect.js" type="text/javascript"></script>
+
 
 <script type="text/javascript">
 setPage('<?php echo base_url('master/dashboard') ?>');
