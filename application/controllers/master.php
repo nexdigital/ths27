@@ -30,7 +30,8 @@ class Master extends MY_Controller {
 			case 'currency':
 				switch ($page) {
 					case 'index':
-						$data['data']	= $this->master_currency->list_currency();
+						$data['list_currency']	= $this->master_currency->list_currency();
+						$data['list_currency_type'] = $this->master_currency->list_currency_type();
 						$data['title']	= 'Master Currency';
 						$this->set_content('master/currency_list',$data);
 					break;
@@ -39,6 +40,10 @@ class Master extends MY_Controller {
 						$data['list_currency_type'] = $this->master_currency->list_currency_type();
 						$data['title']			= 'Create Currency';
 						$this->set_content('master/currency_add',$data);
+					break;
+					case 'add_type':
+						$data['title']			= 'Add Rate Type';
+						$this->set_content('master/currency_type_add',$data);
 					break;
 					default:
 						header("HTTP/1.0 404 Not Found");
@@ -106,9 +111,20 @@ class Master extends MY_Controller {
 						$this->db->insert('master_currency_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
 					break;
+					case 'add_type':
+						$this->db->set('currency_type_name',$_POST['currency_type_name']);
+						$this->db->insert('master_currency_type_table');
+						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New rate type has been added'));
+					break;
 					case 'check_available_currency':
 						$currency_name = $_GET['currency_name'];
 						$get = $this->db->query("select * from master_currency_table where lower(currency_name) = '".strtolower($currency_name)."'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+					break;
+					case 'check_available_rate_type':
+						$currency_type_name = $_GET['currency_type_name'];
+						$get = $this->db->query("select * from master_currency_type_table where lower(currency_type_name) = '".strtolower($currency_type_name)."'");
 						if($get->num_rows() == 0) echo "true";
 						else echo "false";
 					break;
