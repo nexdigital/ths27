@@ -238,12 +238,13 @@ Licensed under MIT
                     </div>
 
                     <div class="form-group">
-                        <label for="status" class="col-sm-3 control-label">Currency</label>
+                        <label for="status" class="col-sm-3 control-label">Cash on Type</label>
                         <div class="col-sm-9">
                             <select class="form-control" id="status" name="status">
-                                <option>NT</option>
-                                <option>Rupiah</option>
-                                <option>Dollar</option>
+                                <option>-</option>
+                                <option>Cash on hand IDR</option>
+                                <option>Cash on hand NT</option>
+                                <option>Cash on hand USD</option>
                             </select>
                         </div>
                     </div>

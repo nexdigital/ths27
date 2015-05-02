@@ -209,4 +209,43 @@ class Master extends MY_Controller {
 		}
 
 	}
+
+	function bank($page=null){
+
+		switch ($page) {
+			case 'index':
+						$data['data']	= '';
+						$data['title']			= 'Master Bank';
+						$this->set_content('master/bank',$data);
+			break;
+
+			case'add_bank':
+
+						$data['data']	= '';
+						$data['title']	= 'Add Bank';
+						$this->set_content('master/user_form',$data);
+			break;
+		}
+
+	}
+
+
+	function tax($page=null){
+
+		switch ($page) {
+			case 'index':
+						$data['data']	= '';
+						$data['title']			= 'Tax';
+						$this->set_content('master/tax',$data);
+			break;
+
+			case'add_tax':
+
+						$data['data']	= '';
+						$data['title']	= 'Add Tax';
+						$this->set_content('master/tax_form',$data);
+			break;
+		}
+
+	}
 }
