@@ -215,15 +215,27 @@ class Master extends MY_Controller {
 		switch ($page) {
 			case 'index':
 						$data['data']	= '';
-						$data['title']			= 'Master Bank';
+						$data['title']			= 'Payment book';
 						$this->set_content('master/bank',$data);
 			break;
 
 			case'add_bank':
 
 						$data['data']	= '';
-						$data['title']	= 'Add Bank';
-						$this->set_content('master/user_form',$data);
+						$data['title']	= 'Add Payment book';
+						$this->set_content('master/bank_form',$data);
+			break;
+
+			case 'index_bank_branch':
+						$data['data']	= '';
+						$data['title']			= 'Master Bank';
+						$this->set_content('master/bank_branch',$data);
+			break;
+
+			case 'add_bank_branch':
+						$data['data']	= '';
+						$data['title']			= 'Add Bank';
+						$this->set_content('master/bank_branch_form',$data);
 			break;
 		}
 
@@ -248,4 +260,6 @@ class Master extends MY_Controller {
 		}
 
 	}
+
+	
 }
