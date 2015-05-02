@@ -350,6 +350,8 @@
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Airlines</a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('master/business')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/user/index')?>')"><i class="fa fa-angle-double-right"></i> User</a></li>
+                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/bank/index')?>')"><i class="fa fa-angle-double-right"></i>Bank</a></li>
+                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/tax/index')?>')"><i class="fa fa-angle-double-right"></i>Tax</a></li>
                             </ul>
 
                             <ul class="treeview-menu">
