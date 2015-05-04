@@ -1,4 +1,3 @@
-            <script src="<?php echo base_url()?>style/js/bootstrap.min.js" type="text/javascript"></script>
             <section class='content-header'>
             <h1 class="header-title"><?php echo ($title) ? $title : "THS 27 Application"; ?></h1>
                 <ol class='breadcrumb'>
