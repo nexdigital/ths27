@@ -24,12 +24,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Status</td>
-				<td><input type="text" name="currency_name" class="form-control" required></td>
-			</tr>
-			<tr>
 				<td>Description</td>
 				<td><textarea class="form-control" required></textarea></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="checkbox"> Active</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
