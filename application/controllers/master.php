@@ -73,7 +73,21 @@ class Master extends MY_Controller {
 					break;
 				}
 				break;
-
+				case 'term_of_payment':
+					switch ($page) {
+						case 'index':
+							$data['title']			= 'Term Of Payment';
+							$this->set_content('master/top_list',$data);
+						break;						
+						case 'add':
+							$data['title']			= 'Create Term Of Payment';
+							$this->set_content('master/top_add',$data);
+						break;						
+						default:
+							header("HTTP/1.0 404 Not Found");
+						break;
+					}
+				break;
 				case 'add_group':
 						$data['title']			= 'Add Group Customer';
 						$this->set_content('master/group_form',$data);
