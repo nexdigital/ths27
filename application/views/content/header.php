@@ -349,7 +349,7 @@
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/country/index')?>')"><i class="fa fa-angle-double-right"></i>Country</a></li>
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/type_index')?>')"><i class="fa fa-angle-double-right"></i>Rate Type</a></li>
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency Rate</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i>Airlines</a></li>
+                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/airlines/index')?>')"><i class="fa fa-angle-double-right"></i>Airlines</a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('master/business')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/user/index')?>')"><i class="fa fa-angle-double-right"></i>User</a></li>
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/bank/index_bank_branch')?>')"><i class="fa fa-angle-double-right"></i>Bank</a></li>
