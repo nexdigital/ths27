@@ -7,6 +7,7 @@
 			<th>Bank Id</th>
 			<th>Bank Name</th>
 			<th>Description</th>
+			<th>Swift Code</th>
 			<th>Status</th>
 			<th>Entry date</th>
 			<th>Enty by</th>
@@ -18,6 +19,7 @@
 	            <a href="#"><button class="btn btn-primary" data-toggle="tooltip" title="verification"><i class="fa fa-check"></i></button></a>
 
 			</td>
+			<td>Loren Ipsum</td>
 			<td>Loren Ipsum</td>
 			<td>Loren Ipsum</td>
 			<td>Loren Ipsum</td>

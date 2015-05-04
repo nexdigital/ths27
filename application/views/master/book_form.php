@@ -56,12 +56,17 @@
                         </div>
           </div>
 
-          <!--<div class="form-group">
+          <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label">Bank Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="concept" name="concept">
+                           <select class="form-control" id="bank_name">
+                              <option></option>
+                              <option>BCA</option>
+                              <option>MANDIRI</option>
+                              <option>BNI</option>
+                           </select>
                         </div>
-          </div> -->
+          </div>
 
               <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label">Account Number</label>
@@ -117,7 +122,7 @@
 
 
  <script>
-       $('#bank_branch').select2({ placeholder: "Search Bank...", });
+       $('#bank_name').select2({ placeholder: "Search Bank...", });
        $('#currency,#currency2').select2({ placeholder: "Search Currency...", });
 
 

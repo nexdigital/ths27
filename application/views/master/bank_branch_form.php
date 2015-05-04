@@ -19,7 +19,7 @@
                         </div>
           </div>
 
-           <div class="form-group">
+         <!--  <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label">Currency</label>
                         <div class="col-sm-9">
                               <select name="currency_from" class="form-control required" id="currency" >
@@ -29,8 +29,8 @@
                                 } ?>
                           </select>
                         </div>
-          </div>
-
+          </div> -->
+         
 
             <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label">Swift Code</label>
@@ -38,6 +38,17 @@
                             <input type="text" class="form-control" id="concept" name="swift_code">
                         </div>
           </div>
+
+            <div class="form-group">
+                        <label for="concept" class="col-sm-3 control-label">Description</label>
+                        <div class="col-sm-9">
+                             <textarea class="form-control" style="resize:none">
+
+                             </textarea>
+                        </div>
+          </div>
+
+
 
          
            <div class="form-group">
