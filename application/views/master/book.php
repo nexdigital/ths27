@@ -13,8 +13,8 @@
       <th>Account Number</th>
       <th>Account Name</th>
       <th>Status</th>
-      <th>Date Created</th>
-      <th>User Created</th>
+      <th>Entry date</th>
+      <th>Enty by</th>
     </tr>
   </thead>
   <tbody>

@@ -3,8 +3,8 @@
 				<th></th>
 				<th>No</th>
 				<th>Name</th>
-				<th>Date Created</th>
-				<th>User Created</th>
+				<th>Entry date</th>
+				<th>Entry by</th>
 
 		</thead>
 

@@ -6,8 +6,8 @@
      <th>Description</th>
      <th>Tax base amount</th>
      <th>Tax rate</th>
-     <th>Date Created</th>
-     <th>User Created</th>
+     <th>Entry date</th>
+     <th>Enty by</th>
   </thead>
 
   <tbody>

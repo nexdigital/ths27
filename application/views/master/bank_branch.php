@@ -8,8 +8,8 @@
 			<th>Bank Name</th>
 			<th>Description</th>
 			<th>Status</th>
-			<th>Created Date</th>
-			<th>User Created</th>
+			<th>Entry date</th>
+			<th>Enty by</th>
 		</tr>
 	</thead>
 	<tbody>

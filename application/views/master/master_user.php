@@ -5,8 +5,9 @@
 		<th>Name</th>
 		<th>Email</th>
 		<th>Level</th>
-		<th>User Created</th>
-		<th>Date Created</th>
+		<th>Entry date</th>
+		<th>Entry by</th>
+		
 		
 	</thead>
 
@@ -19,8 +20,9 @@
 		<td>User 2</td>
 		<td>user2@gmail.com</td>
 		<td>Super User</td>
-		<td>User 1</td>
 		<td>23 January 2015</td>
+		<td>User 1</td>
+		
 	</tbody>
 
 
