@@ -1,25 +1,15 @@
 <p class="message" style="padding:15px 15px; display:none;"></p>
 <form id="theForm"method="post" action="<?php echo base_url()?>master/ajax/create_group">
+
+<div class="form-group">
+    <label>Group Id</label>
+    <input type="text" class="form-control" name="group_name" maxlength="100" required>
+  </div>
   <div class="form-group">
     <label>Group Name</label>
     <input type="text" class="form-control" name="group_name" maxlength="100" required>
   </div>
 
-  <div class="form-group">
-    <label for="exampleInputPassword1">Customer Country</label>
-    
-					<select class="form-control country">
-						<option></option>
-						<option>China</option>
-						<option>Indonesia</option>
-						<option>Taiwan</option>
-						<option>Thailand</option>
-						<option>Kamboja</option>
-					</select>
-
-
-				
-  </div>
 
    <div class="form-group">
     <label for="exampleInputPassword1">Payment Date</label>

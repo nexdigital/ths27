@@ -1,8 +1,9 @@
 <table class="table table-bordered table-striped table-hovered">
 		<thead>
 				<th></th>
-				<th>No</th>
-				<th>Name</th>
+				<th>Business Id</th>
+				<th>Business Name</th>
+				<th>Business Description</th>
 				<th>Entry date</th>
 				<th>Entry by</th>
 
@@ -15,6 +16,7 @@
 					<button class="btn btn-primary" data-toogle="tooltip" title="Non Active"><i class="fa fa-times"></i></button></td>
 				<td>1</td>
 				<td>Online Shop</td>
+				<td>Loren Ipsum</td>
 				<td>23 November 2015</td>
 				<td>user 1</td>
 				

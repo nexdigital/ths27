@@ -3,6 +3,13 @@
 
   	<div class="panel-body form-horizontal user-form">
 
+      <div class="form-group">
+                        <label for="concept" class="col-sm-3 control-label">Tax Id</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="concept" name="concept" readonly>
+                        </div>
+          </div>
+
            <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label">Tax Name</label>
                         <div class="col-sm-9">

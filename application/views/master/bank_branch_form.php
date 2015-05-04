@@ -39,6 +39,18 @@
                         </div>
           </div>
 
+           <div class="form-group">
+                        <label for="concept" class="col-sm-3 control-label">Country</label>
+                        <div class="col-sm-9">
+                           <select class="form-control" id="country">
+                                <option></option>
+                                <option>Indonesia</option>
+                                <option>China</option>
+                                <option>Taiwan</option>
+                           </select>
+                        </div>
+          </div>
+
             <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
@@ -72,6 +84,7 @@
         messages: { mawb_no: { remote: 'Hawb no has been used' } }
     }); */
 
+$('#country').select2();
 $('form#add_bank').validate({
     rules:{
       currency_from:{required:true}

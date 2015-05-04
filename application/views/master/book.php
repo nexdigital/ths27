@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th width="100px">&nbsp;</th>
+      <th>Cashbook Id</th>
       <th>Cashbook Name</th>
       <th>Currency</th>
       <th>Description</th>
@@ -20,6 +21,7 @@
   <tbody>
       <td> <a href="#"><button class="btn btn-primary"  data-toggle="tooltip" title="print"><i class="fa fa-print"></i></button></a>
             <a href="#"><button class="btn btn-primary" data-toggle="tooltip" title="verification"><i class="fa fa-check"></i></button></a></td>
+      <td>loren ipsum</td>
       <td>loren ipsum</td>
       <td>loren ipsum</td>
       <td>loren ipsum</td>

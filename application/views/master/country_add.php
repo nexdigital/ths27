@@ -1,4 +1,4 @@
-n<form id="form_country" method="post" action="<?php echo base_url('master/ajax/country/add')?>">
+<form id="form_country" method="post" action="<?php echo base_url('master/ajax/country/add')?>">
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
