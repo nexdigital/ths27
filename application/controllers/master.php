@@ -214,28 +214,42 @@ class Master extends MY_Controller {
 
 		switch ($page) {
 			case 'index':
-						$data['data']	= '';
-						$data['title']			= 'Payment book';
-						$this->set_content('master/bank',$data);
+						$data['list_country']	= $this->master_country->list_country();
+						$data['title']			= 'Cash / Bank book';
+						$this->set_content('master/book',$data);
 			break;
 
-			case'add_bank':
+			case'add_book':
 
-						$data['data']	= '';
-						$data['title']	= 'Add Payment book';
-						$this->set_content('master/bank_form',$data);
+						$data['list_country']	= $this->master_country->list_country();
+						$data['title']	= 'Add Cash / Bank book';
+						$this->set_content('master/book_form',$data);
+
+						
 			break;
 
 			case 'index_bank_branch':
-						$data['data']	= '';
+						$data['list_country']	= $this->master_country->list_country();
 						$data['title']			= 'Master Bank';
 						$this->set_content('master/bank_branch',$data);
 			break;
 
-			case 'add_bank_branch':
-						$data['data']	= '';
+			case 'bank_branch_form':
+						$data['list_country']	= $this->master_country->list_country();
 						$data['title']			= 'Add Bank';
 						$this->set_content('master/bank_branch_form',$data);
+			break;
+
+			case 'add_bank':
+						$data['id_currency']    = $_POST['currency_from'];
+						$data['bank_name']      = $_POST['bank_name'];
+						$data['swift_code']     = $_POST['swift_code'];
+						$data['date']  			= date("Y-m-d");   
+						//$data['user_created']   = $this->session->userdata('');
+						$data['user_created']   = "Admin";
+						$this->masters->add_bank($data);
+
+						echo json_encode(array('test' => 'coli'));
 			break;
 		}
 

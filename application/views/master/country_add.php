@@ -10,7 +10,7 @@
 				<td><input type="text" name="country_name" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td>Currency Symbbol</td>
+				<td>Currency Symbol</td>
 				<td><input type="text" name="currency_symbol" class="form-control" required></td>
 			</tr>
 			<tr>

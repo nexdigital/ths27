@@ -27,4 +27,4 @@
 	</tbody>
 </table>
 
-<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/bank/add_bank_branch'?>')">Add Bank</button>
+<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/bank/bank_branch_form'?>')">Add Bank</button>
