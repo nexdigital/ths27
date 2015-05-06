@@ -63,7 +63,7 @@
 		   <div class="form-group">
                         <label for="concept" class="col-sm-3 control-label"></label>
                         <div class="col-sm-9">
-                            <input type="checkbox" name="status" value="status">Active
+                            <input type="checkbox" name="status" value="status"> Active
                         </div>
           </div>
 
