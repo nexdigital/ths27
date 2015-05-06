@@ -1,7 +1,7 @@
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th width="100px">&nbsp;</th>
+			<th width="50px">&nbsp;</th>
 			<th>TOP ID</th>
 			<th>TOP Name</th>
 			<th>Description</th>
@@ -12,10 +12,9 @@
 	<tbody>
 		<tr>
 			<td>
-				<button class="btn btn-primary" title="Edit" onCLick="setPage(\''.base_url().'master/view/currency/edit\')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-				<button class="btn btn-primary" title="Delete" onCLick="alert(\'Deleted\')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 			</td>
-			<td>TOP ID</td>
+			<td><a href="javascipr:;">ID</a></td>
 			<td>TOP Name</td>
 			<td>Description</td>
 			<td>2015-04-13</td>

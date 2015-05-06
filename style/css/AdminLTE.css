@@ -3435,3 +3435,7 @@ div.customer-details-unverified {
   border-bottom: 2px solid #f2f2f2;
   background-color: #fff;
 }
+
+.required-filed {
+  color: red;
+}

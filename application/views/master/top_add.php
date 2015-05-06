@@ -2,19 +2,19 @@
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
-				<td width="150px">TOP ID</td>
+				<td width="150px">TOP ID <label class="required-filed">*</label></td>
 				<td><input type="text" name="country_id" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td width="150px">TOP Name</td>
+				<td width="150px">TOP Name <label class="required-filed">*</label></td>
 				<td><input type="text" name="country_name" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td>Currency Symbol</td>
+				<td>Currency Symbol <label class="required-filed">*</label></td>
 				<td><input type="text" name="currency_symbol" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td>Due Days</td>
+				<td>Due Days <label class="required-filed">*</label></td>
 				<td><input type="text" name="currency_name" class="form-control datepicker" required></td>
 			</tr>
 			<tr>
@@ -29,7 +29,7 @@
 				<td>&nbsp;</td>
 				<td>
 					<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
-					<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
+					<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/term_of_payment/index')?>')">Cancel</button>
 				</td>
 			</tr>
 		</tbody>

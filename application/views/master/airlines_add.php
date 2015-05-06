@@ -2,19 +2,19 @@
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
-				<td width="150px">Airlines ID</td>
+				<td width="150px">Airlines ID <label class="required-filed">*</label></td>
 				<td><input type="text" name="country_id" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td width="150px">Airlines Name</td>
+				<td width="150px">Airlines Name <label class="required-filed">*</label></td>
 				<td><input type="text" name="country_name" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td>Airlines Code</td>
+				<td>Airlines Code <label class="required-filed">*</label></td>
 				<td><input type="text" name="currency_symbol" class="form-control" required></td>
 			</tr>
 			<tr>
-				<td>Country</td>
+				<td>Country <label class="required-filed">*</label></td>
 				<td>
 					<select name="currency_to" class="form-control">
 						<?php foreach ($list_country as $row) {

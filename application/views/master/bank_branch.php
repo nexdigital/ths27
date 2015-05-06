@@ -3,7 +3,7 @@
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th width="100px">&nbsp;</th>
+			<th width="50px">&nbsp;</th>
 			<th>Bank Id</th>
 			<th>Bank Name</th>
 			<th>Description</th>
@@ -16,11 +16,9 @@
 	</thead>
 	<tbody>
 			<td>
-				<a href="#"><button class="btn btn-primary"  data-toggle="tooltip" title="print"><i class="fa fa-print"></i></button></a>
-	            <a href="#"><button class="btn btn-primary" data-toggle="tooltip" title="verification"><i class="fa fa-check"></i></button></a>
-
+				<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 			</td>
-			<td>Loren Ipsum</td>
+			<td><a href="javascipr:;">Bank ID</a></td>
 			<td>Loren Ipsum</td>
 			<td>Loren Ipsum</td>
 			<td>Loren Ipsum</td>

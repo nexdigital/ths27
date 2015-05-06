@@ -2,7 +2,7 @@
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
-				<td width="150px">Currency From</td>
+				<td width="150px">Currency From <label class="required-filed">*</label></td>
 				<td>
 					<select name="currency_from" class="form-control">
 						<?php foreach ($list_country as $row) {
@@ -12,7 +12,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="150px">Currency To</td>
+				<td width="150px">Currency To <label class="required-filed">*</label></td>
 				<td>
 					<select name="currency_to" class="form-control">
 						<?php foreach ($list_country as $row) {
@@ -22,7 +22,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Rate Type</td>
+				<td>Rate Type <label class="required-filed">*</label></td>
 				<td>
 					<select name="currency_type" class="form-control">
 						<?php foreach ($list_currency_type as $row) {
@@ -32,11 +32,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Rate Date</td>
+				<td>Rate Date <label class="required-filed">*</label></td>
 				<td><input type="text" name="currency_date" class="form-control datepicker" value="<?php echo date('Y-m-d') ?>" required></td>
 			</tr>
 			<tr>
-				<td>Exhange Rate</td>
+				<td>Exhange Rate <label class="required-filed">*</label></td>
 				<td><input type="text" name="currency_rate" class="form-control" required></td>
 			</tr>
 			<tr>

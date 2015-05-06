@@ -1,6 +1,6 @@
 <table class="table table-bordered table-striped table-hovered">
 		<thead>
-				<th></th>
+				<th width="50px">&nbsp;</th>
 				<th>Business Id</th>
 				<th>Business Name</th>
 				<th>Business Description</th>
@@ -12,9 +12,9 @@
 		<tbody>
 			<tr>
 				<td>
-					<button class="btn btn-primary" data-toogle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>
-					<button class="btn btn-primary" data-toogle="tooltip" title="Non Active"><i class="fa fa-times"></i></button></td>
-				<td>1</td>
+					<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				</td>
+				<td><a href="javascipr:;">ID</a></td>
 				<td>Online Shop</td>
 				<td>Loren Ipsum</td>
 				<td>23 November 2015</td>

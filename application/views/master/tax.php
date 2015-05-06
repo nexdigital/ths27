@@ -1,6 +1,6 @@
 <table  class="table table-bordered table-striped table-hovered">
   <thead>
-    <th></th>
+    <th width="50px">&nbsp;</th>
      <th>Tax Id</th>
      <th>Tax Name</th>
      <th>Description</th>
@@ -12,10 +12,9 @@
 
   <tbody>
     <td>
-      <button class="btn btn-primary" data-toogle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>
-      <button class="btn btn-primary" data-toogle="tooltip" title="Non Active"><i class="fa fa-times"></i></button></td>
+      <button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
     </td>
-    <td>test</td>
+    <td><a href="javascipr:;">ID</a></td>
     <td>test test</td>
     <td>1123</td>
     <td>Super User</td>

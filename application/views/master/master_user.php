@@ -1,6 +1,6 @@
 <table  class="table table-bordered table-striped table-hovered">
 	<thead>
-		<th></th>
+		<th width="50px">&nbsp;</th>
 		<th>User Id</th>
 		<th>Name</th>
 		<th>Email</th>
@@ -13,10 +13,9 @@
 
 	<tbody>
 		<td>
-			<button class="btn btn-primary" data-toogle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>
-			<button class="btn btn-primary" data-toogle="tooltip" title="Non Active"><i class="fa fa-times"></i></button></td>
+			<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 		</td>
-		<td>102</td>
+		<td><a href="javascipr:;">ID</a></td>
 		<td>User 2</td>
 		<td>user2@gmail.com</td>
 		<td>Super User</td>

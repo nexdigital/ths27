@@ -18,8 +18,8 @@
     </tr>
   </thead>
   <tbody>
-      <td> <a href="#"><button class="btn btn-primary"  data-toggle="tooltip" title="print"><i class="fa fa-print"></i></button></a>
-            <a href="#"><button class="btn btn-primary" data-toggle="tooltip" title="verification"><i class="fa fa-check"></i></button></a></td>
+      <td> <a href="#"><button class="btn btn-primary"  data-toggle="tooltip" title="print"><i class="fa fa-edit"></i></button></a>
+            <a href="#"><button class="btn btn-primary" data-toggle="tooltip" title="verification"><i class="fa fa-remove"></i></button></a></td>
       <td>loren ipsum</td>
       <td>loren ipsum</td>
       <td>loren ipsum</td>
