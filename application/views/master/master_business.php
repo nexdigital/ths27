@@ -28,4 +28,5 @@
 
 </table>
 <a href="#" onClick="setPage('<?php echo base_url('master/add_business')?>')"><button class="btn btn-primary">Add Business</button></a> 
+<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
   

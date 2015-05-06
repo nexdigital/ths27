@@ -38,3 +38,4 @@
 </table>
 
 <button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/bank/add_bank'?>')">Add Cash Book / Bank Book</button>
+<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>

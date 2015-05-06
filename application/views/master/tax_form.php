@@ -1,60 +1,55 @@
-<div class="panel panel-default">
 
-
-  	<div class="panel-body form-horizontal user-form">
 
       <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Tax Id <label class="required-filed">*</label></label>
-                        <div class="col-sm-9">
+                        <label>Tax Id <label class="required-filed">*</label></label>
+                     
                             <input type="text" class="form-control" id="concept" name="concept" readonly>
-                        </div>
+                        
           </div>
 
            <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Tax Name <label class="required-filed">*</label></label>
-                        <div class="col-sm-9">
+                        <label>Tax Name <label class="required-filed">*</label></label>
+                        
                             <input type="text" class="form-control" id="concept" name="concept">
-                        </div>
+                      
           </div>
 
 
            <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Description</label>
-                        <div class="col-sm-9">
+                        <label>Description</label>
+                       
                             <textarea class="form-control" style="resize:none">
 
 
                             </textarea>
-                        </div>
+                        
           </div>
 
 
             <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Tax base amount <label class="required-filed">*</label></label>
-                        <div class="col-sm-9">
+                        <label>Tax base amount <label class="required-filed">*</label></label>
+                      
                             <input type="email" class="form-control" id="concept" name="concept">
-                        </div>
+                       
           </div>
 
           <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Tax rate <label class="required-filed">*</label></label>
-                        <div class="col-sm-9">
+                        <label >Tax rate <label class="required-filed">*</label></label>
+                     
                              <input type="email" class="form-control" id="concept" name="concept">
-                        </div>
+                       
           </div>
 
            <div class="form-group">
-                     <label for="concept" class="col-sm-3 control-label"></label>
-                        <div class="col-sm-9">
+                     <label></label>
+                    
                         	 <button class="btn btn-success">Add Tax</button>
                         	    <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/tax/index')">Cancel</button>
-                        </div>
+                     
           </div>
     
   		
 
-	</div>
-</div>
 
 
  <script>

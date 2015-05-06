@@ -28,3 +28,4 @@
 </table>
 
 <a href="#" onClick="setPage('<?php echo base_url('master/user/add_user')?>')"><button class="btn btn-primary">Add User</button></a> 
+<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>

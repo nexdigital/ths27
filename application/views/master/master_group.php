@@ -20,3 +20,4 @@
 
 </table>
 <a href="#" onClick="setPage('<?php echo base_url('master/view/add_group')?>')"><button class="btn btn-primary">Add Group</button></a> 
+<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>

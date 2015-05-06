@@ -1,4 +1,4 @@
-<form id="form_currency" method="post" action="<?php echo base_url('master/ajax/currency/add')?>">
+<!--<form id="form_currency" method="post" action="<?php echo base_url('master/ajax/currency/add')?>">
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
@@ -52,7 +52,81 @@
 			</tr>
 		</tbody>
 	</table>
-</form>
+</form> -->
+
+<div class="form-group">
+                        <label>Currency From<label class="required-filed">*</label></label>
+                      
+                            <select name="currency_from" class="form-control">
+									<?php foreach ($list_country as $row) {
+										echo '<option value="'.$row->country_id.'">'.$row->country_name.' - '.$row->currency_name.' - '.$row->currency_symbol.'</option>';
+									} ?>
+							</select>
+                      
+          </div>
+
+
+          <div class="form-group">
+                        <label>Currency To <label class="required-filed">*</label></label>
+                      
+                          <select name="currency_to" class="form-control">
+								<?php foreach ($list_country as $row) {
+									echo '<option value="'.$row->country_id.'">'.$row->country_name.' - '.$row->currency_name.' - '.$row->currency_symbol.'</option>';
+								} ?>
+						</select>
+                      
+          </div>
+
+
+<div class="form-group">
+                        <label>Rate Type <label class="required-filed">*</label></label>
+                      
+                           <select name="currency_type" class="form-control">
+						<?php foreach ($list_currency_type as $row) {
+							echo '<option value="'.$row->currency_type_id.'">'.$row->currency_type_name.'</option>';
+						} ?>
+					</select>
+                      
+          </div>
+
+
+<div class="form-group">
+                        <label>Rate Date <label class="required-filed">*</label></label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" >
+                      
+          </div>
+
+
+<div class="form-group">
+                        <label>Currency Symbol<label class="required-filed">*</label></label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" >
+                      
+ </div>
+
+
+<div class="form-group">
+                        <label>Description</label>
+                      
+                       <textarea class="form-control" required></textarea>
+                      
+          </div>
+
+<div class="form-group">
+                       
+                      
+                     	<input type="checkbox">Active
+                      
+          </div>
+
+ <div class="form-group">
+                       
+                     <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
+					<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')">Cancel</button>
+          </div>
+
+
 
 <script type="text/javascript">
 	$(document).ready(function(){

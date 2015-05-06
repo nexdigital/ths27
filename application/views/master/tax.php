@@ -27,3 +27,4 @@
 </table>
 
 <a href="#" onClick="setPage('<?php echo base_url('master/tax/add_tax')?>')"><button class="btn btn-primary">Add Tax</button></a> 
+<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>

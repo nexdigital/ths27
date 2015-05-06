@@ -1,4 +1,4 @@
-<form id="form_country" method="post" action="<?php echo base_url('master/ajax/country/add')?>">
+<!--<form id="form_country" method="post" action="<?php echo base_url('master/ajax/country/add')?>">
 	<table class="table table-bordered table-striped">
 		<tbody>
 			<tr>
@@ -34,7 +34,62 @@
 			</tr>
 		</tbody>
 	</table>
-</form>
+</form>  -->
+
+
+ <div class="form-group">
+                        <label>Country ID<label class="required-filed">*</label></label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" readonly>
+                      
+          </div>
+
+  <div class="form-group">
+                        <label>Country Name<label class="required-filed">*</label></label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" >
+                      
+          </div>
+
+
+<div class="form-group">
+                        <label>Currency Symbol<label class="required-filed">*</label></label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" >
+                      
+          </div>
+
+
+ <div class="form-group">
+                        <label>Currency Name<label class="required-filed">*</label></label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" >
+                      
+          </div>
+
+   <div class="form-group">
+                        <label>Description</label>
+                      
+                            <input type="text" class="form-control" id="concept" name="concept" >
+                      
+     </div>
+
+
+   <div class="form-group">
+                    
+                      
+                            <input type="checkbox"> Active
+                      
+     </div>
+
+     <div class="form-group">  
+                    <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
+					<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
+                      
+     </div>
+
+
+
 
 <script type="text/javascript">
 	$(document).ready(function(){
