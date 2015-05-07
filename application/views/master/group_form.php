@@ -22,7 +22,7 @@
 
 	<div class="form-group">
 		<label>Description</label>
-		<input type="text" class="form-control" name="group_name" maxlength="100" required>
+		<textarea class="form-control"></textarea>
 	</div>
 
 	<div class="form-group">

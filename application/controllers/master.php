@@ -24,7 +24,7 @@ class Master extends MY_Controller {
 						$this->set_content('master/country_list',$data);
 					break;
 					case 'add':
-						$this->set_content('master/country_add',array('title' => 'Create New Country'));
+						$this->set_content('master/country_add',array('title' => 'Add New Country'));
 					break;					
 					case 'edit':
 						$this->set_content('master/country_add',array('title' => 'Edit Country'));
@@ -51,7 +51,7 @@ class Master extends MY_Controller {
 					case 'add':
 						$data['list_country']	= $this->master_country->list_country();
 						$data['list_currency_type'] = $this->master_currency->list_currency_type();
-						$data['title']			= 'Create Currency Rate';
+						$data['title']			= 'Add Currency Rate';
 						$this->set_content('master/currency_add',$data);
 					break;
 					case 'edit':
@@ -80,7 +80,7 @@ class Master extends MY_Controller {
 							$this->set_content('master/top_list',$data);
 						break;						
 						case 'add':
-							$data['title']			= 'Create Term Of Payment';
+							$data['title']			= 'Add Term Of Payment';
 							$this->set_content('master/top_add',$data);
 						break;						
 						default:
@@ -96,7 +96,7 @@ class Master extends MY_Controller {
 						break;
 						case 'add':
 							$data['list_country']	= $this->master_country->list_country();
-							$data['title']			= 'Create Airlines';
+							$data['title']			= 'Add Airlines';
 							$this->set_content('master/airlines_add',$data);
 						break;						
 						default:
