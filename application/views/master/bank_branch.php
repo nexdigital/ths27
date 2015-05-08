@@ -1,33 +1,31 @@
-
-
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th width="50px">&nbsp;</th>
 			<th>Bank Id</th>
 			<th>Bank Name</th>
-			<th>Description</th>
 			<th>Swift Code</th>
-			<th>Country</th>
+			<th>Description</th>
 			<th>Status</th>
 			<th>Entry date</th>
 			<th>Enty by</th>
 		</tr>
 	</thead>
 	<tbody>
-			<td>
-				<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-			</td>
-			<td><a href="javascipr:;">Bank ID</a></td>
-			<td>Loren Ipsum</td>
-			<td>Loren Ipsum</td>
-			<td>Loren Ipsum</td>
-			<td>Loren Ipsum</td>
-			<td>Loren Ipsum</td>
-			<td>Loren Ipsum</td>
-			<td>Loren Ipsum</td>
+		<?php foreach($data as $row) {
+			echo '
+				<tr>
+					<td><a href="javascript:;" onClick="setPage(\''.base_url('master/bank/details_bank_branch/'.$row->bank_id.'').'\')">'.$row->bank_id.'</a></td>
+					<td>'.$row->bank_name.'</a></td>
+					<td>'.$row->bank_swift_code.'</a></td>
+					<td>'.$row->description.'</a></td>
+					<td>'.$row->is_active.'</a></td>
+					<td>'.$row->entry_date.'</a></td>
+					<td>'.$row->entry_by.'</a></td>
+				</tr>
+			';
+		}?>
 	</tbody>
 </table>
 
 <button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/bank/bank_branch_form'?>')">Add Bank</button>
-<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
+<button class="btn btn-primary">Save to CSV</button>

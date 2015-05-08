@@ -138,8 +138,44 @@ class Master extends MY_Controller {
 		$this->set_content('master/business_form',$data);
 	}
 
-	function ajax($page = null, $method){
+	function ajax($page = null, $method = null, $id = null){
 		switch ($page) {
+			case 'bank':
+				switch ($method) {
+					case 'add':
+						$bank['bank_id'] 			= $_POST['bank_id'];
+						$bank['bank_name'] 			= $_POST['bank_name'];
+						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
+						$bank['description'] 		= $_POST['description'];
+						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
+						$bank['entry_date']			= date('Y-m-d');
+						$bank['entry_by']			= $this->session->userdata('user_id');
+						$this->db->insert('master_bank_table',$bank);
+						echo json_encode(array('status' => 'success', 'message' => 'New bank has been added'));
+					break;
+
+					case 'edit':
+						$bank['bank_name'] 			= $_POST['bank_name'];
+						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
+						$bank['description'] 		= $_POST['description'];
+						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
+						$this->db->where('bank_id',$id);
+						$this->db->update('master_bank_table',$bank);
+						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully updated'));
+					break;
+					
+					case 'delete':
+						$bank['is_active'] 			= 'deleted';
+						$this->db->where('bank_id',$id);
+						$this->db->update('master_bank_table',$bank);
+						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully deleted'));
+					break;
+
+					default:
+					# code...
+					break;
+				}
+			break;
 			case 'country':
 				switch ($method) {
 					case 'add':
@@ -240,30 +276,40 @@ class Master extends MY_Controller {
 
 	}
 
-	function bank($page=null){
-
+	function bank($page=null,$id=null){
 		switch ($page) {
 			case 'index':
-						$data['list_country']	= $this->master_country->list_country();
-						$data['title']			= 'Cash / Bank book';
-						$this->set_content('master/book',$data);
+				$data['list_country']	= $this->master_country->list_country();
+				$data['title']			= 'Cash / Bank book';
+				$this->set_content('master/book',$data);
 			break;
-
 			case'add_book':
-
 						$data['list_country']	= $this->master_country->list_country();
 						$data['title']	= 'Add Cash / Bank book';
 						$this->set_content('master/book_form',$data);
 
 						
 			break;
-
 			case 'index_bank_branch':
-						$data['list_country']	= $this->master_country->list_country();
-						$data['title']			= 'Master Bank';
-						$this->set_content('master/bank_branch',$data);
+				$data['data']			= $this->master_bank->get_list();
+				$data['title']			= 'Master Bank';
+				$this->set_content('master/bank_branch',$data);
 			break;
-
+			case 'details_bank_branch':
+				$data['data'] = $this->master_bank->get_by_bank_id($id);
+				$data['title'] = 'Details bank #'.$id;
+				$this->set_content('master/bank_branch_details',$data);
+			break;
+			case 'edit_bank_branch':
+				$data['data'] = $this->master_bank->get_by_bank_id($id);
+				$data['title'] = 'Edit bank #'.$id;
+				$this->set_content('master/bank_branch_edit',$data);
+			break;
+			case 'delete_bank_branch':
+				$data['data'] = $this->master_bank->get_by_bank_id($id);
+				$data['title'] = 'Delete bank #'.$id;
+				$this->set_content('master/bank_branch_delete',$data);
+			break;
 			case 'bank_branch_form':
 						$data['list_country']	= $this->master_country->list_country();
 						$data['title']			= 'Add Bank';

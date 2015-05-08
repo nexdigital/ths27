@@ -115,7 +115,8 @@ $autoload['model'] = array(
 							'master_currency',
 							'customers_model',
 							'master_customer',
-							'master_country'
+							'master_country',
+							'master_bank'
 							);
 
 
