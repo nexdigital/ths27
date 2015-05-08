@@ -49,6 +49,7 @@ $(document).ready(function(){
     },
     onSelect: function(e, term, item){
       setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
+      return false;
     }
   });
 
