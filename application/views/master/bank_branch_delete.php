@@ -29,6 +29,7 @@
 
   <button type="submit" class="btn btn-success btn-submit" data-loading-text="Process...">Yes</button>
   <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/bank/details_bank_branch/<?php echo $data->bank_id ?>')">Cancel</button>
+  <label class="alert-form"></label>
 </form>
 
 <script type="text/javascript">
@@ -39,10 +40,10 @@ $(document).ready(function(){
     success:function(data){
         $('#message_form').remove();
         if(data.status == "success"){
-            $('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
+            $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-success" role="alert">'+data.message+'</div>');
             setTimeout(function(){ setPage('<?php echo base_url() ?>master/bank/index_bank_branch') }, 4000); 
         } else if(data.status == "warning") {
-            $('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');               
+            $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-warning" role="alert">'+data.message+'</div>');               
         }
         $('#message_form').fadeIn('slow');
         setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000); 

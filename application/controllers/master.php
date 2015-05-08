@@ -162,9 +162,10 @@ class Master extends MY_Controller {
 						$bank['bank_id'] 			= $_POST['bank_id'];
 						$bank['bank_name'] 			= $_POST['bank_name'];
 						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
+						$bank['country_id'] 		= $_POST['country_id'];	
 						$bank['description'] 		= $_POST['description'];
 						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
-						$bank['entry_date']			= date('Y-m-d');
+						$bank['entry_date']			= date('Y-m-d h:i:s');
 						$bank['entry_by']			= $this->session->userdata('user_id');
 						$this->db->insert('master_bank_table',$bank);
 						echo json_encode(array('status' => 'success', 'message' => 'New bank has been added'));
@@ -173,6 +174,7 @@ class Master extends MY_Controller {
 					case 'edit':
 						$bank['bank_name'] 			= $_POST['bank_name'];
 						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
+						$bank['country_id'] 		= $_POST['country_id'];	
 						$bank['description'] 		= $_POST['description'];
 						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
 						$this->db->where('bank_id',$id);
@@ -187,6 +189,18 @@ class Master extends MY_Controller {
 						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully deleted'));
 					break;
 
+					case 'autoComplete':
+						$bank_id = $_GET['q'];
+						$this->db->like('bank_id',$bank_id);
+						$get = $this->db->get('master_bank_table');
+
+						$bank_id_list = array();
+						foreach($get->result() as $row) {
+							$bank_id_list[] = $row->bank_id;
+						}
+
+						echo json_encode($bank_id_list);
+					break;
 					default:
 					# code...
 					break;
@@ -307,6 +321,7 @@ class Master extends MY_Controller {
 						
 			break;
 			case 'index_bank_branch':
+				$data['list_country']	= $this->master_country->list_country();
 				$data['data']			= $this->master_bank->get_list();
 				$data['title']			= 'Master Bank';
 				$this->set_content('master/bank_branch',$data);
@@ -317,6 +332,7 @@ class Master extends MY_Controller {
 				$this->set_content('master/bank_branch_details',$data);
 			break;
 			case 'edit_bank_branch':
+				$data['list_country']	= $this->master_country->list_country();
 				$data['data'] = $this->master_bank->get_by_bank_id($id);
 				$data['title'] = 'Edit bank #'.$id;
 				$this->set_content('master/bank_branch_edit',$data);

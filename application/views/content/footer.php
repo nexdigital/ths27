@@ -37,6 +37,7 @@
 <script src="<?php echo base_url()?>style/js/bootstrap-datepicker.js" type="text/javascript"></script>   
 <script src="<?php echo base_url()?>style/lib/select2/select2.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/lib/sumoselect/jquery.sumoselect.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>style/lib/autocomplete/jquery.auto-complete.js" type="text/javascript"></script>
 
 
 <script type="text/javascript">

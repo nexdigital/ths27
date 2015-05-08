@@ -3435,7 +3435,24 @@ div.customer-details-unverified {
   border-bottom: 2px solid #f2f2f2;
   background-color: #fff;
 }
+.toolbar .form-control{
+  border-radius: 5px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0px 10px;
+}
+.toolbar button{
+  height: 30px;
+  line-height: 30px;
+  padding: 0px 10px;
+}
 
 .required-filed {
   color: red;
+}
+
+.alert-form {
+  padding:4px 5px 9px;
+  margin-top: 3px;
+  font-weight: normal;
 }

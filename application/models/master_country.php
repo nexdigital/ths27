@@ -21,6 +21,10 @@ class Master_country extends CI_Model {
 		$get = $this->db->query("select * from master_currency_table join master_currency_type_table on master_currency_type_table.currency_id = master_currency_table.currency_id where lower(master_currency_table.currency_name) = '".strtolower($name)."' and lower(master_currency_type_table.currency_type) = '".strtolower($type)."' ");
 		return $get->row('currency_value');
 	}
+	function get_by_country_id($country_id) {
+		$query = $this->db->query("select * from master_country_table where country_id = '$country_id' ");
+		return $query->row();
+	}
 }
 
 ?>

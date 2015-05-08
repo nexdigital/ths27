@@ -15,6 +15,15 @@
   </div>
 
   <div class="form-group">
+      <label>Country <label class="required-filed">*</label></label>
+      <select name="country_id" class="form-control">
+          <?php foreach ($list_country as $row) {
+            echo '<option value="'.$row->country_id.'" required>'.$row->country_name.'</option>';
+          } ?>
+      </select>
+  </div>
+
+  <div class="form-group">
       <label>Description</label>
       <textarea class="form-control" name="description"></textarea>
   </div>
@@ -26,22 +35,36 @@
 
   <button type="submit" class="btn btn-success btn-submit" data-loading-text="Process...">Submit</button>
   <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/bank/index_bank_branch')">Cancel</button>
+  <label class="alert-form"></label>
 </form>
 <script type="text/javascript">
 $(document).ready(function(){
+
+  var xhr;
+  $('input[name="bank_id"]').autoComplete({
+    minChars: 2,
+    source: function(term, response){
+        try { xhr.abort(); } catch(e){}
+        xhr = $.getJSON('<?php echo base_url('master/ajax/bank/autoComplete') ?>', { q: term }, function(data){ response(data); });
+    },
+    onSelect: function(e, term, item){
+      setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
+    }
+  });
+
   $('form#form').validate();
   $('form#form').ajaxForm({
     dataType:'json',
     success:function(data){
         $('#message_form').remove();
         if(data.status == "success"){
-            $('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
+            $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-success" role="alert">'+data.message+'</div>');
             $('form#form').resetForm();
         } else if(data.status == "warning") {
-            $('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');               
+            $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-warning" role="alert">'+data.message+'</div>');               
         }
         $('#message_form').fadeIn('slow');
-        setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000); 
+        setTimeout(function(){ $('#message_form').fadeOut('slow').remove(); }, 5000); 
     }
   })
 })
