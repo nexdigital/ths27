@@ -104,6 +104,22 @@ class Master extends MY_Controller {
 						break;
 					}
 				break;
+				case 'holiday':
+					switch ($page) {
+						case 'index':
+							$data['title']			= 'Holiday';
+							$this->set_content('master/holiday_list',$data);
+						break;
+						case 'add':
+							$data['list_country']	= $this->master_country->list_country();
+							$data['title']			= 'Add Holiday';
+							$this->set_content('master/holiday_add',$data);
+						break;						
+						default:
+							header("HTTP/1.0 404 Not Found");
+						break;
+					}
+				break;
 				case 'add_group':
 						$data['title']			= 'Add Group Customer';
 						$this->set_content('master/group_form',$data);
