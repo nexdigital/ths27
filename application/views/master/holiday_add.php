@@ -31,7 +31,7 @@
 </div>
 
 <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
-<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
+<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/holiday/index')?>')">Cancel</button>
 
 <script type="text/javascript">
 $(document).ready(function(){
