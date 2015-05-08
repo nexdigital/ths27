@@ -1,5 +1,6 @@
 <div class="toolbar">
 	<div class="btn-group" role="group">
+	  <button type="button" class="btn btn-default" onCLick="setPage('<?php echo base_url('master/bank/index_bank_branch') ?>')"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
 	  <button type="button" class="btn btn-default" onCLick="setPage('<?php echo base_url('master/bank/edit_bank_branch/'.$data->bank_id) ?>')">Edit</button>
 	  <button type="button" class="btn btn-default" onCLick="setPage('<?php echo base_url('master/bank/delete_bank_branch/'.$data->bank_id) ?>')">Delete</button>
 	</div>
