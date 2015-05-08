@@ -192,6 +192,7 @@ class Master extends MY_Controller {
 					case 'autoComplete':
 						$bank_id = $_GET['q'];
 						$this->db->like('bank_id',$bank_id);
+						$this->db->where_in('is_active',array('active'));
 						$get = $this->db->get('master_bank_table');
 
 						$bank_id_list = array();

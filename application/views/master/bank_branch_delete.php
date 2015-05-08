@@ -19,6 +19,11 @@
   </div>
 
   <div class="form-group">
+    <label>Country <label class="required-filed">*</label></label>
+    <input type="text" class="form-control" name="country_id" value="<?php echo $this->master_country->get_by_country_id($data->country_id)->country_name ?>" readonly>
+  </div>
+
+  <div class="form-group">
       <label>Description</label>
       <textarea class="form-control" name="description" readonly><?php echo $data->description ?></textarea>
   </div>

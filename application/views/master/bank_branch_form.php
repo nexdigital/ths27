@@ -48,8 +48,12 @@ $(document).ready(function(){
         xhr = $.getJSON('<?php echo base_url('master/ajax/bank/autoComplete') ?>', { q: term }, function(data){ response(data); });
     },
     onSelect: function(e, term, item){
-      setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
-      return false;
+      if(e.type == 'keydown') {
+        
+      } else {
+        setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
+        return false;
+      }
     }
   });
 
