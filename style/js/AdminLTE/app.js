@@ -214,11 +214,13 @@ function fix_sidebar() {
         return;
     }
 
+    $(".sidebar").css('overflow','auto');
+    $('.sidebar').css('max-height',($(window).height() - $(".header").height()) + "px");
     //Add slimscroll
-    $(".sidebar").slimscroll({
-        height: ($(window).height() - $(".header").height()) + "px",
-        color: "rgba(0,0,0,0.2)"
-    });
+    //$(".sidebar").slimscroll({
+    //    height: ($(window).height() - $(".header").height()) + "px",
+    //    color: "rgba(0,0,0,0.2)"
+    //});
 }
 function change_layout() {
     $("body").toggleClass("fixed");
