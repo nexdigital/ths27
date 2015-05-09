@@ -188,7 +188,13 @@ class Master extends MY_Controller {
 						$this->db->update('master_bank_table',$bank);
 						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully deleted'));
 					break;
-
+					case 'check_available_bank_id':
+						$bank_id = $_GET['bank_id'];
+						$this->db->where('lower(bank_id)',strtolower($bank_id));
+						$get = $this->db->get('master_bank_table');
+						if($get->num_rows() > 0) echo 'false';
+						else echo 'true';
+					break;
 					case 'autoComplete':
 						$bank_id = $_GET['q'];
 						$this->db->like('bank_id',$bank_id);
@@ -335,7 +341,7 @@ class Master extends MY_Controller {
 			case 'edit_bank_branch':
 				$data['list_country']	= $this->master_country->list_country();
 				$data['data'] = $this->master_bank->get_by_bank_id($id);
-				$data['title'] = 'Edit bank #'.$id;
+				$data['title'] = 'Bank #'.$id;
 				$this->set_content('master/bank_branch_edit',$data);
 			break;
 			case 'delete_bank_branch':

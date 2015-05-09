@@ -1,7 +1,7 @@
 <form action="<?php echo base_url('master/ajax/bank/add') ?>" method="post" id="form">
   <div class="form-group">
       <label>Bank ID <label class="required-filed">*</label></label>
-      <input type="text" class="form-control" name="bank_id" required>
+      <input type="text" class="form-control" name="bank_id" minlength="5" required>
   </div>
 
   <div class="form-group">
@@ -53,8 +53,11 @@ $(document).ready(function(){
     }
   });
 
-  $('form#form').validate();
-  $('form#form').ajaxForm({
+    $('form#form').validate({
+      rules: { bank_id: { required: true, remote: "master/ajax/bank/check_available_bank_id" } },
+      messages: { bank_id: { remote: 'Bank ID has been used' } }
+    });
+    $('form#form').ajaxForm({
     dataType:'json',
     success:function(data){
         $('#message_form').remove();

@@ -34,8 +34,10 @@
       <input type="checkbox" name="is_active" id="is_active" <?php echo ($data->is_active == 'active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
   </div>
 
-  <button type="submit" class="btn btn-success btn-submit" data-loading-text="Process...">Submit</button>
-  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/bank/details_bank_branch/<?php echo $data->bank_id ?>')">Cancel</button>
+  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/bank/bank_branch_form')">Create New</button>
+  <button type="submit" class="btn btn-success btn-submit" data-loading-text="Process...">Update</button>
+  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/bank/delete_bank_branch/<?php echo $data->bank_id ?>')">Delete</button>
+  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/bank/index_bank_branch')">Cancel</button>
   <label class="alert-form"></label>
 </form>
 
