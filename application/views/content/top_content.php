@@ -10,6 +10,8 @@
             	
             <script type="text/javascript">
 			$(document).ready(function(){
-			  $('table.table').dataTable();
+			  $('table.table').dataTable({
+                stateSave: true
+              });
 			});
 			</script>
