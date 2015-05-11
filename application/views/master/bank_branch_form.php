@@ -49,23 +49,22 @@ $(document).ready(function(){
         xhr = $.getJSON('<?php echo base_url('master/ajax/bank/autoComplete') ?>', { q: term }, function(data){ response(data); });
     },
     onSelect: function(e, term, item){
-      if(ajaxStatus == 'true') {
-        setTimeout(function(){
-          setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
-          $('.autocomplete-suggestions').remove();
-        }, 5000);
-      } else {
-          setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
-          $('.autocomplete-suggestions').remove();
-      }
+      setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
     }
   });
 
   $('input[name=bank_id]').blur(function(){
     var id = $(this).val();
     $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
-      if(data == 'false' ) {
-        setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+        if(data === 'false' ) {
+          setTimeout(function(){
+            setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+            $('.autocomplete-suggestions').remove();
+          }, 5000);
+        } else {
+            setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+            $('.autocomplete-suggestions').remove();
+        }
       }
     })
   })
