@@ -100,9 +100,7 @@ $(document).ready(function(){
       ajaxStatus = 'true';
       var id = $('input[name=bank_id]').val();
       $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
-        if(data === 'false') {
-          $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-warning" role="alert">Sorry BANK ID has been used!</div>');                       
-          $('#message_form').fadeIn('slow');
+          setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
           return false;
         }
       })
