@@ -1,7 +1,7 @@
 <form action="<?php echo base_url('master/ajax/bank/add') ?>" method="post" id="form">
   <div class="form-group">
       <label>Bank ID <label class="required-filed">*</label></label>
-      <input type="text" class="form-control" name="bank_id" minlength="5" required>
+      <input type="text" class="form-control" name="bank_id" minlength="3" required>
   </div>
 
   <div class="form-group">
