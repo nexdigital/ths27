@@ -103,7 +103,6 @@ $(document).ready(function(){
       $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
           setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
           return false;
-        }
       })
     }
   })
