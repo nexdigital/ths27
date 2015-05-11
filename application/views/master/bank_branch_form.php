@@ -57,7 +57,7 @@ $(document).ready(function(){
   $('input[name=bank_id]').blur(function(){
     var id = $(this).val();
     $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
-        if(data === 'false' ) {
+        if(data === 'false') {
           if(ajaxStatus === 'true') {
             setTimeout(function(){
               setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
@@ -101,8 +101,10 @@ $(document).ready(function(){
       ajaxStatus = 'true';
       var id = $('input[name=bank_id]').val();
       $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
-          setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
-          return false;
+          if(data === 'false') {
+            setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+            return false;
+          }
       })
     }
   })
