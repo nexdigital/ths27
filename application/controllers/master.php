@@ -398,5 +398,27 @@ class Master extends MY_Controller {
 
 	}
 
+	function generate_record($table) {
+		switch ($table) {
+			case 'master_bank_table':
+				for($i = 1; $i <= 600; $i++) {
+					$bank['bank_id'] 			= 'BANKID-'.$i;
+					$bank['bank_name'] 			= 'BANKNAME-'.$i;
+					$bank['bank_swift_code'] 	= 'BANKSWIFTCODE-'.$i;
+					$bank['country_id'] 		= 0000000002;
+					$bank['description'] 		= 'BANKDESCRIPTION-'.$i;
+					$bank['is_active'] 			= 'active';
+					$bank['entry_date']			= date('Y-m-d h:i:s');
+					$bank['entry_by']			= $this->session->userdata('user_id');
+					$this->db->insert('master_bank_table',$bank);
+				}
+			break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+
 	
 }
