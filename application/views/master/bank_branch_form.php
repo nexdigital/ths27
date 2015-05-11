@@ -54,6 +54,15 @@ $(document).ready(function(){
     }
   });
 
+  $('input[name=bank_id]').blur(function(){
+    var id = $(this).val();
+    $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
+      if(data == 'false' ) {
+        setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+      }
+    })
+  })
+
     $('form#form').validate({
       rules: { bank_id: { required: true, remote: "master/ajax/bank/check_available_bank_id" } },
       messages: { bank_id: { remote: 'Bank ID has been used' } }

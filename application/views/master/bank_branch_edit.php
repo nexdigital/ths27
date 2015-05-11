@@ -50,7 +50,6 @@ $(document).ready(function(){
         $('#message_form').remove();
         if(data.status == "success"){
             $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-success" role="alert">'+data.message+'</div>');
-            setTimeout(function(){ setPage('<?php echo base_url() ?>master/bank/details_bank_branch/<?php echo $data->bank_id ?>') }, 4000); 
         } else if(data.status == "warning") {
             $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-warning" role="alert">'+data.message+'</div>');               
         }
