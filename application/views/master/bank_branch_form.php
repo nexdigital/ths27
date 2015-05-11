@@ -98,7 +98,7 @@ $(document).ready(function(){
           setTimeout(function(){ 
             $('#message_form').fadeOut('slow').remove(); 
             setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
-            }, 3000);
+            }, 5000);
           return false;
         }
       })
