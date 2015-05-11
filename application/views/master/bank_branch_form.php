@@ -63,7 +63,19 @@ $(document).ready(function(){
     })
   })
 
-    $('form#form').validate();
+    $('form#form').validate({
+      rules: {
+          bank_id: {
+              required: {
+                  depends:function(){
+                      $(this).val($.trim($(this).val()));
+                      return true;
+                  }
+              }
+          }
+      }
+    });
+    
     $('form#form').ajaxForm({
     dataType:'json',
     success:function(data){
