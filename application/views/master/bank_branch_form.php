@@ -40,7 +40,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-  var xhr;
+  var xhr,ajaxStatus = 'false';
+
   $('input[name="bank_id"]').autoComplete({
     minChars: 2,
     source: function(term, response){
@@ -48,9 +49,15 @@ $(document).ready(function(){
         xhr = $.getJSON('<?php echo base_url('master/ajax/bank/autoComplete') ?>', { q: term }, function(data){ response(data); });
     },
     onSelect: function(e, term, item){
-        setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
-        $('.autocomplete-suggestions ').remove();
-        return false;
+      if(ajaxStatus == 'true') {
+        setTimeout(function(){
+          setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
+          $('.autocomplete-suggestions').remove();
+        }, 5000);
+      } else {
+          setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + term);
+          $('.autocomplete-suggestions').remove();
+      }
     }
   });
 
