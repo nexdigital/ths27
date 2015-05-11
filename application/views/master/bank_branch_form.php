@@ -65,7 +65,6 @@ $(document).ready(function(){
             setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
             $('.autocomplete-suggestions').remove();
         }
-      }
     })
   })
 
