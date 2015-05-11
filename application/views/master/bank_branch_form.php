@@ -97,6 +97,7 @@ $(document).ready(function(){
         setTimeout(function(){ $('#message_form').fadeOut('slow').remove(); }, 5000); 
     },
     beforeSubmit: function(arr, $form, options) {
+      ajaxStatus = 'true';
       var id = $('input[name=bank_id]').val();
       $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
         if(data == 'false' ) {
