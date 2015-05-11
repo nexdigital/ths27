@@ -33,7 +33,7 @@
   </div>
 
   <button type="submit" class="btn btn-success btn-submit" data-loading-text="Process...">Yes</button>
-  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/bank/details_bank_branch/<?php echo $data->bank_id ?>')">Cancel</button>
+  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/bank/edit_bank_branch/<?php echo $data->bank_id ?>')">Cancel</button>
   <label class="alert-form"></label>
 </form>
 
