@@ -63,10 +63,7 @@ $(document).ready(function(){
     })
   })
 
-    $('form#form').validate({
-      rules: { bank_id: { required: true, remote: "master/ajax/bank/check_available_bank_id" } },
-      messages: { bank_id: { remote: 'Bank ID has been used' } }
-    });
+    $('form#form').validate();
     $('form#form').ajaxForm({
     dataType:'json',
     success:function(data){
