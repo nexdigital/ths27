@@ -57,13 +57,15 @@ $(document).ready(function(){
     var id = $(this).val();
     $.get("master/ajax/bank/check_available_bank_id",{'bank_id':id},function(data){
         if(data === 'false' ) {
-          setTimeout(function(){
-            setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
-            $('.autocomplete-suggestions').remove();
-          }, 5000);
-        } else {
-            setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
-            $('.autocomplete-suggestions').remove();
+          if(ajaxStatus === 'true') {
+            setTimeout(function(){
+              setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+              $('.autocomplete-suggestions').remove();
+            }, 5000);
+          } else {
+              setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
+              $('.autocomplete-suggestions').remove();            
+          }
         }
     })
   })
