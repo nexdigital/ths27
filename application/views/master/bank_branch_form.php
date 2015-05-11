@@ -40,7 +40,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-  var xhr,ajaxStatus = 'false';
+  var xhr;
+  var ajaxStatus = 'false';
 
   $('input[name="bank_id"]').autoComplete({
     minChars: 2,
