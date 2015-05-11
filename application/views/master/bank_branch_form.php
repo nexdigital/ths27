@@ -95,10 +95,6 @@ $(document).ready(function(){
         if(data == 'false' ) {
           $('.alert-form').html('<div id="message_form" style="display:none;" class="alert alert-form alert-warning" role="alert">Sorry BANK ID has been used!</div>');                       
           $('#message_form').fadeIn('slow');
-          setTimeout(function(){ 
-            $('#message_form').fadeOut('slow').remove(); 
-            setPage('<?php echo base_url('master/bank/edit_bank_branch')?>/' + id);
-            }, 5000);
           return false;
         }
       })
