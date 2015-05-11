@@ -167,8 +167,16 @@ class Master extends MY_Controller {
 						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
 						$bank['entry_date']			= date('Y-m-d h:i:s');
 						$bank['entry_by']			= $this->session->userdata('user_id');
-						$this->db->insert('master_bank_table',$bank);
-						echo json_encode(array('status' => 'success', 'message' => 'New bank has been added'));
+
+						$this->db->where('lower(bank_id)',strtolower($bank['bank_id']));
+						$get = $this->db->get('master_bank_table');
+						if($get->num_rows() > 0) {
+							echo 'false';
+							echo json_encode(array('status' => 'warning', 'message' => 'New bank has been added'));
+						} else {
+							$this->db->insert('master_bank_table',$bank);
+							echo json_encode(array('status' => 'success', 'message' => 'Sorry BANK ID has been used!'));
+						}
 					break;
 
 					case 'edit':
@@ -184,7 +192,7 @@ class Master extends MY_Controller {
 					
 					case 'delete':
 						$bank['is_active'] 			= 'deleted';
-						$this->db->where('bank_id',$id);
+						$this->db->where('lower(bank_id)',strtolower($id));
 						$this->db->update('master_bank_table',$bank);
 						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully deleted'));
 					break;
