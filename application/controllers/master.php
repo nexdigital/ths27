@@ -172,10 +172,10 @@ class Master extends MY_Controller {
 						$get = $this->db->get('master_bank_table');
 						if($get->num_rows() > 0) {
 							echo 'false';
-							echo json_encode(array('status' => 'warning', 'message' => 'New bank has been added'));
+							echo json_encode(array('status' => 'warning', 'message' => 'Sorry BANK ID has been used!'));
 						} else {
 							$this->db->insert('master_bank_table',$bank);
-							echo json_encode(array('status' => 'success', 'message' => 'Sorry BANK ID has been used!'));
+							echo json_encode(array('status' => 'success', 'message' => 'New bank has been added'));
 						}
 					break;
 
