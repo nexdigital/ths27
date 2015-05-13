@@ -402,7 +402,7 @@ class Master extends MY_Controller {
 		switch ($table) {
 			case 'master_bank_table':
 				for($i = 1; $i <= 5000; $i++) {
-					$bank['bank_id'] 			= 'BANKID4-'.$i;
+					$bank['bank_id'] 			= 'BANKID7-'.$i;
 					$bank['bank_name'] 			= 'BANKNAME-'.$i;
 					$bank['bank_swift_code'] 	= 'BANKSWIFTCODE-'.$i;
 					$bank['country_id'] 		= 0000000002;
