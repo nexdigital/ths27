@@ -100,6 +100,55 @@ class Tool_model extends CI_Model {
 		$date = strtotime($days . " day");
 		return date('Y-m-d', $date);
 	}
+
+	function generate_pagination($page,$total_page) {
+		if($total_page > 1) {
+			$start_loop = $page - 2;
+			$end_loop = $page + 2;
+
+			if($start_loop < 1) $start_loop = 1;
+			if($end_loop > $total_page) $end_loop = $total_page;
+
+			if($page < 4) {
+				$start_loop = 1;
+				$end_loop = 5;
+			}
+
+			if(($total_page - $page) < 4) {
+				$start_loop = $total_page - 5;
+				$end_loop = $total_page;
+			}
+
+			if($start_loop < 1) $start_loop = 1;
+			if($end_loop > $total_page) $end_loop = $total_page;
+
+			$pagination =  '
+				<nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="javascript:;" onCLick="gotopage(1)">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				';
+			for($i = $start_loop; $i <= $end_loop; $i++) {
+				$active = ($i == $page) ? 'active' : ''; 
+				$pagination = $pagination . '
+				    <li class="'.$active.'"><a href="javascript:;" onCLick="gotopage('.$i.')">'.$i.'</a></li>
+				';
+			}
+			$pagination = $pagination . '
+				    <li>
+				      <a href="javascript:;" onCLick="gotopage('.$total_page.')">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			';
+			return $pagination;
+		}
+	}
 }
 
 ?>

@@ -420,5 +420,32 @@ class Master extends MY_Controller {
 		}
 	}
 
-	
+	function server($master) {
+		switch ($master) {
+			case 'master_bank':
+				# Advance Search
+				$bank_id = (isset($_POST['bank_id'])) ? $_POST['bank_id'] : '';
+				$bank_name = (isset($_POST['bank_name'])) ? $_POST['bank_name'] : '';
+				$country = (isset($_POST['country'])) ? $_POST['country'] : '';
+				$all_data_search = $this->master_bank->advance_search($bank_id,$bank_name,$country);
+
+				# Pagination
+				$page = (isset($_POST['page'])) ? $_POST['page'] : 1;
+				$limit = (isset($_POST['limit'])) ? $_POST['limit'] : 50;
+				$total_row = count($all_data_search);
+				$total_page = ceil($total_row/$limit);
+				$start_limit = ($page - 1) * $limit;
+
+				$data = $this->master_bank->advance_search($bank_id,$bank_name,$country,$start_limit,$limit);
+
+				$json['data'] = $this->load->view('advance_search/master_bank',array('data' => $data),true);
+				$json['paging'] = $this->tool_model->generate_pagination($page,$total_page);
+				echo json_encode($json);
+			break;
+				
+			default:
+				# code...
+				break;
+		}
+	}
 }
