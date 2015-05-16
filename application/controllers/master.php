@@ -428,10 +428,11 @@ class Master extends MY_Controller {
 				$bank_name = (isset($_POST['bank_name'])) ? $_POST['bank_name'] : '';
 				$country = (isset($_POST['country'])) ? $_POST['country'] : '';
 				$swift_code = (isset($_POST['swift_code'])) ? $_POST['swift_code'] : '';
-				$entry_date = (isset($_POST['entry_date'])) ? $_POST['entry_date'] : '';
+				$entry_date_start = (isset($_POST['entry_date_start'])) ? $_POST['entry_date_start'] : '';
+				$entry_date_end = (isset($_POST['entry_date_end'])) ? $_POST['entry_date_end'] : '';
 				$entry_by = (isset($_POST['entry_by'])) ? $_POST['entry_by'] : '';
 
-				$all_data_search = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date,$entry_by);
+				$all_data_search = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date_start,$entry_date_end,$entry_by);
 
 				# Pagination
 				$page = (isset($_POST['page'])) ? $_POST['page'] : 1;
@@ -446,12 +447,13 @@ class Master extends MY_Controller {
 					'master_bank_bank_name' => $bank_name,
 					'master_bank_country' => $country,
 					'master_bank_swift_code' => $swift_code,
-					'master_bank_entry_date' => $entry_date,
+					'master_bank_entry_date_start' => $entry_date_start,
+					'master_bank_entry_date_end' => $entry_date_end,
 					'master_bank_entry_by' => $entry_by,
 					'master_bank_limit' => $limit
 				));
 
-				$data = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date,$entry_by,$start_limit,$limit);
+				$data = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date_start,$entry_date_end,$entry_by,$start_limit,$limit);
 
 				$json['data'] = $this->load->view('advance_search/master_bank',array('data' => $data),true);
 				$json['paging'] = $this->tool_model->generate_pagination($page,$total_page);

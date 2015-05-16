@@ -24,11 +24,15 @@
       </td>
       <td>
         <strong>Entry Date</strong><br/>
-        <input type="text" id="entry_date" class="form-control sumoselect datepicker" data-date-format="yyyy-mm-dd" value="<?php echo $this->session->userdata('master_bank_entry_date')?>">
+        <div class="input-daterange">
+          <input type="text" id="entry_date_start" class="form-control sumoselect" style="width:120px"/>
+          <span class="add-on" style="height:30px; line-height:24px;">to</span>
+          <input type="text" id="entry_date_end" class="form-control sumoselect" style="width:120px"/>
+        </div>        
       </td>
       <td>
         <strong>Entry By</strong><br/>
-        <input type="text" id="entry_by" class="form-control sumoselect" value="<?php echo $this->session->userdata('master_bank_entry_by')?>">
+        <input type="text" class="form-control sumoselect" value="<?php echo $this->session->userdata('master_bank_entry_by')?>">
       </td>
       <td>
         <strong>Limit</strong><br/>
@@ -74,7 +78,7 @@
 var page = 1;
 $(document).ready(function(){
   $('select.sumoselect').SumoSelect();
-  $('input.datepicker').datepicker({ format: 'yyyy-mm-dd' });
+  $('.input-daterange').datepicker({ format: 'yyyy-mm-dd' });
   search_advance();
   $('#search_submit').click(function(){
     page = 1;
@@ -94,7 +98,8 @@ function search_advance(){
 		'country':$('#country').val(),
 		'bank_name':$('#bank_name').val(),
     'swift_code':$('#swift_code').val(),
-    'entry_date':$('#entry_date').val(),
+    'entry_date_start':$('#entry_date_start').val(),
+    'entry_date_end':$('#entry_date_end').val(),
     'entry_by':$('#entry_by').val(),
     'limit':$('#limit').val(),
     'page':page
