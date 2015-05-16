@@ -436,6 +436,14 @@ class Master extends MY_Controller {
 				$total_page = ceil($total_row/$limit);
 				$start_limit = ($page - 1) * $limit;
 
+
+				$this->session->set_userdata(array(
+					'master_bank_bank_id' => $bank_id,
+					'master_bank_bank_name' => $bank_name,
+					'master_bank_country' => $country,
+					'master_bank_limit' => $limit
+				));
+
 				$data = $this->master_bank->advance_search($bank_id,$bank_name,$country,$start_limit,$limit);
 
 				$json['data'] = $this->load->view('advance_search/master_bank',array('data' => $data),true);

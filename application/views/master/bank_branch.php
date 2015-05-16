@@ -1,30 +1,30 @@
-
 <div class="toolbar">
   <table>
     <tr>
       <td>
         <strong>Bank ID</strong><br/>
-        <input type="text" id="bank_id" class="form-control sumoselect" placeholder="Bank ID">
+        <input type="text" id="bank_id" class="form-control sumoselect" placeholder="Bank ID" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
       </td>
       <td>
           <strong>Country</strong><br/>
           <select id="country" class="form-control sumoselect" multiple="" placeholder="Select Country">
           	<?php foreach ($list_country as $row) {
-          		echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
+              $selected = (in_array($row->country_id,$this->session->userdata('master_bank_country'))) ? 'selected="selected"' : '';
+          		echo '<option value="'.$row->country_id.'" '.$selected.'>'.$row->country_name.'</option>';
           	}?>
           </select>
       </td>
       <td>
         <strong>Bank Name</strong><br/>
-        <input type="text" id="bank_name" class="form-control sumoselect" placeholder="Search Name">
+        <input type="text" id="bank_name" class="form-control sumoselect" placeholder="Search Name" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
       </td>
       <td>
         <strong>Limit</strong><br/>
         <select id="limit" class="form-control sumoselect">
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="250">250</option>
-          <option value="500">500</option>
+          <option value="50" <?php if($this->session->userdata('master_bank_limit') == 50) echo 'selected="selected"'?>>50</option>
+          <option value="100" <?php if($this->session->userdata('master_bank_limit') == 100) echo 'selected="selected"'?>>100</option>
+          <option value="250" <?php if($this->session->userdata('master_bank_limit') == 250) echo 'selected="selected"'?>>250</option>
+          <option value="500" <?php if($this->session->userdata('master_bank_limit') == 500) echo 'selected="selected"'?>>500</option>
         </select>
       </td>
       <td>
