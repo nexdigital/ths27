@@ -3,11 +3,11 @@
     <tr>
       <td>
         <strong>Bank ID</strong><br/>
-        <input type="text" id="bank_id" class="form-control sumoselect" placeholder="Bank ID" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
+        <input type="text" id="bank_id" class="form-control sumoselect" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
       </td>
       <td>
           <strong>Country</strong><br/>
-          <select id="country" class="form-control sumoselect" multiple="" placeholder="Select Country">
+          <select id="country" class="form-control sumoselect" multiple="">
           	<?php foreach ($list_country as $row) {
               $selected = (in_array($row->country_id,$this->session->userdata('master_bank_country'))) ? 'selected="selected"' : '';
           		echo '<option value="'.$row->country_id.'" '.$selected.'>'.$row->country_name.'</option>';
@@ -16,7 +16,19 @@
       </td>
       <td>
         <strong>Bank Name</strong><br/>
-        <input type="text" id="bank_name" class="form-control sumoselect" placeholder="Search Name" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
+        <input type="text" id="bank_name" class="form-control sumoselect" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
+      </td>
+      <td>
+        <strong>Swift Code</strong><br/>
+        <input type="text" id="swift_code" class="form-control sumoselect" value="<?php echo $this->session->userdata('master_bank_swift_code')?>">
+      </td>
+      <td>
+        <strong>Entry Date</strong><br/>
+        <input type="text" id="entry_date" class="form-control sumoselect datepicker" data-date-format="yyyy-mm-dd" value="<?php echo $this->session->userdata('master_bank_entry_date')?>">
+      </td>
+      <td>
+        <strong>Entry By</strong><br/>
+        <input type="text" id="entry_by" class="form-control sumoselect" value="<?php echo $this->session->userdata('master_bank_entry_by')?>">
       </td>
       <td>
         <strong>Limit</strong><br/>
@@ -62,6 +74,7 @@
 var page = 1;
 $(document).ready(function(){
   $('select.sumoselect').SumoSelect();
+  $('input.datepicker').datepicker({ format: 'yyyy-mm-dd' });
   search_advance();
   $('#search_submit').click(function(){
     page = 1;
@@ -80,6 +93,9 @@ function search_advance(){
 		'bank_id':$('#bank_id').val(),
 		'country':$('#country').val(),
 		'bank_name':$('#bank_name').val(),
+    'swift_code':$('#swift_code').val(),
+    'entry_date':$('#entry_date').val(),
+    'entry_by':$('#entry_by').val(),
     'limit':$('#limit').val(),
     'page':page
 	},function(data){
