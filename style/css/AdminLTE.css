@@ -3456,3 +3456,25 @@ div.customer-details-unverified {
   margin-top: 3px;
   font-weight: normal;
 }
+
+.table thead tr th {
+  cursor: pointer;
+}
+th.sort {
+  background:url('../img/sort.png');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+th.sort-asc {
+  background:url('../img/sort_asc.png');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+th.sort-desc {
+  background:url('../img/sort_desc.png');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}

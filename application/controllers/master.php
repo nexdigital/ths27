@@ -428,11 +428,19 @@ class Master extends MY_Controller {
 				$bank_name = (isset($_POST['bank_name'])) ? $_POST['bank_name'] : '';
 				$country = (isset($_POST['country'])) ? $_POST['country'] : '';
 				$swift_code = (isset($_POST['swift_code'])) ? $_POST['swift_code'] : '';
+
 				$entry_date_start = (isset($_POST['entry_date_start'])) ? $_POST['entry_date_start'] : '';
 				$entry_date_end = (isset($_POST['entry_date_end'])) ? $_POST['entry_date_end'] : '';
 				$entry_by = (isset($_POST['entry_by'])) ? $_POST['entry_by'] : '';
 
-				$all_data_search = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date_start,$entry_date_end,$entry_by);
+				$update_date_start = (isset($_POST['update_date_start'])) ? $_POST['update_date_start'] : '';
+				$update_date_end = (isset($_POST['update_date_end'])) ? $_POST['update_date_end'] : '';
+				$update_by = (isset($_POST['update_by'])) ? $_POST['update_by'] : '';
+
+				$sort_by =  (isset($_POST['sort_by'])) ? $_POST['sort_by'] : 'bank_id';
+				$sort_order =  (isset($_POST['sort_order'])) ? $_POST['sort_order'] : 'asc';
+
+				$all_data_search = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date_start,$entry_date_end,$entry_by,$update_date_start,$update_date_end,$update_by,$sort_by,$sort_order);
 
 				# Pagination
 				$page = (isset($_POST['page'])) ? $_POST['page'] : 1;
@@ -453,7 +461,7 @@ class Master extends MY_Controller {
 					'master_bank_limit' => $limit
 				));
 
-				$data = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date_start,$entry_date_end,$entry_by,$start_limit,$limit);
+				$data = $this->master_bank->advance_search($bank_id,$bank_name,$country,$swift_code,$entry_date_start,$entry_date_end,$entry_by,$update_date_start,$update_date_end,$update_by,$sort_by,$sort_order,$start_limit,$limit);
 
 				$json['data'] = $this->load->view('advance_search/master_bank',array('data' => $data),true);
 				$json['paging'] = $this->tool_model->generate_pagination($page,$total_page);

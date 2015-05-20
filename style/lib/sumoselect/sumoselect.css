@@ -96,5 +96,7 @@
 
 input.input-sumoselect {
     height:30px; line-height:30px; font-family:Tahoma; font-size:12px; border:1px solid #A4A4A4;
-    width: 80px;
+    width: 200px;
+    display: inline-table;
+    border-radius: 3px;
 }
