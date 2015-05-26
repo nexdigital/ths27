@@ -1,7 +1,19 @@
-<div class="toolbar">
-  <table width="100%">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom:30px;">
+ 
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo" style="background-color:#3c8dbc">
+      <h4 class="panel-title">
+        <a class="collapsed" style="color:white" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <span class="glyphicon glyphicon-search"></span> Advance Search
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+       <table class="table">
     <tr>
-      <td width="30%">
+      <td>
         <strong>Bank ID</strong><br/>
         <input type="text" id="bank_id" class="form-control input-sumoselect" value="<?php echo $this->session->userdata('master_bank_bank_id')?>">
       </td>
@@ -14,10 +26,10 @@
       <td>
           <strong>Country</strong><br/>
           <select id="country" class="form-control sumoselect" multiple="">
-          	<?php foreach ($list_country as $row) {
+            <?php foreach ($list_country as $row) {
               $selected = (in_array($row->country_id,$this->session->userdata('master_bank_country'))) ? 'selected="selected"' : '';
-          		echo '<option value="'.$row->country_id.'" '.$selected.'>'.$row->country_name.'</option>';
-          	}?>
+              echo '<option value="'.$row->country_id.'" '.$selected.'>'.$row->country_name.'</option>';
+            }?>
           </select>
       </td>
       <td>
@@ -77,7 +89,12 @@
       </td>
     </tr>
   </table>
+      </div>
+    </div>
+  </div>
+  
 </div>
+
 
 <table class="table table-bordered table-striped">
 	<thead>
