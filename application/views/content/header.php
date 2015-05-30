@@ -36,6 +36,29 @@
 }
 
 
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;  
+    background-color: #ffffff; 
+}
+
 </style>
 
     <header class="header">
@@ -106,7 +129,7 @@
 
          <aside class="left-side sidebar-offcanvas">
                 <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar" style="overflow:scroll;">
+                <section class="sidebar" style="overflow: scroll;">
                     <!-- Sidebar user panel -->
                     
                     <!-- search form -->
@@ -194,3 +217,8 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
+
+<script type="text/javascript">
+
+
+</script>   

@@ -1,57 +1,56 @@
-<form id="form_country" method="post" action="<?php echo base_url()?>master/ajax/country/add">
-<div class="form-group" style="display:none">
+<form id="form_country" method="post" action="<?php echo base_url()?>master/ajax/country/edit">
+<div class="form-group">
 	<label>Country ID<label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="country_id" name="country_id" value="" required>
+		<input type="text" class="form-control" id="country_id" name="country_id" value="<?php echo $get_country->country_id ?>" readonly >
 </div>
 
 <div class="form-group">
 	<label>Country Name<label class="required-filed">*</label></label>
-	<input type="text" class="form-control" id="country_name" name="country_name" required>
+	<input type="text" class="form-control" id="country_name" name="country_name" value="<?php echo $get_country->country_name ?>"  required>
 </div>
 
 <div class="form-group">
 	<label>Currency Symbol<label class="required-filed">*</label></label>
-	<input type="text" class="form-control" id="curency_simbol" name="currency_symbol" required >
+	<input type="text" class="form-control" id="curency_simbol" name="currency_symbol" value="<?php echo $get_country->currency_symbol ?>"  required >
 </div>
 
 <div class="form-group">
 	<label>Currency Name<label class="required-filed">*</label></label>
-	<input type="text" class="form-control" id="currency_name" name="currency_name" required >
+	<input type="text" class="form-control" id="currency_name" name="currency_name" value="<?php echo $get_country->currency_name ?>" required >
 </div>
 
 <div class="form-group">
 	<label>Description</label>
-	<textarea class="form-control" name="description"></textarea>
+	<textarea class="form-control" name="description"><?php echo $get_country->description ?></textarea>
 </div>
 
 <div class="form-group">
-	<input type="checkbox" name="is_active" value="active"> Active
+	      <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_country->is_active == 'active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
 </div>
 
-<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
-<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
+
+  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/view/add')">Create New</button>
+  <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
+  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/country/delete/<?php echo $get_country->country_id ?>')">Delete</button>
+  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/view/country/index')">Back</button>
+
 <label class="alert-form" ></label>
 </form>
 <script type="text/javascript">
 	$(document).ready(function(){
 
-		
-		$('form#form_country').validate({
-			rules: { country_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/country/check_available_country" } },
-			messages: { country_name: { remote: 'Country has been added' } }			
-		});
-
 			$('form#form_country').ajaxForm({
 				dataType:'json',
-				success: function(result){
+					success: function(result){
 						if(result.status == true){
- 
-							    $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-success" role="alert">'+result.message+'</div>');
+
+							  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-success" role="alert">'+result.message+'</div>');
 							    $('form#form_country').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
-							//	 location.reload('master/view/country/index');
+								// location.reload('master/view/country/index');
 							},3000);
+							 	 setTimeout(function(){ setPage('<?php echo base_url() ?>master/view/country/index') }, 3005); 
 						}else {
 							  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-danger" role="alert">'+result.message+'</div>');
 							  	 setTimeout(function(){

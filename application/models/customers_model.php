@@ -179,7 +179,10 @@ class Customers_model extends CI_Model {
 	}
 
 	function list_country() {
-		return array('Indonesia','Taiwan','China','Vietnam','Hongkong');
+		
+		$get = $this->db->get('country');
+		return $get->result();
+
 	}
 }
 

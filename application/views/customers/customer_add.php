@@ -87,7 +87,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Reference Id</label>
-                              <input id="reference_id"  name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>" readonly="readonly">
+                              <input id="reference_id"  name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
                             </div>
 
                             <div class="form-group">
@@ -119,9 +119,9 @@
                               <label>Country</label>
                               <select class="form-control bfh-states country" name="country">
                               <?php
-                              foreach ($this->customers_model->list_country() as $key => $value) {
+                              foreach ($this->master_country->list_country() as $key => $value) {
                                   $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
-                                  echo '<option value="'.$value.'" '.$selected.'>'.$value.'</option>';
+                                  echo '<option value="'.$value->country_name.'" '.$selected.'>'.$value->country_name.'</option>';
                               }
                               ?>
                               </select>

@@ -2,6 +2,58 @@
 
 class Master_country extends CI_Model {
 	
+	function add_component($component){
+
+		$this->db->insert('master_country_table',$component);
+	}
+
+
+	function edit_country($country_id,$component){
+
+		$this->db->where('country_id', $country_id);
+		$this->db->update('master_country_table', $component); 
+
+	}
+
+	function delete($country_id){
+
+		$data['is_active'] = "deleted";
+		$this->db->where('country_id', $country_id);
+		$this->db->update('master_country_table', $data); 
+	}
+
+	function check_id_country($country_id){
+		
+		$this->db->where('country_id',$country_id);
+		$query = $this->db->get('master_country_table');
+  		$count_row = $query->num_rows();
+
+        if($count_row>0){
+          return TRUE;
+        }else{
+          return FALSE;
+        }
+
+	}
+
+	function get_row_country($id){
+
+		$this->db->where('country_id',$id);
+		$get = $this->db->get('master_country_table');
+		return $get->row();
+	}
+
+
+	
+
+
+
+
+	//hafiz//
+
+
+
+
 	function add($currency_name){
 		$this->db->insert('master_currency_table', array('currency_name' => $currency_name, 'created_date' => date('Y-m-d h:i:s'), 'created_by' => $this->session->userdata('user_id'), 'modified_date' => date('Y-m-d h:i:s')));
 		return $this->db->insert_id();
@@ -24,6 +76,24 @@ class Master_country extends CI_Model {
 	function get_by_country_id($country_id) {
 		$query = $this->db->query("select * from master_country_table where country_id = '$country_id' ");
 		return $query->row();
+	}
+
+	function country_new_id() {
+	
+		$this->db->from( "master_country_table" );
+		$get = $this->db->count_all_results();
+		$get = $get + 001;
+		$len = strlen( $get );
+		
+		switch ( $len ) {
+			case "1": return "00000" . $get; break;
+			case "2": return "0000" . $get; break;
+			case "3": return "000" . $get; break;
+			case "4": return "00" . $get; break;
+			case "5": return "0" . $get; break;
+			default: return "".$get; break;
+		}
+	
 	}
 }
 

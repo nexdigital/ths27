@@ -14,7 +14,7 @@
     <td>
       <button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
     </td>
-    <td><a href="javascipr:;">ID</a></td>
+    <td><a href="javascript:;">ID</a></td>
     <td>test test</td>
     <td>1123</td>
     <td>Super User</td>

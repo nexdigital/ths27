@@ -19,14 +19,19 @@ class Master extends MY_Controller {
 			case 'country':
 				switch ($page) {
 					case 'index':
+						
 						$data['data']	= $this->master_country->list_country();
 						$data['title']	= 'Master Country';
 						$this->set_content('master/country_list',$data);
 					break;
 					case 'add':
-						$this->set_content('master/country_add',array('title' => 'Add New Country'));
+						$country_id = $this->master_country->country_new_id();
+
+						$this->set_content('master/country_add',array('title' => 'Add New Country','country_id' => $country_id));
 					break;					
 					case 'edit':
+						$country_id = $_POST['country_id'];
+						$get_country = $this->master_country->get_row_country($country_id);
 						$this->set_content('master/country_add',array('title' => 'Edit Country'));
 					break;
 					default:
@@ -180,14 +185,17 @@ class Master extends MY_Controller {
 					break;
 
 					case 'edit':
-						$bank['bank_name'] 			= $_POST['bank_name'];
+					/*	$bank['bank_name'] 			= $_POST['bank_name'];
 						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
 						$bank['country_id'] 		= $_POST['country_id'];	
 						$bank['description'] 		= $_POST['description'];
 						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
 						$this->db->where('bank_id',$id);
 						$this->db->update('master_bank_table',$bank);
-						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully updated'));
+						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully updated'));*/
+						$status = TRUE;
+						$message = "teast";
+						echo json_encode(array('status' =>$status, 'message' => $message));
 					break;
 					
 					case 'delete':
@@ -224,17 +232,106 @@ class Master extends MY_Controller {
 			case 'country':
 				switch ($method) {
 					case 'add':
-						$this->db->set('country_name',$_POST['country_name']);
-						$this->db->set('country_symbol',$_POST['country_symbol']);
-						$this->db->insert('master_country_table');
-						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New country has been added'));
+					
+					$country_id =  $_POST['country_id'];
+					$country_name = $_POST['country_name'];
+					$check_country = $this->master_country->check_id_country($country_id);		
+
+					if($check_country){
+
+						$status  = FALSE;
+			 			$message = "Country has been added. Try another Id";
+
+					}else{
+
+						$is_active = isset($_POST['is_active']);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}			
+
+				 		$component = array(
+									'country_name'	 => $country_name,
+									'currency_symbol'=> $_POST['currency_symbol'],
+									'currency_name'	 => $_POST['currency_name'],
+									'description'	 => $_POST['description'],
+									'is_active'		 => $v_isActive,
+									'created_by'	 => "Admin",
+									'modified_by'    => "Admin"
+								);
+
+
+						$this->master_country->add_component($component); 
+						$status  = TRUE;
+			 			$message = "Success new Country";
+
+					}
+					
+					echo json_encode(array('status' => $status , 'message' => $message));
+					
+					 		
+					 	
 					break;
+
+					case 'edit' :
+
+						$country_id   = $_POST['country_id'];
+						$country_name = $_POST['country_name'];
+
+						$is_active = isset($_POST['is_active']);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}	
+
+						$component = array(
+									'country_name'	 => $country_name,
+									'currency_symbol'=> $_POST['currency_symbol'],
+									'currency_name'	 => $_POST['currency_name'],
+									'description'	 => $_POST['description'],
+									'is_active'		 => $v_isActive,
+									'created_by'	 => "Admin",
+									'modified_by'    => "Admin"
+								);
+
+						$this->master_country->edit_country($country_id,$component);
+
+						$status  = TRUE;
+						$message = "Edit Country Success";
+						echo json_encode(array('status' => $status , 'message' => $message));
+
+					break;
+
+					case 'delete':
+
+						$get_country = $this->master_country->get_row_country($id);
+
+						if($get_country->is_active == "deleted"){
+
+							$status = FALSE;
+							$message = "Country Has been deleted before";
+
+						}else{
+							$this->master_country->delete($id);
+							$status = TRUE;
+							$message = "Country successfully deleted";
+						}
+
+						echo json_encode(array('status' => $status, 'message' => $message));
+					break;
+
 					case 'check_available_country':
 						$country_name = $_GET['country_name'];
-						$get = $this->db->query("select * from master_country_table where lower(country_name) = '".strtolower($country_name)."'");
+						$get = $this->db->query("select * from master_country_table where country_name = '".strtolower($country_name)."'");
 						if($get->num_rows() == 0) echo "true";
 						else echo "false";
 					break;
+
+				
 					default:
 						header("HTTP/1.0 404 Not Found");
 					break;
@@ -384,7 +481,7 @@ class Master extends MY_Controller {
 		switch ($page) {
 			case 'index':
 						$data['data']	= '';
-						$data['title']			= 'Tax';
+						$data['title']	= 'Tax';
 						$this->set_content('master/tax',$data);
 			break;
 
@@ -472,5 +569,24 @@ class Master extends MY_Controller {
 				# code...
 				break;
 		}
+	}
+
+
+	function country($page=null,$id=null){
+		switch ($page) {
+			case 'edit':
+			//	$id = $_POST['country_id'];
+				$data['title']       = "Edit Country";
+				$data['get_country'] = $this->master_country->get_row_country($id);
+				$this->set_content('master/country_edit',$data);
+			break;
+
+			case 'delete':
+				$data['title']       = "Delete Country";
+				$data['get_country'] = $this->master_country->get_row_country($id);
+				$this->set_content('master/country_delete',$data);
+			break;
+		}
+
 	}
 }
