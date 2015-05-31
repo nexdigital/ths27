@@ -32,11 +32,4 @@ $(document).ready( function () {
 });
 
 
-
-$("#delete").click(function(){
-
-	alert('ad');
-})
-
-
 </script>
