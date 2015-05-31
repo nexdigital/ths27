@@ -392,7 +392,102 @@ class Master extends MY_Controller {
 					echo json_encode(array('status'=>$status,'message'=>$message));
 			break;
 
-			case 'create_business':
+			case 'tax':
+				switch ($method) {
+					case 'add_tax':
+						$tax_name  			= $_POST['tax_name'];
+						$description  		= $_POST['description'];
+						$tax_base_amount  	= $_POST['tax_base_amount'];
+						$tax_rate  			= $_POST['tax_rate'];
+
+						$is_active = isset($_POST['is_active']);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}			
+
+						$component = array('tax_name' 			=> $tax_name, 
+										   'description'		=> $description,
+										   'tax_base_amount'	=> $tax_base_amount,
+										   'is_active'			=> $v_isActive,
+										   'tax_rate'			=> $tax_rate,
+										   'created_by'			=> "Admin"
+						);
+						
+						$this->master_tax->add_tax($component);
+						$status = TRUE;
+						$message = "Save success!";
+						echo json_encode(array('status'=>$status,'message'=>$message));
+
+					break;
+
+				case 'check_available_tax':
+						$tax_name = $_GET['tax_name'];
+						$get = $this->db->query("select * from master_tax where lower(tax_name) = '".strtolower($tax_name)."'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+				break;
+
+				case 'edit_tax':
+
+						$id 				= $_POST['tax_id'];
+						$tax_name  			= $_POST['tax_name'];
+						$description  		= $_POST['description'];
+						$tax_base_amount  	= $_POST['tax_base_amount'];
+						$tax_rate  			= $_POST['tax_rate'];
+
+						$is_active = isset($_POST['is_active']);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}			
+
+						$component = array('tax_name' 			=> $tax_name, 
+										   'description'		=> $description,
+										   'tax_base_amount'	=> $tax_base_amount,
+										   'tax_rate'			=> $tax_rate,
+										   'created_by'			=> "Admin",
+										   'is_active'			=> $v_isActive
+								);
+						
+						$this->master_tax->edit_tax($id,$component);
+						$status = TRUE;
+						$message = "Edit success!";
+						echo json_encode(array('status'=>$status,'message'=>$message));
+
+
+				break;	
+
+				case 'delete_tax':
+
+						$get_tax_row   = $this->master_tax->get_tax_row($id);
+
+						if($get_tax_row->is_active == "deleted"){
+
+							$status = FALSE;
+							$message = "Tax Has been deleted before";
+
+						}else{
+
+							$component['is_active'] = "deleted";
+							$this->master_tax->edit_tax($id,$component);
+							$status = TRUE;
+							$message = "tax successfully deleted";
+						} 
+				
+						
+
+						echo json_encode(array('status' => $status, 'message' => $message));
+
+
+				break;
+
+
+			}
 
 			break;
 		}
@@ -476,11 +571,13 @@ class Master extends MY_Controller {
 	}
 
 
-	function tax($page=null){
+	function tax($page=null, $id=null){
 
 		switch ($page) {
 			case 'index':
-						$data['data']	= '';
+
+						$get_tax = $this->master_tax->get_tax();	
+						$data['get_tax']	= $get_tax ;
 						$data['title']	= 'Tax';
 						$this->set_content('master/tax',$data);
 			break;
@@ -490,6 +587,22 @@ class Master extends MY_Controller {
 						$data['data']	= '';
 						$data['title']	= 'Add Tax';
 						$this->set_content('master/tax_form',$data);
+			break;
+
+			case'edit_tax':
+
+						$get_tax_row    		= $this->master_tax->get_tax_row($id);
+						$data['get_tax_row']	= $get_tax_row;
+						$data['title']			= 'Edit Tax';
+						$this->set_content('master/tax_edit',$data);
+			break;
+
+			case'delete_tax':
+
+						$get_tax_row    		= $this->master_tax->get_tax_row($id);
+						$data['get_tax_row']	= $get_tax_row;
+						$data['title']			= 'delete Tax';
+						$this->set_content('master/tax_delete',$data);
 			break;
 		}
 

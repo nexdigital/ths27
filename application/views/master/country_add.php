@@ -50,8 +50,8 @@
 							    $('form#form_country').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
-							//	 location.reload('master/view/country/index');
-							},3000);
+							 	 setPage('<?php echo base_url() ?>master/view/country/index');
+							},800);
 						}else {
 							  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-danger" role="alert">'+result.message+'</div>');
 							  	 setTimeout(function(){

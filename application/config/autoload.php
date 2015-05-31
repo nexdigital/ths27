@@ -116,7 +116,8 @@ $autoload['model'] = array(
 							'customers_model',
 							'master_customer',
 							'master_country',
-							'master_bank'
+							'master_bank',
+							'master_tax'
 							);
 
 
