@@ -39,7 +39,10 @@ class Manifest extends MY_Controller {
 				$hawb_no = $_GET['hawb_no'];
 				$customer_type = $_GET['customer_type'];
 
+				$data['data']				= $this->manifest_model->get_data($hawb_no);
+				$data['file']				= $this->manifest_model->get_file($data['data']->file_id);
 				$data['similar_customer']	= $this->manifest_model->get_similar_customer($hawb_no,$customer_type);
+				$data['customer_type']		= $customer_type;
 				$data['title']				= 'List Similar Customer';
 				$this->set_content('manifest/similar_customer',$data);
 			break;
@@ -247,6 +250,41 @@ class Manifest extends MY_Controller {
 				else echo 'false';
 			break;
 			
+			case 'set_customer':
+				$hawb_no = $_POST['hawb_no'];
+				$customer_type = $_POST['customer_type'];
+				$reference_id = $_POST['reference_id'];
+				$this->manifest_model->set_customer($hawb_no,$customer_type,$reference_id);
+			break;
+
+			case 'verification_host':
+				$hawb_no = $_POST['hawb_no'];
+				$data = $this->manifest_model->get_data($hawb_no);
+
+				$get_shipper = $this->db->query("select * from customer_table where reference_id = '$data->shipper'");
+				$get_consignee = $this->db->query("select * from customer_table where reference_id = '$data->consignee'");
+
+				if($get_shipper->num_rows() > 0 && $get_consignee->num_rows() > 0) {
+					$this->manifest_model->update_status($hawb_no,'verified');
+					echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Verified!'));
+				} else {
+					echo json_encode(array('status' => 'failed','message' => 'Please completed the shipper or consignee'));
+				}
+
+			break;
+
+			case 'hold_host':
+				$hawb_no = $_POST['hawb_no'];
+				$data = $this->manifest_model->get_data($hawb_no);
+
+				$get_shipper = $this->db->query("select * from customer_table where reference_id = '$data->shipper'");
+				$get_consignee = $this->db->query("select * from customer_table where reference_id = '$data->consignee'");
+
+				$this->manifest_model->update_status($hawb_no,'hold');
+				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' has been hold!'));
+
+			break;
+
 			default:
 				header("HTTP/1.0 404 Not Found");
 			break;

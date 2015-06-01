@@ -1,16 +1,21 @@
+<?php
+    $shipper = $this->db->query("select * from customer_table where reference_id = '".$data->shipper."'");
+    $consignee = $this->db->query("select * from customer_table where reference_id = '".$data->consignee."'");
+
+?>
+
 <div class="toolbar">
     <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Edit</button>
         <!-- Split button -->
         <div class="btn-group">
           <button type="button" class="btn btn-default">Invoice</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:34px;">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="javascript:;">Edit</a></li>
-            <li><a href="javascript:;">Print</a></li>
+            <li><a href="javascript:;" onCLick="setPage('<?php echo base_url('invoice/edit/'.$data->hawb_no) ?>')">Edit</a></li>
+            <li><a href="javascript:;" onCLick="setPage('<?php echo base_url('invoice/print/'.$data->hawb_no) ?>')">Print</a></li>
           </ul>
         </div>
     </div>
@@ -88,13 +93,13 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Shipper</label>
-                <textarea class="form-control" rows="2" name="description" style="resize:none;" readonly> <?php echo $data->shipper; ?></textarea>
+                <textarea class="form-control" rows="2" name="description" style="resize:none;" readonly> <?php echo $shipper->row('name') ?></textarea>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Consignee</label>
-                <textarea class="form-control" rows="2" name="description" style="resize:none;" readonly> <?php echo $data->consignee; ?></textarea>
+                <textarea class="form-control" rows="2" name="description" style="resize:none;" readonly> <?php echo $consignee->row('name'); ?></textarea>
             </div>
         </div>
     </div>
@@ -136,7 +141,7 @@
         <!-- Split button -->
         <div class="btn-group">
           <button type="button" class="btn btn-info">Extra Charge</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:34px;">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
@@ -179,7 +184,7 @@
         <!-- Split button -->
         <div class="btn-group">
           <button type="button" class="btn btn-info">Discount</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:34px;">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
