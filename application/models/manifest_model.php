@@ -114,5 +114,23 @@ class Manifest_model extends CI_Model {
 		$this->db->where('hawb_no',$hawb_no);
 		$this->db->update('manifest_data_table');
 	}
+
+	function subtotal($hawb_no,$type = 'all') {
+		$data = $this->get_data($hawb_no);
+		$subtotal = 0;
+		switch ($type) {
+			case 'all':
+				$subtotal += $data->kg * $data->rate;
+				$subtotal = $subtotal * $data->exchange_rate;
+				return $subtotal;
+			break;
+			
+			default:
+				$subtotal += $data->kg * $data->rate;
+				$subtotal = $subtotal * $data->exchange_rate;
+				return $subtotal;
+			break;
+		}
+	}
 }
 ?>

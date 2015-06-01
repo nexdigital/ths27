@@ -85,32 +85,38 @@ class Customers extends MY_Controller {
 	function ajax($page = null){
 			switch ($page) {
 				case 'add_customer':
+					$data['reference_id'] = $_POST['reference_id'];
+				//	$data['id_group'] 	  = $_POST['id_group'];
+					$data['name'] 		  = $_POST['name'];
+					$data['email'] 		  = $_POST['email'];
+					$data['address'] 	  = $_POST['address'];
+					$data['attn'] 		  = $_POST['attn'];
+					$data['city']         = $_POST['city'];
+					$data['country']      = $_POST['country'];
+					$data['pos_code'] 	  = $_POST['zip_code'];
+					$data['phone'] 		  = $_POST['phone'];
+					$data['mobile'] 	  = $_POST['mobile'];
+					$data['fax'] 		  = $_POST['fax'];
+					$data['tax_class'] 	  = $_POST['tax_class'];
+				//	$data['vat_doc'] 	  = $_POST['vat_doc'];
+					$data['status'] 	  = $_POST['status'];
+					//$data['register_date']= $_POST['register_date'];
+					$data['register_date']= "2015-02-12";
+					$data['payment_type'] = $_POST['payment_type'];
+					$data['description']  = $_POST['description'];
+					$data['status_active']= "Active";
+					$this->customers_model->save_customer($data);
 
-						$data['reference_id'] = $_POST['reference_id'];
-					//	$data['id_group'] 	  = $_POST['id_group'];
-						$data['name'] 		  = $_POST['name'];
-						$data['email'] 		  = $_POST['email'];
-						$data['address'] 	  = $_POST['address'];
-						$data['attn'] 		  = $_POST['attn'];
-						$data['city']         = $_POST['city'];
-						$data['country']      = $_POST['country'];
-						$data['pos_code'] 	  = $_POST['zip_code'];
-						$data['phone'] 		  = $_POST['phone'];
-						$data['mobile'] 	  = $_POST['mobile'];
-						$data['fax'] 		  = $_POST['fax'];
-						$data['tax_class'] 	  = $_POST['tax_class'];
-					//	$data['vat_doc'] 	  = $_POST['vat_doc'];
-						$data['status'] 	  = $_POST['status'];
-						//$data['register_date']= $_POST['register_date'];
-						$data['register_date']= "2015-02-12";
-						$data['payment_type'] = $_POST['payment_type'];
-						$data['description']  = $_POST['description'];
-						$data['status_active']= "Active";
-						$this->customers_model->save_customer($data);
 
-						$status  = TRUE;
-						$message = "Save Success";
-						echo json_encode(array('status'=>$status,'message'=>$message));
+					if(isset($_POST['hawb_no']) && $_POST['hawb_no'] && isset($_POST['customer_type']) && in_array($_POST['customer_type'], array('shipper','consignee'))) {
+						$this->manifest_model->set_customer($_POST['hawb_no'],$_POST['customer_type'],$data['reference_id']);
+						$data = $this->manifest_model->get_data($_POST['hawb_no']);
+						$file = $this->manifest_model->get_file($data->file_id);
+
+						echo json_encode(array('status'=> 'redirect', 'message'=> base_url('manifest/view/verification_details?mawb_no='.urlencode($file->mawb_no))));
+					} else {
+						echo json_encode(array('status'=> 'success', 'message'=> 'Save success'));
+					}
 				break;
 		}
 	}

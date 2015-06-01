@@ -37,12 +37,12 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Currency</label>
-                <p class="form-control"><?php echo $data->currency; ?></p>
+                <p class="form-control"><?php echo $data->currency . '   [Rp.'.$data->exchange_rate.']'; ?></p>
             </div>
         </div>
    		<div class="col-sm-3">
             <div class="form-group">
-                <label>Select Payment</label>
+                <label>Payment</label>
                 <p class="form-control"><?php echo ($data->collect) ? 'Collect' : 'Prepaid'; ?></p>
             </div>
         </div>
@@ -77,14 +77,14 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label>Rate</label>
-                    <p class="form-control"><?php echo $data->rate; ?></p>
+                    <label>Rate / Kg</label>
+                    <p class="form-control"><?php echo number_format($data->rate); ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Amount</label>
-                    <p class="form-control"><?php echo ($data->collect) ? $data->collect : $data->prepaid; ?></p>
+                    <p class="form-control"><?php echo ($data->collect) ? number_format($data->collect) : number_format($data->prepaid); ?></p>
                 </div>
             </div>
         </div>
@@ -129,8 +129,8 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label>Subtotal</label>
-            <p class="form-control">Rp. 1.234.567.890</p>
+            <label>Subtotal [ (KG * RATE) * EXCHANGE RATE ]</label>
+            <p class="form-control"><?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'all')) ?></p>
         </div>
     </div>
 </div>

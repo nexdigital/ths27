@@ -248,6 +248,8 @@
                               <label >Description</label>
                               <textarea class="form-control" id="remark" name="description" rows="5" style="resize:none"></textarea>
                             </div>
+                            <input type="hidden" name="hawb_no" value="<?php echo (isset($_GET['hawb_no'])) ? $_GET['hawb_no'] : ''?>">
+                            <input type="hidden" name="customer_type" value="<?php echo (isset($_GET['customer_type'])) ? $_GET['customer_type'] : ''?>">
                             <nav>
                               <ul class="pager">
                                 <li class="previous"><a href="#" step="3"><span aria-hidden="true">&larr;</span> Back</a></li>
@@ -309,7 +311,7 @@ $('#group').select2();
             dataType: 'json',
             data: data,
             success: function(json) {
-              if(json.status == true) {
+              if(json.status == 'success') {
                      $('.message').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
                       setTimeout(function(){   
                           $('.message').fadeOut();
@@ -320,6 +322,8 @@ $('#group').select2();
                           step_cont.hide();
                           $('#step-1').show();           
                         },800);    
+              } else if(json.status == 'redirect') {
+                setPage(json.message);
               }
             }
           })
