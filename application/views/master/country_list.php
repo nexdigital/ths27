@@ -5,7 +5,8 @@
 			<th>Country Name</th>
 			<th width="20%">Currency Symbol</th>
 			<th width="20%">Currency Name</th>
-			<th width="20%">Created By</th>
+			<th width="20%">Entry By</th>
+			<th width="20%">Entry date</th>
 			<th width="20%">Status</th>
 		</tr>
 	</thead>
@@ -18,6 +19,7 @@
 				<td>'.$row->currency_symbol.'</td>
 				<td>'.$row->currency_name.'</td>
 				<td>'.$row->created_by.'</td>
+				<td>'.$row->created_date.'</td>
 				<td>'.$row->is_active.'</td>
 			</tr>
 		';

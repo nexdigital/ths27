@@ -5,7 +5,8 @@
      <th>Description</th>
      <th>Tax base amount</th>
      <th>Tax rate</th>
-     <th>Enty by</th>
+     <th>Created by</th>
+     <th>Created date</th>
      <th>Status</th>
   </thead>
 
@@ -21,6 +22,7 @@
                       <td>'.$value->tax_base_amount.'</td>
                       <td>'.$value->tax_rate.'</td>
                       <td>'.$value->created_by.'</td>
+                      <td>'.$value->created_date.'</td>
                       <td>'.$value->is_active.'</td>
                 </tr>
 

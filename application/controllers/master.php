@@ -386,8 +386,8 @@ class Master extends MY_Controller {
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
 									'created_by'	 => "Admin",
-									'modified_by'    => "Admin"
-								);
+									'created_date'	 => date("Y-m-d")
+									);
 
 
 						$this->master_country->add_component($component); 
