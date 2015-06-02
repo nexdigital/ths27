@@ -385,8 +385,8 @@ class Master extends MY_Controller {
 									'currency_name'	 => $_POST['currency_name'],
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
-									'modified_by'	 => "Admin",
-									'modified_date'	 => date("Y-m-d")
+									'created_by'	 => "Admin",
+									'created_date'	 => date("Y-m-d")
 									);
 
 
@@ -422,16 +422,16 @@ class Master extends MY_Controller {
 							$message = "Country Name Has been Created before";
 						}else{
 
-								$component = array(
+									$component = array(
+				 					'country_id'	 => $country_id,
 									'country_name'	 => $country_name,
 									'currency_symbol'=> $_POST['currency_symbol'],
 									'currency_name'	 => $_POST['currency_name'],
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
-									'created_by'	 => "Admin",
-									'modified_by'    => "Admin"
-								);
-
+									'modified_by'	 => "Admin",
+									'modified_date'	 => date("Y-m-d")
+									);
 								$this->master_country->edit_country($country_id,$component);
 
 								$status  = TRUE;
