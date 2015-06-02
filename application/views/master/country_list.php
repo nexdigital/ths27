@@ -1,13 +1,15 @@
-<table id='table_country' class="table table-striped">
+<table id='table_country' class="table table-striped" style="text-align:center">
 	<thead>
 		<tr>
 			<th>Id</th>
 			<th>Country Name</th>
-			<th width="20%">Currency Symbol</th>
-			<th width="20%">Currency Name</th>
-			<th width="20%">Entry By</th>
-			<th width="20%">Entry date</th>
-			<th width="20%">Status</th>
+			<th >Currency Symbol</th>
+			<th >Currency Name</th>
+			<th >Entry By</th>
+			<th >Entry date</th>
+			<th >Modified date</th>
+			<th >Modified by</th>
+			<th >Status</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,6 +22,8 @@
 				<td>'.$row->currency_name.'</td>
 				<td>'.$row->created_by.'</td>
 				<td>'.$row->created_date.'</td>
+				<td>'.$row->modified_date.'</td>
+				<td>'.$row->modified_by.'</td>
 				<td>'.$row->is_active.'</td>
 			</tr>
 		';

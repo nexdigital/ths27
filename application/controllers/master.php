@@ -385,8 +385,8 @@ class Master extends MY_Controller {
 									'currency_name'	 => $_POST['currency_name'],
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
-									'created_by'	 => "Admin",
-									'created_date'	 => date("Y-m-d")
+									'modified_by'	 => "Admin",
+									'modified_date'	 => date("Y-m-d")
 									);
 
 
