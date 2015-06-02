@@ -386,7 +386,7 @@ class Master extends MY_Controller {
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
 									'created_by'	 => "Admin",
-									'created_date'	 => date("Y-m-d")
+									'created_date'	 => date("Y-m-d H:i:s")
 									);
 
 
@@ -430,7 +430,7 @@ class Master extends MY_Controller {
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
 									'modified_by'	 => "Admin",
-									'modified_date'	 => date("Y-m-d")
+									'modified_date'	 => date("Y-m-d H:i:s")
 									);
 								$this->master_country->edit_country($country_id,$component);
 
