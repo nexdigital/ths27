@@ -5,7 +5,7 @@
 	function check_available_business($id) {
 
 		$this->db->where('business_id',$id);
-		$get = $this->db->get('Master_business');
+		$get = $this->db->get('master_business');
 		return $get->result();
 
 		
@@ -13,18 +13,18 @@
 
 	function add_business($component){
 
-		$this->db->insert('Master_business',$component);
+		$this->db->insert('master_business',$component);
 	}
 
 	function edit_business($id,$component){
 
 		$this->db->where('business_id',$id);
-		$this->db->update('Master_business',$component);
+		$this->db->update('master_business',$component);
 	}
 
 	function get_business(){
 		
-		$get = $this->db->get('Master_business');
+		$get = $this->db->get('master_business');
 		return $get->result();
 		
 	}
@@ -32,7 +32,7 @@
 	function get_row($id){
 
 		$this->db->where('business_id',$id);
-		$get = $this->db->get('Master_business');
+		$get = $this->db->get('master_business');
 		return $get->row();
 	}
 
@@ -40,7 +40,7 @@
 
 		$this->db->where('business_id !=',$business_id);
 		$this->db->where('business_name',$business_name);
-		$get = $this->db->get('Master_business');
+		$get = $this->db->get('master_business');
 
 		if($get->num_rows() > 0){
 			return true;
@@ -56,7 +56,7 @@
 
 		$data['is_active'] = "deleted";
 		$this->db->where('business_id', $id);
-		$this->db->update('Master_business', $data); 
+		$this->db->update('master_business', $data); 
 
 	}
 }
