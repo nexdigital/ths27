@@ -471,6 +471,20 @@ class Master extends MY_Controller {
 						else echo "false";
 					break;
 
+					case 'autoComplete':
+						$country_id = $_GET['q'];
+						$this->db->like('country_id',$country_id);
+						$this->db->where_in('is_active',array('active'));
+						$get = $this->db->get('master_country_table');
+
+						$country_id_list = array();
+						foreach($get->result() as $row) {
+							$country_id_list[] = $row->country_id;
+						}
+
+						echo json_encode($country_id_list);
+					break;
+
 				
 					default:
 						header("HTTP/1.0 404 Not Found");

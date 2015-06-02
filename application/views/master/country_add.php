@@ -1,7 +1,7 @@
 <form id="form_country" method="post" action="<?php echo base_url()?>master/ajax/country/add">
 <div class="form-group">
 	<label>Country ID<label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="country_id" name="country_id" value="" required>
+		<input type="text" class="form-control" id="country_id" name="country_id" minlength="1"  required>
 </div>
 
 <div class="form-group">
@@ -35,6 +35,16 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		 $('input[name="country_id"]').autoComplete({
+			    minChars: 1,
+			    source: function(term, response){
+			        try { xhr.abort(); } catch(e){}
+			        xhr = $.getJSON('<?php echo base_url('master/ajax/country/autoComplete') ?>', { q: term }, function(data){ response(data); });
+			    },
+			    onSelect: function(e, term, item){
+			      setPage('<?php echo base_url('master/country/edit')?>/' + term);
+			    }
+  		});
 		
 		$('form#form_country').validate({
 			rules: { country_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/country/check_available_country" } },
