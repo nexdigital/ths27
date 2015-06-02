@@ -19,7 +19,7 @@
     <label>&nbsp;</label>
   <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_business_row->is_active == 'active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
 </div>
-  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/country/add')">Create New</button>
+  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/business/add_business')">Create New</button>
   <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
   <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/business/delete/<?php echo $get_business_row->business_id ?>')">Delete</button>
   <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/business/index')">Back</button>

@@ -2,7 +2,7 @@
 
 <div class="form-group">
     <label>Business Id <label class="required-filed">*</label></label>
-    <input type="text" class="form-control"  name="business_id" id="business_id" readonly>
+    <input type="text" class="form-control"  name="business_id" id="business_id">
 </div>
 
 <div class="form-group">
