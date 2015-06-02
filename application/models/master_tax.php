@@ -34,6 +34,31 @@ class Master_tax extends CI_Model {
 
     }
 
+    function check_tax($tax_id){
+
+        $this->db->where('tax_id',$tax_id);
+        $get = $this->db->get('master_tax'); 
+
+        if($get->num_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function check_tax_name($tax_id,$tax_name){
+
+        $this->db->where('tax_id !=',$tax_id);
+        $this->db->where('tax_name',$tax_name);
+        $get = $this->db->get('master_tax'); 
+
+        if($get->num_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 

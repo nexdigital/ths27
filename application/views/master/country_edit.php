@@ -29,7 +29,7 @@
 </div>
 
 
-  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/view/add')">Create New</button>
+  <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/country/add')">Create New</button>
   <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
   <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/country/delete/<?php echo $get_country->country_id ?>')">Delete</button>
   <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/view/country/index')">Back</button>
@@ -44,7 +44,7 @@
 					success: function(result){
 						if(result.status == true){
 
-							  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-success" role="alert">'+result.message+'</div>');
+							 $('.alert-form').html(result.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
 							    $('form#form_country').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
@@ -52,7 +52,7 @@
 							},3000);
 							 	 setTimeout(function(){ setPage('<?php echo base_url() ?>master/view/country/index') }, 3005); 
 						}else {
-							  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-danger" role="alert">'+result.message+'</div>');
+							   $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
 							  	 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
 							},800);

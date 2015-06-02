@@ -1,6 +1,6 @@
 <table id="table_tax"  class="table table-bordered table-striped table-hovered">
   <thead>
-    
+     <th>ID</th>
      <th>Tax Name</th>
      <th>Description</th>
      <th>Tax base amount</th>
@@ -15,7 +15,8 @@
               echo ' 
 
                   <tr>
-                      <td><a href="javascript:;" onClick="setPage(\''.base_url('master/tax/edit_tax/'.$value->tax_id.'').'\')">'.$value->tax_name.'</a></td>
+                      <td><a href="javascript:;" onClick="setPage(\''.base_url('master/tax/edit_tax/'.$value->tax_id.'').'\')">'.$value->tax_id.'</a></td>
+                      <td>'.$value->tax_name.'</td>
                       <td>'.$value->description.'</td>
                       <td>'.$value->tax_base_amount.'</td>
                       <td>'.$value->tax_rate.'</td>

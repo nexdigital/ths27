@@ -1,5 +1,5 @@
 <form method="post" id="form_tax" action="<?php echo base_url('master/ajax/tax/edit_tax') ?>">
-      <div class="form-group" style="display:none" >
+      <div class="form-group" >
             <label>Tax Id <label class="required-filed">*</label></label>
                      
             <input type="text" class="form-control" id="tax_id" name="tax_id" value="<?php echo $get_tax_row->tax_id?>" readonly>
@@ -60,13 +60,16 @@
  <script>
 
  		$('.level').select2();
+
+    $('form#form_tax').validate();
+
    
     $('form#form_tax').ajaxForm({
         dataType:'json',
         success: function(result){ 
             if(result.status == true){
  
-                  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-success" role="alert">'+result.message+'</div>');
+                 $('.alert-form').html(result.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
                   $('form#form_tax').resetForm();
                     
                     setTimeout(function(){ 
@@ -76,7 +79,7 @@
                     }, 800); 
             
             }else {
-                $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-danger" role="alert">'+result.message+'</div>');
+                $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
                    setTimeout(function(){
                  $('.alert-form').html(result.message).fadeOut();
               },800);

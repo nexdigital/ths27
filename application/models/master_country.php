@@ -43,6 +43,20 @@ class Master_country extends CI_Model {
 		return $get->row();
 	}
 
+	function check_country_name($country_id,$country_name){
+
+		$this->db->where('country_id != ',$country_id);
+		$this->db->where('country_name',$country_name);
+		$query = $this->db->get('master_country_table');
+
+	    if($query->num_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
 
 	
 

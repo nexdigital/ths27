@@ -1,5 +1,5 @@
 <form id="form_country" method="post" action="<?php echo base_url()?>master/ajax/country/add">
-<div class="form-group" style="display:none">
+<div class="form-group">
 	<label>Country ID<label class="required-filed">*</label></label>
 		<input type="text" class="form-control" id="country_id" name="country_id" value="" required>
 </div>
@@ -46,14 +46,14 @@
 				success: function(result){
 						if(result.status == true){
  
-							    $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-success" role="alert">'+result.message+'</div>');
+							$('.alert-form').html(result.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
 							    $('form#form_country').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
 							 	 setPage('<?php echo base_url() ?>master/view/country/index');
 							},800);
 						}else {
-							  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-danger" role="alert">'+result.message+'</div>');
+							 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
 							  	 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
 							},800);

@@ -1,6 +1,7 @@
 <table id='table_country' class="table table-striped">
 	<thead>
 		<tr>
+			<th>Id</th>
 			<th>Country Name</th>
 			<th width="20%">Currency Symbol</th>
 			<th width="20%">Currency Name</th>
@@ -12,7 +13,8 @@
 	<?php foreach($data as $row){
 		echo '
 			<tr>
-				<td><a href="javascript:;" onClick="setPage(\''.base_url('master/country/edit/'.$row->country_id.'').'\')">'.$row->country_name.'</a></td>
+				<td><a href="javascript:;" onClick="setPage(\''.base_url('master/country/edit/'.$row->country_id.'').'\')">'.$row->country_id.'</a></td>
+				<td>'.$row->country_name.'</td>
 				<td>'.$row->currency_symbol.'</td>
 				<td>'.$row->currency_name.'</td>
 				<td>'.$row->created_by.'</td>

@@ -1,8 +1,8 @@
 <form method="post" id="form_tax" action="<?php echo base_url('master/ajax/tax/add_tax') ?>">
-      <div class="form-group" style="display:none">
+      <div class="form-group" >
                         <label>Tax Id <label class="required-filed">*</label></label>
                      
-                            <input type="text" class="form-control" id="tax_id" name="tax_id" readonly>
+                            <input type="text" class="form-control" id="tax_id" name="tax_id" required>
                         
           </div>
 
@@ -11,7 +11,7 @@
                         
                             <input type="text" class="form-control" id="tax_name" name="tax_name" required>
                       
-          </div>
+                   </div>
 
 
            
@@ -70,25 +70,21 @@
     $('form#form_tax').ajaxForm({
         dataType:'json',
         success: function(result){ 
-            if(result.status == true){
+          if(result.status == true){
  
-                  $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-success" role="alert">'+result.message+'</div>');
+                  $('.alert-form').html(result.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
                   $('form#form_tax').resetForm();
                setTimeout(function(){
                  $('.alert-form').html(result.message).fadeOut();
                  setPage('<?php echo base_url() ?>master/tax/index') 
               },800);
             }else {
-                $('.alert-form').html('<div id="message_form"  class="alert alert-form alert-danger" role="alert">'+result.message+'</div>');
+                $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
                    setTimeout(function(){
                  $('.alert-form').html(result.message).fadeOut();
               },800);
             }
-            
-          
-         
-        
-        }
+           }
       });
 
  </script>

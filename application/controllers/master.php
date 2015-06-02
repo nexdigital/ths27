@@ -146,19 +146,44 @@ class Master extends MY_Controller {
 		**/
 	}
 
-	function business(){
-		$data['get_customers']	= $this->customers_model->get_data();
-		$data['title']			= 'Master Business';
-		$this->set_content('master/master_business',$data);
+
+	function business($page=null, $id=null){
+
+			switch ($page) {
+				case 'index':
+					$data['get_business']	= $this->master_business->get_business();
+					$data['title']			= 'Master Business';
+					$this->set_content('master/master_business',$data);
+
+				break;
+
+				case 'add_business' :
+				
+					$data['title']			= 'Add Business';
+					$this->set_content('master/business_form',$data);
+
+				break;
+
+				case 'edit_business' :
+					$data['get_business_row']	= $this->master_business->get_row($id);
+					$data['title']				= 'Edit Business';
+					$this->set_content('master/business_edit',$data);
+
+				break;
+
+				case 'delete':
+					$data['get_business_row']	= $this->master_business->get_row($id);
+					$data['title']				= 'Delete Business';
+					$this->set_content('master/business_delete',$data);
+
+				break;
+			}
 
 	}
 
-	function add_business(){
-		$data['get_customers']	= array('');
-		$data['title']			= 'Add Business';
-		$this->set_content('master/business_form',$data);
-	}
+	
 
+	
 	function ajax($page = null, $method = null, $id = null){
 		switch ($page) {
 			case 'bank':
@@ -229,6 +254,107 @@ class Master extends MY_Controller {
 					break;
 				}
 			break;
+
+
+			case 'business':
+
+					switch ($method) {
+						case 'add':
+
+							$business_id 		= $_POST['business_id'];
+							$business_name 		= $_POST['business_name'];
+							$description		= $_POST['description'];
+							$check_business = $this->master_business->check_available_business($business_id);
+
+							if($check_business){
+								$status = FALSE;
+								$message = "ID business has been created before";	
+
+							}else{
+
+								$component  = array('business_id' 	=> $business_id,
+													'business_name' => $business_name,	
+													'description'	=> $description,
+													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
+													'created_date'	=> date("Y-m-d"),
+													'created_by'	=> "Admin"
+													 );	
+
+								$this->master_business->add_business($component);
+								$status = TRUE;
+								$message = "Save Success";	
+
+							}
+								
+							
+							echo json_encode(array('status' => $status, 'message' =>$message ));
+						break;
+
+						case 'check_available':
+							
+								$business_name = $_GET['business_name'];
+								$get = $this->db->query("select * from master_business where business_name = '".strtolower($business_name)."'");
+								if($get->num_rows() == 0) echo "true";
+								else echo "false";
+						break;	
+
+						case 'business_edit':
+
+								$business_id 		= $_POST['business_id'];
+								$business_name 		= $_POST['business_name'];
+								$description		= $_POST['description'];
+
+								$check_name = $this->master_business->check_available_name($business_id,$business_name );
+
+								if($check_name){
+
+										$status = FALSE;
+										$message = "Business name has been created before";
+
+								}else{
+								$component  = array(	
+													'business_name' => $business_name,	
+													'description'	=> $description,
+													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive'
+													 );	
+
+								$this->master_business->edit_business($business_id,$component);
+								$status = TRUE;
+								$message = "Edit Success";	
+
+								}
+							
+
+								echo json_encode(array('status' => $status, 'message' =>$message ));
+
+
+						break;
+
+						case 'delete':
+
+						$get_business = $this->master_business->get_row($id);
+
+						if($get_business->is_active == "deleted"){
+
+							$status = FALSE;
+							$message = "Business Has been deleted before";
+
+						}else{
+							$this->master_business->delete($id);
+							$status = TRUE;
+							$message = "Business successfully deleted";
+						}
+
+						echo json_encode(array('status' => $status, 'message' => $message));
+						break;
+
+
+						default:
+							# code...
+							break;
+					}
+
+			break;
 			case 'country':
 				switch ($method) {
 					case 'add':
@@ -253,6 +379,7 @@ class Master extends MY_Controller {
 						}			
 
 				 		$component = array(
+				 					'country_id'	 => $country_id,
 									'country_name'	 => $country_name,
 									'currency_symbol'=> $_POST['currency_symbol'],
 									'currency_name'	 => $_POST['currency_name'],
@@ -286,9 +413,16 @@ class Master extends MY_Controller {
 							$v_isActive = "active";
 						}else{
 							$v_isActive = "inactive";
-						}	
+						}		
 
-						$component = array(
+						$check_name = $this->master_country->check_country_name($country_id,$country_name);
+
+						if($check_name){
+							$status = FALSE;
+							$message = "Country Name Has been Created before";
+						}else{
+
+								$component = array(
 									'country_name'	 => $country_name,
 									'currency_symbol'=> $_POST['currency_symbol'],
 									'currency_name'	 => $_POST['currency_name'],
@@ -298,10 +432,16 @@ class Master extends MY_Controller {
 									'modified_by'    => "Admin"
 								);
 
-						$this->master_country->edit_country($country_id,$component);
+								$this->master_country->edit_country($country_id,$component);
 
-						$status  = TRUE;
-						$message = "Edit Country Success";
+								$status  = TRUE;
+								$message = "Edit Country Success";
+
+
+						}
+
+
+					
 						echo json_encode(array('status' => $status , 'message' => $message));
 
 					break;
@@ -395,10 +535,13 @@ class Master extends MY_Controller {
 			case 'tax':
 				switch ($method) {
 					case 'add_tax':
+
+						$tax_id  			= $_POST['tax_id'];
 						$tax_name  			= $_POST['tax_name'];
 						$description  		= $_POST['description'];
 						$tax_base_amount  	= $_POST['tax_base_amount'];
 						$tax_rate  			= $_POST['tax_rate'];
+						$check_tax          = $this->master_tax->check_tax($tax_id);
 
 						$is_active = isset($_POST['is_active']);
 
@@ -406,9 +549,16 @@ class Master extends MY_Controller {
 							$v_isActive = "active";
 						}else{
 							$v_isActive = "inactive";
-						}			
+						}		
 
-						$component = array('tax_name' 			=> $tax_name, 
+						if($check_tax){
+							$status = FALSE;
+							$message = "Tax Id Has been created before";
+
+						}else{
+								$component = array(
+							 			   'tax_id' 			=> $tax_id, 
+										   'tax_name' 			=> $tax_name, 
 										   'description'		=> $description,
 										   'tax_base_amount'	=> $tax_base_amount,
 										   'is_active'			=> $v_isActive,
@@ -419,6 +569,10 @@ class Master extends MY_Controller {
 						$this->master_tax->add_tax($component);
 						$status = TRUE;
 						$message = "Save success!";
+
+						}	
+
+					
 						echo json_encode(array('status'=>$status,'message'=>$message));
 
 					break;
@@ -438,15 +592,24 @@ class Master extends MY_Controller {
 						$tax_base_amount  	= $_POST['tax_base_amount'];
 						$tax_rate  			= $_POST['tax_rate'];
 
+						$check_tax          = $this->master_tax->check_tax_name($id,$tax_name);
+
 						$is_active = isset($_POST['is_active']);
 
 						if($is_active != "" ){
 							$v_isActive = "active";
 						}else{
 							$v_isActive = "inactive";
-						}			
+						}	
 
-						$component = array('tax_name' 			=> $tax_name, 
+
+						if($check_tax){
+							$status = FALSE;
+							$message = "Tax Name Has been created before";
+
+						}else{
+
+							$component = array('tax_name' 			=> $tax_name, 
 										   'description'		=> $description,
 										   'tax_base_amount'	=> $tax_base_amount,
 										   'tax_rate'			=> $tax_rate,
@@ -454,9 +617,13 @@ class Master extends MY_Controller {
 										   'is_active'			=> $v_isActive
 								);
 						
-						$this->master_tax->edit_tax($id,$component);
-						$status = TRUE;
-						$message = "Edit success!";
+							$this->master_tax->edit_tax($id,$component);
+							$status = TRUE;
+							$message = "Edit success!";
+
+						}		
+
+					
 						echo json_encode(array('status'=>$status,'message'=>$message));
 
 

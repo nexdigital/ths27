@@ -1,32 +1,44 @@
-<table class="table table-bordered table-striped table-hovered">
+<table id="table_business" class="table table-bordered table-striped table-hovered">
 		<thead>
-				<th width="50px">&nbsp;</th>
+				
 				<th>Business Id</th>
 				<th>Business Name</th>
-				<th>Business Description</th>
-				<th>Entry date</th>
-				<th>Entry by</th>
+				<th>Description</th>
+				<th>Created by</th>
+				<th>Created Date</th>
+				<th>Status</th>
 
 		</thead>
 
 		<tbody>
-			<tr>
-				<td>
-					<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-				</td>
-				<td><a href="javascipr:;">ID</a></td>
-				<td>Online Shop</td>
-				<td>Loren Ipsum</td>
-				<td>23 November 2015</td>
-				<td>user 1</td>
-				
-			</tr>
+			<?php foreach ($get_business as $key => $value) {
+				echo '
+					<tr>
+						<td><a href="javascript:;" onClick="setPage(\''.base_url('master/business/edit_business/'.$value->business_id.'').'\')">'.$value->business_id.'</a></td>
+						<td>'.$value->business_name.'</td>
+						<td>'.$value->description.'</td>
+						<td>'.$value->created_by.'</td>
+						<td>'.$value->created_date.'</td>
+						<td>'.$value->is_active.'</td>
+					</tr>
+				';
 
+			}
+
+			?>
 		</tbody>
 
 
 
 </table>
-<a href="#" onClick="setPage('<?php echo base_url('master/add_business')?>')"><button class="btn btn-primary">Add Business</button></a> 
+<a href="#" onClick="setPage('<?php echo base_url('master/business/add_business')?>')"><button class="btn btn-primary">Add Business</button></a> 
 <button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
   
+ <script>
+
+ $(document).ready( function () {
+
+		$('#table_business').DataTable();
+	}
+
+ </script>
