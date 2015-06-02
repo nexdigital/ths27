@@ -1,4 +1,4 @@
-<table id="table_business" class="table table-bordered table-striped table-hovered">
+<table id='table_business' class="table table-striped">
 		<thead>
 				
 				<th>Business Id</th>
@@ -34,11 +34,10 @@
 <a href="#" onClick="setPage('<?php echo base_url('master/business/add_business')?>')"><button class="btn btn-primary">Add Business</button></a> 
 <button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
   
- <script>
+<script>
+$(document).ready( function () {
+    $('#table_business').DataTable();
+});
 
- $(document).ready( function () {
 
-		$('#table_business').DataTable();
-	}
-
- </script>
+</script>
