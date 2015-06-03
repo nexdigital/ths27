@@ -43,7 +43,7 @@
                 <select class="form-control flight_from" name="flight_from" required>
                 	<?php
                 		foreach($this->tool_model->list_country() as $row){
-                			echo '<option value="'.$row.'">'.$row.'</option>';
+                			echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
                 		}
                 	?>
                 </select>                                     
@@ -54,10 +54,10 @@
                 <label>To</label>
                 <select class="form-control flight_to" name="flight_to" required>
                 	<?php
-                		foreach($this->tool_model->list_country() as $row){
-                			echo '<option value="'.$row.'">'.$row.'</option>';
-                		}
-                	?>
+                        foreach($this->tool_model->list_country() as $row){
+                            echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
+                        }
+                    ?>
                 </select>                                  
             </div>
         </div>
