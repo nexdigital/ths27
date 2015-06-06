@@ -224,7 +224,7 @@ class Manifest extends MY_Controller {
 						$data['status_payment'] = 'Paid';
 						$data['status_delivery'] = 'New Data';
 						$data['currency']		= $_POST['currency'];
-						$data['exchange_rate']	= $this->master_currency->get_currency_value($data['currency'],'Kurs Transaction');
+						$data['exchange_rate']	= $this->master_currency->get_exchange_rate_value($_POST['currency']);
 						$data['manifest_type']  = $_POST['manifest_type'];
 						$this->manifest_model->insert_data($data);
 						$json['status'] 	= "success";
@@ -300,7 +300,7 @@ class Manifest extends MY_Controller {
 				$rate = $_POST['rate'];
 				$kg = $_POST['kg'];
 				$currency = $_POST['currency'];
-				$exchange_rate = $this->master_currency->get_currency_value($currency,'Kurs Transaction');
+				$exchange_rate = $this->master_currency->get_exchange_rate_value($currency);
 
 				$amount = $kg * $rate;
 				$amount = $amount * $exchange_rate;
@@ -310,7 +310,7 @@ class Manifest extends MY_Controller {
 				$rate = $_POST['rate'];
 				$kg = $_POST['kg'];
 				$currency = $_POST['currency'];
-				$exchange_rate = $this->master_currency->get_currency_value($currency,'Kurs Transaction');
+				$exchange_rate = $this->master_currency->get_exchange_rate_value($currency);
 
 				$charge_tata = $_POST['charge_tata'];
 				$charge_pml = $_POST['charge_pml'];

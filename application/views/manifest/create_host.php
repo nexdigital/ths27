@@ -21,8 +21,8 @@
             <div class="form-group">
                 <label>Currency</label>
                 <select class="form-control txt-currency" id="select-payment" name="currency" required>
-                	<?php foreach($this->master_currency->list_currency('Kurs Transaction') as $row) {
-                		echo '<option value="'.$row->currency_name.'">'.$row->currency_name.' ('.number_format($row->currency_value).')</option>';
+                	<?php foreach($this->master_currency->get_exchange_rate_list() as $row) {
+                		echo '<option value="'.$row->exchange_rate_name.'">'.$row->exchange_rate_name.' ('.number_format($row->exchange_rate_value).')</option>';
                 	} ?>
                 </select>
             </div>
@@ -210,6 +210,7 @@ $(document).ready(function(){
 			charge_tata = $('.txt-charge-tata').val(),
 			charge_pml = $('.txt-charge-pml').val();
 
+
 		$.post('<?php echo base_url('manifest/get/sum_amount_host') ?>',{'rate':rate,'kg':kg,'currency':currency},function(data){
 			$('.txt-amount').val(data);
 		})
@@ -217,6 +218,7 @@ $(document).ready(function(){
 		$.post('<?php echo base_url('manifest/get/sum_total_host') ?>',{'rate':rate,'kg':kg,'currency':currency,'charge_tata':charge_tata,'charge_pml':charge_pml},function(data){
 			$('.txt-subtotal').val(data);
 		})		
+
 
 	})
 
@@ -232,19 +234,19 @@ $(document).ready(function(){
 				$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');				
 			}
 			$('#message_form').fadeIn('slow');
-			$('button.submit-upload-single').button('reset');
+            $('button.submit-upload-single').removeClass('disabled');
 			setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000);
 		},
 		error:function(data){
 			$('#message_form').remove();
 			$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-danger" role="alert">Server Error!</div>');
 			$('#message_form').fadeIn('slow');
-			$('button.submit-upload-single').button('reset');
+            $('button.submit-upload-single').removeClass('disabled');
 			$('form#form_upload_manifest_single').resetForm();
 			setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000);
 		},
 		beforeSubmit:function(){
-			$('button.submit-upload-single').button('loading');
+			$('button.submit-upload-single').addClass('disabled');
 		}
 	});
 });

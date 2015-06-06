@@ -2,6 +2,15 @@
 
 class Master_currency extends CI_Model {
 	
+	function get_exchange_rate_list() {
+		$get = $this->db->query("select * from master_exchange_rate_table");
+		return $get->result();
+	}
+
+	function get_exchange_rate_value($name = 'NT') {
+		$get = $this->db->query("select * from master_exchange_rate_table  where lower(exchange_rate_name) = '".strtolower($name)."'");
+		return $get->row('exchange_rate_value');
+	}
 
 	function list_currency_type(){
 		$get = $this->db->query("select * from master_currency_type_table");

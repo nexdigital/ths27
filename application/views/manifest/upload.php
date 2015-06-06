@@ -88,21 +88,21 @@ $(document).ready(function(){
 			} else if(data.status == "warning") {
 				$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');				
 			}
+            $('.submit-upload').removeClass('disabled');
 			$('#message_form').fadeIn('slow');
-			$('button.submit-upload').button('reset');
 			setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000);
 		},
 		error:function(data){
 			$('#message_form').remove();
 			$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-danger" role="alert">Server Error!</div>');
 			$('#message_form').fadeIn('slow');
-			$('button.submit-upload').button('reset');
+            $('.submit-upload').removeClass('disabled');
 			$('form#form_upload_manifest').resetForm();
 			setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000);
 		},
 		beforeSubmit:function(){
-			$('button.submit-upload').button('loading');
-		}
+            $('.submit-upload').addClass('disabled');
+        }
 	});
 	/*Form upload manfiest End*/
 });
