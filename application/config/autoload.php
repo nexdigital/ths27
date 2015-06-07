@@ -118,8 +118,7 @@ $autoload['model'] = array(
 							'master_country',
 							'master_bank',
 							'master_tax',
-							'master_business',
-							'partner_model'
+							'master_business'
 							);
 
 
@@ -129,8 +128,6 @@ define('path_attachment',PATH.'/asset/attachment/');
 define('path_barcode',PATH.'/asset/barcode/');
 define('path_pdf',PATH.'/asset/pdf/');
 define('path_download',PATH.'/download/');
-
-date_default_timezone_set('Asia/Bangkok');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

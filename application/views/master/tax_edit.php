@@ -16,7 +16,7 @@
             <div class="form-group">
             <label>Tax base amount <label class="required-filed">*</label></label>
                       
-          <input type="text" name="tax_base_amount" class="form-control" id="tax_base_amount" value="<?php echo $get_tax_row->tax_base_amount?>" required>
+          <input type="text" name="tax_base_amount" class="form-control" id="tax_base_amount" value=" <?php echo $get_tax_row->tax_base_amount?>" required>
                        
           </div>
 

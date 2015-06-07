@@ -28,16 +28,7 @@
 
 <script>
 
- $('input[name="business_id"]').autoComplete({
-          minChars: 1,
-          source: function(term, response){
-              try { xhr.abort(); } catch(e){}
-              xhr = $.getJSON('<?php echo base_url('master/ajax/business/autoComplete') ?>', { q: term }, function(data){ response(data); });
-          },
-          onSelect: function(e, term, item){
-            setPage('<?php echo base_url('master/business/edit_business')?>/' + term);
-          }
-      });
+
 
     $('form#form_business').validate({
      		rules: { business_name:
@@ -84,11 +75,11 @@
             }
           
           
-        
+          //alert(result.message);
          
         
         }
       });
 
-
+/**/
 </script>

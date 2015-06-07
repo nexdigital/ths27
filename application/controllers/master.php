@@ -14,53 +14,6 @@ class Master extends MY_Controller {
 		$this->set_content('content/blank',array('title' => 'Dashboard'));
 	}
 
-
-	function partner($method= null,$id=null){
-		switch ($method) {
-			case 'index':
-					
-
-						$data['get_partner']	= $this->partner_model->get_partner($id);
-						$data['title']			= 'Partner';
-						$this->set_content('master/partner',$data);
-
-				break;
-
-			case 'add':
-					
-
-						//$data['data']	= $this->master_country->list_country();
-						$data['title']	= 'Create Partner';
-						$this->set_content('master/partner_add',$data);
-
-			break;
-
-			case 'edit':
-			
-						$data['get_partner']	= $this->partner_model->get_partner_row($id);
-						$data['title']	= 'Edit Partner';
-						$this->set_content('master/partner_edit',$data);
-
-			break;
-
-			case 'delete':
-						$data['get_partner']	= $this->partner_model->get_partner_row($id);
-						$data['title']	= 'Delete Partner';
-						$this->set_content('master/partner_delete',$data);
-
-
-			break;
-
-
-
-			
-			default:
-				# code...
-				break;
-		}
-
-	}
-
 	function view($master = null,$page = null) {
 		switch ($master) {
 			case 'country':
@@ -395,19 +348,6 @@ class Master extends MY_Controller {
 						echo json_encode(array('status' => $status, 'message' => $message));
 						break;
 
-						case 'autoComplete':
-								$business_id = $_GET['q'];
-								$this->db->like('business_id',$business_id);
-								$this->db->where_in('is_active',array('active'));
-								$get = $this->db->get('master_business');
-
-								$business_id_list = array();
-								foreach($get->result() as $row) {
-									$business_id_list[] = $row->business_id;
-								}
-								echo json_encode($business_id_list);
-						break;
-
 
 						default:
 							# code...
@@ -727,146 +667,10 @@ class Master extends MY_Controller {
 
 				break;
 
-				case 'autoComplete':
-								$business_id = $_GET['q'];
-								$this->db->like('tax_id',$business_id);
-								$this->db->where_in('is_active',array('active'));
-								$get = $this->db->get('master_tax');
 
-								$tax_id_list = array();
-								foreach($get->result() as $row) {
-									$tax_id_list[] = $row->tax_id;
-								}
-								echo json_encode($tax_id_list);
-				break;
 			}
+
 			break;
-
-				case 'partner':
-						switch ($method) {
-							case 'partner_add':
-
-							$is_active = isset($_POST['is_active']);
-
-								if($is_active != "" ){
-										$v_isActive = "active";
-								}else{
-										$v_isActive = "inactive";
-								}		
-
-							$partmer_id = $_POST['partner_id'];
-							$check_partner = $this->partner_model->check_avaiable_partner($partmer_id);
-
-								$data = array(
-												'partner_id'		=> $partmer_id,
-												'company_name'		=> $_POST['partner_name'],
-												'telephone_number'	=> $_POST['telephone'],
-												'email'				=> $_POST['email'],
-												'address'			=> $_POST['address'],
-												'city'				=> $_POST['city'],
-												'country_id'		=> $_POST['country'],
-												'zipcode'			=> $_POST['zipcode'],
-												'description'		=> $_POST['description'],
-												'is_active'			=> $v_isActive,
-												'entry_by'			=> "Admin",
-												'entry_date'		=> date('Y-m-d h:m:s')
-											);
-								$this->partner_model->add_partner($data);
-
-								$status = TRUE;
-								$message = "Save Success";
-								echo json_encode(array('status' => $status,'message'=>$message));
-
-							break;
-
-							case 'edit':
-
-								$is_active = isset($_POST['is_active']);
-
-								if($is_active != "" ){
-										$v_isActive = "active";
-								}else{
-										$v_isActive = "inactive";
-								}		
-
-								$partner_id 	= $_POST['partner_id'];
-								$partner_name 	= $_POST['partner_name'];
-								$check_partner 	= $this->partner_model->check_avaiable_partner($partner_id,$partner_name);
-
-								if($check_partner){
-									$status  = FALSE;
-									$message = "Partner has been created before";
-								}else{
-
-									$data = array(
-													'partner_id'		=> $partner_id,
-													'company_name'		=> $partner_name,
-													'telephone_number'	=> $_POST['telephone'],
-													'email'				=> $_POST['email'],
-													'address'			=> $_POST['address'],
-													'city'				=> $_POST['city'],
-													'country_id'		=> $_POST['country'],
-													'zipcode'			=> $_POST['zipcode'],
-													'description'		=> $_POST['description'],
-													'is_active'			=> $v_isActive,
-													'update_by'			=> "Admin",
-													'update_date'		=> date('Y-m-d h:m:s')
-												);
-									$this->partner_model->update_partner($partner_id,$data);
-
-									$status = TRUE;
-									$message = "Update Success";
-
-								}
-
-									echo json_encode(array('status' => $status,'message'=>$message));
-
-
-
-							break;
-
-							case 'check_available_partner':
-
-									$partner_name = $_GET['partner_name'];
-									$get = $this->db->query("select * from partner where lower(company_name) = '".strtolower($partner_name)."'");
-									if($get->num_rows() == 0) echo "true";
-									else echo "false";
-							break;
-
-							case 'delete_partner':
-
-								$get_partner = $this->partner_model->get_partner_row($id);
-
-								if($get_partner->is_active == "deleted"){
-
-									$status = FALSE;
-									$message = "Partner has been deleted before";	
-
-								}else{
-								$data['is_active'] = "deleted";
-								$this->partner_model->update_partner($id,$data);
-								$status = TRUE;
-								$message = "Deleted Success";
-								
-								}
-								echo json_encode(array('status' => $status,'message'=>$message));
-							break;
-
-							case 'autoComplete':
-								$partner_id = $_GET['q'];
-								$this->db->like('partner_id',$partner_id);
-								$this->db->where_in('is_active',array('active'));
-								$get = $this->db->get('partner');
-
-								$partner_id_list = array();
-								foreach($get->result() as $row) {
-									$partner_id_list[] = $row->partner_id;
-								}
-								echo json_encode($partner_id_list);
-							break;
-						}
-
-				break;
 		}
 	}
 
