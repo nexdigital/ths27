@@ -60,6 +60,17 @@
 
  <script>
 
+  $('input[name="tax_id"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('master/ajax/tax/autoComplete') ?>', { q: term }, function(data){ response(data); });
+          },
+          onSelect: function(e, term, item){
+            setPage('<?php echo base_url('master/tax/edit_tax')?>/' + term);
+          }
+      });
+
  		$('.level').select2();
     $('form#form_tax').validate({
       rules: { tax_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/tax/check_available_tax" } },
