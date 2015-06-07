@@ -32,7 +32,9 @@
         <div class="form-group">
             <label>Partner</label>
             <select class="form-control flight_from" name="partner_id">
-                         
+                <?php foreach ($this->tool_model->list_partner() as $key => $value) {
+                    echo "<option value='".$value->partner_id."'>".$value->company_name."</option>";
+                } ?>          
             </select>
         </div>
     </div>
