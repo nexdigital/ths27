@@ -61,6 +61,10 @@ class Customers extends MY_Controller {
 	function add_customer(){
 		$data['reference_id']	= $this->customers_model->customer_new_id();
 		$data['get_group']		= $this->master_customer->get_group();
+		if(isset($_GET['hawb_no'])) {
+			$data['data_host']		= $this->manifest_model->get_data($_GET['hawb_no']);
+			$data['customer_type']		= $_GET['customer_type'];
+		}
 		$data['title']			= 'Add Customer';
 		$this->set_content('customers/customer_add',$data);
 

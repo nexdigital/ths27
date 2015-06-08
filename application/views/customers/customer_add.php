@@ -55,6 +55,11 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
+                
+                <?php if(isset($data_host)) {?>
+                <div class="alert alert-warning" role="alert"><?php echo $data_host->$customer_type ?></div>
+                <?php } ?>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                        Customer Form
