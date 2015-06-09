@@ -39,7 +39,8 @@
 					<div class="btn-group" role="group" aria-label="...">';
 					echo ($total_similar_shipper > 0) ? '<button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=shipper\')">Similar ['.$total_similar_shipper.']</button>' : '';
 					if($this->customers_model->get_by_id($row->shipper) == false) {
-					echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=shipper').'\')">Add Customer</button>';
+						echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=shipper').'\')">Add Customer</button>';
+					}
 					echo '
 					</div>
 				</td>
@@ -49,7 +50,8 @@
 
 					echo ($total_similar_consignee) ? '<button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=consignee\')">Similar ['.$total_similar_consignee.']</button>' : '';
 					if($this->customers_model->get_by_id($row->shipper) == false) {
-					echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=consignee').'\')">Add Customer</button>';
+						echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=consignee').'\')">Add Customer</button>';
+					}
 					echo '
 					</div>
 				</td>
