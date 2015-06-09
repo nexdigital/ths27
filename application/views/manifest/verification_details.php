@@ -34,26 +34,33 @@
 					  </ul>
 					</div>
 				</td>
-				<td class="shipper-'.$row->hawb_no.'">
-					<div class="customer-details-unverified">'.$row->shipper.'</div>
-					<div class="btn-group" role="group" aria-label="...">';
-					echo ($total_similar_shipper > 0) ? '<button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=shipper\')">Similar ['.$total_similar_shipper.']</button>' : '';
+				<td class="shipper-'.$row->hawb_no.'">';
 					if($this->customers_model->get_by_id($row->shipper) == false) {
-						echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=shipper').'\')">Add Customer</button>';
+						echo '
+							<div class="customer-details-unverified">'.$row->shipper.'</div>
+							<div class="btn-group" role="group" aria-label="...">';
+						echo ($total_similar_consignee) ? '<button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=shipper\')">Similar ['.$total_similar_consignee.']</button>' : '';
+						echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=shipper').'\')">Add Customer</button>
+							</div>';
+					} else {
+						$shipper = $this->customers_model->get_by_id($row->shipper);
+						echo '<div class="customer-details-unverified">'.$shipper->name .'<br/>'.$shipper->address.'<br/>'.$shipper->phone.'</div>';
 					}
-					echo '
-					</div>
+				echo '
 				</td>
-				<td class="consignee-'.$row->hawb_no.'">
-					<div class="customer-details-unverified">'.$row->consignee.'</div>
-					<div class="btn-group" role="group" aria-label="...">';
-
-					echo ($total_similar_consignee) ? '<button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=consignee\')">Similar ['.$total_similar_consignee.']</button>' : '';
-					if($this->customers_model->get_by_id($row->shipper) == false) {
-						echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=consignee').'\')">Add Customer</button>';
+				<td class="consignee-'.$row->hawb_no.'">';
+					if($this->customers_model->get_by_id($row->consignee) == false) {
+						echo '
+							<div class="customer-details-unverified">'.$row->consignee.'</div>
+							<div class="btn-group" role="group" aria-label="...">';
+						echo ($total_similar_consignee) ? '<button type="button" class="btn btn-xs btn-success" onClick="setPage(\''.base_url().'manifest/view/similar_question?hawb_no='.$row->hawb_no.'&customer_type=consignee\')">Similar ['.$total_similar_consignee.']</button>' : '';
+						echo '<button type="button" class="btn btn-xs btn-primary" onClick="setPage(\''.base_url('customers/add_customer?hawb_no='.$row->hawb_no.'&customer_type=consignee').'\')">Add Customer</button>
+							</div>';
+					} else {
+						$consignee = $this->customers_model->get_by_id($row->consignee);
+						echo '<div class="customer-details-unverified">'.$consignee->name .'<br/>'.$consignee->address.'<br/>'.$consignee->phone.'</div>';
 					}
-					echo '
-					</div>
+				echo '
 				</td>
 				<td>'.number_format($row->prepaid).'</td>
 				<td>'.number_format($row->collect).'</td>
