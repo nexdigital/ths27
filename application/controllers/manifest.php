@@ -57,9 +57,6 @@ class Manifest extends MY_Controller {
 				$data['title'] = 'Details Host #'.$hawb_no;
 				$this->set_content('manifest/details',$data);
 			break;
-			default:
-				//header("HTTP/1.0 404 Not Found");
-			break;
 		}
 	}
 
@@ -284,10 +281,6 @@ class Manifest extends MY_Controller {
 				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' has been hold!'));
 
 			break;
-
-			default:
-				//header("HTTP/1.0 404 Not Found");
-			break;
 		}
 	}
 
@@ -333,10 +326,6 @@ class Manifest extends MY_Controller {
 				$get = $this->db->get('customer_table');
 				echo json_encode($get->result());
 				break;
-			
-			default:
-				//header("HTTP/1.0 404 Not Found");
-			break;
 		}
 	}
 
