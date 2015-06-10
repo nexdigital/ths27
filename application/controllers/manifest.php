@@ -58,7 +58,7 @@ class Manifest extends MY_Controller {
 				$this->set_content('manifest/details',$data);
 			break;
 			default:
-				header("HTTP/1.0 404 Not Found");
+				//header("HTTP/1.0 404 Not Found");
 			break;
 		}
 	}
@@ -286,7 +286,7 @@ class Manifest extends MY_Controller {
 			break;
 
 			default:
-				header("HTTP/1.0 404 Not Found");
+				//header("HTTP/1.0 404 Not Found");
 			break;
 		}
 	}
@@ -335,7 +335,7 @@ class Manifest extends MY_Controller {
 				break;
 			
 			default:
-				header("HTTP/1.0 404 Not Found");
+				//header("HTTP/1.0 404 Not Found");
 			break;
 		}
 	}
