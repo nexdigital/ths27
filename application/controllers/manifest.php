@@ -279,7 +279,7 @@ class Manifest extends MY_Controller {
 
 				if($get_shipper->num_rows() > 0 && $get_consignee->num_rows() > 0) {
 						$this->manifest_model->update_status($hawb_no,'hold');
-					echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Verified!'));
+					echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Hold!'));
 				} else {
 					echo json_encode(array('status' => 'failed','message' => 'Please completed the shipper or consignee'));
 				}
