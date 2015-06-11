@@ -277,8 +277,16 @@ class Manifest extends MY_Controller {
 				$get_shipper = $this->db->query("select * from customer_table where reference_id = '$data->shipper'");
 				$get_consignee = $this->db->query("select * from customer_table where reference_id = '$data->consignee'");
 
-				$this->manifest_model->update_status($hawb_no,'hold');
-				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' has been hold!'));
+				if($get_shipper->num_rows() > 0 && $get_consignee->num_rows() > 0) {
+						$this->manifest_model->update_status($hawb_no,'hold');
+					echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Verified!'));
+				} else {
+					echo json_encode(array('status' => 'failed','message' => 'Please completed the shipper or consignee'));
+				}
+
+
+			/*	$this->manifest_model->update_status($hawb_no,'hold');
+				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' has been hold!')); */
 
 			break;
 		}
