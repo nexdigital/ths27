@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped table-hovered">
+<table id="table_verification" class="table table-bordered table-striped table-hovered">
 	<thead>
 		<tr>
 			<th>Mawb No</th>
@@ -20,3 +20,14 @@
 		} ?>
 	</tbody>
 </table>
+
+<script>
+	
+	$(document).ready(function(){
+		
+		 $('#table_verification').DataTable();
+
+	})
+
+
+</script>

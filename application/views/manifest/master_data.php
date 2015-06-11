@@ -29,7 +29,7 @@
 	</table>
 </div>
 
-<table class="table table-bordered table-striped">
+<table id="table_data" class="table table-bordered table-striped">
 	<thead>
 		<tr>
 			<th width="10%">Hawb No</th>
@@ -74,6 +74,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+	$("#table_data").DataTable();	
 	$('select.sumoselect').SumoSelect();
 	$('#sandbox-container .input-daterange').datepicker({
 	    format: "yyyy-mm-dd"
