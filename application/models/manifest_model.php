@@ -16,6 +16,10 @@ class Manifest_model extends CI_Model {
 	function insert_data($data) {
 		$this->db->insert('manifest_data_table',$data);
 	}
+	function update_data($hawb_no,$data) {
+		$this->db->where('hawb_no',$hawb_no);
+		$this->db->update('manifest_data_table',$data);
+	}
 	function update_value_field($hawb_no,$field,$value) {
 		$this->db->query("update manifest_data_table set ".$field." = ".$field." + ".$value." where hawb_no = '".$hawb_no."'");
 	}
@@ -103,6 +107,26 @@ class Manifest_model extends CI_Model {
 		else return false;
 	}
 
+	function get_discount($hawb_no) {
+		$query = $this->db->query("select * from discount_table where hawb_no = '$hawb_no'");
+		if($query->num_rows() > 0) return $query->result();
+		else return false;
+	}
+
+	function insert_discount($discount) {
+		$this->db->insert('discount_table',$discount);
+	}
+
+	function get_extra_charge($hawb_no) {
+		$query = $this->db->query("select * from manifest_extra_charge_table where hawb_no = '$hawb_no'");
+		if($query->num_rows() > 0) return $query->result();
+		else return false;
+	}
+
+	function insert_charge($charge) {
+		$this->db->insert('manifest_extra_charge_table',$charge);
+	}
+
 	function set_customer($hawb_no,$customer_type,$reference_id){
 		$this->db->where('hawb_no',$hawb_no);
 		$this->db->set($customer_type,$reference_id);
@@ -116,10 +140,63 @@ class Manifest_model extends CI_Model {
 	}
 
 	function subtotal($hawb_no,$type = 'all') {
-		$data = $this->get_data($hawb_no);
+		$data = $this->get_by_hawb($hawb_no);
 		$subtotal = 0;
 		switch ($type) {
 			case 'all':
+				$discount = $this->get_discount($data->hawb_no);
+				$charge = $this->get_extra_charge($data->hawb_no);
+
+				$rate = $data->rate;
+				$kurs = $data->exchange_rate;
+				$disc_total = 0;
+
+				if($discount) {
+					foreach($discount as $row) {
+						if($row->type == 'rate') {
+							$rate -= $row->value;
+						}
+						if($row->type == 'kurs') {
+							$kurs -= $row->value;
+						}
+						if($row->type == 'total') {
+							$disc_total += $row->value;
+						}
+					}
+				}
+
+				$charge_rate = 0;
+				$charge_total = 0;
+				if($charge) {
+					foreach ($charge as $row) {
+						if($row->currency == $data->currency) {
+							$charge_rate += $row->value;
+						} else {
+							$charge_total += $row->value;							
+						}
+					}
+				}
+
+				$total_rate = $data->kg * $rate;
+				$total_rate += $charge_rate;
+
+				$subtotal = $total_rate * $kurs;
+				$subtotal -= $disc_total;
+				$subtotal += $charge_total;
+
+				return $subtotal;
+			break;
+			case 'normal':
+				$subtotal += $data->kg * $data->rate;
+
+				$subtotal += $data->other_charge_tata;
+				$subtotal += $data->other_charge_pml;
+				
+				$subtotal = $subtotal * $data->exchange_rate;
+				return $subtotal;
+			break;
+
+			case 'amount':
 				$subtotal += $data->kg * $data->rate;
 				$subtotal = $subtotal * $data->exchange_rate;
 				return $subtotal;

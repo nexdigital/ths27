@@ -50,7 +50,7 @@
 						<td>
 							<!-- Split button -->
 							<div class="btn-group">
-							  <button type="button" class="btn btn-default btn-sm">'.$row->hawb_no.'</button>
+							  <button type="button" class="btn btn-default btn-sm" onCLick="setPage(\''.base_url('manifest/view/details?hawb_no='.$row->hawb_no).'\')">'.$row->hawb_no.'</button>
 							  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
 							    <span class="caret"></span>
 							    <span class="sr-only">Toggle Dropdown</span>
@@ -64,7 +64,7 @@
 						<td>'.$shipper->row('name').'</td>
 						<td>'.$consignee->row('name').'</td>
 						<td>'.$row->status.'</td>
-						<td></td>
+						<td>'.$row->last_update.'</td>
 					</tr>
 				';
 			}

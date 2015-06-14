@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($similar_customer as $row) {
+    <?php foreach($similar_customer as $row) {
       echo '
       <tr>
         <td><a href="javascript:;" class="btn btn-primary btn-sm select-customer" reference_id="'.$row->reference_id.'">'.$row->reference_id.'</td>

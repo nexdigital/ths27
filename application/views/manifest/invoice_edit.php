@@ -14,14 +14,14 @@
 		<div class="form-group">
 		    <label>Shipper</label>
 		    <input class="form-control" value="<?php echo $shipper->row('name') ?>">
-		    <input class="form-control" value="<?php echo $shipper->row('address').' '.$shipper->row('city').' '.$shipper->row('country') ?>">
+		    <textarea class="form-control"><?php echo $shipper->row('address')."\n".$shipper->row('city')."\n".$shipper->row('country') ?></textarea>
 		    <input class="form-control" value="<?php echo $shipper->row('attn') ?>">
 		</div>
 
 		<div class="form-group">
 		    <label>Consignee</label>
 		    <input class="form-control" value="<?php echo $consignee->row('name') ?>">
-		    <input class="form-control" value="<?php echo $consignee->row('address').' '.$consignee->row('city').' '.$consignee->row('country') ?>">
+		    <textarea class="form-control"><?php echo $consignee->row('address')."\n".$consignee->row('city')."\n".$consignee->row('country') ?></textarea>
 		    <input class="form-control" value="<?php echo $consignee->row('attn') ?>">
 		</div>
 
@@ -46,6 +46,8 @@
 	</div>
 </form>
 
-<div class="toolbar">
-	<h2>History Invoice</h2>
+<div class="col-lg-12">
+	<div class="toolbar">
+		<h3>History Invoice</h3>
+	</div>
 </div>

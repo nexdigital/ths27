@@ -54,8 +54,16 @@ class Manifest extends MY_Controller {
 			case 'details':
 				$hawb_no = $_GET['hawb_no'];
 				$data['data'] = $this->manifest_model->get_by_hawb($hawb_no);
+				$data['discount'] = $this->manifest_model->get_discount($hawb_no);
+				$data['extra_charge'] = $this->manifest_model->get_extra_charge($hawb_no);
 				$data['title'] = 'Details Host #'.$hawb_no;
 				$this->set_content('manifest/details',$data);
+			break;
+			case 'edit':
+				$hawb_no = $_GET['hawb_no'];
+				$data['data'] = $this->manifest_model->get_by_hawb($hawb_no);
+				$data['title'] = 'Edit Host #'.$hawb_no;
+				$this->set_content('manifest/edit',$data);
 			break;
 		}
 	}
@@ -240,6 +248,31 @@ class Manifest extends MY_Controller {
 
 			break;
 
+			case 'update':
+				$hawb_no = $_GET['hawb_no'];
+				$data['pkg']			= $_POST['pkg'];
+				$data['pcs']			= $_POST['pcs'];
+				$data['value']			= $_POST['value'];
+				$data['kg']				= $_POST['kg'];
+				$data['rate']			= $_POST['rate'];
+
+				$data['collect']		= ($_POST['type_payment'] == 'collect') ? str_ireplace(',','',$_POST['amount']) : null;
+				$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? str_ireplace(',','',$_POST['amount']) : null;
+
+				$data['description']	= $_POST['description'];
+				$data['remarks']		= $_POST['remarks'];
+				$data['other_charge_tata'] = $_POST['other_charge_tata'];
+				$data['other_charge_pml'] = $_POST['other_charge_pml'];
+
+				$data['currency']		= $_POST['currency'];
+				$data['exchange_rate']	= $this->master_currency->get_exchange_rate_value($_POST['currency']);
+				$this->manifest_model->update_data($hawb_no, $data);
+
+				$json['status'] 	= "success";
+				$json['message'] 	= "<strong>Save Success!</strong>";
+				echo json_encode($json);
+			break;
+
 			case 'check_available_mawb':
 				$mawb_no = $_GET['mawb_no'];
 				$available_mawb = $this->manifest_model->check_available_mawb($mawb_no);
@@ -287,7 +320,26 @@ class Manifest extends MY_Controller {
 
 			/*	$this->manifest_model->update_status($hawb_no,'hold');
 				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' has been hold!')); */
+			break;
 
+			case 'add_discount':
+				$discount['hawb_no'] = $_POST['hawb_no'];
+				$discount['type'] = $_POST['type'];
+				$discount['value'] = $_POST['value'];
+				$discount['created_date'] = date('Y-m-d h:i:s');
+				$discount['created_by'] = null;
+				$this->manifest_model->insert_discount($discount);
+			break;
+
+			case 'add_charge':
+				$charge['hawb_no'] = $_POST['hawb_no'];
+				$charge['type'] = $_POST['type'];
+				$charge['description'] = $_POST['description'];
+				$charge['currency'] = $_POST['currency'];
+				$charge['value'] = $_POST['value'];
+				$charge['created_date'] = date('Y-m-d h:i:s');
+				$charge['created_by'] = null;
+				$this->manifest_model->insert_charge($charge);
 			break;
 		}
 	}
@@ -322,6 +374,53 @@ class Manifest extends MY_Controller {
 
 				$amount = $amount * $exchange_rate;
 				echo number_format($amount);
+			break;
+			case 'sum_total_after_discount':
+				$hawb_no = $_POST['hawb_no'];
+				$disc_type = $_POST['type'];
+				$disc_value = $_POST['value'];
+
+				$data = $this->manifest_model->get_by_hawb($hawb_no);
+				$discount = $this->manifest_model->get_discount($hawb_no);
+
+				$rate = $data->rate;
+				$kurs = $data->exchange_rate;
+				$total = $this->manifest_model->subtotal($data->hawb_no,'all');
+
+				if(in_array($disc_type, array('rate','kurs'))) {
+					$disc_rate = 0;
+					$disc_kurs = 0;
+					$disc_total = 0;
+
+					if($discount) {
+						foreach($discount as $row) {
+							if($row->type == 'rate') {
+								$disc_rate += $row->value;
+							}
+							if($row->type == 'kurs') {
+								$disc_kurs += $row->value;
+							}
+							if($row->type == 'total') {
+								$disc_total += $row->value;
+							}
+						}
+					}
+					
+					if($disc_type == 'rate') {
+						$disc_rate += $disc_value;
+					}
+					if($disc_type == 'kurs') {
+						$disc_kurs += $disc_value;
+					}
+					$rate -= $disc_rate;
+					$kurs -= $disc_kurs;
+
+					$total = ($data->kg * $rate) * $kurs - $disc_total;
+				} else {
+					$total -= $disc_value;
+				}
+
+				echo number_format($total);
 			break;
 			case 'customer':
 				$query = $_GET['term'];
