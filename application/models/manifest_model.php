@@ -180,6 +180,9 @@ class Manifest_model extends CI_Model {
 				$total_rate = $data->kg * $rate;
 				$total_rate += $charge_rate;
 
+				$total_rate += $data->other_charge_tata;
+				$total_rate += $data->other_charge_pml;
+
 				$subtotal = $total_rate * $kurs;
 				$subtotal -= $disc_total;
 				$subtotal += $charge_total;
