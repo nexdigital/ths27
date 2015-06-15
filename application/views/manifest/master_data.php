@@ -1,4 +1,4 @@
-<div class="toolbar">
+<div class="toolbar" style="display:none;">
 	<table>
 		<tr>
 			<td>
@@ -29,7 +29,7 @@
 	</table>
 </div>
 
-<table id="table_data" class="table table-bordered table-striped">
+<table id="table_data" class="table table-striped">
 	<thead>
 		<tr>
 			<th width="10%">Hawb No</th>

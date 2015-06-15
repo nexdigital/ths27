@@ -1,4 +1,4 @@
-<table id="table_verification" class="table table-bordered table-striped table-hovered">
+<table id="table_verification" class="table table-striped">
 	<thead>
 		<tr>
 			<th>Mawb No</th>

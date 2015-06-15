@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="alert alert-warning" role="alert"><?php echo $data->$customer_type ?></div>
-<table class="table table-bordered table-striped table-hovered">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Reference Id</th>

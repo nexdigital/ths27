@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped table-hovered">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th width="15%;">Hawb No</th>
