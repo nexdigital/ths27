@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table id="table_ver_detail" class="table table-striped">
 	<thead>
 		<tr>
 			<th width="15%;">Hawb No</th>
@@ -76,7 +76,14 @@
 </table>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
+
+
+ $('#table_ver_detail').DataTable();
+
+
+
 	$('a.select-verified').click(function(){
 		var hawb_no = $(this).attr('hawb_no');
 		$.ajax({

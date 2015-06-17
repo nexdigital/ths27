@@ -32,7 +32,7 @@
 <table id="table_data" class="table table-striped">
 	<thead>
 		<tr>
-			<th width="10%">Hawb No</th>
+			<th width="15%">Hawb No</th>
 			<th width="35%">Shipper</th>
 			<th width="35%">Consignee</th>
 			<th width="10%">Status</th>
