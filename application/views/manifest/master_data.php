@@ -35,7 +35,7 @@
 			<th width="15%">Hawb No</th>
 			<th width="35%">Shipper</th>
 			<th width="35%">Consignee</th>
-			<th width="35%">Type</th>
+			<th width="10%">Type</th>
 			<th width="10%">Status</th>
 			<th width="10%">Last Updated</th>
 		</tr>
