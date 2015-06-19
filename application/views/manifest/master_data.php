@@ -35,6 +35,7 @@
 			<th width="15%">Hawb No</th>
 			<th width="35%">Shipper</th>
 			<th width="35%">Consignee</th>
+			<th width="35%">Type</th>
 			<th width="10%">Status</th>
 			<th width="10%">Last Updated</th>
 		</tr>
@@ -63,6 +64,7 @@
 						</td>
 						<td>'.$shipper->row('name').'</td>
 						<td>'.$consignee->row('name').'</td>
+						<td>'.$row->manifest_type.'</td>
 						<td>'.$row->status.'</td>
 						<td>'.$row->last_update.'</td>
 					</tr>
