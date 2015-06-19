@@ -225,6 +225,7 @@ class Manifest extends MY_Controller {
 						$data['other_charge_tata'] = $_POST['other_charge_tata'];
 						$data['other_charge_pml'] = $_POST['other_charge_pml'];
 
+						$data['status']			= 'verified';
 						$data['created_date']	= date('Y-m-d');
 						$data['status_payment'] = 'Paid';
 						$data['status_delivery'] = 'New Data';
