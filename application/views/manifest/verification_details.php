@@ -62,8 +62,8 @@
 					}
 				echo '
 				</td>
-				<td>'.number_format($row->prepaid).'</td>
-				<td>'.number_format($row->collect).'</td>
+				<td>'.$row->prepaid.'</td>
+				<td>'.$row->collect.'</td>
 				<td>'.$row->pkg.'</td>
 				<td>'.$row->pcs.'</td>
 				<td>'.$row->kg.'</td>
