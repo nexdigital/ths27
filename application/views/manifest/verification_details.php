@@ -1,7 +1,7 @@
 <table id="table_ver_detail" class="table table-striped">
 	<thead>
 		<tr>
-			<th width="15%;">Hawb No</th>
+			<th width="20%;">Hawb No</th>
 			<th width="30%;">Shipper</th>
 			<th width="30%;">Consignee</th>
 			<th>Pp</th>
