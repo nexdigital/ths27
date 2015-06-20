@@ -308,7 +308,7 @@ class Master extends MY_Controller {
 					switch ($method) {
 						case 'add':
 
-							$business_id 		= $_POST['business_id'];
+							$business_id 		= str_replace(' ', '', $_POST['business_id']);
 							$business_name 		= $_POST['business_name'];
 							$description		= $_POST['description'];
 							$check_business = $this->master_business->check_available_business($business_id);
@@ -419,7 +419,7 @@ class Master extends MY_Controller {
 				switch ($method) {
 					case 'add':
 					
-					$country_id =  $_POST['country_id'];
+					$country_id = str_replace(' ', '', $_POST['country_id']);
 					$country_name = $_POST['country_name'];
 					$check_country = $this->master_country->check_id_country($country_id);		
 
@@ -610,7 +610,7 @@ class Master extends MY_Controller {
 				switch ($method) {
 					case 'add_tax':
 
-						$tax_id  			= $_POST['tax_id'];
+						$tax_id  			= str_replace(' ', '', $_POST['tax_id']);
 						$tax_name  			= $_POST['tax_name'];
 						$description  		= $_POST['description'];
 						$tax_base_amount  	= $_POST['tax_base_amount'];
@@ -754,7 +754,7 @@ class Master extends MY_Controller {
 										$v_isActive = "inactive";
 								}		
 
-							$partner_id = $_POST['partner_id'];
+							$partner_id =  str_replace(' ', '', $_POST['partner_id']);
 							$partner_name = $_POST['partner_name'];
 							$check_partner = $this->partner_model->check_avaiable_partner($partner_id,$partner_name);
 							$check_partner_id = $this->partner_model->check_partner_id($partner_id);

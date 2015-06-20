@@ -208,7 +208,7 @@ class Manifest extends MY_Controller {
 				if(set_value('shipper') && set_value('consignee')) {
 					if(set_value('shipper') != set_value('consignee')) {
 						$data['data_id']		= $this->tool_model->generate_data_id();
-						$data['hawb_no']		= $_POST['hawb_no'];
+						$data['hawb_no']		= trim($_POST['hawb_no']);
 						$data['pkg']			= $_POST['pkg'];
 						$data['pcs']			= $_POST['pcs'];
 						$data['value']			= $_POST['value'];

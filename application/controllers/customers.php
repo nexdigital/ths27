@@ -89,7 +89,7 @@ class Customers extends MY_Controller {
 	function ajax($page = null){
 			switch ($page) {
 				case 'add_customer':
-					$data['reference_id'] = $_POST['reference_id'];
+					$data['reference_id'] = str_replace(' ', '', $_POST['reference_id']);
 				//	$data['id_group'] 	  = $_POST['id_group'];
 					$data['name'] 		  = $_POST['name'];
 					$data['email'] 		  = $_POST['email'];
