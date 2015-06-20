@@ -129,93 +129,154 @@
 
          <aside class="left-side sidebar-offcanvas">
                 <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar" style="overflow: scroll;">
-                    <!-- Sidebar user panel -->
-                    
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Manifest</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/upload')?>')"><i class="fa fa-angle-double-right"></i>Upload File</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"><i class="fa fa-angle-double-right"></i>Create Host</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/verification')?>')"><i class="fa fa-angle-double-right"></i> Verification </a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Download Data </a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
-                            </ul>
-                        </li>
-                     <!--    <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Customers</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                              
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>All Customers</a></li>
-                            </ul>
-                        </li>
-                        -->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Finance</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('finance/home')?>')"><i class="fa fa-angle-double-right"></i>Data Payment</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency Rate</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Invoice</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Debit None</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Credit Note</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Payment Invoice</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Cash/Bank Transfer</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Master</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>Customers</a></li>
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('master/partner/index')?>')"><i class="fa fa-angle-double-right"></i>Partner</a></li>
-                              <!--<li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i>Customer Group</a></li>-->
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/country/index')?>')"><i class="fa fa-angle-double-right"></i>Country</a></li>
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/type_index')?>')"><i class="fa fa-angle-double-right"></i>Rate Type</a></li>
-                             <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/airlines/index')?>')"><i class="fa fa-angle-double-right"></i>Airlines</a></li> -->
-                               <!-- <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/term_of_payment/index')?>')"><i class="fa fa-angle-double-right"></i>Term Of Payment</a></li> -->
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/business/index')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
-                               <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/holiday/index')?>')"><i class="fa fa-angle-double-right"></i>Holiday</a></li> -->
-                                <!--<li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/user/index')?>')"><i class="fa fa-angle-double-right"></i>User</a></li>
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/bank/index_bank_branch')?>')"><i class="fa fa-angle-double-right"></i>Bank</a></li>
-                             <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/bank/index')?>')"><i class="fa fa-angle-double-right"></i>Cash/Bank Book</a></li>-->
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/tax/index')?>')"><i class="fa fa-angle-double-right"></i>Tax</a></li>
-                            </ul>
+               <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <i class="fa fa-angle-left pull-right"></i> Manifest</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                      <a href="#" onClick="setPage('<?php echo base_url('manifest/view/upload')?>')"><i class="fa fa-angle-double-right"></i> Upload File</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"><i class="fa fa-angle-double-right"></i> Create Host</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <a href="#" onClick="setPage('<?php echo base_url('manifest/view/verification')?>')"><i class="fa fa-angle-double-right"></i> Verification </a>
+                                    </td>
+                                </tr>
 
-                            <ul class="treeview-menu">
-                              
-                              
-                            </ul>
-                        </li>                       
-                    </ul>
-                </section>
+                                <tr>
+                                    <td>
+                                       <a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Download Data </a>
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                       <a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Finance</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="javascript:;"  onClick="setPage('<?php echo base_url('finance/home')?>')"><i class="fa fa-angle-double-right"></i> Data Payment</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Currency Rate</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Invoice</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Debit None</a>
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Credit Note</a>
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Payment Invoice</a>
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i> Cash/Bank Transfer</a>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            Master</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i> Customers</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:;"  onClick="setPage('<?php echo base_url('master/partner/index')?>')"><i class="fa fa-angle-double-right"></i> Partner</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#" onClick="setPage('<?php echo base_url('master/view/country/index')?>')"><i class="fa fa-angle-double-right"></i> Country</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <a href="#" onClick="setPage('<?php echo base_url('master/view/currency/type_index')?>')"><i class="fa fa-angle-double-right"></i> Rate Type</a>
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                       <a href="#" onClick="setPage('<?php echo base_url('master/business/index')?>')"><i class="fa fa-angle-double-right"></i> Business</a>
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                       <a href="#" onClick="setPage('<?php echo base_url('master/tax/index')?>')"><i class="fa fa-angle-double-right"></i> Tax</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+              
+                  
+                   
                 <!-- /.sidebar -->
             </aside>
 
