@@ -7,9 +7,29 @@ class Invoice extends MY_Controller {
 	}
 
 	function edit($hawb_no) {
+		//Create temp invoice
+		$this->db->insert('invoice_table',array('created_date' => date('Y-m-d h:i:s')));
+
+		$data['invoice_id'] = $this->db->insert_id();
 		$data['data']	= $this->manifest_model->get_data($hawb_no);
-		$data['title']	= 'Edit Invoice';
+		$data['discount'] = $this->manifest_model->get_discount($hawb_no);
+		$data['extra_charge'] = $this->manifest_model->get_extra_charge($hawb_no);
+		$data['title']	= 'Edit Invoice #'.$hawb_no;
 		$this->set_content('manifest/invoice_edit',$data);
+	}
+
+	function save(){
+		$invoice['hawb_no'] = $_POST['hawb_no'];
+		$invoice['shipper_name'] = $_POST['shipper_name'];
+		$invoice['shipper_address'] = $_POST['shipper_address'];
+		$invoice['shipper_attn'] = $_POST['shipper_attn'];
+		$invoice['consignee_name'] = $_POST['consignee_name'];
+		$invoice['consignee_address'] = $_POST['consignee_address'];
+		$invoice['consignee_attn'] = $_POST['consignee_attn'];
+		$invoice['status'] = 'active';
+
+		$this->db->where('invoice_id',$_POST['invoice_id']);
+		$this->db->update('invoice_table',$invoice);
 	}
 
 	function printout($hawb_no) {

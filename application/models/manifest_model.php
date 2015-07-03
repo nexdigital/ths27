@@ -108,23 +108,40 @@ class Manifest_model extends CI_Model {
 	}
 
 	function get_discount($hawb_no) {
-		$query = $this->db->query("select * from discount_table where hawb_no = '$hawb_no'");
+		$query = $this->db->query("select * from discount_table where hawb_no = '$hawb_no' and status = 'active'");
 		if($query->num_rows() > 0) return $query->result();
 		else return false;
+	}
+	function get_by_discount($discount_id) {
+		$query = $this->db->query("select * from discount_table where discount_id = '$discount_id' and status = 'active'");
+		if($query->num_rows() > 0) return $query->row();
+		else return false;		
 	}
 
 	function insert_discount($discount) {
 		$this->db->insert('discount_table',$discount);
 	}
+	function update_discount($discount_id, $discount) {
+		$this->db->where('discount_id',$discount_id);
+		$this->db->update('discount_table',$discount);
+	}
 
 	function get_extra_charge($hawb_no) {
-		$query = $this->db->query("select * from manifest_extra_charge_table where hawb_no = '$hawb_no'");
+		$query = $this->db->query("select * from manifest_extra_charge_table where hawb_no = '$hawb_no' and status = 'active'");
 		if($query->num_rows() > 0) return $query->result();
 		else return false;
 	}
-
+	function get_by_charge($charge_id) {
+		$query = $this->db->query("select * from manifest_extra_charge_table where charge_id = '$charge_id' and status = 'active'");
+		if($query->num_rows() > 0) return $query->row();
+		else return false;		
+	}
 	function insert_charge($charge) {
 		$this->db->insert('manifest_extra_charge_table',$charge);
+	}
+	function update_charge($charge_id,$charge) {
+		$this->db->where('charge_id',$charge_id);
+		$this->db->update('manifest_extra_charge_table',$charge);
 	}
 
 	function set_customer($hawb_no,$customer_type,$reference_id){
@@ -170,9 +187,12 @@ class Manifest_model extends CI_Model {
 				if($charge) {
 					foreach ($charge as $row) {
 						if($row->currency == $data->currency) {
-							$charge_rate += $row->value;
+							$charge_rate += ($row->value * $data->exchange_rate);
+						} else if($row->currency == 'IDR') {
+							$charge_total += $row->value;
 						} else {
-							$charge_total += $row->value;							
+							$exchange_rate = $this->master_currency->get_exchange_rate_value($row->currency);
+							$charge_total += ($row->value * $exchange_rate);
 						}
 					}
 				}
@@ -205,10 +225,54 @@ class Manifest_model extends CI_Model {
 				return $subtotal;
 			break;
 			
+			case 'charge':
+				$charge = $this->get_extra_charge($data->hawb_no);
+				$total_charge = 0;
+				if($charge) {
+					foreach ($charge as $row) {
+						if($row->currency == $data->currency) {
+							$total_charge += ($row->value * $data->exchange_rate);
+						} else if($row->currency == 'IDR') {
+							$total_charge += $row->value;
+						} else {
+							$rate = $this->master_currency->get_exchange_rate_value($row->currency);
+							$total_charge += ($row->value * $rate);
+						}
+					}
+				}
+				return $total_charge;
+				break;
+
+			case 'discount':
+				$discount = $this->get_discount($data->hawb_no);
+				$disc_rate = $data->rate;
+				$disc_kurs = $data->exchange_rate;
+				$disc_total = 0;
+
+				if($discount) {
+					foreach($discount as $row) {
+						if($row->type == 'rate') {
+							$disc_rate -= $row->value;
+						}
+						if($row->type == 'kurs') {
+							$disc_kurs -= $row->value;
+						}
+						if($row->type == 'total') {
+							$disc_total += $row->value;
+						}
+					}
+				}
+				//Count Total Discount
+				$total_discount = ($data->kg * $disc_rate) * $disc_kurs;
+				$total_discount -= $disc_total;
+				$total_normal = ($data->kg * $data->rate) * $data->exchange_rate;
+
+				$sub_total_discount = $total_normal - $total_discount;
+
+				return $sub_total_discount;
+				break;
 			default:
-				$subtotal += $data->kg * $data->rate;
-				$subtotal = $subtotal * $data->exchange_rate;
-				return $subtotal;
+				return '0';
 			break;
 		}
 	}
