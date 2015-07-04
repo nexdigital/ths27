@@ -331,6 +331,17 @@ class Manifest extends MY_Controller {
 				$discount['created_by'] = null;
 				$this->manifest_model->insert_discount($discount);
 			break;
+			case 'edit_discount':
+				$discount['type'] = $_POST['type'];
+				$discount['value'] = $_POST['value'];
+				$this->manifest_model->update_discount($_GET['discount_id'],$discount);
+			break;
+			case 'delete_discount':
+				$discount_id = $_POST['discount_id'];
+				$this->db->where('discount_id',$discount_id);
+				$this->db->set('status','inactive');
+				$this->db->update('discount_table');
+			break;
 
 			case 'add_charge':
 				$charge['hawb_no'] = $_POST['hawb_no'];
@@ -341,6 +352,19 @@ class Manifest extends MY_Controller {
 				$charge['created_date'] = date('Y-m-d h:i:s');
 				$charge['created_by'] = null;
 				$this->manifest_model->insert_charge($charge);
+			break;
+			case 'edit_charge':
+				$charge['type'] = $_POST['type'];
+				$charge['description'] = $_POST['description'];
+				$charge['currency'] = $_POST['currency'];
+				$charge['value'] = $_POST['value'];
+				$this->manifest_model->update_charge($_GET['charge_id'],$charge);
+			break;
+			case 'delete_charge':
+				$charge_id = $_POST['charge_id'];
+				$this->db->where('charge_id',$charge_id);
+				$this->db->set('status','inactive');
+				$this->db->update('manifest_extra_charge_table');
 			break;
 		}
 	}
@@ -433,6 +457,33 @@ class Manifest extends MY_Controller {
 				}
 				$get = $this->db->get('customer_table');
 				echo json_encode($get->result());
+				break;
+		}
+	}
+
+	function modal($method) {
+		switch ($method) {
+			case 'add_charge':
+				$hawb_no = $_GET['hawb_no'];
+				$this->load->view('manifest/modal_add_charge',array('data' => $this->manifest_model->get_by_hawb($hawb_no)));
+				break;
+			case 'edit_charge':
+				$hawb_no = $_GET['hawb_no'];
+				$charge_id = $_GET['charge_id'];
+				$this->load->view('manifest/modal_edit_charge',array('data' => $this->manifest_model->get_by_hawb($hawb_no), 'charge' => $this->manifest_model->get_by_charge($charge_id)));
+				break;
+			case 'add_discount':
+				$hawb_no = $_GET['hawb_no'];
+				$this->load->view('manifest/modal_add_discount',array('data' => $this->manifest_model->get_by_hawb($hawb_no)));
+				break;
+			case 'edit_discount':
+				$hawb_no = $_GET['hawb_no'];
+				$discount_id = $_GET['discount_id'];
+				$this->load->view('manifest/modal_edit_discount',array('data' => $this->manifest_model->get_by_hawb($hawb_no), 'discount' => $this->manifest_model->get_by_discount($discount_id)));
+				break;
+			
+			default:
+				# code...
 				break;
 		}
 	}
