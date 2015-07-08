@@ -184,6 +184,20 @@ class Customers_model extends CI_Model {
 		return $get->result();
 
 	}
+
+	function check_customers($reference_id){
+
+		$this->db->where('reference_id',$reference_id);
+		$query = $this->db->get('customer_table');
+  		$count_row = $query->num_rows();
+
+        if($count_row>0){
+          return TRUE;
+        }else{
+          return FALSE;
+        }
+
+	}
 }
 
 ?>

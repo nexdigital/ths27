@@ -91,29 +91,30 @@
                         <div class="col-xs-12">
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Reference Id</label>
+                              <span class="">*</span> <label>Reference Id</label>
                               <input id="reference_id"  name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
+                             
                             </div>
 
                             <div class="form-group">
-                              <label>Name</label>
+                               <span class="">*</span><label>Name</label>
                               <input id="name" name="name"  type="text" class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                              <label >E-mail</label>
+                              <span class="">*</span><label>Attn</label>
+                              <input id="attn" name="attn" type="text" class="form-control" required>
+                            </div>     
+
+                            <div class="form-group">
+                               <span class="">*</span><label >E-mail</label>
                               <input id="email" name="email" type="email" class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                              <label>Address</label>
+                               <span class="">*</span>  <label>Address</label>
                               <textarea class="form-control" name="address" style="resize:none" required></textarea>
                             </div>
-
-                            <div class="form-group">
-                              <label>Attn</label>
-                              <input id="attn" name="attn" type="text" class="form-control" required>
-                            </div>     
 
                             <div class="form-group">
                               <label>City</label>
@@ -150,7 +151,7 @@
                         <div class="col-xs-12">
                           <div class="col-md-12">
                             <div class="form-group" >
-                              <label>Phone</label>
+                               <span class="">*</span><label>Phone</label>
                               <input id="phone" name="phone" type="phone" class="form-control" required >
                             </div>
 
@@ -182,9 +183,16 @@
                             <div class="form-group" style="margin-top:10px;">
                               <label >Tax Class</label>
                               <select class="form-control tax_class" name="tax_class">
-                                <option value="0">None</option>
-                                <option value="1">1%</option>
-                                <option value="10">10%</option>
+                                <option></option>
+                                <?php
+                                    foreach ($this->tool_model->get_tax() as $key => $value) {
+                                        echo "<option value='".$value->tax_id."'>".$value->tax_name."</option>";
+                                    }
+
+
+
+                                 ?>
+
                               </select>
                             </div>
 
@@ -284,7 +292,10 @@
 
 <script type="text/javascript">
 
-
+$('form#form_step_1').validate({
+      rules: { reference_id: { required: true, remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers" } },
+      messages: { reference_id: { remote: 'Reference Id has been used. Please try another Reference Id' } }      
+    });
 
 
 $('#group').select2();
@@ -325,9 +336,11 @@ $('#group').select2();
                           step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
                           step_elm.find('.step-1').addClass('btn-primary');
                           step_cont.hide();
-                          $('#step-1').show();           
+                         // $('#step-1').show();       
+                        setPage('<?php echo base_url() ?>customers/home');
                         },800);    
-              } else if(json.status == 'redirect') {
+              } 
+              else if(json.status == 'redirect') {
                 setPage(json.message);
               }
             }

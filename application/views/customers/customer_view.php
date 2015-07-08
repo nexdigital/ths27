@@ -9,10 +9,7 @@
           
                     <table class="table table-striped">
     <tbody>
-                <tr>
-                    <td>Reference ID</td>
-                    <td><input type="text" value="<?php echo $get_customers->reference_id ?>" id="Reference" class="form-control" name="reference" ></td>    
-                </tr>
+                <input type="hidden" value="<?php echo $get_customers->reference_id ?>" id="Reference" class="form-control" name="reference" >
                 <tr>
                     <td>Name</td>
                     <td><input type="text" i value="<?php echo $get_customers->name ?>" id="name" class="form-control" name="name"></td> 
@@ -145,11 +142,11 @@
                                 <a href="#" onClick="setPage('<?php echo base_url('customers/email')?>')"><button class="btn btn-primary btn_email"><i class="fa fa-envelope"></i> Email</button></a>
                                 <button class="btn btn-success btn_edit"><i class="fa fa-pencil-square-o"></i> Edit</button>
                             
-
+                                <button class="btn btn-danger btn_disable" onClick="delete_user();"><i class="fa fa-trash"></i> Disable</button>   
+                                <label class="result-message"></label>
     </form>
 
-                            <button class="btn btn-danger btn_disable" onClick="delete_user();"><i class="fa fa-trash"></i> Disable</button>   
-                            <label class="result-message"></label>
+                         
 
 
     <script>

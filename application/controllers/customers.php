@@ -165,6 +165,14 @@ class Customers extends MY_Controller {
 
 
 				break;
+
+				case 'check_available_customers':
+
+						$reference_id = $_GET['reference_id'];
+						$get = $this->db->query("select * from customer_table where reference_id = '".strtolower($reference_id)."'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+				break;
 		}
 	}
 	
