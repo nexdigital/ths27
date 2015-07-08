@@ -31,6 +31,7 @@
 <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
 <button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
 <label class="alert-form" ></label>
+
 </form>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -60,12 +61,12 @@
 							    $('form#form_country').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
-							 	 setPage('<?php echo base_url() ?>master/view/country/index');
+							 	// setPage('<?php echo base_url() ?>master/view/country/index');
 							},800);
 						}else {
 							 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
 							  	 setTimeout(function(){
-								 $('.alert-form').html(result.message).fadeOut();
+							//	 $('.alert-form').html(result.message).fadeOut();
 							},800);
 						}
 						 

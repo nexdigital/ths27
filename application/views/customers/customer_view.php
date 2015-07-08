@@ -1,316 +1,235 @@
 <style>
-
-.well-primary {
-color: rgb(255, 255, 255);
-background-color: rgb(66, 139, 202);
-border-color: rgb(53, 126, 189);
-}
-.glyphicon { margin-right:5px; }
+    .alert{
+        padding: 5px;
+    }
 
 </style>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="fa fa-user">
-                            </span> View Profile</a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                            <tbody>
-                                                        <tr>
-                                                            <td>Reference ID</td>
-                                                            <td><input type="text" value="Reference Id" class="form-control" name="Reference" readonly></td>    
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td><input type="text" value="Name" class="form-control" name="Name" readonly></td> 
+        <form  id="edit_customer">    
+          
+                    <table class="table table-striped">
+    <tbody>
+                <tr>
+                    <td>Reference ID</td>
+                    <td><input type="text" value="<?php echo $get_customers->reference_id ?>" id="Reference" class="form-control" name="reference" ></td>    
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" i value="<?php echo $get_customers->name ?>" id="name" class="form-control" name="name"></td> 
 
-                                                        </tr>
+                </tr>
 
 
-                                                        <tr>
-                                                            <td>Attn</td>
-                                                            <td><input type="text" value="Attn" class="form-control" name="Attn" readonly></td> 
+                <tr>
+                    <td>Attn</td>
+                    <td><input type="text" value="<?php echo $get_customers->attn ?>" id="attn" class="form-control" name="attn"></td> 
 
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Email</td>
-                                                            <td><input type="text" value="Email" class="form-control" name="email" readonly></td>   
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" value="<?php echo $get_customers->email ?>" id="email" class="form-control" name="email"></td>   
 
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Address</td>
-                                                            <td><input type="text" value="Address" class="form-control" name="Address" readonly></td>   
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><input type="text" value="<?php echo $get_customers->address ?>" id="address" class="form-control" name="address"></td>   
 
-                                                        </tr>
+                </tr>
 
-                                                        <tr>
-                                                            <td>City</td>
-                                                            <td><input type="text" value="City" class="form-control" name="City" readonly></td> 
+                <tr>
+                    <td>City</td>
+                    <td><input type="text" value="<?php echo $get_customers->city ?>" id="city" class="form-control" name="city"></td> 
 
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Country</td>
-                                                            <td><input type="text" value="Country" class="form-control" name="Country" readonly></td>   
-
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>Post Code</td>
-                                                            <td><input type="text" value="Post Code" class="form-control" name="post_code" readonly></td>   
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Phone</td>
-                                                            <td><input type="text" value="Phone" class="form-control" name="Phone" readonly></td>   
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Mobile</td>
-                                                            <td><input type="text" value="Mobile" class="form-control" name="Mobile" readonly></td> 
-
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>Fax</td>
-                                                            <td><input type="text" value="Fax" class="form-control" name="Fax" readonly></td>   
-
-                                                        </tr>
-
-                                                        
-
-                                                        <tr>
-                                                            <td>Tax Class</td>
-                                                          
-
-                                                                    <td>
-                                                                    <select class="form-control" name="status" disabled>
-                                                                            <option>Non Regular</option>
-                                                                            <option>Regular</option>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td>
+                            <select class="form-control" id="country" name="country">
+                                <option value=""></option>
+                            <?php foreach ($this->tool_model->list_country() as $key => $value) { 
+                                    echo "<option value='".$value->country_id."'>".$value->country_name."</option>";
 
 
-                                                                    </select>
+                            } ?>
+                        </select>
 
-                                                            </td>   
+                    </td>   
 
-                                                           
+                </tr>
 
-                                                        </tr>
+                <tr>
+                    <td>Pos Code</td>
+                    <td><input type="text" value="<?php echo $get_customers->pos_code ?>" id="pos_code" class="form-control" name="post_code"></td>   
 
-                                                         <tr>
-                                                            <td>Payment Type</td>
-                                                          
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input type="text" value="<?php echo $get_customers->phone ?>" id="phone" class="form-control" name="phone"></td>   
 
-                                                                    <td>
-                                                                    <select class="form-control" name="payment_type" disabled>
-                                                                            <option>Cash </option>
-                                                                            <option>Transfer</option>
+                </tr>
+                <tr>
+                    <td>Mobile</td>
+                    <td><input type="text" value="<?php echo $get_customers->mobile ?>" id="mobile" class="form-control" name="mobile"></td> 
 
+                </tr>
 
-                                                                    </select>
+                <tr>
+                    <td>Fax</td>
+                    <td><input type="text" value="<?php echo $get_customers->fax ?>" id="fax" class="form-control" name="fax"></td>   
 
-                                                            </td>   
+                </tr>
 
-                                                           
+                
 
-                                                        </tr>
-
-
-                                                        <tr>
-                                                            <td>Status</td>
-                                                            <td>
-                                                                    <select class="form-control" name="status" disabled>
-                                                                            <option>Non Regular</option>
-                                                                            <option>Regular</option>
-
-
-                                                                    </select>
-
-                                                            </td>   
-
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>Group</td>
-                                                            <td>
-                                                                    <select class="form-control" id="group"name="status" disabled>
-                                                                            <option>online shop</option>
-                                                                            <option>tekstil</option>
+            <tr>
+                    <td>Tax Class</td>
 
 
-                                                                    </select>
+                            <td>
+                            <select class="form-control" id="tax_class"name="tax_class">
 
-                                                            </td>   
+                                <option>-</option>
+                                    <?php foreach ($this->tool_model->get_tax() as $key => $value) {
+                                          echo "<option value ='".$value->tax_id."'>".$value->tax_name."</option>";
+                                      }
+                                    ?>
+                                  </select>
 
-                                                        </tr>
 
-                                                        <tr>
-                                                            <td>Description</td>
-                                                            <td>
-                                                                <textarea name="description" class="form-control" style=" resize: none;"></textarea>
-                                                            </td>   
 
-                                                        </tr>
 
-                                                         <tr>
-                                                            <td>Status Active</td>
-                                                            <td><input type="text" value="Active" class="form-control"  name="Mobile" readonly></td> 
+                    </td>
 
-                                                        </tr>
+
+
+                </tr>
+                 <tr>
+                    <td>Payment Type</td>
+                  
+
+                            <td>
+                            <select class="form-control" id="payment_type" name="payment_type" id="payment_type">
+                                    <option value="cash">Cash </option>
+                                    <option value="transfer">Transfer</option>
+
+
+                            </select>
+
+                    </td>   
+
+                   
+
+                </tr>
+
+                <tr>
+                    <td>Description</td>
+                    <td>
+                        <textarea name="description" id="description" class="form-control" style=" resize: none;"><?php echo $get_customers->description ?></textarea>
+                    </td>   
+
+                </tr>
+
+                 <tr>
+                    <td>Status Active</td>
+                    <td>   <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_customers->status_active == 'Active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label></td> 
+
+                </tr>
 
 
 
 
 
-                                                </tbody>
+        </tbody>
 
-                                </table>
+       </table>
                                 <a href="#" onClick="setPage('<?php echo base_url('customers/email')?>')"><button class="btn btn-primary btn_email"><i class="fa fa-envelope"></i> Email</button></a>
                                 <button class="btn btn-success btn_edit"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                                <button class="btn btn-danger btn_disable"><i class="fa fa-trash"></i> Disable</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" class="sidebar-toggle" href="#collapseTwo"><span class="fa fa-line-chart">
-                            </span> View Transaction</a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
+                            
 
-                            <div class="form-group">
-                                <div class="row">
-                                       <div class="col-md-2">
-                                             <input type="text" class="form-control" placeholder="hawb no">
-                                    </div>
+    </form>
 
-                                     <div class="col-md-4">
-                                           <div class="input-group merged">
-                       
-                                              <span class="add-on"><i class="icon-calendar"></i></span><input class="form-control"type="text" name="selectdaterange" id="selectdaterange" placeholder="Search by Date"/>
-                                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                    </div>
-                                    </div>
-                                      
-                                 </div>       
-                             </div> 
-                 
-
-                            <table class="table table-bordered table-striped table-hovered">
-                                    <thead>
-                                            <th></th>
-                                            <th>Hawb No</th>
-                                            <th>shipper</th>
-                                            <th>Consignee</th>
-                                            <th>Dead Line</th>
-                                            <th>Payment Status</th>
-                                            <th>User Upload</th>
-                                    </thead>
-                                    <tbody>
-                                            <tr>
-                                            
-                                            <td><input type="checkbox"></td>
-                                            <td>123</td>
-                                            <td>test</td>
-                                            <td>test</td>
-                                            <td>23 November 2015</td>
-                                            <td>Paid</td>
-                                            <td>user 1</td>
-                                            </tr>   
-                                    </tbody>
-
-
-
-
-                            </table>   
-
-                            <button class="btn btn-primary">Print</button>
-                        
-                        </div>
-                    </div>
-                </div>
-
-                  <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" class="sidebar-toggle" href="#collapseThree"><span class="fa fa-line-chart">
-                                            </span> View Payment History</a>
-                                        </h4>
-                                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-
-                            <div class="form-group">
-                                <div class="row">
-                                       <div class="col-md-2">
-                                             <input type="text" class="form-control" placeholder="Invoice No">
-                                    </div>
-
-                                     <div class="col-md-4">
-                                           <div class="input-group merged">
-                       
-                                              <span class="add-on"><i class="icon-calendar"></i></span><input class="form-control"type="text" name="selectdaterange" id="selectdaterange2" placeholder="Search by Date"/>
-                                             <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                    </div>
-                                    </div>
-                                      
-                                 </div>       
-                             </div> 
-                            <table class="table table-striped">
-                                       <thead>
-                                            <th></th>
-                                            <th>Invoice No</th>
-                                            <th>Hawb No</th>
-                                            <th>Payment Date</th>
-                                            <th>Payment Amount</th>
-                                            <th>Payment Type</th>
-                                            <th>User Upload</th>
-                                    </thead>
-
-                                    <tbody>
-                                            <tr>
-                                                 <td><input type="checkbox"></td>
-                                                 <td>123</td>
-                                                 <td>123</td>
-                                                 <td>23 January 2015</td>
-                                                 <td>12345</td>
-                                                 <td>Cash</td> 
-                                                 <td>user 12345</td>     
-                                            </tr>
-
-                                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+                            <button class="btn btn-danger btn_disable" onClick="delete_user();"><i class="fa fa-trash"></i> Disable</button>   
+                            <label class="result-message"></label>
 
 
     <script>
+    
 
-$(document).ready(function() {
+           
+
+        $(document).ready(function(){
+            
 
 
-            $('#group').select2();
-            $('#selectdaterange,#selectdaterange2').daterangepicker();
-            $('.btn_edit').click(function (){
-                $('input[type="text"]').attr("readonly", false);
-                $('input[type="text"]').attr("readonly", false);
+
+             $('form#edit_customer').ajaxForm({
+
+                 
+                    url         : "<?php echo base_url()?>customers/ajax/edit_customer",
+                    type        : "POST",
+                    dataType    : "json",
+                    success     : function(result){
+
+                            //alert(result.message);
+                            if(result.status == true){
+
+                                    $('.result-message').html(result.message).addClass('alert alert-success').fadeIn();
+                            setTimeout(function(){
+                               
+                                   setPage('<?php echo base_url() ?>customers/home');
+                            },800);
+                                  
+
+                            }
+                    },
+                    error: function( error )
+                    {
+
+                         alert( error );
+
+                    }
+
+              });
+
+               
+            var tax_class = "<?php echo $get_customers->tax_class ?>";  
+            var payment_type = "<?php echo $get_customers->payment_type ?>"; 
+            var country = "<?php echo $get_customers->country ?>";           
+
+            $("#tax_class").val(tax_class);
+            $("#payment_type").val(payment_type);
+            $("#country").val(country);
+            
+
+
+        });
+
+
+        function delete_user(){
+
+            $.ajax({
+
+                    type        : "POST",
+                    url         : siteurl +"customers/ajax/delete_user",
+                 //   data        : {reference_id : reference_id},
+                    dataType    : "json",
+                    success     : function(result){
+
+                            alert(result.message);
+                    },
+                    error: function( error )
+                    {
+
+                         alert( error );
+
+                    }
 
             });
+        }
 
-});
+         
+
+
+       
     </script>
 

@@ -44,9 +44,11 @@ class Customers extends MY_Controller {
 	}
 
 	//function view_customer($reference_id){
-	function view_customer(){
-		//$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
-		$data        	        = array();
+	function view_customer($reference_id){
+
+		$data['get_tax']		= $this->tool_model->get_tax();
+		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
+	//	$data        	        = array();
 		$data['title']			= 'Customer View';
 		$this->set_content('customers/customer_view',$data);
 
@@ -103,7 +105,7 @@ class Customers extends MY_Controller {
 					$data['fax'] 		  = $_POST['fax'];
 					$data['tax_class'] 	  = $_POST['tax_class'];
 				//	$data['vat_doc'] 	  = $_POST['vat_doc'];
-					$data['status'] 	  = $_POST['status'];
+				//	$data['status'] 	  = $_POST['status'];
 					//$data['register_date']= $_POST['register_date'];
 					$data['register_date']= "2015-02-12";
 					$data['payment_type'] = $_POST['payment_type'];
@@ -121,6 +123,47 @@ class Customers extends MY_Controller {
 					} else {
 						echo json_encode(array('status'=> 'success', 'message'=> 'Save success'));
 					}
+				break;
+
+				case 'edit_customer':
+
+					$reference_id = $_POST['reference'];
+					$data['reference_id'] = str_replace(' ', '', $reference_id );
+				//	$data['id_group'] 	  = $_POST['id_group'];
+					$data['name'] 		  = $_POST['name'];
+					$data['email'] 		  = $_POST['email'];
+					$data['address'] 	  = $_POST['address'];
+					$data['attn'] 		  = $_POST['attn'];
+					$data['city']         = $_POST['city'];
+					$data['country']      = $_POST['country'];
+					$data['pos_code'] 	  = $_POST['post_code'];
+					$data['phone'] 		  = $_POST['phone'];
+					$data['mobile'] 	  = $_POST['mobile'];
+					$data['fax'] 		  = $_POST['fax'];
+					$data['tax_class'] 	  = $_POST['tax_class'];
+				//	$data['vat_doc'] 	  = $_POST['vat_doc'];
+				//	$data['status'] 	  = $_POST['status'];
+					//$data['register_date']= $_POST['register_date'];
+					//$data['register_date']= date('Y-m-d');
+					$data['payment_type'] = $_POST['payment_type'];
+					$data['description']  = $_POST['description'];
+					$data['status_active']= (isset($_POST['is_active'])) ? 'Active' : 'inactive';
+					$this->customers_model->customer_edit($reference_id,$data);
+						
+				
+					$status  = TRUE;
+					$message = "Save success";
+					echo json_encode(array("status"=> $status, "message" => $message));
+
+				break;
+
+				case 'delete_user':
+
+						$reference_id = $_POST['reference'];
+						$data['status_active']= "deleted";
+						$this->customers_model->customer_edit($reference_id,$data);
+
+
 				break;
 		}
 	}

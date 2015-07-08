@@ -19,9 +19,9 @@
   </table>
 </div>
 
-<table class="table table-bordered table-striped table-hovered">         
+<table id="example2" class="table table-bordered table-striped table-hovered">         
   <thead>
-    <th>&nbsp;</th>
+   
     <th>Reference ID</th>
     <th>Name</th>
     <th>Address</th>
@@ -35,10 +35,7 @@
     <?php 
       foreach($get_customers as $key => $val){
       echo '<tr>
-      <td>
-        <button class="btn btn-primary" title="Delete" onCLick="alert(\'Deleted\')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-      </td>
-      <td><a href="javascript:;"onClick="setPage(\''.base_url().'customers/view_customer/\')">'.$val->reference_id.'</a></td>
+      <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$val->reference_id.'').'\')">'.$val->reference_id.'</a></td>
       <td>'.$val->name.'</td>
       <td>'.$val->address.'</td>
       <td>'.$val->city.'</td>
@@ -52,7 +49,9 @@
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-success">Add Customer</button></a>              
 
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function(){ 
+
+  $('#example2').dataTable();
   $('select.sumoselect').SumoSelect();
   $("#mytable #checkall").click(function () {
         if ($("#mytable #checkall").is(':checked')) {
