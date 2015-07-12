@@ -188,9 +188,13 @@
                             <td>'.$row->description.'</td>
                             <td>'.$row->currency.'</td>
                             <td>'.number_format($row->value).'</td>
-                            <td align="right">
+                            <td align="right">';
+                            if($data->status == 'verified') {
+                            echo '
                             <a href="javascript:;" title="Edit" class="edit-charge" charge_id="'.$row->charge_id.'"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                            <a href="javascript:;" title="Delete" class="delete-charge" charge_id="'.$row->charge_id.'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            <a href="javascript:;" title="Delete" class="delete-charge" charge_id="'.$row->charge_id.'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
+                            }
+                            echo '
                             </td>
                         </tr>
                     ';
@@ -236,9 +240,13 @@
                     <td>'.$row->discount_id.'</td>
                     <td>'.$row->type.'</td>
                     <td>'.number_format($row->value).'</td>
-                    <td align="right">
+                    <td align="right">';
+                    if($data->status == 'verified') {
+                    echo ' 
                     <a href="javascript:;" title="Edit" class="edit-discount" discount_id="'.$row->discount_id.'"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a href="javascript:;" title="Delete" class="delete-discount" discount_id="'.$row->discount_id.'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <a href="javascript:;" title="Delete" class="delete-discount" discount_id="'.$row->discount_id.'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
+                    }
+                    echo '
                     </td>
                 </tr>
                 ';
