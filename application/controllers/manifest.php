@@ -395,10 +395,9 @@ class Manifest extends MY_Controller {
 				$pdf = $this->pdf->load();
 				foreach($host as $hawb_no) {
 					if(trim($hawb_no)){
+						$this->manifest_model->update_status($hawb_no,'Finish');
 						if(!file_exists(path_invoice . $hawb_no .'.pdf')) {
 							$this->invoice_model->create($hawb_no);
-							$this->manifest_model->update_status($hawb_no,'Finish');
-							unset($data);
 						}
 						$invoice[] = $hawb_no;
 					}

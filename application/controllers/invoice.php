@@ -33,11 +33,11 @@ class Invoice extends MY_Controller {
 	}
 
 	function printout($hawb_no) {
+		$this->manifest_model->update_status($hawb_no,'Finish');
 		if(file_exists(path_invoice . $hawb_no .'.pdf')) {
 			redirect('asset/invoice/'.$hawb_no.'.pdf');
 		} else {
 			$this->invoice_model->create($hawb_no);
-			$this->manifest_model->update_status($hawb_no,'Finish');
 			redirect('asset/invoice/'.$hawb_no.'.pdf');
 		}
 	}
