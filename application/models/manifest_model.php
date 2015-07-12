@@ -106,6 +106,11 @@ class Manifest_model extends CI_Model {
 		if($query->num_rows() > 0) return $query->row();
 		else return false;
 	}
+	function get_mawb($mawb_no) {
+		$query = $this->db->query("select * from manifest_file_table where lower(mawb_no) = '$mawb_no'");
+		if($query->num_rows() > 0) return $query->row();
+		else return false;
+	}
 
 	function get_discount($hawb_no) {
 		$query = $this->db->query("select * from discount_table where hawb_no = '$hawb_no' and status = 'active'");
@@ -161,7 +166,14 @@ class Manifest_model extends CI_Model {
 		$subtotal = 0;
 		switch ($type) {
 			case 'all':
-				$discount = $this->get_discount($data->hawb_no);
+				$normal = $this->subtotal($data->hawb_no,'normal');
+				$discount = $this->subtotal($data->hawb_no,'discount');
+				$charge = $this->subtotal($data->hawb_no,'charge');
+
+				$subtotal = $normal - $discount + $charge;
+
+
+				/*$discount = $this->get_discount($data->hawb_no);
 				$charge = $this->get_extra_charge($data->hawb_no);
 
 				$rate = $data->rate;
@@ -187,7 +199,7 @@ class Manifest_model extends CI_Model {
 				if($charge) {
 					foreach ($charge as $row) {
 						if($row->currency == $data->currency) {
-							$charge_rate += ($row->value * $data->exchange_rate);
+							$charge_rate += $row->value;
 						} else if($row->currency == 'IDR') {
 							$charge_total += $row->value;
 						} else {
@@ -197,15 +209,15 @@ class Manifest_model extends CI_Model {
 					}
 				}
 
+				$rate += $charge_rate;
 				$total_rate = $data->kg * $rate;
-				$total_rate += $charge_rate;
 
 				$total_rate += $data->other_charge_tata;
 				$total_rate += $data->other_charge_pml;
 
 				$subtotal = $total_rate * $kurs;
 				$subtotal -= $disc_total;
-				$subtotal += $charge_total;
+				$subtotal += $charge_total;*/
 
 				return $subtotal;
 			break;

@@ -156,7 +156,8 @@
                                 <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/verification')?>')"><i class="fa fa-angle-double-right"></i> Verification </a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Download Data </a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/report')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/invoice')?>')"><i class="fa fa-angle-double-right"></i> Print Invoice </a></li>
                             </ul>
                         </li>
                      <!--    <li class="treeview">

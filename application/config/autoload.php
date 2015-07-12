@@ -119,7 +119,8 @@ $autoload['model'] = array(
 							'master_bank',
 							'master_tax',
 							'master_business',
-							'partner_model'
+							'partner_model',
+							'invoice_model'
 							);
 
 
@@ -129,6 +130,7 @@ define('path_attachment',PATH.'/asset/attachment/');
 define('path_barcode',PATH.'/asset/barcode/');
 define('path_pdf',PATH.'/asset/pdf/');
 define('path_download',PATH.'/download/');
+define('path_invoice',PATH.'/asset/invoice/');
 
 date_default_timezone_set('Asia/Bangkok');
 

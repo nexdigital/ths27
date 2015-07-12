@@ -88,7 +88,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Amount</label>
-                    <input class="form-control txt-amount" type="text" name="amount" value="<?php echo ($data->collect) ? number_format($data->collect) : number_format($data->prepaid); ?>" readonly required>
+                    <input class="form-control txt-amount" type="text" name="amount" value="<?php echo (trim($data->collect)) ? number_format($data->collect) : number_format($data->prepaid); ?>" readonly required>
                 </div>
             </div>
         </div>

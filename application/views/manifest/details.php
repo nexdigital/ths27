@@ -7,7 +7,7 @@
     <div class="btn-group" role="group" aria-label="...">
         <!-- Split button -->
           <button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/data')?>')">Back</button>
-          <button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/edit?hawb_no='.$data->hawb_no) ?>')">Edit</button>
+          <?php if($data->status == 'verified') { ?><button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/edit?hawb_no='.$data->hawb_no) ?>')">Edit</button> <?php } ?>
           <button type="button" class="btn btn-default">Invoice</button>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
@@ -15,7 +15,7 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             <li><a href="javascript:;" onCLick="setPage('<?php echo base_url('invoice/edit/'.$data->hawb_no) ?>')" style="display:none;">Edit</a></li>
-            <li><a href="<?php echo base_url('invoice/printout/'.$data->hawb_no) ?>" target="_blank">Print</a></li>
+            <li><a href="javascript:;" class="print">Print</a></li>
           </ul>
     </div>
 </div>
@@ -83,7 +83,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>Amount</label>
-                    <p class="form-control"><?php echo ($data->collect) ? number_format($data->collect) : number_format($data->prepaid); ?></p>
+                    <p class="form-control"><?php echo (trim($data->collect)) ? number_format($data->collect) : number_format($data->prepaid); ?></p>
                 </div>
             </div>
         </div>
@@ -128,6 +128,18 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
+            <label>Total</label>
+            <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'normal')) ?></p>
+        </div>
+        <div class="col-sm-6" style="padding:0px;">
+            <label>Discount</label>
+            <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'discount')) ?></p>
+        </div>
+        <div class="col-sm-6">
+            <label>Charge</label>
+            <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'charge')) ?></p>
+        </div>
+        <div class="form-group">
             <label>Subtotal</label>
             <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'all')) ?></p>
         </div>
@@ -140,6 +152,7 @@
         <!-- Split button -->
         <div class="btn-group">
           <button type="button" class="btn btn-info">Extra Charge</button>
+          <?php if($data->status == 'verified') { ?>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
@@ -147,6 +160,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="javascript:;" class="add_charge">Add Charge</a></li>
           </ul>
+          <?php } ?>
         </div>
     </div>
 
@@ -193,6 +207,7 @@
     <div class="btn-group" role="group" aria-label="...">
         <div class="btn-group">
           <button type="button" class="btn btn-info">Discount</button>
+          <?php if($data->status == 'verified') { ?>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
@@ -200,6 +215,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="javascript:;" class="add_discount">Add Discount</a></li>
           </ul>
+          <?php } ?>
         </div>
     </div>
     <span class="pull-right"><h5><strong>Total discount:</strong> Rp.<?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'discount')) ?></h5></span>
@@ -280,6 +296,13 @@
                 $('#modal_box').html(data);
             });
             $('#modal_box').modal('show')
+        })
+
+        $('a.print').click(function(){
+            window.open("<?php echo base_url('invoice/printout/'.$data->hawb_no) ?>","_blank");
+            setTimeout(function(){
+                setPage('<?php echo base_url('manifest/view/details?hawb_no='.$data->hawb_no) ?>');
+            },5000);
         })
     })
 </script>

@@ -42,7 +42,7 @@
 	</thead>
 	<tbody>
 		<?php
-			$query = $this->db->query("select * from manifest_data_table where lower(status) in ('verified','hold','success')");
+			$query = $this->db->query("select * from manifest_data_table where lower(status) in ('verified','hold','success','finish')");
 			foreach($query->result() as $row) {
 				$shipper = $this->db->query("select * from customer_table where reference_id = '".$row->shipper."'");
 				$consignee = $this->db->query("select * from customer_table where reference_id = '".$row->consignee."'");

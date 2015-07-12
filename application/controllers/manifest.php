@@ -65,6 +65,11 @@ class Manifest extends MY_Controller {
 				$data['title'] = 'Edit Host #'.$hawb_no;
 				$this->set_content('manifest/edit',$data);
 			break;
+			case 'invoice':
+				$data['data']	= '';
+				$data['title']	= 'Print Invoice';
+				$this->set_content('manifest/invoice',$data);				
+			break;
 		}
 	}
 
@@ -366,6 +371,40 @@ class Manifest extends MY_Controller {
 				$this->db->set('status','inactive');
 				$this->db->update('manifest_extra_charge_table');
 			break;
+			case 'print':
+				$master = explode(',', $_POST['master']);
+				$host = explode(',', $_POST['host']);
+
+				foreach ($master as $row) {
+					$file = $this->manifest_model->get_mawb($row);
+					if($file) {
+						$query = $this->db->query("select * from manifest_data_table where file_id = '".$file->file_id."' and lower(status) in ('verified','success','finish')");
+						if($query->num_rows() > 0) {
+							foreach($query->result() as $rows) {
+								if(!in_array($rows->hawb_no, $host)) {
+									$host[] = $rows->hawb_no;
+								}
+							}
+						}						
+					}
+				}
+
+				error_reporting(0);
+				$invoice = array();
+				$this->load->library('pdf');
+				$pdf = $this->pdf->load();
+				foreach($host as $hawb_no) {
+					if(trim($hawb_no)){
+						if(!file_exists(path_invoice . $hawb_no .'.pdf')) {
+							$this->invoice_model->create($hawb_no);
+							$this->manifest_model->update_status($hawb_no,'Finish');
+							unset($data);
+						}
+						$invoice[] = $hawb_no;
+					}
+				}
+				echo json_encode(array('status' => 'success','host' => $invoice));
+			break;
 		}
 	}
 
@@ -456,6 +495,29 @@ class Manifest extends MY_Controller {
 					$this->db->or_like('lower(name)',strtolower($row));
 				}
 				$get = $this->db->get('customer_table');
+				echo json_encode($get->result());
+				break;
+			case 'master_manifest':
+				$query = $_GET['term'];
+				$query_array = explode(" ", $query);
+				$this->db->select('mawb_no as id,file_name');
+				foreach($query_array as $row) {
+					$this->db->or_like('lower(mawb_no)',strtolower($row));
+					$this->db->or_like('lower(file_name)',strtolower($row));
+				}
+				$get = $this->db->get('manifest_file_table');
+				echo json_encode($get->result());
+				break;
+
+			case 'host_manifest':
+				$query = $_GET['term'];
+				$query_array = explode(" ", $query);
+				$this->db->select('hawb_no as id');
+				foreach($query_array as $row) {
+					$this->db->like('lower(hawb_no)',strtolower($row));
+				}
+				$this->db->where_in('lower(status)',array('verified','success','finish'));
+				$get = $this->db->get('manifest_data_table');
 				echo json_encode($get->result());
 				break;
 		}
