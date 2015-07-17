@@ -881,21 +881,219 @@ class Master extends MY_Controller {
 	}
 
 
-	function user($page=null){
+	function user($page=null,$user_id=null){
 
 		switch ($page) {
 			case 'index':
-						$data['data']	= '';
+						$data['get_user']			= $this->master_user->get_all_user();
 						$data['title']			= 'User Access';
 						$this->set_content('master/master_user',$data);
 			break;
 
 			case'add_user':
 
-						$data['data']	= '';
+						$data['get_type']			= $this->master_user->get_access();
 						$data['title']	= 'Add User';
 						$this->set_content('master/user_form',$data);
 			break;
+
+			case 'update':
+
+						$data['get_type']			= $this->master_user->get_access();
+						$data['get_user']			= $this->master_user->get_user_by_id($user_id);
+						$data['title']				= 'Edit Form';
+						$this->set_content('master/user_edit_form',$data);
+
+			break;
+
+			case 'delete':
+
+						$data['get_type']			= $this->master_user->get_access();
+						$data['get_user']			= $this->master_user->get_user_by_id($user_id);
+						$data['title']				= 'Delete Form';
+						$this->set_content('master/user_delete_form',$data);
+
+			break;
+
+			case 'insert_user':
+
+						$user_id 		=  $_POST['user_id'];
+						$username 		=  $_POST['username'];
+						$password 		=  $_POST['password'];
+						$email			=  $_POST['email'];
+						$user_level 	=  $_POST['user_level'];
+						$description	=  $_POST['description'];
+						$is_active 		=  isset($_POST['status_active']);
+						$check_id		=  $this->master_user->check_available_id($user_id);
+						$check_user		=  $this->master_user->check_available($username);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}	
+
+
+					if($check_id) {
+
+							$status = FALSE;
+							$message = "User Id has been added before";	
+
+					}else{
+						
+							if($check_user){
+
+								$status = FALSE;
+								$message = "Username has been added before";	
+
+							}else{
+
+								$data['user_id']		= $user_id;
+								$data['username']		= $username;
+								$data['password']		= $password;
+								$data['email']			= $email;
+								$data['type']			= $user_level;
+								$data['description']	= $description;
+								$data['status']			= $v_isActive;
+								$data['created_by']		= $this->session->userdata('username');
+								$data['created_date']	= date('Y-m-d');
+
+
+								$this->master_user->insert_user($data);
+
+								$status = TRUE;
+								$message = "Save Success";	
+
+							}
+
+
+					}
+
+						
+						
+						echo json_encode(array('status'=>$status ,'message' => $message));
+
+
+
+			break;
+
+			case 'update_user':
+
+						$user_id 		=  $_POST['user_id'];
+						$username 		=  $_POST['username'];
+						$password 		=  $_POST['password'];
+						$email			=  $_POST['email'];
+						$user_level 	=  $_POST['user_level'];
+						$description	=  $_POST['description'];
+						$is_active 		=  isset($_POST['status_active']);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}	
+
+						$check_user		=  $this->master_user->check_available_update($user_id,$username);
+						if($check_user){
+
+							$status = FALSE;
+							$message = "User has been added before";	
+
+						}else{
+						
+						$data['username']		= $username;
+						$data['password']		= $password;
+						$data['email']			= $email;
+						$data['type']			= $user_level;
+						$data['description']	= $description;
+						$data['status']			= $v_isActive;
+						$data['update_by']		= $this->session->userdata('username');
+						$data['update_date']	= date('Y-m-d');
+
+
+						$this->master_user->edit_user($user_id,$data);
+						$status = TRUE;
+						$message = "Edit Success";
+						}
+						echo json_encode(array('status'=>$status ,'message' => $message));
+
+			break;
+
+			case 'delete_user':
+
+						$user_id 				=  $_POST['user_id'];
+						$data['status']			= "deleted";
+						$this->master_user->edit_user($user_id,$data);
+						echo json_encode(array('message' => "Delete Success"));
+			break;
+
+			case 'autoComplete':
+								$user_id = $_GET['q'];
+								$this->db->like('user_id',$user_id);
+								$this->db->where_in('status',array('active'));
+								$get = $this->db->get('user_table');
+
+								$user_id_list = array();
+								foreach($get->result() as $row) {
+											$user_id_list[] = $row->user_id;
+								}
+								echo json_encode($user_id_list);
+				break;
+
+		
+
+		
+
+				
+		}
+
+	}
+
+	function add_user_role($page=null){
+
+		switch ($page) {
+			case 'index':
+						$data['get_type']			= $this->master_user->get_access();
+						$data['title']			= 'User Role';
+						$this->set_content('master/user_role',$data);
+			break;
+
+			case'add_form':
+
+						$data['data']	= '';
+						$data['title']	= 'Add User Role';
+						$this->set_content('master/add_role',$data);
+			break;
+
+			case 'add_role':
+
+					$type = $_POST['type'];
+					$role = $_POST['role'];
+					
+					//$message = "";
+
+					
+					$data['type']			= $type;
+					$data['created_by']		= $this->session->userdata('user_id');
+					$data['created_date']	= date('Y-m-d');
+					$this->master_user->insert_type($data);
+
+					$last_id = $this->db->insert_id();
+
+
+					 for ($i=0; $i < sizeof($role) ; $i++) { 
+							
+							$component['id_type']		= $last_id;
+							$component['access_level']	= $role[$i];
+
+							$this->master_user->insert_role($component);
+					
+					 }
+
+					$message = "Save Success";
+					echo json_encode(array('message' => $message));
+			break;
+
 		}
 
 	}

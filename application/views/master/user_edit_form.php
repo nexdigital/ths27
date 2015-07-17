@@ -1,31 +1,26 @@
 
-<form id="create_user_form" method="post" action="<?php echo base_url('master/user/insert_user')?>">
-<div class="form-group">
+<form id="edit_user_form" method="post" action="<?php echo base_url('master/user/update_user')?>">
 
-  <?php $get_user_id = $this->master_user->user_new_id() ?>
-  <label>User ID <label class="required-filed">*</label></label>
-    <input type="text" class="form-control" id="user_id" name="user_id"  value= "<?php echo $get_user_id ?>"required>
-
-</div>
+ <input type="hidden" class="form-control" id="user_id" name="user_id"  value= "<?php echo $get_user->user_id ?>">
 
 <div class="form-group">
   <label>Name <label class="required-filed">*</label></label>
-  <input type="text" class="form-control" id="username" name="username" required>
+  <input type="text" class="form-control" id="username" name="username" value= "<?php echo $get_user->username ?>" required>
 </div>
 
 <div class="form-group">
   <label >Password <label class="required-filed">*</label></label>
-  <input type="password" class="form-control" id="password" name="password" required>
+  <input type="password" class="form-control" id="password" name="password" value= "<?php echo $get_user->password ?>">
 </div>
 
 <div class="form-group">
   <label >Email <label class="required-filed">*</label></label>
-  <input type="email" class="form-control" id="email" name="email" required>
+  <input type="email" class="form-control" id="email" name="email" value= "<?php echo $get_user->email ?>" required>
 </div>
 
 <div class="form-group">
   <label >User Level <label class="required-filed">*</label></label>
-  <select class="form-control" name="user_level" required>
+  <select class="form-control" id="user_level" name="user_level" required>
           <option value=""></option>
           <?php 
           foreach ($get_type as $key => $value) {
@@ -42,39 +37,40 @@
 
 <div class="form-group">
   <label >Description</label>
-  <textarea class="form-control" name="description" id="description"></textarea>
+  <textarea class="form-control" name="description" id="description"><?php echo $get_user->description ?></textarea>
 </div>
 
 <div class="form-group">
-  <input type="checkbox" name="status_active"> Active
+  <input type="checkbox" name="status_active" id="status_active" <?php echo ($get_user->status == 'active') ? 'checked="checked"' : ''?>> <label for="status_active">Active</label>
 </div>
 
-<button class="btn btn-success" onclick= "add_user();">Add User</button>
+<button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/add_user')?>')">Create New</button>
+<button class="btn btn-success" onclick= "edit_user();">Update User</button>
+<button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/delete/'.$get_user->user_id)?>')">delete</button>
+
 <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/user/index')">Cancel</button>
-<label id="alert-message" style="display:none;padding-bottom:5px;padding-top:5px;padding-right:5px;padding-left:5px;"></label>
+<label id="alert-message" class="alert alert-success" style="display:none;padding-bottom:5px;padding-top:5px;padding-right:5px;padding-left:5px;"></label>
 </form>
+
+
 <script type="text/javascript">
 $(document).ready(function(){
+ 		
+    $('form#edit_user_form').validate();
 
-     $('input[name="user_id"]').autoComplete({
-          minChars: 1,
-          source: function(term, response){
-              try { xhr.abort(); } catch(e){}
-              xhr = $.getJSON('<?php echo base_url('master/user/autoComplete') ?>', { q: term }, function(data){ response(data); });
-          },
-          onSelect: function(e, term, item){
-            setPage('<?php echo base_url('master/user/update')?>/' + term);
-          }
-      });
-    $("#create_user_form").validate();
 
+
+    var user_level = "<?php echo $get_user->type ?>";
+
+    $("#user_level").val(user_level);
+    
 });
 
 
-function add_user(){
+function edit_user(){
 
 
-  $('form#create_user_form').ajaxForm({
+   $('form#edit_user_form').ajaxForm({
         dataType:'json',
         success: function(data){
             

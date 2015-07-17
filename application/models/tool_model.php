@@ -364,6 +364,41 @@ class Tool_model extends CI_Model {
 	    }
 	    return $kata . ' Rupiah';
 	}
+
+
+	function check_login( $username, $password ) {
+		
+		$this->db->where( "username", $username );
+		$this->db->where( "password", md5( $password ) );
+		$get	= $this->db->get( "user_table" );
+		if( $get->num_rows() > 0 )
+			return $get->row();
+		else
+			return FALSE;
+	
+	}
+
+
+	function set_session_login( $active_user){
+		
+		
+		$session	= array(
+			"login"			=> TRUE,
+			"user_id"		=> $active_user->user_id,
+			"username"		=> $active_user->username,
+			"type"			=> $active_user->type	
+		);
+		$this->session->set_userdata( $session );
+	
+	}
+
+	function remove_session_login( ){
+		
+		
+		 $session	= array( "login"=>FALSE, "user_id"=>"", "username"=>"", "password"=>"");
+	     $this->session->set_userdata( $session );
+	
+	}
 }
 
 ?>

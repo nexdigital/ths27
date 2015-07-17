@@ -1,26 +1,40 @@
-<table  class="table table-bordered table-striped table-hovered">
+<table id="table_user" class="table table-bordered table-striped table-hovered">
 	<thead>
-		<th width="50px">&nbsp;</th>
+		
 		<th>User Id</th>
 		<th>Name</th>
 		<th>Email</th>
 		<th>Level</th>
-		<th>Entry date</th>
-		<th>Entry by</th>
+		<th>Status</th>
+		<th>Created by</th>
+		<th>Created date</th>
+		<th>Updated by</th>
+		<th>Updated date</th>
 		
 		
 	</thead>
 
 	<tbody>
-		<td>
-			<button class="btn btn-primary" title="Delete" onCLick="alert('Deleted')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-		</td>
-		<td><a href="javascipr:;">ID</a></td>
-		<td>User 2</td>
-		<td>user2@gmail.com</td>
-		<td>Super User</td>
-		<td>23 January 2015</td>
-		<td>User 1</td>
+			
+			<?php 
+					foreach ($get_user as $key => $value) {
+							
+							echo '<tr>';
+							//echo '<td>'.$value->user_id.'</td>';
+							echo '<td><a href="javascript:;" onClick="setPage(\''.base_url('master/user/update/'.$value->user_id).'\')">'.$value->user_id.'</a></td>';
+							echo '<td>'.$value->username.'</td>';
+							echo '<td>'.$value->email.'</td>';
+							echo '<td>'.$value->type.'</td>';
+							echo '<td>'.$value->status.'</td>';
+							echo '<td>'.$value->created_by.'</td>';
+							echo '<td>'.$value->created_date.'</td>';
+							echo '<td>'.$value->update_by.'</td>';
+							echo '<td>'.$value->update_date.'</td>';
+							echo '</tr>';	
+					}
+
+
+			?>
 		
 	</tbody>
 
@@ -29,3 +43,14 @@
 
 <a href="#" onClick="setPage('<?php echo base_url('master/user/add_user')?>')"><button class="btn btn-primary">Add User</button></a> 
 <button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
+
+
+<script>
+		
+		$(document).ready(function(){
+
+				$("#table_user").dataTable();
+		})
+	
+
+</script>

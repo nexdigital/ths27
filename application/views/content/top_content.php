@@ -5,5 +5,5 @@
         <li class='active'>Dashboard</li>
     </ol>
 </section>
-<div class='loading' style='display:none'><center><img src='".base_url()."style/img/ajax-loader.gif'></center></div>
+
 <section class='content'>
