@@ -369,7 +369,7 @@ class Tool_model extends CI_Model {
 	function check_login( $username, $password ) {
 		
 		$this->db->where( "username", $username );
-		$this->db->where( "password", md5( $password ) );
+		$this->db->where( "password",  $password);
 		$get	= $this->db->get( "user_table" );
 		if( $get->num_rows() > 0 )
 			return $get->row();
