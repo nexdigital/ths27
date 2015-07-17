@@ -46,7 +46,7 @@
 
 <button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/add_user')?>')">Create New</button>
 <button class="btn btn-success" onclick= "edit_user();">Update User</button>
-<button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/delete/'.$get_user->user_id)?>')">delete</button>
+<button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/delete/'.$get_user->user_id)?>')">Delete</button>
 
 <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/user/index')">Cancel</button>
 <label id="alert-message" class="alert alert-success" style="display:none;padding-bottom:5px;padding-top:5px;padding-right:5px;padding-left:5px;"></label>
