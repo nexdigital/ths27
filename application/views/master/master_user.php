@@ -1,15 +1,16 @@
-<table id="table_user" class="table table-striped table-hovered">
+<table id="table_user" class="table  table-striped table-hovered">
 	<thead>
 		
 		<th>User Id</th>
 		<th>Name</th>
 		<th>Email</th>
 		<th>Level</th>
-		<th>Status</th>
+		
 		<th>Created by</th>
 		<th>Created date</th>
 		<th>Updated by</th>
 		<th>Updated date</th>
+		<th>Status</th>
 		
 		
 	</thead>
@@ -25,11 +26,12 @@
 							echo '<td>'.$value->username.'</td>';
 							echo '<td>'.$value->email.'</td>';
 							echo '<td>'.$value->type.'</td>';
-							echo '<td>'.$value->status.'</td>';
+							
 							echo '<td>'.$value->created_by.'</td>';
 							echo '<td>'.$value->created_date.'</td>';
 							echo '<td>'.$value->update_by.'</td>';
 							echo '<td>'.$value->update_date.'</td>';
+							echo '<td>'.$value->status.'</td>';
 							echo '</tr>';	
 					}
 

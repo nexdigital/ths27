@@ -5,6 +5,7 @@
 				<th>Created date</th>
 				<th>Update by</th>
 				<th>Update date</th>
+				<th>Status</th>
 		</thead>
 
 		<tbody>
@@ -14,11 +15,12 @@
 
 				foreach ($get_type as $key => $value) {
 							echo "<tr>";	
-							echo "<td>".$value->type."</td>";	
+							echo '<td><a href="javascript:;" onClick="setPage(\''.base_url('master/add_user_role/edit_form/'.$value->id_type).'\')">'.$value->type.'</a></td>';
 							echo "<td>".$value->created_by."</td>";	
 							echo "<td>".$value->created_date."</td>";	
 							echo "<td>".isset($value->updated_by)."</td>";	
 							echo "<td>".isset($value->updated_date)."</td>";
+							echo "<td>".$value->status."</td>";	
 							echo "</tr>";		
 				}
 

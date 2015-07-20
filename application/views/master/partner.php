@@ -11,8 +11,8 @@
 			<th>Telephone</th>
 		
 		<!--	<th>Description</th>-->
-			<th>Entry By</th>
-			<th>Entry Date</th>
+			<th>Created By</th>
+			<th>Created Date</th>
 			<th>Update By</th>
 			<th>Update Date</th>
 			<th>Status</th>	

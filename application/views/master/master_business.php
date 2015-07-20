@@ -6,6 +6,8 @@
 				<th>Description</th>
 				<th>Created by</th>
 				<th>Created Date</th>
+				<th>Update by</th>
+				<th>Update Date</th>
 				<th>Status</th>
 
 		</thead>
@@ -19,6 +21,8 @@
 						<td>'.$value->description.'</td>
 						<td>'.$value->created_by.'</td>
 						<td>'.$value->created_date.'</td>
+						<td>'.$value->update_by.'</td>
+						<td>'.$value->update_date.'</td>
 						<td>'.$value->is_active.'</td>
 					</tr>
 				';

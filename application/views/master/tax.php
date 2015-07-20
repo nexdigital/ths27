@@ -1,12 +1,13 @@
-<table id="table_tax"  class="table table-bordered table-striped table-hovered">
+<table id="table_tax"  class="table  table-striped table-hovered">
   <thead>
      <th>ID</th>
      <th>Tax Name</th>
-     <th>Description</th>
      <th>Tax base amount</th>
      <th>Tax rate</th>
      <th>Created by</th>
      <th>Created date</th>
+     <th>Update by</th>
+     <th>Update date</th>
      <th>Status</th>
   </thead>
 
@@ -18,11 +19,12 @@
                   <tr>
                       <td><a href="javascript:;" onClick="setPage(\''.base_url('master/tax/edit_tax/'.$value->tax_id.'').'\')">'.$value->tax_id.'</a></td>
                       <td>'.$value->tax_name.'</td>
-                      <td>'.$value->description.'</td>
                       <td>'.$value->tax_base_amount.'</td>
                       <td>'.$value->tax_rate.'</td>
                       <td>'.$value->created_by.'</td>
                       <td>'.$value->created_date.'</td>
+                      <td>'.$value->update_by.'</td>
+                      <td>'.$value->update_date.'</td>
                       <td>'.$value->is_active.'</td>
                 </tr>
 

@@ -46,7 +46,7 @@ class Master_user extends CI_Model {
 	function get_all_user(){
 
 
-			$query = $this->db->query('select a.*, b.`type` from user_table as a LEFT JOIN  user_type_table as b  on a.`type`= b.`id_type` where a.status = "active"');
+			$query = $this->db->query('select a.*, b.`type` from user_table as a LEFT JOIN  user_type_table as b  on a.`type`= b.`id_type`');
 			return $query->result();
 
 	}
@@ -107,6 +107,33 @@ class Master_user extends CI_Model {
 			return $get->row();
 		else
 			return FALSE;
+	}
+
+	function get_role(){
+
+			$get = $this->db->get('user_access_table');
+			return $get->result();
+
+	}
+
+	function get_role_by_row($id_type){
+
+			$get  = $this->db->query('select a.id_type,a.type ,c.access FROM user_type_table as a
+				 						LEFT JOIN user_role_table as b on a.id_type  = b.id_type 
+										LEFT JOIN user_access_table as c on c.id = b.access_level
+										where a.id_type = "'.$id_type.'"');
+			return $get->row();
+
+	}
+
+	function get_checked_by_row($id_type){
+
+			$get  = $this->db->query('select a.id_type,a.type,b.*,c.access FROM user_type_table as a
+				 						LEFT JOIN user_role_table as b on a.id_type  = b.id_type 
+										LEFT JOIN user_access_table as c on c.id = b.access_level
+										where a.id_type = "'.$id_type.'"');
+			return $get->result();
+
 	}
 		
 }

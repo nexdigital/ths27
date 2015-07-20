@@ -324,7 +324,7 @@ class Master extends MY_Controller {
 													'description'	=> $description,
 													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
 													'created_date'	=> date("Y-m-d"),
-													'created_by'	=> "Admin"
+													'created_by'	=> $this->session->userdata("username")
 													 );	
 
 								$this->master_business->add_business($component);
@@ -362,8 +362,12 @@ class Master extends MY_Controller {
 								$component  = array(	
 													'business_name' => $business_name,	
 													'description'	=> $description,
-													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive'
+													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
+													'update_by'		=> $this->session->userdata("username"),
+													'update_date'	=> date('Y-m-d')
 													 );	
+
+								//$this->session->userdata("username")
 
 								$this->master_business->edit_business($business_id,$component);
 								$status = TRUE;
@@ -445,7 +449,7 @@ class Master extends MY_Controller {
 									'currency_name'	 => $_POST['currency_name'],
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
-									'created_by'	 => "Admin",
+									'created_by'	 => $this->session->userdata("username"),
 									'created_date'	 => date("Y-m-d H:i:s")
 									);
 
@@ -489,7 +493,7 @@ class Master extends MY_Controller {
 									'currency_name'	 => $_POST['currency_name'],
 									'description'	 => $_POST['description'],
 									'is_active'		 => $v_isActive,
-									'modified_by'	 => "Admin",
+									'modified_by'	 => $this->session->userdata("username"),
 									'modified_date'	 => date("Y-m-d H:i:s")
 									);
 								$this->master_country->edit_country($country_id,$component);
@@ -637,7 +641,7 @@ class Master extends MY_Controller {
 										   'tax_base_amount'	=> $tax_base_amount,
 										   'is_active'			=> $v_isActive,
 										   'tax_rate'			=> $tax_rate,
-										   'created_by'			=> "Admin"
+										   'created_by'			=> $this->session->userdata("username")
 						);
 						
 						$this->master_tax->add_tax($component);
@@ -683,12 +687,14 @@ class Master extends MY_Controller {
 
 						}else{
 
-							$component = array('tax_name' 			=> $tax_name, 
+							$component = array('tax_name' 		=> $tax_name, 
 										   'description'		=> $description,
 										   'tax_base_amount'	=> $tax_base_amount,
 										   'tax_rate'			=> $tax_rate,
-										   'created_by'			=> "Admin",
-										   'is_active'			=> $v_isActive
+										   'update_by'			=> $this->session->userdata("username"),
+										   'is_active'			=> $v_isActive,
+										   'update_date'		=> date('Y-m-d')
+
 								);
 						
 							$this->master_tax->edit_tax($id,$component);
@@ -775,7 +781,7 @@ class Master extends MY_Controller {
 												'zipcode'			=> $_POST['zipcode'],
 												'description'		=> $_POST['description'],
 												'is_active'			=> $v_isActive,
-												'entry_by'			=> "Admin",
+												'entry_by'			=> $this->session->userdata("username"),
 												'entry_date'		=> date('Y-m-d h:m:s')
 											);
 								$this->partner_model->add_partner($data);
@@ -819,7 +825,7 @@ class Master extends MY_Controller {
 													'zipcode'			=> $_POST['zipcode'],
 													'description'		=> $_POST['description'],
 													'is_active'			=> $v_isActive,
-													'update_by'			=> "Admin",
+													'update_by'			=> $this->session->userdata("username"),
 													'update_date'		=> date('Y-m-d h:m:s')
 												);
 									$this->partner_model->update_partner($partner_id,$data);
@@ -1049,7 +1055,7 @@ class Master extends MY_Controller {
 
 	}
 
-	function add_user_role($page=null){
+	function add_user_role($page=null, $id_type=null){
 
 		switch ($page) {
 			case 'index':
@@ -1061,8 +1067,16 @@ class Master extends MY_Controller {
 			case'add_form':
 
 						$data['data']	= '';
-						$data['title']	= 'Add User Role';
-						$this->set_content('master/add_role',$data);
+						$data['title']	= 'Add Role';
+						$this->set_content('master/role_add',$data);
+			break;
+
+			case'edit_form':
+
+						$data['get_role']		= $this->master_user->get_role_by_row($id_type);
+						$data['get_checked']	= $this->master_user->get_checked_by_row($id_type);
+						$data['title']			= 'Edit Role';
+						$this->set_content('master/role_edit',$data);
 			break;
 
 			case 'add_role':
@@ -1093,6 +1107,8 @@ class Master extends MY_Controller {
 					$message = "Save Success";
 					echo json_encode(array('message' => $message));
 			break;
+
+
 
 		}
 
@@ -1146,7 +1162,7 @@ class Master extends MY_Controller {
 						$data['swift_code']     = $_POST['swift_code'];
 						$data['date']  			= date("Y-m-d");   
 						//$data['user_created']   = $this->session->userdata('');
-						$data['user_created']   = "Admin";
+						$data['user_created']   = $this->session->userdata("username");
 						$this->masters->add_bank($data);
 
 						echo json_encode(array('test' => 'coli'));
