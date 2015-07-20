@@ -370,6 +370,7 @@ class Tool_model extends CI_Model {
 		
 		$this->db->where( "username", $username );
 		$this->db->where( "password",  $password);
+		$this->db->where( "status = 'active'");
 		$get	= $this->db->get( "user_table" );
 		if( $get->num_rows() > 0 )
 			return $get->row();
