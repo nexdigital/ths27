@@ -1,4 +1,4 @@
-<table id="table_user_role" class="table table-bordered table-striped table-hovered">
+<table id="table_user_role" class="table table-striped table-hovered">
 		<thead>
 				<th>Type</th>
 				<th>Created by</th>
@@ -18,8 +18,8 @@
 							echo '<td><a href="javascript:;" onClick="setPage(\''.base_url('master/add_user_role/edit_form/'.$value->id_type).'\')">'.$value->type.'</a></td>';
 							echo "<td>".$value->created_by."</td>";	
 							echo "<td>".$value->created_date."</td>";	
-							echo "<td>".isset($value->updated_by)."</td>";	
-							echo "<td>".isset($value->updated_date)."</td>";
+							echo "<td>".$value->update_by."</td>";	
+							echo "<td>".$value->update_date."</td>";
 							echo "<td>".$value->status."</td>";	
 							echo "</tr>";		
 				}

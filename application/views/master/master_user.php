@@ -1,4 +1,4 @@
-<table id="table_user" class="table  table-striped table-hovered">
+<table id="table_user" class="table table-striped">
 	<thead>
 		
 		<th>User Id</th>

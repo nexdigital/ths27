@@ -51,9 +51,15 @@ class Login extends MY_Controller {
         $active_user  = $this->tool_model->check_login($username,$password);
 
         if($active_user){
+
                          $this->tool_model->set_session_login($active_user);
                          $status = TRUE;
                          $message =  "Login Success. Please Wait...";
+
+                         $user_id = $this->session->userdata('user_id');
+                         $data['login']  = "1";
+                         $this->master_user->edit_user($user_id,$data);
+
                      }else{
                          $status = FALSE;
                          $message = "Incorrect Username or Password";
@@ -67,8 +73,12 @@ class Login extends MY_Controller {
 
     function logout(){
 
-    		$this->tool_model->remove_session_login();
+             $user_id = $this->session->userdata('user_id');
+             $data['login']  = "0";
+              $this->master_user->edit_user($user_id,$data);
+    		 $this->tool_model->remove_session_login();
     		redirect('');
+
     }
 
 }

@@ -1,5 +1,7 @@
-<form method="post" id="add_role_form" action="<?php echo base_url('master/add_user_role/add_role') ?>">
+<form method="post" id="edit_role_form" action="<?php echo base_url('master/add_user_role/edit_role') ?>">
 		<div class="form-group">
+
+			<input type="hidden" name="id_type" value = "<?php echo $get_role->id_type ?>">
 		  <label>Type User <label class="required-filed">*</label></label>
 		  <input type="text" class="form-control" id="type" name="type" value = "<?php echo $get_role->type ?>">
 		</div>
@@ -19,7 +21,7 @@
 
 		  	foreach ($this->master_user->get_role() as $key => $value) {
 		  		  
-		  		  
+
 		  		echo ' <div class="form-group">
 
 		  					  <input type="checkbox" name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;
@@ -38,6 +40,9 @@
 
 		<label id="role[]-error" class="error" for="role[]" style="display: inline-block;"></label><br/>
 		<input type="submit" class="btn btn-primary" value="Add Role" onclick="add_role();">
+		<input type="submit" class="btn btn-primary" value="Edit Role" onclick="edit_role();">
+
+		
 		<button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/add_user_role/index')">Cancel</button>
 		<label id="alert-message" class="alert alert-success" style="display:none;padding-top: 5px;padding-bottom: 8px;"></label>
 </form>
@@ -46,7 +51,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	 	$('form#add_role_form').validate({
+	 	$('form#edit_role_form').validate({
 	 			 rules: {
 		            		'role[]': {
 					                required: true,
@@ -68,10 +73,10 @@ $(document).ready(function(){
 });
 
 
-function add_role(){
+function edit_role(){
 
 
-	$('form#add_role_form').ajaxForm({
+	$('form#edit_role_form').ajaxForm({
 				dataType:'json',
 				success: function(data){
 					

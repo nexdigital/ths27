@@ -17,6 +17,23 @@ class Master_user extends CI_Model {
 
 	}
 
+	function update_type($id_type, $data){
+
+		
+
+			$this->db->where('id_type',$id_type);
+			$this->db->update('user_type_table',$data);
+
+	}
+
+	function update_role($id_type,$component){
+
+			$this->db->where('id_type',$id_type);
+			$this->db->update('user_role_table',$component);
+
+	}
+		
+
 	function get_access(){
 
 			$query = $this->db->get('user_type_table');
@@ -111,7 +128,8 @@ class Master_user extends CI_Model {
 
 	function get_role(){
 
-			$get = $this->db->get('user_access_table');
+
+			$get = $this->db->get('user_access_table','Desc');
 			return $get->result();
 
 	}
@@ -135,7 +153,16 @@ class Master_user extends CI_Model {
 			return $get->result();
 
 	}
-		
+
+	function get_user_login($user_id,$login = "1"){
+
+			$this->db->where('user_id != ',$user_id);
+			$this->db->where('login',$login);
+			$get = $this->db->get('user_table');
+			return $get->result();
+
+	}
+
 }
 
 ?>

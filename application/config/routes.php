@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "login";
+$route['chat'] = "chat";
 $route['logout'] = "login/logout";
 $route['404_override'] = '';
 

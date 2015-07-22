@@ -1083,13 +1083,23 @@ class Master extends MY_Controller {
 
 					$type = $_POST['type'];
 					$role = $_POST['role'];
+					$description = $_POST['description'];
+					$is_active = isset($_POST['status_active']);
+
 					
 					//$message = "";
 
+					if($is_active != "" ){
+							$v_isActive = "active";
+					}else{
+							$v_isActive = "inactive";
+					}	
 					
 					$data['type']			= $type;
 					$data['created_by']		= $this->session->userdata('user_id');
 					$data['created_date']	= date('Y-m-d');
+					$data['status']			= $v_isActive;
+					$data['description']	= $description;
 					$this->master_user->insert_type($data);
 
 					$last_id = $this->db->insert_id();
@@ -1106,6 +1116,45 @@ class Master extends MY_Controller {
 
 					$message = "Save Success";
 					echo json_encode(array('message' => $message));
+			break;
+
+			case 'edit_role':
+
+
+					$id_type = $_POST['id_type'];
+					$type = $_POST['type'];
+					$role = $_POST['role'];
+					$description = $_POST['description'];
+					$is_active 		=  isset($_POST['status_active']);
+
+						if($is_active != "" ){
+							$v_isActive = "active";
+						}else{
+							$v_isActive = "inactive";
+						}	
+
+					
+					$data['type']			= $type;
+					$data['update_by']		= $this->session->userdata('user_id');
+					$data['update_date']	= date('Y-m-d');
+					$data['description']	= $description;
+					$data['status']			= $is_active ;
+					$this->master_user->update_type($id_type,$data);
+
+				
+					 for ($i=0; $i < sizeof($role) ; $i++) { 
+							
+							$component['access_level']	= $role[$i];
+
+							$this->master_user->update_role($id_type,$component);
+					
+					 }
+
+					$message = "Edit Success";
+					echo json_encode(array('message' => $message));
+
+
+
 			break;
 
 

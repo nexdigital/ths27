@@ -4,5 +4,7 @@
         <aside class='right-side main-content'>
         </aside>
     </div>
+   <?php include('chat.php'); ?> 
 </div>
+
 <?php include('footer.php'); ?>

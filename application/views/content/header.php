@@ -28,6 +28,11 @@
         <link href="<?php echo base_url() ?>style/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>style/lib/autocomplete/jquery.auto-complete.css">
        
+    <script type="text/javascript" src="http://demo.webexplorar.com/codeigniter/application/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo base_url()?>style/js/chat.js"></script>
+  
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo base_url()?>style/css/chat.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo base_url()?>style/css/screen.css" />
     </head>
 
 <style>
@@ -84,6 +89,60 @@
                         <!-- Tasks: style can be found in dropdown.less -->
                         
                         <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success"><?php
+
+                 $user_id = $this->session->userdata('user_id');  
+                 $user_login = $this->master_user->get_user_login($user_id);
+
+                   echo count($user_login); ?></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header"><?php  echo count($user_login) ?> User Login </li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                      
+                        <?php 
+
+                                foreach ($user_login as $key => $value) {
+                                   
+                                        echo " <li>
+                                                    <a href='javascript:void(0)' onClick='javascript:chatWith(\"$value->username\")'>
+                                                      <div class='pull-left'>
+                                                        <img src='dist/img/user2-160x160.jpg' class='img-circle' alt='User Image'>
+                                                      </div>
+                                                      <h4>
+                                                        ".$value->username."
+                                                       
+                                                      </h4>
+                                                     
+                                                    </a>
+                                                  </li><!-- end message -->";
+
+
+                                }
+
+
+
+
+                        ?>
+                     
+                      
+                    </ul><div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 131.147540983607px; background: rgb(0, 0, 0);"></div>
+                    <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+                </div>
+                  </li>
+                  <li class="footer"><a href="#">See All Messages</a></li>
+                </ul>
+              </li>
+                        
+
+
+
+                        
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
@@ -220,6 +279,8 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
+
+            
 
 <script type="text/javascript">
 

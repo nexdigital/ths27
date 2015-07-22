@@ -20,25 +20,17 @@
 
 
 		  } ?>
-	<!--	<div class="form-group">
+	
 
-		  <input type="checkbox" name="role[]" value="1"> Upload File &nbsp;
-		 
-		</div>
-		<div class="form-group">
-		 
-		  <input type="checkbox" name="role[]" value="2"> Create Host &nbsp;
-		 
-		</div>
-		<div class="form-group">
-		 
-		  <input type="checkbox" name="role[]" value="3"> Data &nbsp;
-		 
-		</div>
-		<div class="form-group">
-		  
-		  <input type="checkbox" name="role[]" value="4"> Verification
-		</div>  -->
+
+<div class="form-group">
+		<label>Description <label class="required-filed"></label></label>
+  		<textarea class="form-control" name="description" id="description"></textarea>
+</div>
+
+<div class="form-group">
+  <input type="checkbox" name="status_active"> Active
+</div>
 
 		<label id="role[]-error" class="error" for="role[]" style="display: inline-block;"></label><br/>
 		<input type="submit" class="btn btn-primary" value="Add Role" onclick="add_role();">
