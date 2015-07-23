@@ -112,7 +112,7 @@
                                         echo " <li>
                                                     <a href='javascript:void(0)' onClick='javascript:chatWith(\"$value->username\")'>
                                                       <div class='pull-left'>
-                                                        <img src='dist/img/user2-160x160.jpg' class='img-circle' alt='User Image'>
+                                                        <i class='glyphicon glyphicon-user'></i>
                                                       </div>
                                                       <h4>
                                                         ".$value->username."
