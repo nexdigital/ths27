@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller {
 	}
 
 	function set_content($page,$data){
-		print_r($_SESSION);
+		//print_r($_SESSION);
 		$this->load->view('content/top_content',$data);
 		$this->load->view($page,$data);
 		$this->load->view('content/bottom_content',$data);
