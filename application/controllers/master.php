@@ -11,7 +11,40 @@ class Master extends MY_Controller {
 	}
 
 	function dashboard(){
-		$this->set_content('content/blank',array('title' => 'Dashboard'));
+		$data['title']	= 'Dashboard';
+		$data['new_manifest']	= $this->manifest_model->get_data_unverified();
+		$data['deadline'] = $this->manifest_model->get_host_deadline('+7');
+		$this->set_content('content/dashboard',$data);
+	}
+
+	function charts(){
+		$chart = (isset($_GET['chart'])) ? $_GET['chart'] : 'column';
+		$type_user = (isset($_GET['type_user'])) ? $_GET['type_user'] : 'shipper';
+		$sort_by = (isset($_GET['sort_by'])) ? $_GET['sort_by'] : false;
+		$sort_order = (isset($_GET['sort_order'])) ? $_GET['sort_order'] : 'asc';
+		$limit = (isset($_GET['limit'])) ? $_GET['limit'] : false;
+		$start_date = (isset($_GET['start_date'])) ? $_GET['start_date'] : false;
+		$start_end = (isset($_GET['start_end'])) ? $_GET['start_end'] : false;
+
+		if($sort_by == 'total_kg') {
+			$query = $this->db->query("select m.*, sum(m.kg) as 'total_kg', c.* from manifest_data_table m join customer_table c on m.".$type_user." = c.reference_id group by m.".$type_user." order by total_kg ".$sort_order." limit ".$limit);
+			$data['chart'] = $query;
+		} else {
+			$query = $this->db->query("select m.*, sum(m.kg) as 'total_kg', c.* from manifest_data_table m join customer_table c on m.".$type_user." = c.reference_id group by m.".$type_user." order by total_kg ".$sort_order);
+			$data['chart'] = $query;			
+		}
+
+		switch ($chart) {
+			case 'column':
+				$this->load->view('charts/line',$data);
+				break;
+			case 'pie':
+				$this->load->view('charts/pie',$data);
+				break;			
+			default:
+				$this->load->view('charts/line',$data);
+				break;
+		}
 	}
 
 

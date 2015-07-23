@@ -30,7 +30,7 @@
        
     <script type="text/javascript" src="http://demo.webexplorar.com/codeigniter/application/js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>style/js/chat.js"></script>
-  
+
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo base_url()?>style/css/chat.css" />
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo base_url()?>style/css/screen.css" />
     </head>

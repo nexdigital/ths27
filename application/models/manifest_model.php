@@ -160,6 +160,16 @@ class Manifest_model extends CI_Model {
 		$this->db->where('hawb_no',$hawb_no);
 		$this->db->update('manifest_data_table');
 	}
+	function update_status_delivery($hawb_no,$status){
+		$this->db->set('status_delivery',$status);
+		$this->db->where('hawb_no',$hawb_no);
+		$this->db->update('manifest_data_table');
+	}
+	function update_status_payment($hawb_no,$status){
+		$this->db->set('status_payment',$status);
+		$this->db->where('hawb_no',$hawb_no);
+		$this->db->update('manifest_data_table');
+	}
 
 	function subtotal($hawb_no,$type = 'all') {
 		$data = $this->get_by_hawb($hawb_no);
@@ -293,6 +303,12 @@ class Manifest_model extends CI_Model {
 		$query = $this->db->query("select * from discount_table where hawb_no = '".$hawb_no."' and type = '".$type."' and status = 'active'");
 		if($query->num_rows() > 0) return $query->row();
 		else return false;
+	}
+
+	function get_host_deadline($days) {
+		$deadline_days = $this->tool_model->set_deadline($days);
+		$query = $this->db->query("select * from manifest_data_table where deadline >= '".date('Y-m-d')."' and deadline <= '".$deadline_days."' and status = 'Finish' and status_delivery in ('On Progress','Delivered') and status_payment = 'Unpaid'");
+		return $query;
 	}
 }
 ?>

@@ -34,6 +34,7 @@ class Invoice extends MY_Controller {
 
 	function printout($hawb_no) {
 		$this->manifest_model->update_status($hawb_no,'Finish');
+		$this->manifest_model->update_status_delivery($hawb_no,'On Progress');
 		if(file_exists(path_invoice . $hawb_no .'.pdf')) {
 			redirect('asset/invoice/'.$hawb_no.'.pdf');
 		} else {
