@@ -390,6 +390,7 @@ class Tool_model extends CI_Model {
 			"type"			=> $active_user->type	
 		);
 		$this->session->set_userdata( $session );
+		$_SESSION['username'] = $active_user->username;
 	
 	}
 
@@ -398,7 +399,7 @@ class Tool_model extends CI_Model {
 		
 		 $session	= array( "login"=>FALSE, "user_id"=>"", "username"=>"", "password"=>"");
 	     $this->session->set_userdata( $session );
-	
+	     session_destroy();
 	}
 }
 

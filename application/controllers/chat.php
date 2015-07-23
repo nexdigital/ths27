@@ -31,7 +31,6 @@ class Chat extends MY_Controller {
 
 	function index(){
 
-			session_start();
 			if ($_GET['action'] == "chatheartbeat") { $this->chatHeartbeat(); }
 			if ($_GET['action'] == "sendchat") { $this->sendChat(); }
 			if ($_GET['action'] == "closechat") { $this->closeChat(); }

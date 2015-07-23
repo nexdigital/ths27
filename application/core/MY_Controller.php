@@ -4,10 +4,12 @@ class MY_Controller extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+        session_start();
 		#$this->system->set_all_activity_log();
 	}
 
 	function set_content($page,$data){
+		print_r($_SESSION);
 		$this->load->view('content/top_content',$data);
 		$this->load->view($page,$data);
 		$this->load->view('content/bottom_content',$data);
