@@ -21,13 +21,27 @@
 
 		  	foreach ($this->master_user->get_role() as $key => $value) {
 		  		  
+		  		foreach ($variable as $key => $row) {
 
-		  		echo ' <div class="form-group">
+		  			if(){
 
-		  					  <input type="checkbox" name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;
 
-		  				</div>
-		  		';
+		  					echo ' <div class="form-group">
+
+		  					  		<input type="checkbox" name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;
+
+		  						</div>
+		  				';
+
+		  			}else{
+
+		  			}
+		  			
+
+
+
+		  		}
+		  	
 
 
 		  } ?>
