@@ -32,7 +32,7 @@
   <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/country/add')">Create New</button>
   <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
   <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/country/delete/<?php echo $get_country->country_id ?>')">Delete</button>
-  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/view/country/index')">Back</button>
+  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/view/country/index')">Cancel</button>
 
 <label class="alert-form" ></label>
 </form>

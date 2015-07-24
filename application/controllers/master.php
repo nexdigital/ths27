@@ -1105,11 +1105,19 @@ class Master extends MY_Controller {
 			break;
 
 			case'edit_form':
-
+						//get_access_level
 						$data['get_role']		= $this->master_user->get_role_by_row($id_type);
 						$data['get_checked']	= $this->master_user->get_checked_by_row($id_type);
 						$data['title']			= 'Edit Role';
 						$this->set_content('master/role_edit',$data);
+			break;
+
+			case'delete_form':
+						//get_access_level
+						$data['get_role']		= $this->master_user->get_role_by_row($id_type);
+						$data['get_checked']	= $this->master_user->get_checked_by_row($id_type);
+						$data['title']			= 'Edit Role';
+						$this->set_content('master/role_delete',$data);
 			break;
 
 			case 'add_role':
@@ -1171,26 +1179,42 @@ class Master extends MY_Controller {
 					$data['update_by']		= $this->session->userdata('user_id');
 					$data['update_date']	= date('Y-m-d');
 					$data['description']	= $description;
-					$data['status']			= $is_active ;
-					$this->master_user->update_type($id_type,$data);
+					$data['status']			= $v_isActive ;
+					$this->master_user->update_type($id_type,$data); 
 
-				
+					 for ($i=0; $i < sizeof($role) ; $i++) { 
+
+					 		$this->master_user->delete_role($id_type);
+					 }
+						
 					 for ($i=0; $i < sizeof($role) ; $i++) { 
 							
+						
+
+							$component['id_type']		= $id_type;
 							$component['access_level']	= $role[$i];
 
-							$this->master_user->update_role($id_type,$component);
+							$this->master_user->insert_role($component);
 					
 					 }
-
-					$message = "Edit Success";
-					echo json_encode(array('message' => $message));
+					$message = "Edit success";
+					echo json_encode(array('message' =>$message));
 
 
 
 			break;
 
+			case 'delete_role':
 
+						$id_type = $_POST['id_type'];
+						$data['status'] = "deleted";
+						$this->master_user->update_type($id_type,$data);
+
+						$message = "Delete Success";
+						echo json_encode(array('message' => $message));
+			break;
+
+			
 
 		}
 

@@ -45,7 +45,7 @@
 </div>
 
 <button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/add_user')?>')">Create New</button>
-<button class="btn btn-success" onclick= "edit_user();">Update User</button>
+<button class="btn btn-success" onclick= "edit_user();">Update</button>
 <button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/user/delete/'.$get_user->user_id)?>')">Delete</button>
 
 <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/user/index')">Cancel</button>

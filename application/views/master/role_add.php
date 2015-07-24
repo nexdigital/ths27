@@ -13,7 +13,7 @@
 		  			
 		  		echo ' <div class="form-group">
 
-		  					  <input type="checkbox" name="role[]" value="'.$no++.'"> '.$value->access.'&nbsp;
+		  					  <input type="checkbox" name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;
 
 		  				</div>
 		  		';
@@ -33,7 +33,7 @@
 </div>
 
 		<label id="role[]-error" class="error" for="role[]" style="display: inline-block;"></label><br/>
-		<input type="submit" class="btn btn-primary" value="Add Role" onclick="add_role();">
+		<input type="submit" class="btn btn-success" value="Add Role" onclick="add_role();">
 		<button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/add_user_role/index')">Cancel</button>
 		<label id="alert-message" class="alert alert-success" style="display:none;padding-top: 5px;padding-bottom: 8px;"></label>
 </form>
@@ -42,12 +42,18 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+	
+
+
 	 	$('form#add_role_form').validate({
 	 			 rules: {
 		            		'role[]': {
 					                required: true,
 					          
-		            				}
+		            				},
+
+		            		
         				},
 		        messages: {
 		           			 'role[]': {

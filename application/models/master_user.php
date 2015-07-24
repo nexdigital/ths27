@@ -32,12 +32,20 @@ class Master_user extends CI_Model {
 			$this->db->update('user_role_table',$component);
 
 	}
+
+	function delete_role($id_type){
+
+			$this->db->where('id_type',$id_type);
+			$this->db->delete('user_role_table');
+
+	}
 		
 
 	function get_access(){
 
-			$query = $this->db->get('user_type_table');
+			$query = $this->db->query('select * from user_type_table ORDER BY created_date ASC');
 			return $query->result();
+
 	}
 
 	function insert_user($data){
@@ -129,14 +137,14 @@ class Master_user extends CI_Model {
 	function get_role(){
 
 
-			$get = $this->db->get('user_access_table','Desc');
+			$get = $this->db->get('user_access_table');
 			return $get->result();
 
 	}
 
 	function get_role_by_row($id_type){
 
-			$get  = $this->db->query('select a.id_type,a.type ,c.access FROM user_type_table as a
+			$get  = $this->db->query('select a.* ,c.access FROM user_type_table as a
 				 						LEFT JOIN user_role_table as b on a.id_type  = b.id_type 
 										LEFT JOIN user_access_table as c on c.id = b.access_level
 										where a.id_type = "'.$id_type.'"');
@@ -160,6 +168,14 @@ class Master_user extends CI_Model {
 			$this->db->where('login',$login);
 			$get = $this->db->get('user_table');
 			return $get->result();
+
+	}
+
+	function get_access_level($id_type){
+
+			$this->db->where('id_type',$id_type);
+			$sql = $this->db->get('user_role_table');
+			return $sql->row();
 
 	}
 
