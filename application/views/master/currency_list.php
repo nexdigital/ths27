@@ -14,9 +14,6 @@
 	<?php foreach($list_currency as $row){
 		echo '
 			<tr>
-				<td>
-					<button class="btn btn-primary" title="Delete" onCLick="alert(\'Deleted\')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-				</td>
 				<td><a href="javascript:;">'.$row->currency_from.'</a></td>
 				<td>'.$row->currency_to.'</td>
 				<td>'.$row->currency_type.'</td>

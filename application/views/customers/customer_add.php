@@ -127,7 +127,7 @@
                               <?php
                               foreach ($this->master_country->list_country() as $key => $value) {
                                   $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
-                                  echo '<option value="'.$value->country_name.'" '.$selected.'>'.$value->country_name.'</option>';
+                                  echo '<option value="'.$value->country_id.'" '.$selected.'>'.$value->country_name.'</option>';
                               }
                               ?>
                               </select>

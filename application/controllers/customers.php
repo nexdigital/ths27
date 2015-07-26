@@ -104,13 +104,13 @@ class Customers extends MY_Controller {
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
 					$data['tax_class'] 	  = $_POST['tax_class'];
-				//	$data['vat_doc'] 	  = $_POST['vat_doc'];
-				//	$data['status'] 	  = $_POST['status'];
-					//$data['register_date']= $_POST['register_date'];
 					$data['register_date']= "2015-02-12";
 					$data['payment_type'] = $_POST['payment_type'];
 					$data['description']  = $_POST['description'];
 					$data['status_active']= "Active";
+					$data['create_date']  = date('Y-m-d');
+					$data['create_by']	  = $this->session->userdata('username'); 
+
 					$this->customers_model->save_customer($data);
 
 
@@ -141,18 +141,16 @@ class Customers extends MY_Controller {
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
 					$data['tax_class'] 	  = $_POST['tax_class'];
-				//	$data['vat_doc'] 	  = $_POST['vat_doc'];
-				//	$data['status'] 	  = $_POST['status'];
-					//$data['register_date']= $_POST['register_date'];
-					//$data['register_date']= date('Y-m-d');
 					$data['payment_type'] = $_POST['payment_type'];
 					$data['description']  = $_POST['description'];
 					$data['status_active']= (isset($_POST['is_active'])) ? 'Active' : 'inactive';
+					$data['update_date']  = date('Y-m-d');
+					$data['update_by']	  = $this->session->userdata('username'); 
 					$this->customers_model->customer_edit($reference_id,$data);
 						
 				
 					$status  = TRUE;
-					$message = "Save success";
+					$message = "Edit success";
 					echo json_encode(array("status"=> $status, "message" => $message));
 
 				break;

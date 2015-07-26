@@ -23,7 +23,7 @@
  <div class="form-group">
                         <label>Rate Id<label class="required-filed">*</label></label>
                       
-                            <input type="text" class="form-control" id="concept" name="concept" readonly>
+                            <input type="text" class="form-control" id="concept" name="concept" >
                       
   </div>
 

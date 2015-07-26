@@ -139,11 +139,11 @@
         </tbody>
 
        </table>
-                                <a href="#" onClick="setPage('<?php echo base_url('customers/email')?>')"><button class="btn btn-primary btn_email"><i class="fa fa-envelope"></i> Email</button></a>
-                                <button class="btn btn-success btn_edit"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                            
-                                <button class="btn btn-danger btn_disable" onClick="delete_user();"><i class="fa fa-trash"></i> Disable</button>   
-                                <label class="result-message"></label>
+                               <button class="btn btn-success" onClick="add_new();">Create New</button></a>    
+                               <button class="btn btn-success btn_edit" onClick="edit_customer();"> Update</button>
+                               <button class="btn btn-success btn_delete"> Delete</button>
+                               <button class="btn btn-danger btn_delete"> Cancel</button>
+                               <label class="result-message"></label>
     </form>
 
                          
@@ -156,6 +156,27 @@
 
         $(document).ready(function(){
             
+   
+            var tax_class = "<?php echo $get_customers->tax_class ?>";  
+            var payment_type = "<?php echo $get_customers->payment_type ?>"; 
+            var country = "<?php echo $get_customers->country ?>";           
+
+            $("#tax_class").val(tax_class);
+            $("#payment_type").val(payment_type);
+            $("#country").val(country);
+
+
+        
+        });
+
+
+        function add_new(){
+
+            setPage('<?php echo base_url()?>customers/add_customer');
+        }
+
+
+        function edit_customer(){
 
 
 
@@ -188,19 +209,7 @@
 
               });
 
-               
-            var tax_class = "<?php echo $get_customers->tax_class ?>";  
-            var payment_type = "<?php echo $get_customers->payment_type ?>"; 
-            var country = "<?php echo $get_customers->country ?>";           
-
-            $("#tax_class").val(tax_class);
-            $("#payment_type").val(payment_type);
-            $("#country").val(country);
-            
-
-
-        });
-
+        }
 
         function delete_user(){
 
