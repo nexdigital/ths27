@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 
 class Manifest extends MY_Controller {
