@@ -3,7 +3,7 @@
 class Welcome extends MY_Controller {
 	function __construct() {
 		parent::__construct();
-		  session_start();
+		
 		$this->load->helper(array('form', 'url'));
 		$this->load->library(array('form_validation','email'));
 	}
