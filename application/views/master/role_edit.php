@@ -63,7 +63,7 @@
 	
 
 		<label id="role[]-error" class="error" for="role[]" style="display: inline-block;"></label><br/>
-		<input type="submit" class="btn btn-success" value="Create New" onclick="add_role();">
+		<input type="reset" class="btn btn-success" value="Create New" onclick="add_role();">
 		<input type="submit" class="btn btn-success" value="Update" onclick="edit_role();">
 		<button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/add_user_role/delete_form/'.$get_role->id_type)?>')">Delete</button>
 
@@ -95,6 +95,13 @@ $(document).ready(function(){
  	
 
 });
+
+
+
+function add_role(){
+
+	setPage('<?php echo base_url() ?>master/add_user_role/add_form') ;
+}
 
 
 function edit_role(){
