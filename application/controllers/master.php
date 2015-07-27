@@ -1153,12 +1153,12 @@ class Master extends MY_Controller {
 						$data['description']	= $description;
 						$this->master_user->insert_type($data);
 
-						$last_id = $this->db->insert_id();
+						//$last_id = $this->db->insert_id();
 
 
 						 for ($i=0; $i < sizeof($role) ; $i++) { 
 								
-								$component['id_type']		= $last_id;
+								$component['id_type']		= $id_type;
 								$component['access_level']	= $role[$i];
 
 								$this->master_user->insert_role($component);
