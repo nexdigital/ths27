@@ -1,7 +1,14 @@
 <form method="post" id="edit_role_form" action="<?php echo base_url('master/add_user_role/edit_role') ?>">
+
+		<div class="form-group">
+		
+		  <label>ID Type <label class="required-filed">*</label></label>
+		  <input type="text" name="id_type" class="form-control" value = "<?php echo $get_role->id_type ?>" readonly>
+		</div>
+
 		<div class="form-group">
 
-			<input type="hidden" name="id_type" value = "<?php echo $get_role->id_type ?>">
+		 <!-- <input type="hidden" name="id_type" value = "<?php echo $get_role->id_type ?>"> -->
 		  <label>Type User <label class="required-filed">*</label></label>
 		  <input type="text" class="form-control" id="type" name="type" value = "<?php echo $get_role->type ?>">
 		</div>

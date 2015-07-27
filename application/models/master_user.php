@@ -179,6 +179,20 @@ class Master_user extends CI_Model {
 
 	}
 
+	function check_id_type($id_type){
+		
+		$this->db->where('id_type',$id_type);
+		$query = $this->db->get('user_type_table');
+  		$count_row = $query->num_rows();
+
+        if($count_row>0){
+          return TRUE;
+        }else{
+          return FALSE;
+        }
+
+	}
+
 }
 
 ?>

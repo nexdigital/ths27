@@ -1123,41 +1123,56 @@ class Master extends MY_Controller {
 
 			case 'add_role':
 
+					$id_type = $_POST['id_type'];
 					$type = $_POST['type'];
 					$role = $_POST['role'];
 					$description = $_POST['description'];
 					$is_active = isset($_POST['status_active']);
 
-					
-					//$message = "";
+					$check_id_type = $this->master_user->check_id_type($id_type);
 
-					if($is_active != "" ){
-							$v_isActive = "active";
+					if($check_id_type){
+						$status = FALSE;
+						$message = "Type Id Has been created before";
 					}else{
-							$v_isActive = "inactive";
-					}	
-					
-					$data['type']			= $type;
-					$data['created_by']		= $this->session->userdata('user_id');
-					$data['created_date']	= date('Y-m-d');
-					$data['status']			= $v_isActive;
-					$data['description']	= $description;
-					$this->master_user->insert_type($data);
 
-					$last_id = $this->db->insert_id();
+						//$message = "";
+
+						if($is_active != "" ){
+								$v_isActive = "active";
+						}else{
+								$v_isActive = "inactive";
+						}	
 
 
-					 for ($i=0; $i < sizeof($role) ; $i++) { 
-							
-							$component['id_type']		= $last_id;
-							$component['access_level']	= $role[$i];
+						$data['id_type']		= $id_type;
+						$data['type']			= $type;
+						$data['created_by']		= $this->session->userdata('user_id');
+						$data['created_date']	= date('Y-m-d');
+						$data['status']			= $v_isActive;
+						$data['description']	= $description;
+						$this->master_user->insert_type($data);
 
-							$this->master_user->insert_role($component);
-					
-					 }
+						$last_id = $this->db->insert_id();
 
+
+						 for ($i=0; $i < sizeof($role) ; $i++) { 
+								
+								$component['id_type']		= $last_id;
+								$component['access_level']	= $role[$i];
+
+								$this->master_user->insert_role($component);
+						
+						 }
+
+				    $status = TRUE;		 
 					$message = "Save Success";
-					echo json_encode(array('message' => $message));
+
+					}
+
+					
+					
+					echo json_encode(array('status' => $status , 'message' => $message));
 			break;
 
 			case 'edit_role':
@@ -1214,6 +1229,29 @@ class Master extends MY_Controller {
 						$message = "Delete Success";
 						echo json_encode(array('message' => $message));
 			break;
+
+
+		case 'autoComplete':
+				$id_type = $_GET['q'];
+				$this->db->like('id_type',$id_type);
+				$this->db->where_in('status',array('active'));
+				$get = $this->db->get('user_type_table');
+
+				$id_type_list = array();
+				foreach($get->result() as $row) {
+					$id_type_list[] = $row->id_type;
+				}
+				echo json_encode($id_type_list);
+		break;
+
+		case 'check_available_type':
+
+				$type = $_GET['type'];
+				$get = $this->db->query("select * from user_type_table where lower(type) = '".strtolower($type)."'");
+				if($get->num_rows() == 0) echo "true";
+				else echo "false";
+		break;
+
 
 			
 

@@ -1,5 +1,6 @@
 <table id="table_user_role" class="table table-striped table-hovered">
 		<thead>
+				<th>Id Type</th>
 				<th>Type</th>
 				<th>Created by</th>
 				<th>Created date</th>
@@ -15,7 +16,8 @@
 
 				foreach ($get_type as $key => $value) {
 							echo "<tr>";	
-							echo '<td><a href="javascript:;" onClick="setPage(\''.base_url('master/add_user_role/edit_form/'.$value->id_type).'\')">'.$value->type.'</a></td>';
+							echo '<td><a href="javascript:;" onClick="setPage(\''.base_url('master/add_user_role/edit_form/'.$value->id_type).'\')">'.$value->id_type.'</a></td>';
+							echo '<td>'.$value->type.'</td>';
 							echo "<td>".$value->created_by."</td>";	
 							echo "<td>".$value->created_date."</td>";	
 							echo "<td>".$value->update_by."</td>";	
