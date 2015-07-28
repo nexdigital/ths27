@@ -1,7 +1,12 @@
 
 <form id="edit_user_form" method="post" action="<?php echo base_url('master/user/update_user')?>">
 
- <input type="hidden" class="form-control" id="user_id" name="user_id"  value= "<?php echo $get_user->user_id ?>">
+ 
+
+<div class="form-group">
+  <label>User ID <label class="required-filed">*</label></label>
+  <input type="text" class="form-control" id="user_id" name="user_id"  value= "<?php echo $get_user->user_id ?>" readonly>
+</div>
 
 <div class="form-group">
   <label>Name <label class="required-filed">*</label></label>

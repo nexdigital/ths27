@@ -988,22 +988,32 @@ class Master extends MY_Controller {
 
 							}else{
 
-								$data['user_id']		= $user_id;
-								$data['username']		= $username;
-								$data['password']		= $password;
-								$data['email']			= $email;
-								$data['type']			= $user_level;
-								$data['description']	= $description;
-								$data['status']			= $v_isActive;
-								$data['created_by']		= $this->session->userdata('username');
-								$data['created_date']	= date('Y-m-d');
+
+								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $username) && preg_match($regex, $user_id) ) {
+								    // Indeed, the expression "[a-zA-Z]+ \d+" matches "June 24"
+								    $data['user_id']		= $user_id;
+									$data['username']		= $username;
+									$data['password']		= $password;
+									$data['email']			= $email;
+									$data['type']			= $user_level;
+									$data['description']	= $description;
+									$data['status']			= $v_isActive;
+									$data['created_by']		= $this->session->userdata('username');
+									$data['created_date']	= date('Y-m-d');
+									$this->master_user->insert_user($data);
+
+									$status = TRUE;
+									$message = "Save Success";	
+
+								} else {
+
+								   	$status = FALSE;
+									$message = "The regex pattern does not match.";	
+								}
 
 
-								$this->master_user->insert_user($data);
-
-								$status = TRUE;
-								$message = "Save Success";	
-
+								
 							}
 
 
@@ -1041,20 +1051,28 @@ class Master extends MY_Controller {
 
 						}else{
 						
-						$data['username']		= $username;
-						$data['password']		= $password;
-						$data['email']			= $email;
-						$data['type']			= $user_level;
-						$data['description']	= $description;
-						$data['status']			= $v_isActive;
-						$data['update_by']		= $this->session->userdata('username');
-						$data['update_date']	= date('Y-m-d');
+
+						$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+						if (preg_match($regex, $username)) {
+									$data['username']		= $username;
+									$data['password']		= $password;
+									$data['email']			= $email;
+									$data['type']			= $user_level;
+									$data['description']	= $description;
+									$data['status']			= $v_isActive;
+									$data['update_by']		= $this->session->userdata('username');
+									$data['update_date']	= date('Y-m-d');
 
 
-						$this->master_user->edit_user($user_id,$data);
-						$status = TRUE;
-						$message = "Edit Success";
+									$this->master_user->edit_user($user_id,$data);
+									$status = TRUE;
+									$message = "Edit Success";
+						}else{
+
+									$status = FALSE;
+									$message = "The regex pattern does not match.";	
 						}
+					}
 						echo json_encode(array('status'=>$status ,'message' => $message));
 
 			break;

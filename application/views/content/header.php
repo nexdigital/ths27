@@ -258,7 +258,7 @@
                                 <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('master/partner/index')?>')"><i class="fa fa-angle-double-right"></i>Partner</a></li>
                               <!--<li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i>Customer Group</a></li>-->
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/country/index')?>')"><i class="fa fa-angle-double-right"></i>Country</a></li>
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/type_index')?>')"><i class="fa fa-angle-double-right"></i>Rate Type</a></li>
+                                <!-- <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/type_index')?>')"><i class="fa fa-angle-double-right"></i>Rate Type</a></li> -->
                              <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/airlines/index')?>')"><i class="fa fa-angle-double-right"></i>Airlines</a></li> -->
                                <!-- <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/term_of_payment/index')?>')"><i class="fa fa-angle-double-right"></i>Term Of Payment</a></li> -->
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/business/index')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
