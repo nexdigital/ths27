@@ -353,17 +353,24 @@ class Master extends MY_Controller {
 
 							}else{
 
-								$component  = array('business_id' 	=> $business_id,
-													'business_name' => $business_name,	
-													'description'	=> $description,
-													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
-													'created_date'	=> date("Y-m-d"),
-													'created_by'	=> $this->session->userdata("username")
-													 );	
 
-								$this->master_business->add_business($component);
-								$status = TRUE;
-								$message = "Save Success";	
+								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $business_name) && preg_match($regex, $business_id) ) {
+									$component  = array('business_id' 	=> $business_id,
+														'business_name' => $business_name,	
+														'description'	=> $description,
+														'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
+														'created_date'	=> date("Y-m-d"),
+														'created_by'	=> $this->session->userdata("username")
+														 );	
+
+									$this->master_business->add_business($component);
+									$status = TRUE;
+									$message = "Save Success";	
+								}else{
+									$status = FALSE;
+									$message = "wrong format input";	
+								}
 
 							}
 								
@@ -393,20 +400,26 @@ class Master extends MY_Controller {
 										$message = "Business name has been created before";
 
 								}else{
-								$component  = array(	
-													'business_name' => $business_name,	
-													'description'	=> $description,
-													'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
-													'update_by'		=> $this->session->userdata("username"),
-													'update_date'	=> date('Y-m-d')
-													 );	
 
-								//$this->session->userdata("username")
+								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $business_name)) {
+									$component  = array(	
+														'business_name' => $business_name,	
+														'description'	=> $description,
+														'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
+														'update_by'		=> $this->session->userdata("username"),
+														'update_date'	=> date('Y-m-d')
+														 );	
 
-								$this->master_business->edit_business($business_id,$component);
-								$status = TRUE;
-								$message = "Edit Success";	
+									//$this->session->userdata("username")
 
+									$this->master_business->edit_business($business_id,$component);
+									$status = TRUE;
+									$message = "Edit Success";	
+									}else{
+										$status = FALSE;
+										$message = "wrong format input";		
+									}
 								}
 							
 
@@ -475,26 +488,33 @@ class Master extends MY_Controller {
 						}else{
 							$v_isActive = "inactive";
 						}			
+							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+							if (preg_match($regex, $country_name) && preg_match($regex, $country_id) ) {
+						 		$component = array(
+						 					'country_id'	 => $country_id,
+											'country_name'	 => $country_name,
+											'currency_symbol'=> $_POST['currency_symbol'],
+											'currency_name'	 => $_POST['currency_name'],
+											'description'	 => $_POST['description'],
+											'is_active'		 => $v_isActive,
+											'created_by'	 => $this->session->userdata("username"),
+											'created_date'	 => date("Y-m-d H:i:s")
+											);
 
-				 		$component = array(
-				 					'country_id'	 => $country_id,
-									'country_name'	 => $country_name,
-									'currency_symbol'=> $_POST['currency_symbol'],
-									'currency_name'	 => $_POST['currency_name'],
-									'description'	 => $_POST['description'],
-									'is_active'		 => $v_isActive,
-									'created_by'	 => $this->session->userdata("username"),
-									'created_date'	 => date("Y-m-d H:i:s")
-									);
 
+								$this->master_country->add_component($component); 
+								$status  = TRUE;
+					 			$message = "Success new Country";
+					 		}else{
 
-						$this->master_country->add_component($component); 
-						$status  = TRUE;
-			 			$message = "Success new Country";
+					 			$status = FALSE;
+					 			$message = "Wrong format input";
+
+					 		}
 
 					}
 					
-					echo json_encode(array('status' => $status , 'message' => $message));
+					echo json_encode(array('status' => $status ,'message' => $message));
 					
 					 		
 					 	
@@ -519,22 +539,26 @@ class Master extends MY_Controller {
 							$status = FALSE;
 							$message = "Country Name Has been Created before";
 						}else{
+									$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+									if (preg_match($regex, $country_name)) {
+											$component = array(
+						 					'country_id'	 => $country_id,
+											'country_name'	 => $country_name,
+											'currency_symbol'=> $_POST['currency_symbol'],
+											'currency_name'	 => $_POST['currency_name'],
+											'description'	 => $_POST['description'],
+											'is_active'		 => $v_isActive,
+											'modified_by'	 => $this->session->userdata("username"),
+											'modified_date'	 => date("Y-m-d H:i:s")
+											);
+										$this->master_country->edit_country($country_id,$component);
 
-									$component = array(
-				 					'country_id'	 => $country_id,
-									'country_name'	 => $country_name,
-									'currency_symbol'=> $_POST['currency_symbol'],
-									'currency_name'	 => $_POST['currency_name'],
-									'description'	 => $_POST['description'],
-									'is_active'		 => $v_isActive,
-									'modified_by'	 => $this->session->userdata("username"),
-									'modified_date'	 => date("Y-m-d H:i:s")
-									);
-								$this->master_country->edit_country($country_id,$component);
-
-								$status  = TRUE;
-								$message = "Edit Country Success";
-
+										$status  = TRUE;
+										$message = "Edit Country Success";
+							}else{
+										$status  = FALSE;
+										$message = "wrong format input";
+							}
 
 						}
 
@@ -668,20 +692,26 @@ class Master extends MY_Controller {
 							$message = "Tax Id Has been created before";
 
 						}else{
-								$component = array(
-							 			   'tax_id' 			=> $tax_id, 
-										   'tax_name' 			=> $tax_name, 
-										   'description'		=> $description,
-										   'tax_base_amount'	=> $tax_base_amount,
-										   'is_active'			=> $v_isActive,
-										   'tax_rate'			=> $tax_rate,
-										   'created_by'			=> $this->session->userdata("username")
-						);
-						
-						$this->master_tax->add_tax($component);
-						$status = TRUE;
-						$message = "Save success!";
 
+							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $tax_name) && preg_match($regex, $tax_id) ) {
+											$component = array(
+										 			   'tax_id' 			=> $tax_id, 
+													   'tax_name' 			=> $tax_name, 
+													   'description'		=> $description,
+													   'tax_base_amount'	=> $tax_base_amount,
+													   'is_active'			=> $v_isActive,
+													   'tax_rate'			=> $tax_rate,
+													   'created_by'			=> $this->session->userdata("username")
+									);
+									
+									$this->master_tax->add_tax($component);
+									$status = TRUE;
+									$message = "Save success!";
+							}else{
+								$status = FALSE;
+								$message = "Wrong format input";
+							}
 						}	
 
 					
@@ -721,20 +751,27 @@ class Master extends MY_Controller {
 
 						}else{
 
-							$component = array('tax_name' 		=> $tax_name, 
-										   'description'		=> $description,
-										   'tax_base_amount'	=> $tax_base_amount,
-										   'tax_rate'			=> $tax_rate,
-										   'update_by'			=> $this->session->userdata("username"),
-										   'is_active'			=> $v_isActive,
-										   'update_date'		=> date('Y-m-d')
+								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $tax_name)) {
+										$component = array('tax_name' 		=> $tax_name, 
+													   'description'		=> $description,
+													   'tax_base_amount'	=> $tax_base_amount,
+													   'tax_rate'			=> $tax_rate,
+													   'update_by'			=> $this->session->userdata("username"),
+													   'is_active'			=> $v_isActive,
+													   'update_date'		=> date('Y-m-d')
 
-								);
-						
-							$this->master_tax->edit_tax($id,$component);
-							$status = TRUE;
-							$message = "Edit success!";
+											);
+									
+										$this->master_tax->edit_tax($id,$component);
+										$status = TRUE;
+										$message = "Edit success!";
+								}else{
 
+									$status = FALSE;
+									$message = "Wrong format input";
+
+								}
 						}		
 
 					
@@ -804,24 +841,31 @@ class Master extends MY_Controller {
 								$message = "Partner Id has been used before. Please use another Partner ID";
 							}else{
 
-								$data = array(
-												'partner_id'		=> $partner_id,
-												'company_name'		=> $partner_name ,
-												'telephone_number'	=> $_POST['telephone'],
-												'email'				=> $_POST['email'],
-												'address'			=> $_POST['address'],
-												'city'				=> $_POST['city'],
-												'country_id'		=> $_POST['country'],
-												'zipcode'			=> $_POST['zipcode'],
-												'description'		=> $_POST['description'],
-												'is_active'			=> $v_isActive,
-												'entry_by'			=> $this->session->userdata("username"),
-												'entry_date'		=> date('Y-m-d h:m:s')
-											);
-								$this->partner_model->add_partner($data);
+								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $partner_name) && preg_match($regex, $partner_id) ) {
+											$data = array(
+															'partner_id'		=> $partner_id,
+															'company_name'		=> $partner_name ,
+															'telephone_number'	=> $_POST['telephone'],
+															'email'				=> $_POST['email'],
+															'address'			=> $_POST['address'],
+															'city'				=> $_POST['city'],
+															'country_id'		=> $_POST['country'],
+															'zipcode'			=> $_POST['zipcode'],
+															'description'		=> $_POST['description'],
+															'is_active'			=> $v_isActive,
+															'entry_by'			=> $this->session->userdata("username"),
+															'entry_date'		=> date('Y-m-d h:m:s')
+														);
+											$this->partner_model->add_partner($data);
 
-								$status = TRUE;
-								$message = "Save Success";
+											$status = TRUE;
+											$message = "Save Success";
+								}else{
+											$status = FALSE;
+											$message = "wrong format input";
+
+								}
 
 							}
 								
@@ -848,25 +892,30 @@ class Master extends MY_Controller {
 									$message = "Partner has been created before";
 								}else{
 
-									$data = array(
-													'partner_id'		=> $partner_id,
-													'company_name'		=> $partner_name,
-													'telephone_number'	=> $_POST['telephone'],
-													'email'				=> $_POST['email'],
-													'address'			=> $_POST['address'],
-													'city'				=> $_POST['city'],
-													'country_id'		=> $_POST['country'],
-													'zipcode'			=> $_POST['zipcode'],
-													'description'		=> $_POST['description'],
-													'is_active'			=> $v_isActive,
-													'update_by'			=> $this->session->userdata("username"),
-													'update_date'		=> date('Y-m-d h:m:s')
-												);
-									$this->partner_model->update_partner($partner_id,$data);
+									$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+									if (preg_match($regex, $partner_name)) {
+										$data = array(
+														'partner_id'		=> $partner_id,
+														'company_name'		=> $partner_name,
+														'telephone_number'	=> $_POST['telephone'],
+														'email'				=> $_POST['email'],
+														'address'			=> $_POST['address'],
+														'city'				=> $_POST['city'],
+														'country_id'		=> $_POST['country'],
+														'zipcode'			=> $_POST['zipcode'],
+														'description'		=> $_POST['description'],
+														'is_active'			=> $v_isActive,
+														'update_by'			=> $this->session->userdata("username"),
+														'update_date'		=> date('Y-m-d h:m:s')
+													);
+										$this->partner_model->update_partner($partner_id,$data);
 
-									$status = TRUE;
-									$message = "Update Success";
-
+										$status = TRUE;
+										$message = "Update Success";
+									}else{
+										$status = FALSE;
+										$message = "wrong format input";
+									}
 								}
 
 									echo json_encode(array('status' => $status,'message'=>$message));
@@ -1009,7 +1058,7 @@ class Master extends MY_Controller {
 								} else {
 
 								   	$status = FALSE;
-									$message = "The regex pattern does not match.";	
+									$message = "Wrong format input";	
 								}
 
 
@@ -1070,7 +1119,7 @@ class Master extends MY_Controller {
 						}else{
 
 									$status = FALSE;
-									$message = "The regex pattern does not match.";	
+									$message = "Wrong format input";	
 						}
 					}
 						echo json_encode(array('status'=>$status ,'message' => $message));
@@ -1162,29 +1211,36 @@ class Master extends MY_Controller {
 								$v_isActive = "inactive";
 						}	
 
+							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								if (preg_match($regex, $type) && preg_match($regex, $id_type) ) {
 
-						$data['id_type']		= $id_type;
-						$data['type']			= $type;
-						$data['created_by']		= $this->session->userdata('user_id');
-						$data['created_date']	= date('Y-m-d');
-						$data['status']			= $v_isActive;
-						$data['description']	= $description;
-						$this->master_user->insert_type($data);
+										$data['id_type']		= $id_type;
+										$data['type']			= $type;
+										$data['created_by']		= $this->session->userdata('user_id');
+										$data['created_date']	= date('Y-m-d');
+										$data['status']			= $v_isActive;
+										$data['description']	= $description;
+										$this->master_user->insert_type($data);
 
-						//$last_id = $this->db->insert_id();
+										//$last_id = $this->db->insert_id();
 
 
-						 for ($i=0; $i < sizeof($role) ; $i++) { 
-								
-								$component['id_type']		= $id_type;
-								$component['access_level']	= $role[$i];
+										 for ($i=0; $i < sizeof($role) ; $i++) { 
+												
+												$component['id_type']		= $id_type;
+												$component['access_level']	= $role[$i];
 
-								$this->master_user->insert_role($component);
-						
-						 }
+												$this->master_user->insert_role($component);
+										
+										 }
 
-				    $status = TRUE;		 
-					$message = "Save Success";
+								    $status = TRUE;		 
+									$message = "Save Success";
+								}else{
+
+									$status = False;		 
+									$message = "Wrong format input";
+								}
 
 					}
 
@@ -1208,7 +1264,8 @@ class Master extends MY_Controller {
 							$v_isActive = "inactive";
 						}	
 
-					
+						$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+						if (preg_match($regex, $type)) {
 					$data['type']			= $type;
 					$data['update_by']		= $this->session->userdata('user_id');
 					$data['update_date']	= date('Y-m-d');
@@ -1231,8 +1288,15 @@ class Master extends MY_Controller {
 							$this->master_user->insert_role($component);
 					
 					 }
+					$status = TRUE; 
 					$message = "Edit success";
-					echo json_encode(array('message' =>$message));
+
+				}else{
+					$status = FALSE; 
+					$message = "Wrong format input";
+
+				}
+					echo json_encode(array('status'=>$status,'message' =>$message));
 
 
 
