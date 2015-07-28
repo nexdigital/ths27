@@ -33,10 +33,7 @@
           <div class="form-group">
                         <label>Description</label>
                        
-                            <textarea class="form-control" style="resize:none" id="description" name="description" >
-
-
-                            </textarea>
+                            <textarea class="form-control" style="resize:none" id="description" name="description" ></textarea>
                         
           </div>
 

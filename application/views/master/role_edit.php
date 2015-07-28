@@ -68,7 +68,7 @@
 		<button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('master/add_user_role/delete_form/'.$get_role->id_type)?>')">Delete</button>
 
 		<button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/add_user_role/index')">Cancel</button>
-		<label id="alert-message" class="alert alert-success" style="display:none;padding-top: 5px;padding-bottom: 8px;"></label>
+		<label id="alert-message" style="display:none;padding-top: 5px;padding-bottom: 8px;"></label>
 </form>
 
 
@@ -111,13 +111,23 @@ function edit_role(){
 				dataType:'json',
 				success: function(data){
 					
+					if(data.status == false){
+
+							 $('#alert-message').html(data.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
+							 setTimeout(function(){
+                			 		$('#alert-message').html(data.message).fadeOut();
+              				},800);
+					}
+
+					  else if(data.status == true){	
+						//$("#alert-message").html(data.message).fadeIn();
 						
-						$("#alert-message").html(data.message).fadeIn();
+						 $('#alert-message').html(data.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
 						  setTimeout(function(){
                 			 		$('#alert-message').html(data.message).fadeOut();
                  					setPage('<?php echo base_url() ?>master/add_user_role/index') ;
               				},800);
-							 
+						}	 
 				
 				}
 			});

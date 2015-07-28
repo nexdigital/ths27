@@ -42,9 +42,6 @@
 
            <div class="form-group">
                      <label></label>
-                    
-              	  
-
                      <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/tax/add_tax')">Create New</button>
                     <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
                     <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/tax/delete_tax/<?php echo $get_tax_row->tax_id ?>')">Delete</button>

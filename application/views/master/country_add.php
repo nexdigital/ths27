@@ -66,7 +66,7 @@
 						}else {
 							 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
 							  	 setTimeout(function(){
-							//	 $('.alert-form').html(result.message).fadeOut();
+								 $('.alert-form').html(result.message).fadeOut();
 							},800);
 						}
 						 
