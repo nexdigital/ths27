@@ -226,13 +226,13 @@
 
                             
 
-                            <div class="form-group">
+                           <!--  <div class="form-group">
                               <label >Register Date</label>
                               <div class='input-group date' id='datetimepicker1'>
                                 <input type="text" class="form-control" name="payment_date" id="dp1" readonly>
                                 <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
                               </div>
-                            </div> 
+                            </div>  -->
 
                           
 
@@ -342,6 +342,18 @@ $('#group').select2();
               } 
               else if(json.status == 'redirect') {
                 setPage(json.message);
+              }else if(json.status=='unsuccess'){
+                    $('.message').html(json.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn(); 
+                   setTimeout(function(){   
+                          $('.message').fadeOut();
+                        //  $('#form_step_1,#form_step_2,#form_step_3 ').trigger("reset");
+
+                          step_elm.find('a').removeClass('btn-primary').addClass('btn-default');
+                          step_elm.find('.step-1').addClass('btn-primary');
+                          step_cont.hide();
+                          $('#step-1').show();       
+                      //  setPage('<?php echo base_url() ?>customers/home');
+                        },800);    
               }
             }
           })

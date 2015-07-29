@@ -35,8 +35,10 @@ class Customers_model extends CI_Model {
 	
 	function get_data(){
 
-	//	$this->db->where('type', $type);
-		$query = $this->db->get('customer_table');
+		$this->db->select('a.*,b.country_id,b.country_name');
+		$this->db->from('customer_table a');
+		$this->db->join('master_country_table b','b.country_id = a.country');
+		$query = $this->db->get();
 		return $query->result();
 		
 		

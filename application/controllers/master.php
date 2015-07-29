@@ -906,7 +906,7 @@ class Master extends MY_Controller {
 														'description'		=> $_POST['description'],
 														'is_active'			=> $v_isActive,
 														'update_by'			=> $this->session->userdata("username"),
-														'update_date'		=> date('Y-m-d h:m:s')
+														'update_date'		=> date('Y-m-d')
 													);
 										$this->partner_model->update_partner($partner_id,$data);
 

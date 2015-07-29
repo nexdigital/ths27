@@ -82,6 +82,15 @@ class Customers extends MY_Controller {
 		**/
 	}
 
+
+	function delete_customer($reference_id){
+				$data['get_tax']		= $this->tool_model->get_tax();
+				$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
+			//	$data        	        = array();
+				$data['title']			= 'Customer Delete';
+				$this->set_content('customers/customer_delete',$data);
+	}
+
 	function email(){
 		$data['data']		= array('');
 		$data['title']		= 'Email Form';
@@ -91,38 +100,70 @@ class Customers extends MY_Controller {
 	function ajax($page = null){
 			switch ($page) {
 				case 'add_customer':
-					$data['reference_id'] = str_replace(' ', '', $_POST['reference_id']);
-				//	$data['id_group'] 	  = $_POST['id_group'];
-					$data['name'] 		  = $_POST['name'];
-					$data['email'] 		  = $_POST['email'];
-					$data['address'] 	  = $_POST['address'];
-					$data['attn'] 		  = $_POST['attn'];
-					$data['city']         = $_POST['city'];
-					$data['country']      = $_POST['country'];
-					$data['pos_code'] 	  = $_POST['zip_code'];
-					$data['phone'] 		  = $_POST['phone'];
-					$data['mobile'] 	  = $_POST['mobile'];
-					$data['fax'] 		  = $_POST['fax'];
-					$data['tax_class'] 	  = $_POST['tax_class'];
-					$data['register_date']= "2015-02-12";
-					$data['payment_type'] = $_POST['payment_type'];
-					$data['description']  = $_POST['description'];
-					$data['status_active']= "Active";
-					$data['create_date']  = date('Y-m-d');
-					$data['create_by']	  = $this->session->userdata('username'); 
 
-					$this->customers_model->save_customer($data);
+					$reference_id =  $_POST['reference_id'];
+					$name =  $_POST['name'];
+					$email = $_POST['email'];
+					$address = $_POST['address'];
+					$attn =  $_POST['attn'];
+					$city = $_POST['city'];
+					$pos_code = $_POST['zip_code'];
+					$phone = $_POST['phone'];
+					$mobile = $_POST['mobile'];
+					$fax = $_POST['fax'];
+					//$pos_code = $_POST['tax_class'];
 
 
-					if(isset($_POST['hawb_no']) && $_POST['hawb_no'] && isset($_POST['customer_type']) && in_array($_POST['customer_type'], array('shipper','consignee'))) {
-						$this->manifest_model->set_customer($_POST['hawb_no'],$_POST['customer_type'],$data['reference_id']);
-						$data = $this->manifest_model->get_data($_POST['hawb_no']);
-						$file = $this->manifest_model->get_file($data->file_id);
+					$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+						if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
+							&& preg_match($regex, $attn) && preg_match($regex, $city)
+							&& preg_match($regex, $pos_code) && preg_match($regex, $phone) &&preg_match($regex, $mobile)
+							&& preg_match($regex, $fax)) {
 
-						echo json_encode(array('status'=> 'redirect', 'message'=> base_url('manifest/view/verification_details?mawb_no='.urlencode($file->mawb_no))));
-					} else {
-						echo json_encode(array('status'=> 'success', 'message'=> 'Save success'));
-					}
+							$data['reference_id'] = str_replace(' ', '', $reference_id );
+							$data['name'] 		  = $name;
+							$data['email'] 		  = $email;
+							$data['address'] 	  = $address;
+							$data['attn'] 		  = $attn;
+							$data['city']         = $city;
+							$data['country']      = $_POST['country'];
+							$data['pos_code'] 	  = $pos_code;
+							$data['phone'] 		  = $_POST['phone'];
+							$data['mobile'] 	  = $mobile;
+							$data['fax'] 		  = $fax;
+							$data['tax_class'] 	  = $_POST['tax_class'];
+							$data['payment_type'] = $_POST['payment_type'];
+							$data['description']  = $_POST['description'];
+							$data['status_active']= "Active";
+							$data['create_date']  = date('Y-m-d');
+							$data['create_by']	  = $this->session->userdata('username'); 
+
+							$this->customers_model->save_customer($data);
+
+
+							if(isset($_POST['hawb_no']) && $_POST['hawb_no'] && isset($_POST['customer_type']) && in_array($_POST['customer_type'], array('shipper','consignee'))) {
+								$this->manifest_model->set_customer($_POST['hawb_no'],$_POST['customer_type'],$data['reference_id']);
+								$data = $this->manifest_model->get_data($_POST['hawb_no']);
+								$file = $this->manifest_model->get_file($data->file_id);
+
+								$status = "redirect";
+								$message = base_url('manifest/view/verification_details?mawb_no='.urlencode($file->mawb_no));
+								echo json_encode(array('status'=> 'redirect', 'message'=> $message ));
+							} else {
+								$status = "success";
+								$message = "Save success";
+								//echo json_encode(array('status'=> 'success', 'message'=> 'Save success'));
+							}
+
+
+						}else{
+
+								$status = "unsuccess";
+								$message = "wrong input format";
+						}
+								
+								echo json_encode(array('status'=> $status, 'message'=> $message));
+
 				break;
 
 				case 'edit_customer':
@@ -155,11 +196,13 @@ class Customers extends MY_Controller {
 
 				break;
 
-				case 'delete_user':
+				case 'delete_customer':
 
 						$reference_id = $_POST['reference'];
 						$data['status_active']= "deleted";
 						$this->customers_model->customer_edit($reference_id,$data);
+
+						echo json_encode(array("status"=> TRUE, "message" => "Delete Success"));
 
 
 				break;

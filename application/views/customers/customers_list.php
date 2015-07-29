@@ -38,7 +38,7 @@
       echo '<tr>
       <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$val->reference_id.'').'\')">'.$val->reference_id.'</a></td>
       <td>'.$val->name.'</td>
-      <td>'.$val->country.'</td>
+      <td>'.$val->country_name.'</td>
       <td>'.$val->create_by.'</td>
       <td>'.$val->create_date.'</td>
       <td>'.$val->update_by.'</td>

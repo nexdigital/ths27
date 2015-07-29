@@ -69,7 +69,8 @@
     <header class="header">
             <a href="<?php echo base_url() ?>" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                THS 27
+                THS 27 
+               
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -210,13 +211,28 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/upload')?>')"><i class="fa fa-angle-double-right"></i>Upload File</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"><i class="fa fa-angle-double-right"></i>Create Host</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/verification')?>')"><i class="fa fa-angle-double-right"></i> Verification </a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Download Data </a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/report')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('manifest/view/invoice')?>')"><i class="fa fa-angle-double-right"></i> Print Invoice </a></li>
+                                 <?php $id_type = $this->session->userdata('type'); 
+                                        $get_menu = $this->users_model->get_menu($id_type);
+                                   // $this->
+                                        foreach ($get_menu as $key => $value) {
+                  
+                                            
+                                            echo $value->access_level;
+                                                
+                                        
+                                          //  echo '<div class="form-group"><input type="checkbox" '.$checked .' name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;</div>';   
+
+                                      } 
+                                
+
+                                 ?>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/upload')?>')"><i class="fa fa-angle-double-right"></i>Upload File</a></li>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"><i class="fa fa-angle-double-right"></i>Create Host</a></li>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a></li>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/verification')?>')"><i class="fa fa-angle-double-right"></i> Verification </a></li>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Download Data </a></li>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/report')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
+                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/invoice')?>')"><i class="fa fa-angle-double-right"></i> Print Invoice </a></li>
                             </ul>
                         </li>
                      <!--    <li class="treeview">
