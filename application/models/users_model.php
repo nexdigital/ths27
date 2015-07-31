@@ -57,11 +57,13 @@ class Users_model extends CI_Model {
 
      function get_menu($id_type){
 
-			$get  = $this->db->query('select a.id_type,a.type,b.*,c.access FROM user_type_table as a
-				 						LEFT JOIN user_role_table as b on a.id_type  = b.id_type 
-										LEFT JOIN user_access_table as c on c.id = b.access_level
-										where a.id_type = "'.$id_type.'"');
-			return $get->result();
+     		$this->db->select('*');
+     		$this->db->from("user_role_table a");
+     		$this->db->join("user_access_table b","b.id = a.access_level");
+     		$this->db->where('id_type',$id_type);	
+     		$get  = $this->db->get();
+     		return $get->result();
+			
  		}
 
  	}

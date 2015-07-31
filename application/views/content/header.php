@@ -211,30 +211,25 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <!--
-                                 <?php $id_type = $this->session->userdata('type'); 
-                                        $get_menu = $this->users_model->get_menu($id_type);
-                                   // $this->
-                                        foreach ($get_menu as $key => $value) {
-                  
-                                            
-                                            echo $value->access_level;
-                                                
-                                        
-                                          //  echo '<div class="form-group"><input type="checkbox" '.$checked .' name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;</div>';   
+                            
+                               <?php 
 
-                                      } 
-                                
+                            $id_type = $this->session->userdata('type');
+                               foreach ($this->users_model->get_menu($id_type) as $key => $value) {
+                               // echo 'setPage("'.base_url($value->link).'")';
+                                  echo '<li><a href="#"  onClick="setPage(\''.base_url("".$value->link."").'\')"><i class="fa fa-angle-double-right"></i>'.$value->access.'</a></li>';
+                                   
+                               } ?>
 
-                                 ?>
-                                -->
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/upload')?>')"><i class="fa fa-angle-double-right"></i>Upload File</a></li>
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"><i class="fa fa-angle-double-right"></i>Create Host</a></li>
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a></li>
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/verification')?>')"><i class="fa fa-angle-double-right"></i> Verification </a></li>
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/download')?>')"><i class="fa fa-angle-double-right"></i> Download Data </a></li>
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/report')?>')"><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
-                                <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/invoice')?>')"><i class="fa fa-angle-double-right"></i> Print Invoice </a></li>
+                              <!--   
+                            onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"
+                              <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i>Upload File</a></li>
+                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i>Create Host</a></li>
+                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Data</a></li>
+                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Verification </a></li>
+                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Download Data </a></li>
+                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
+                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Print Invoice </a></li> -->
                             </ul>
                         </li>
                      <!--    <li class="treeview">
