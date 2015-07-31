@@ -211,6 +211,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
+                                <!--
                                  <?php $id_type = $this->session->userdata('type'); 
                                         $get_menu = $this->users_model->get_menu($id_type);
                                    // $this->
@@ -226,6 +227,7 @@
                                 
 
                                  ?>
+                                -->
                                 <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/upload')?>')"><i class="fa fa-angle-double-right"></i>Upload File</a></li>
                                 <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"><i class="fa fa-angle-double-right"></i>Create Host</a></li>
                                 <li><a href="#"  onClick="setPage('<?php echo base_url('manifest/view/data')?>')"><i class="fa fa-angle-double-right"></i> Data</a></li>

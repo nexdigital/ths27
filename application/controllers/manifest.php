@@ -70,6 +70,11 @@ class Manifest extends MY_Controller {
 				$data['title']	= 'Print Invoice';
 				$this->set_content('manifest/invoice',$data);				
 			break;
+			case 'report':
+				$data['data']	= '';
+				$data['title']	= 'Debit & Credit Note';
+				$this->set_content('report/snow_card',$data);				
+			break;
 		}
 	}
 
