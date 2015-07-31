@@ -43,11 +43,16 @@
             <div class="form-group">
                 <label>From</label>
                 <select class="form-control flight_from" name="flight_from" required>
-                	<?php
+                    <option value="indonesia">Indonesia</option>
+                    <option value="vietnam">Vietnam</option>
+                    <option value="taiwan">Taiwan</option>
+                    <option value="china">China</option>
+                    <option value="hongkong">Hongkong</option>
+                	<!--<?php
                 		foreach($this->tool_model->list_country() as $row){
                 			echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
                 		}
-                	?>
+                	?>-->
                 </select>                                     
             </div>
         </div>
@@ -55,6 +60,11 @@
             <div class="form-group">
                 <label>To</label>
                 <select class="form-control flight_to" name="flight_to" required>
+                    <option value="indonesia">Indonesia</option>
+                    <option value="vietnam">Vietnam</option>
+                    <option value="taiwan">Taiwan</option>
+                    <option value="china">China</option>
+                    <option value="hongkong">Hongkong</option>
                 	<?php
                         foreach($this->tool_model->list_country() as $row){
                             echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
