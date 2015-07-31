@@ -65,11 +65,11 @@
                     <option value="taiwan">Taiwan</option>
                     <option value="china">China</option>
                     <option value="hongkong">Hongkong</option>
-                	<?php
+                	<!--<?php
                         foreach($this->tool_model->list_country() as $row){
                             echo '<option value="'.$row->country_id.'">'.$row->country_name.'</option>';
                         }
-                    ?>
+                    ?>-->
                 </select>                                  
             </div>
         </div>
