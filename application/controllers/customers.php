@@ -214,6 +214,40 @@ class Customers extends MY_Controller {
 						if($get->num_rows() == 0) echo "true";
 						else echo "false";
 				break;
+
+				case 'send_email':
+
+							$config = array(
+
+									'protocol' => 'smtp',
+									'smtp_host' => 'ssl://smtp.gmail.com',
+									'smtp_port' => 465,
+									'smtp_user' => 'sahala161189@gmail.com',
+									'smtp_pass' => 'sahalamorgantobings',
+									'mailtype'	=> 'html'
+							);
+							$this->email->initialize( $config );
+							$this->email->set_newline( "\r\n" );
+							$this->email->from( "tataharmoni18@gmail.com", "No Reply" );
+							$this->email->to( $_POST['to'] );
+							$this->email->subject( $_POST['subject'] );
+							$this->email->message( $_POST['message'] );
+							if( !$this->email->send() ) {
+								$status		= false;
+								$message	= show_error($this->email->print_debugger());
+							} else {
+								//$data['status_invitation'] = "sent";
+								//$this->candidate_model->update_cnd( $id_cnd, $data );
+								$status		= true;
+								$message	= "Email has been sent.";
+			                }
+
+
+						
+						echo json_encode(array("status"=> $status, "message" => $message));
+
+
+				break;
 		}
 	}
 	

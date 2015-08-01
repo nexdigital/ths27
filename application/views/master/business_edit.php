@@ -22,7 +22,7 @@
   <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/business/add_business')">Create New</button>
   <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
   <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/business/delete/<?php echo $get_business_row->business_id ?>')">Delete</button>
-  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/business/index')">Back</button>
+  <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/business/index')">Cancel</button>
 <label class="alert-form"></label> 
 
 </form>

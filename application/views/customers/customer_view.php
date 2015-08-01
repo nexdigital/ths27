@@ -139,14 +139,54 @@
         </tbody>
 
        </table>
+                                <button type="reset"   class="btn btn-info" onClick="open_modal()" id="show_modal"><i class="glyphicon glyphicon-envelope"></i> Email</button>
                                <button type="reset" class="btn btn-success" onClick="add_new();">Create New</button></a>    
                                <button class="btn btn-success btn_edit" onClick="edit_customer();"> Update</button>
                                 <button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('customers/delete_customer/'.$get_customers->reference_id)?>')">Delete</button>
-                               <button class="btn btn-danger btn_delete"> Cancel</button>
+                                <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>customers/home')">Cancel</button>
                                <label class="result-message"></label>
     </form>
 
-                         
+
+
+<div class="modal fade bs-example-modal-lg" id="modal_email" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Email Form</h4>
+      </div>
+
+  <form id="send_email_form">
+      <div class="modal-body">  
+           <div class="form-group">
+                  <span class="">*</span> <label>To</label>
+                  <input id="to"  name="to"  type="email"  class="form-control" required>
+             
+            </div>
+
+              <div class="form-group">
+                  <span class="">*</span> <label>Subject</label>
+                  <input id="subject"  name="subject"  type="text"  class="form-control" required>
+             
+            </div>
+
+        <div class="form-group">
+               <span class="">*</span><label>Message</label>
+               <textarea id="message" name="message" class="form-control" style="resize:none;" required></textarea>
+                
+        </div>
+        <center><div class="alert-email"></div></center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" onClick="send_email();">Send Email</button>
+      </div>
+
+    </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->                   
 
 
     <script>
@@ -156,7 +196,10 @@
 
         $(document).ready(function(){
             
-   
+
+
+            $('form#send_email_form').validate();
+            $('#message').wysihtml5();
             var tax_class = "<?php echo $get_customers->tax_class ?>";  
             var payment_type = "<?php echo $get_customers->payment_type ?>"; 
             var country = "<?php echo $get_customers->country ?>";           
@@ -231,6 +274,57 @@
                     }
 
             });
+        }
+
+
+        function open_modal(){
+
+            $("#modal_email").modal("show");
+
+
+        }
+
+        function send_email(){
+
+
+              $('form#send_email_form').ajaxForm({
+
+                 
+                    url         : "<?php echo base_url()?>customers/ajax/send_email",
+                    type        : "POST",
+                    dataType    : "json",
+                    success     : function(result){
+
+                           if(result.status == true){
+
+                                    $('.alert-email').html(result.message).addClass('alert alert-success').fadeIn();
+                            setTimeout(function(){
+                                    
+                                   $('form#send_email_form').resetForm();
+                                   $("#modal_email").modal("hide");
+                            },800);
+                                  
+
+                            }else{
+                                    $('.alert-email').html(result.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn();
+                            setTimeout(function(){
+                               
+                                     $('.alert-email').html(result.message).fadeOut();
+                            },800);
+
+                            }  
+                          
+                           
+                    },
+                    error: function( error )
+                    {
+
+                         alert( error );
+
+                    }
+
+              });
+           
         }
 
          

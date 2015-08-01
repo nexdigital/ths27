@@ -140,11 +140,18 @@
 
        </table>
                              <button class="btn btn-success" onclick="delete_user();">Yes</button>
-							 <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url("master/add_user_role/edit_form/".$get_customers->reference_id)?>')">Cancel</button>
+							 <button type="button" class="btn btn-danger" onclick="setPage('<?php echo base_url("customers/view_customer/".$get_customers->reference_id)?>')">Cancel</button>
                              <label class="result-message"></label>
     </form>
 
                          
+
+    <!---MOdal email-->
+
+
+
+
+
 
 
     <script>
