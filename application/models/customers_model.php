@@ -200,6 +200,11 @@ class Customers_model extends CI_Model {
         }
 
 	}
+
+	function save_email($component){
+
+		$this->db->insert('email_table',$component);	
+	}
 }
 
 ?>

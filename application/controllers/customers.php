@@ -217,6 +217,10 @@ class Customers extends MY_Controller {
 
 				case 'send_email':
 
+							$to 		= $_POST['to'];
+							$subject 	= $_POST['subject'];
+							$message 	= $_POST['message'];
+
 							$config = array(
 
 									'protocol' => 'smtp',
@@ -229,15 +233,21 @@ class Customers extends MY_Controller {
 							$this->email->initialize( $config );
 							$this->email->set_newline( "\r\n" );
 							$this->email->from( "tataharmoni18@gmail.com", "No Reply" );
-							$this->email->to( $_POST['to'] );
-							$this->email->subject( $_POST['subject'] );
-							$this->email->message( $_POST['message'] );
+							$this->email->to( $to );
+							$this->email->subject( $subject);
+							$this->email->message( $message );
 							if( !$this->email->send() ) {
 								$status		= false;
 								$message	= show_error($this->email->print_debugger());
 							} else {
-								//$data['status_invitation'] = "sent";
-								//$this->candidate_model->update_cnd( $id_cnd, $data );
+								
+								$component = array( 'to' => $to,
+													'subject' => $subject,
+													'message' => $message,
+													'create_by' => $this->session->userdata('username'),
+													'date'		=> date('Y-m-d'));			
+								$this->customers_model->save_email($component);
+
 								$status		= true;
 								$message	= "Email has been sent.";
 			                }
