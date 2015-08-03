@@ -354,7 +354,7 @@ class Master extends MY_Controller {
 							}else{
 
 
-								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $business_name) && preg_match($regex, $business_id) ) {
 									$component  = array('business_id' 	=> $business_id,
 														'business_name' => $business_name,	
@@ -401,7 +401,7 @@ class Master extends MY_Controller {
 
 								}else{
 
-								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $business_name)) {
 									$component  = array(	
 														'business_name' => $business_name,	
@@ -488,7 +488,7 @@ class Master extends MY_Controller {
 						}else{
 							$v_isActive = "inactive";
 						}			
-							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+							$regex = "/^[a-zA-Z0-9_ ]*$/";
 							if (preg_match($regex, $country_name) && preg_match($regex, $country_id) ) {
 						 		$component = array(
 						 					'country_id'	 => $country_id,
@@ -539,7 +539,7 @@ class Master extends MY_Controller {
 							$status = FALSE;
 							$message = "Country Name Has been Created before";
 						}else{
-									$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+									$regex = "/^[a-zA-Z0-9_ ]*$/";
 									if (preg_match($regex, $country_name)) {
 											$component = array(
 						 					'country_id'	 => $country_id,
@@ -693,7 +693,7 @@ class Master extends MY_Controller {
 
 						}else{
 
-							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+							$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $tax_name) && preg_match($regex, $tax_id) ) {
 											$component = array(
 										 			   'tax_id' 			=> $tax_id, 
@@ -751,7 +751,7 @@ class Master extends MY_Controller {
 
 						}else{
 
-								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $tax_name)) {
 										$component = array('tax_name' 		=> $tax_name, 
 													   'description'		=> $description,
@@ -841,7 +841,7 @@ class Master extends MY_Controller {
 								$message = "Partner Id has been used before. Please use another Partner ID";
 							}else{
 
-								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $partner_name) && preg_match($regex, $partner_id) ) {
 											$data = array(
 															'partner_id'		=> $partner_id,
@@ -892,7 +892,7 @@ class Master extends MY_Controller {
 									$message = "Partner has been created before";
 								}else{
 
-									$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+									$regex = "/^[a-zA-Z0-9_ ]*$/";
 									if (preg_match($regex, $partner_name)) {
 										$data = array(
 														'partner_id'		=> $partner_id,
@@ -1038,7 +1038,7 @@ class Master extends MY_Controller {
 							}else{
 
 
-								$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+								$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $username) && preg_match($regex, $user_id) ) {
 								    // Indeed, the expression "[a-zA-Z]+ \d+" matches "June 24"
 								    $data['user_id']		= $user_id;
@@ -1101,7 +1101,7 @@ class Master extends MY_Controller {
 						}else{
 						
 
-						$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+						$regex = "/^[a-zA-Z0-9_ ]*$/";
 						if (preg_match($regex, $username)) {
 									$data['username']		= $username;
 									$data['password']		= $password;
@@ -1211,7 +1211,7 @@ class Master extends MY_Controller {
 								$v_isActive = "inactive";
 						}	
 
-							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+							$regex = "/^[a-zA-Z0-9_ ]*$/";
 								if (preg_match($regex, $type) && preg_match($regex, $id_type) ) {
 
 										$data['id_type']		= $id_type;
@@ -1264,7 +1264,7 @@ class Master extends MY_Controller {
 							$v_isActive = "inactive";
 						}	
 
-						$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+						$regex = "/^[a-zA-Z0-9_ ]*$/";
 						if (preg_match($regex, $type)) {
 					$data['type']			= $type;
 					$data['update_by']		= $this->session->userdata('user_id');
