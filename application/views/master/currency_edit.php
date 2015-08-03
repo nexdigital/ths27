@@ -1,16 +1,18 @@
-<form id="form_currency" method="post" action="<?php  echo base_url()?>master/ajax/currency/add">
+<form id="form_currency" method="post" action="<?php  echo base_url()?>master/ajax/currency/edit">
+	<input type="hidden" name="exchange_rate_id" value="<?php echo $data->exchange_rate_id ?>">
 	<div class="form-group">
 		<label>Currency <label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="concept" name="currency" >
+		<input type="text" class="form-control" name="exchange_rate_name" value="<?php echo $data->exchange_rate_name ?>">
 	</div>
 
 	<div class="form-group">
 		<label>Rate<label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="concept" name="rate">
+		<input type="text" class="form-control" name="exchange_rate_value" value="<?php echo $data->exchange_rate_value ?>">
 	</div>
 
 	<div class="form-group">
-		<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
+		<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Update</button>
+		<button type="button" class="btn btn-danger delete" exchange_rate_id="<?php echo $data->exchange_rate_id ?>">Delete</button>
 		<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')">Cancel</button>
 	</div>
 </div>
@@ -50,5 +52,13 @@
 				$('button.submit-upload').button('loading');
 			}
 		});
+
+		$(".delete").click(function(){
+			if(confirm('You want delete this currency?')){
+				$.post("<?php echo base_url() ?>master/ajax/currency/delete",{exchange_rate_id:'<?php echo $data->exchange_rate_id ?>'},function(){
+					setPage('<?php echo base_url('master/view/currency/index')?>');
+				})
+			}
+		})
 	})	
 </script>

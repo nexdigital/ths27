@@ -1,29 +1,33 @@
-
-
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th width="50px">&nbsp;</th>
-			<th>Currency From</th>
-			<th>Currency To</th>
-			<th>Rate Type</th>
-			<th>Rate Date</th>
+			<th>Currency</th>
+			<th>Rate</th>
+			<th>Entry Date</th>
+			<th>Entry By</th>
+			<th>Update Date</th>
+			<th>Update By</th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php foreach($list_currency as $row){
 		echo '
 			<tr>
-				<td><a href="javascript:;">'.$row->currency_from.'</a></td>
-				<td>'.$row->currency_to.'</td>
-				<td>'.$row->currency_type.'</td>
-				<td>'.$row->currency_date.'</td>
+				<td><a href="javascript:;" onClick="setPage(\''.base_url().'master/view/currency/edit?id='.$row->exchange_rate_id.'\')">'.$row->exchange_rate_name.'</a></td>
+				<td>'.number_format($row->exchange_rate_value).'</td>
+				<td>'.$row->entry_date.'</td>
+				<td>'.$row->entry_by.'</td>
+				<td>'.$row->update_date.'</td>
+				<td>'.$row->update_by.'</td>
 			</tr>
 		';
 	}?>
 	</tbody>
 </table>
+<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/view/currency/add'?>')">Add Currency</button>
 
-
-	<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/view/currency/add'?>')">Add Currency Rate</button>
-	<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
+<script>
+$(document).ready( function () {
+    $('table.table').DataTable();
+});
+</script>

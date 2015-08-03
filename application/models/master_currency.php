@@ -11,7 +11,7 @@ class Master_currency extends CI_Model {
 		$get = $this->db->query("select * from master_exchange_rate_table  where lower(exchange_rate_name) = '".strtolower($name)."'");
 		return $get->row('exchange_rate_value');
 	}
-
+	/*
 	function list_currency_type(){
 		$get = $this->db->query("select * from master_currency_type_table");
 		return $get->result();
@@ -35,6 +35,7 @@ class Master_currency extends CI_Model {
 		$get = $this->db->query("select * from master_currency_table join master_currency_type_table on master_currency_type_table.currency_id = master_currency_table.currency_id where lower(master_currency_table.currency_name) = '".strtolower($name)."' and lower(master_currency_type_table.currency_type) = '".strtolower($type)."' ");
 		return $get->row('currency_value');
 	}
+	*/
 }
 
 ?>

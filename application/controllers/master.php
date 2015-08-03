@@ -123,36 +123,22 @@ class Master extends MY_Controller {
 			case 'currency':
 				switch ($page) {
 					case 'index':
-						$data['list_currency']	= $this->master_currency->list_currency();
-						$data['list_currency_type'] = $this->master_currency->list_currency_type();
+						$data['list_currency']	= $this->master_currency->get_exchange_rate_list();
 						$data['title']	= 'Master Currency';
 						$this->set_content('master/currency_list',$data);
 					break;
-					case 'type_index':
-						$data['list_currency']	= $this->master_currency->list_currency();
-						$data['list_currency_type'] = $this->master_currency->list_currency_type();
-						$data['title']	= 'Master Currency';
-						$this->set_content('master/currency_type_list',$data);
-					break;
 					case 'add':
-						$data['list_country']	= $this->master_country->list_country();
-						$data['list_currency_type'] = $this->master_currency->list_currency_type();
-						$data['title']			= 'Add Currency Rate';
+						$data['title']			= 'Add Currency';
 						$this->set_content('master/currency_add',$data);
 					break;
 					case 'edit':
-						$data['list_country']	= $this->master_country->list_country();
-						$data['list_currency_type'] = $this->master_currency->list_currency_type();
-						$data['title']			= 'Edit Currency Rate';
-						$this->set_content('master/currency_add',$data);
-					break;
-					case 'edit_type':
-						$data['title']			= 'Edit Rate Type';
-						$this->set_content('master/currency_type_add',$data);
-					break;
-					case 'add_type':
-						$data['title']			= 'Add Rate Type';
-						$this->set_content('master/currency_type_add',$data);
+						$id = $_GET['id'];
+
+						$query = $this->db->query("select * from master_exchange_rate_table where exchange_rate_id = '$id'");
+
+						$data['data']			= $query->row();
+						$data['title']			= 'Currency #'.$query->row("exchange_rate_name");
+						$this->set_content('master/currency_edit',$data);
 					break;
 					default:
 						header("HTTP/1.0 404 Not Found");
@@ -616,30 +602,24 @@ class Master extends MY_Controller {
 			case 'currency':
 				switch ($method) {
 					case 'add':
-						$this->db->set('currency_from',$_POST['currency_from']);
-						$this->db->set('currency_to',$_POST['currency_to']);
-						$this->db->set('currency_type',$_POST['currency_type']);
-						$this->db->set('currency_date',$_POST['currency_date']);
-						$this->db->set('currency_rate',$_POST['currency_rate']);
-						$this->db->insert('master_currency_table');
+						$this->db->set('exchange_rate_name',$_POST['currency']);
+						$this->db->set('exchange_rate_value',$_POST['rate']);
+						$this->db->set('entry_date',date('Y-m-d h:i:s'));
+						$this->db->set('entry_by',null);
+						$this->db->insert('master_exchange_rate_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
 					break;
-					case 'add_type':
-						$this->db->set('currency_type_name',$_POST['currency_type_name']);
-						$this->db->insert('master_currency_type_table');
-						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New rate type has been added'));
+					case 'edit':
+						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
+						$this->db->set('exchange_rate_name',$_POST['exchange_rate_name']);
+						$this->db->set('exchange_rate_value',$_POST['exchange_rate_value']);
+						$this->db->update('master_exchange_rate_table');
+						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>Currency has been updated'));
 					break;
-					case 'check_available_currency':
-						$currency_name = $_GET['currency_name'];
-						$get = $this->db->query("select * from master_currency_table where lower(currency_name) = '".strtolower($currency_name)."'");
-						if($get->num_rows() == 0) echo "true";
-						else echo "false";
-					break;
-					case 'check_available_rate_type':
-						$currency_type_name = $_GET['currency_type_name'];
-						$get = $this->db->query("select * from master_currency_type_table where lower(currency_type_name) = '".strtolower($currency_type_name)."'");
-						if($get->num_rows() == 0) echo "true";
-						else echo "false";
+					case 'delete':
+						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
+						$this->db->delete('master_exchange_rate_table');
+						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>Currency has been updated'));
 					break;
 					default:
 						header("HTTP/1.0 404 Not Found");
