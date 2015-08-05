@@ -310,5 +310,7 @@ class Manifest_model extends CI_Model {
 		$query = $this->db->query("select * from manifest_data_table where deadline >= '".date('Y-m-d')."' and deadline <= '".$deadline_days."' and status = 'Finish' and status_delivery in ('On Progress','Delivered') and status_payment = 'Unpaid'");
 		return $query;
 	}
+
+	
 }
 ?>

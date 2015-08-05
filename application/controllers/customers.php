@@ -115,10 +115,10 @@ class Customers extends MY_Controller {
 
 
 					$regex = "/^[A-Za-z0-9_\-.\/]+$/";
-						if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
-							&& preg_match($regex, $attn) && preg_match($regex, $city)
-							&& preg_match($regex, $pos_code) && preg_match($regex, $phone) &&preg_match($regex, $mobile)
-							&& preg_match($regex, $fax)) {
+						// if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
+						// 	&& preg_match($regex, $attn) && preg_match($regex, $city)
+						// 	&& preg_match($regex, $pos_code) && preg_match($regex, $phone) &&preg_match($regex, isset($mobile))
+						// 	&& preg_match($regex, $fax)) {
 
 							$data['reference_id'] = str_replace(' ', '', $reference_id );
 							$data['name'] 		  = $name;
@@ -156,11 +156,11 @@ class Customers extends MY_Controller {
 							}
 
 
-						}else{
+						// }else{
 
-								$status = "unsuccess";
-								$message = "wrong input format";
-						}
+						// 		$status = "unsuccess";
+						// 		$message = "wrong input format";
+						// }
 								
 								echo json_encode(array('status'=> $status, 'message'=> $message));
 

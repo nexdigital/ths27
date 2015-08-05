@@ -122,7 +122,8 @@ $autoload['model'] = array(
 							'partner_model',
 							'invoice_model',
 							'users_model',
-							'master_user'
+							'master_user',
+							'finance_payment'
 							);
 
 

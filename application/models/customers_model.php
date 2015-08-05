@@ -205,6 +205,32 @@ class Customers_model extends CI_Model {
 
 		$this->db->insert('email_table',$component);	
 	}
+
+	function get_customer_all(){
+		$this->db->select('a.country_id,a.country_name,b.*');
+		$this->db->join('master_country_table a','a.country_id = b.country_id');
+		$get = $this->db->get('customer_table b');
+		return $get->result();
+	}
+
+	function get_customer_active($status="Active"){
+
+		
+		$this->db->select('a.*,b.country_id,b.country_name');
+		$this->db->from('customer_table a');
+		$this->db->join('master_country_table b','b.country_id = a.country');
+		$this->db->where('a.status_active',$status);
+		$query = $this->db->get();
+		return $query->result();
+		
+	}
+
+	function get_customer_by_id($reference_id){
+
+			$this->db->where('reference_id',$reference_id);
+			$get = $this->db->get('customer_table');
+			return $get->row();
+	}
 }
 
 ?>

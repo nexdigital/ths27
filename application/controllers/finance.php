@@ -36,12 +36,70 @@ class Finance extends MY_Controller {
 	}
 
 
-	function ajax($page = null){
+	function payment($page = null,$hawb_no=null){
 		switch ($page) {
 				case 'add_payment':
 						$data['data']	= array('');
 						$data['title']  = 'Add Payment';
 						$this->set_content('finance/add_payment',$data);	
+				break;
+
+				case 'edit_payment':
+						$data['get_manifest']	= $this->finance_payment->get_manifest_by_hawb($hawb_no);
+						$data['title']  = 'Edit Payment';
+						$this->set_content('finance/edit_payment',$data);	
+				break;
+
+				case 'autoComplete':
+						$hawb_no = $_GET['q'];
+						$this->db->like('hawb_no',$hawb_no);
+						$this->db->where_in('status',array('Finish'));
+						$get = $this->db->get('manifest_data_table');
+
+						$hawb_no_list = array();
+						foreach($get->result() as $row) {
+							$hawb_no_list[] = $row->hawb_no;
+						}
+						echo json_encode($hawb_no_list);
+				break;
+
+				case 'insert_payment':
+
+						if($_POST['payment_amount'] > $_POST['total_payment'] ){
+
+							$status  = FALSE;
+							$message = "should not exceed the amount of payment";
+						}else{
+
+							$data['hawb_no'] 				= $_POST['hawb_no'];
+							$data['customer_payment'] 		= $_POST['customer'];
+							$data['total_payment'] 			= $_POST['total_payment'];
+							$data['payment_amount'] 		= $_POST['payment_amount'];
+							$data['remaining_payment'] 		= $_POST['total_payment'] - $_POST['payment_amount'];
+
+							if($_POST['payment_amount'] == $_POST['total_payment']){
+								
+								$status_payment  = "full";
+							}else{
+
+								$status_payment  = "partially";
+							}
+							
+							$data['status'] 				= $status_payment;
+							$data['date_payment'] 			= date('Y-m-d');
+							$data['created_by'] 			= $this->session->userdata('user_id');
+
+							$this->finance_payment->insert_payment($data);
+
+							$payment['check_payment'] = "1";
+							$this->finance_payment->payment_manifest_update($_POST['hawb_no'],$payment);
+
+							$status  = TRUE;
+							$message = "Payment Success";
+
+						}
+						
+						echo json_encode(array('status' => $status,'message'=> $message));
 				break;
 		}
 
