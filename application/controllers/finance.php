@@ -32,7 +32,19 @@ class Finance extends MY_Controller {
 	public function home() {
 		$data['get_customers']	= $this->customers_model->get_data();
 		$data['title']			= 'Data Payment';
+		$this->set_content('finance/data_manifest_finish',$data);
+	}
+
+	function data_payment() {
+	//	$data['get_customers']	= $this->customers_model->get_data();
+		$data['title']			= 'Data Payment';
 		$this->set_content('finance/data_payment',$data);
+	}
+
+	function data_payment_finish() {
+	//	$data['get_customers']	= $this->customers_model->get_data();
+		$data['title']			= 'Data Payment';
+		$this->set_content('finance/data_payment_finish',$data);
 	}
 
 
@@ -52,8 +64,10 @@ class Finance extends MY_Controller {
 
 				case 'autoComplete':
 						$hawb_no = $_GET['q'];
-						$this->db->like('hawb_no',$hawb_no);
-						$this->db->where_in('status',array('Finish'));
+						$this->db->like('lower(hawb_no)',strtolower($hawb_no));
+						$this->db->where('collect !=','');
+						$this->db->where('lower(status)','finish');
+						$this->db->where('lower(status_payment)','unpaid');
 						$get = $this->db->get('manifest_data_table');
 
 						$hawb_no_list = array();
@@ -80,6 +94,8 @@ class Finance extends MY_Controller {
 							if($_POST['payment_amount'] == $_POST['total_payment']){
 								
 								$status_payment  = "full";
+								$payment['status_payment'] = "Paid";
+								$this->finance_payment->payment_manifest_update($_POST['hawb_no'],$payment);	
 							}else{
 
 								$status_payment  = "partially";
@@ -91,8 +107,7 @@ class Finance extends MY_Controller {
 
 							$this->finance_payment->insert_payment($data);
 
-							$payment['check_payment'] = "1";
-							$this->finance_payment->payment_manifest_update($_POST['hawb_no'],$payment);
+							
 
 							$status  = TRUE;
 							$message = "Payment Success";

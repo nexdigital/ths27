@@ -5,15 +5,17 @@
 </div>
 
 </form>
+
+
 <script type="text/javascript">
     $(document).ready(function(){
 
          $('input[name="hawb_no"]').autoComplete({
                 minChars: 1,
                 source: function(term, response){
-                    try { xhr.abort(); } catch(e){}
                     xhr = $.getJSON('<?php echo base_url('finance/payment/autoComplete') ?>', { q: term }, function(data){ response(data); });
-                },
+                }
+                ,
                 onSelect: function(e, term, item){
                   setPage('<?php echo base_url('finance/payment/edit_payment')?>/' + term);
                 }

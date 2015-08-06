@@ -251,13 +251,14 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('finance/home')?>')"><i class="fa fa-angle-double-right"></i>Data Payment</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency Rate</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Invoice</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Debit None</a></li>
+                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('finance/home')?>')"><i class="fa fa-angle-double-right"></i>Data Need Payment</a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('finance/data_payment')?>')"><i class="fa fa-angle-double-right"></i>Data Payment</a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('finance/data_payment_finish')?>')"><i class="fa fa-angle-double-right"></i>Data Payment Finish</a></li>
+                               <!--  <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Invoice</a></li> -->
+                               <!--  <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Debit None</a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Credit Note</a></li>
                                 <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Payment Invoice</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Cash/Bank Transfer</a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Cash/Bank Transfer</a></li> -->
                             </ul>
                         </li>
                         <li class="treeview">
@@ -269,6 +270,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>Customers</a></li>
                                 <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('master/partner/index')?>')"><i class="fa fa-angle-double-right"></i>Partner</a></li>
+                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency Rate</a></li>
                               <!--<li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i>Customer Group</a></li>-->
                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/country/index')?>')"><i class="fa fa-angle-double-right"></i>Country</a></li>
                            <!--     <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency</a></li>  -->

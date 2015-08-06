@@ -70,7 +70,7 @@
 
 
 <button type="submit" class="btn btn-success submit" data-loading-text="Saving..." onClick="add_payment();">Submit</button>
-<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
+<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('finance/home')?>')">Cancel</button>
 <label class="alert-form" ></label>
 
 </form>
@@ -100,20 +100,18 @@ function add_payment(){
 				success: function(result){
 						if(result.status == true){
  
-						// 	$('.alert-form').html(result.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
-						// 	    $('form#form_country').resetForm();
-						// 	 setTimeout(function(){
-						// 		 $('.alert-form').html(result.message).fadeOut();
-						// 	 	// setPage('<?php echo base_url() ?>master/view/country/index');
-						// 	},800);
-						// }else {
-						// 	 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
-						// 	  	 setTimeout(function(){
-						// 		 $('.alert-form').html(result.message).fadeOut();
-						// 	},800);
-								alert(result.message);
-						}else{
-								alert(result.message);
+							$('.alert-form').html(result.message).addClass('alert-success').removeClass('alert-danger').fadeIn();
+							    $('form#form_country').resetForm();
+							 setTimeout(function(){
+								 $('.alert-form').html(result.message).fadeOut();
+							 	 setPage('<?php echo base_url() ?>finance/home');
+							},800);
+						}else {
+							 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
+							  	 setTimeout(function(){
+								 $('.alert-form').html(result.message).fadeOut();
+							},800);
+							
 						}
 						 
 				

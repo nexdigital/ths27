@@ -16,7 +16,7 @@
 		<tbody>
 			  
 				<?php 
-					$get_manifest_finish = $this->finance_payment->get_data_payment();
+					$get_manifest_finish = $this->finance_payment->data_payment_full();
 					$no = 1;
 					foreach ($get_manifest_finish as $key => $value) {
 
@@ -33,7 +33,7 @@
 						if($value->status == "partially"){
 								$status = '<span class="label label-danger">'.$value->status.'</span>';
 						}else{
-								$status = '<span class="label label-success">'.$value->status.'</span>';
+								$status = '<span class="label label-success">Closing</span>';
 						}
 						echo '<td>'.$status.'</td>';
 						$no++;

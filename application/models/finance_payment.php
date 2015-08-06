@@ -39,6 +39,24 @@ class finance_payment extends CI_Model {
 		return $get->result();
 	}
 
+	function get_finish(){
+
+			$this->db->where('collect !=','');
+			$this->db->where('lower(status)','finish');
+			$this->db->where('lower(status_payment)','unpaid');
+			$get = $this->db->get('manifest_data_table');
+			return $get->result();
+	}
+
+	function data_payment_full(){
+		$this->db->select('a.reference_id,a.name,b.*,c.user_id,c.username');
+		$this->db->join('customer_table a','a.reference_id = b.customer_payment');
+		$this->db->join('user_table c','c.user_id = b.created_by');
+		$this->db->where('b.status','full');
+		$get  = $this->db->get('payment_table b');
+		return $get->result();
+	}
+
 	
 }
 
