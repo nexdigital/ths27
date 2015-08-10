@@ -212,11 +212,11 @@ $(document).ready(function(){
 
 
 		$.post('<?php echo base_url('manifest/get/sum_amount_host') ?>',{'rate':rate,'kg':kg,'currency':currency},function(data){
-			$('.txt-amount').val(data);
+			$('.txt-amount').val('Rp.' + data);
 		})
 
 		$.post('<?php echo base_url('manifest/get/sum_total_host') ?>',{'rate':rate,'kg':kg,'currency':currency,'charge_tata':charge_tata,'charge_pml':charge_pml},function(data){
-			$('.txt-subtotal').val(data);
+			$('.txt-subtotal').val('Rp.' + data);
 		})		
 
 
