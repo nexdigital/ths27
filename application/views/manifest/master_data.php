@@ -37,6 +37,8 @@
 			<th width="35%">Consignee</th>
 			<th width="10%">Type</th>
 			<th width="10%">Status</th>
+			<th width="10%">Created Date</th>
+			<th width="10%">Created By</th>
 			<th width="10%">Last Updated</th>
 		</tr>
 	</thead>
@@ -66,6 +68,8 @@
 						<td>'.$consignee->row('name').'</td>
 						<td>'.$row->manifest_type.'</td>
 						<td>'.$row->status.'</td>
+						<td>'.$row->created_date.'</td>
+						<td>'.$row->user_id.'</td>
 						<td>'.$row->last_update.'</td>
 					</tr>
 				';
