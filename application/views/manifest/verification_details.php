@@ -29,8 +29,9 @@
 					    <span class="sr-only">Toggle Dropdown</span>
 					  </button>
 					  <ul class="dropdown-menu" role="menu">
-					    <li><a href="#" class="select-verified" hawb_no="'.$row->hawb_no.'">Verified</a></li>
-					    <li><a href="#" class="select-hold" hawb_no="'.$row->hawb_no.'">Hold</a></li>
+					    <li><a href="#" class="select-verified" hawb_no="'.$row->hawb_no.'" onCLick="verifiedHost(\''.$row->hawb_no.'\')">Verified</a></li>
+					    <li><a href="#" class="select-hold" hawb_no="'.$row->hawb_no.'" onCLick="holdHost(\''.$row->hawb_no.'\')">Hold</a></li>
+					    <li><a href="#" class="select-hold" hawb_no="'.$row->hawb_no.'" onCLick="rejectHost(\''.$row->hawb_no.'\')">Reject</a></li>
 					  </ul>
 					</div>
 				</td>
@@ -76,38 +77,31 @@
 </table>
 
 <script type="text/javascript">
-
 $(document).ready(function(){
-
-
- $('#table_ver_detail').DataTable();
-
-
-
-	$('a.select-verified').click(function(){
-		var hawb_no = $(this).attr('hawb_no');
-		$.ajax({
-		    url:'<?php echo base_url('manifest/ajax/verification_host') ?>',
-		    type:'post',
-		    data:{'hawb_no':hawb_no},
-		    dataType:'json',
-		    success:function(a){
-		    	alert(a.message);
-		    }
-		  })
-	})
-
-	$('a.select-hold').click(function(){
-		var hawb_no = $(this).attr('hawb_no');
-		$.ajax({
-		    url:'<?php echo base_url('manifest/ajax/hold_host') ?>',
-		    type:'post',
-		    data:{'hawb_no':hawb_no},
-		    dataType:'json',
-		    success:function(a){
-		    	alert(a.message);
-		    }
-		  })
-	})
+$('#table_ver_detail').DataTable();
 })
+
+function verifiedHost(hawb_no){
+	$.ajax({
+	    url:'<?php echo base_url('manifest/ajax/verification_host') ?>',
+	    type:'post',
+	    data:{'hawb_no':hawb_no},
+	    dataType:'json',
+	    success:function(a){
+	    	alert(a.message);
+	    }
+	  })	
+}
+
+function holdHost(hawb_no){
+	$.ajax({
+	    url:'<?php echo base_url('manifest/ajax/hold_host') ?>',
+	    type:'post',
+	    data:{'hawb_no':hawb_no},
+	    dataType:'json',
+	    success:function(a){
+	    	alert(a.message);
+	    }
+	  })	
+}
 </script>

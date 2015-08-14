@@ -14,19 +14,21 @@ class Manifest extends MY_Controller {
 	function view($page = null) {
 		switch ($page) {
 			case 'upload':
-				$this->set_content('manifest/upload',array('title' => 'Upload File'));
+				$this->set_content('manifest/upload',array('title' => 'Upload File <h5>Upload file excel of manifest</h5>'));
 			break;
 			case 'create_host':
-				$this->set_content('manifest/create_host',array('title' => 'Create Host'));
+				$this->set_content('manifest/create_host',array('title' => 'Create Host <h5>Creating single host for <strong><em>Import and Export</em></strong></h5>'));
 			break;
 			case 'data':
 				$data['data']	= '';
-				$data['title']	= 'Master Data Manifest';
+				$data['title']	= 'Master Data Manifest <h5>All manifest host with status Verified and Finishing</h5>';
 				$this->set_content('manifest/master_data',$data);
 			break;
 			case 'verification':
 				$data['data']	= $this->manifest_model->get_data_unverified();
-				$data['title']	= 'List Manifest Unverified';
+				$data['data_hold']	= $this->manifest_model->get_data_hold();
+				$data['data_rejected']	= $this->manifest_model->get_data_reject();
+				$data['title']	= 'List Manifest Unverified <h5>All host unverified, hold and rejected</h5>';
 				$this->set_content('manifest/verification',$data);				
 			break;
 			case 'verification_details':
@@ -242,6 +244,8 @@ class Manifest extends MY_Controller {
 						$data['currency']		= $_POST['currency'];
 						$data['exchange_rate']	= $this->master_currency->get_exchange_rate_value($_POST['currency']);
 						$data['manifest_type']  = $_POST['manifest_type'];
+						$data['user_id']  = $this->session->userdata('user_id');
+
 						$this->manifest_model->insert_data($data);
 						$json['status'] 	= "success";
 						$json['message'] 	= "<strong>Save Success!</strong>";
@@ -277,6 +281,8 @@ class Manifest extends MY_Controller {
 
 				$data['currency']		= $_POST['currency'];
 				$data['exchange_rate']	= $this->master_currency->get_exchange_rate_value($_POST['currency']);
+
+				$data['update_by']		= $this->session->userdata('user_id');
 				$this->manifest_model->update_data($hawb_no, $data);
 
 				$json['status'] 	= "success";
@@ -307,6 +313,13 @@ class Manifest extends MY_Controller {
 
 				if($get_shipper->num_rows() > 0 && $get_consignee->num_rows() > 0) {
 					$this->manifest_model->update_status($hawb_no,'verified');
+
+					$a['update_by']		= $this->session->userdata('user_id');
+					$this->manifest_model->update_data($hawb_no, $a);
+
+					$this->db->where('file_id',$data->file_id);
+					$this->db->update('manifest_file_table',array('last_update' => date('Y-m-d h:i:s'),'update_by' => $this->session->userdata('user_id')));
+
 					echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Verified!'));
 				} else {
 					echo json_encode(array('status' => 'failed','message' => 'Please completed the shipper or consignee'));
@@ -322,7 +335,14 @@ class Manifest extends MY_Controller {
 				$get_consignee = $this->db->query("select * from customer_table where reference_id = '$data->consignee'");
 
 				if($get_shipper->num_rows() > 0 && $get_consignee->num_rows() > 0) {
-						$this->manifest_model->update_status($hawb_no,'hold');
+					$this->manifest_model->update_status($hawb_no,'hold');
+
+					$a['update_by']		= $this->session->userdata('user_id');
+					$this->manifest_model->update_data($hawb_no, $a);
+
+					$this->db->where('file_id',$data->file_id);
+					$this->db->update('manifest_file_table',array('last_update' => date('Y-m-d h:i:s'),'update_by' => $this->session->userdata('user_id')));
+
 					echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Hold!'));
 				} else {
 					echo json_encode(array('status' => 'failed','message' => 'Please completed the shipper or consignee'));
@@ -333,17 +353,32 @@ class Manifest extends MY_Controller {
 				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' has been hold!')); */
 			break;
 
+			case 'reject_host':
+				$hawb_no = $_POST['hawb_no'];
+				$data = $this->manifest_model->get_data($hawb_no);
+				$this->manifest_model->update_status($hawb_no,'reject');
+
+				$a['update_by']		= $this->session->userdata('user_id');
+				$this->manifest_model->update_data($hawb_no, $a);
+
+				$this->db->where('file_id',$data->file_id);
+				$this->db->update('manifest_file_table',array('last_update' => date('Y-m-d h:i:s'),'update_by' => $this->session->userdata('user_id')));
+
+				echo json_encode(array('status' => 'success','message' => 'Host #'.$hawb_no.' Rejected!'));
+			break;
+
 			case 'add_discount':
 				$discount['hawb_no'] = $_POST['hawb_no'];
 				$discount['type'] = $_POST['type'];
 				$discount['value'] = $_POST['value'];
 				$discount['created_date'] = date('Y-m-d h:i:s');
-				$discount['created_by'] = null;
+				$discount['created_by'] = $this->session->userdata('user_id');
 				$this->manifest_model->insert_discount($discount);
 			break;
 			case 'edit_discount':
 				$discount['type'] = $_POST['type'];
 				$discount['value'] = $_POST['value'];
+				$discount['update_by'] = $this->session->userdata('user_id');
 				$this->manifest_model->update_discount($_GET['discount_id'],$discount);
 			break;
 			case 'delete_discount':
@@ -360,7 +395,7 @@ class Manifest extends MY_Controller {
 				$charge['currency'] = $_POST['currency'];
 				$charge['value'] = $_POST['value'];
 				$charge['created_date'] = date('Y-m-d h:i:s');
-				$charge['created_by'] = null;
+				$charge['created_by'] = $this->session->userdata('user_id');
 				$this->manifest_model->insert_charge($charge);
 			break;
 			case 'edit_charge':
@@ -368,6 +403,7 @@ class Manifest extends MY_Controller {
 				$charge['description'] = $_POST['description'];
 				$charge['currency'] = $_POST['currency'];
 				$charge['value'] = $_POST['value'];
+				$charge['update_by'] = $this->session->userdata('user_id');
 				$this->manifest_model->update_charge($_GET['charge_id'],$charge);
 			break;
 			case 'delete_charge':
