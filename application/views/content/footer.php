@@ -43,7 +43,9 @@ setPage('<?php echo base_url('master/dashboard') ?>');
 </script>
 
 <script type="text/javascript">
-
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || /^\w+$/i.test(value);
+}, "Letters, numbers, and underscores only please");
 function stopRKey(evt) {
   var evt = (evt) ? evt : ((event) ? event : null);
   var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
