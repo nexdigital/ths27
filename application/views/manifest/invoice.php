@@ -3,14 +3,31 @@
     <div class="col-lg-12 col-sm-12 col-xs-12" style="padding:0px;">
         <div class="col-sm-6">
             <div class="form-group">
-                <label>Master</label>
-                <input class="form-control" name="master" id="master" required>
+                <label>Mawb No</label>
+                <select class="form-control" name="master">
+                <?php
+                    echo '<option value="">Select Mawb No</option>';
+                    $this->db->select('mawb_no as id,file_name,flight_no,flight_from,flight_to');
+                    $get = $this->db->get('manifest_file_table');
+                    foreach($get->result() as $row) {
+                        echo '<option value="'.$row->id.'">'.$row->id.' [Flight No: '.$row->flight_no.' From: '.$row->flight_to.' To: '.$row->flight_to.']</option>';
+                    }
+                ?>
+                </select>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label>Host</label>
-                <input class="form-control" name="host" id="host" required>
+                <label>Hawb No</label>
+                <select class="form-control" name="host[]" multiple="multiple">
+                <?php
+                    $this->db->select('hawb_no as id');
+                    $get = $this->db->get('manifest_data_table');
+                    foreach($get->result() as $row) {
+                        echo '<option value="'.$row->id.'">'.$row->id.'</option>';
+                    }                    
+                ?>
+                </select>
             </div>
         </div>
     </div>
@@ -23,9 +40,10 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+    $('select.form-control').select2();
 	$('#master').select2({
-		placeholder: "Search Master Manifest",
-        minimumInputLength: 3,
+		placeholder: "Search mawb no",
+        minimumInputLength: 1,
         quietMillis: 100,
         multiple: true,
         ajax: {
@@ -52,8 +70,8 @@ $(document).ready(function(){
 	})
 	
 	$('#host').select2({
-		placeholder: "Search Host Manifest",
-        minimumInputLength: 2,
+		placeholder: "Search hawb no",
+        minimumInputLength: 1,
         quietMillis: 100,
         multiple: true,
         ajax: {
