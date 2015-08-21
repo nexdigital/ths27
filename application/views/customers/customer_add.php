@@ -91,28 +91,28 @@
                         <div class="col-xs-12">
                           <div class="col-md-12">
                             <div class="form-group">
-                              <span class="">*</span> <label>Reference Id</label>
+                              <label>Reference Id</label> <label class="required-filed">*</label>
                               <input id="reference_id"  name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
                              
                             </div>
 
                             <div class="form-group">
-                               <span class="">*</span><label>Name</label>
+                              <label>Name</label> <label class="required-filed">*</label>
                               <input id="name" name="name"  type="text" class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                              <span class="">*</span><label>Attn</label>
+                             <label>Attn</label> <label class="required-filed">*</label>
                               <input id="attn" name="attn" type="text" class="form-control" required>
                             </div>     
 
                             <div class="form-group">
-                               <span class="">*</span><label >E-mail</label>
+                               <label >E-mail</label> <label class="required-filed">*</label>
                               <input id="email" name="email" type="email" class="form-control" required>
                             </div>
 
                             <div class="form-group">
-                               <span class="">*</span>  <label>Address</label>
+                             <label>Address</label> <label class="required-filed">*</label>
                               <textarea class="form-control" name="address" style="resize:none" required></textarea>
                             </div>
 
@@ -122,8 +122,10 @@
                             </div>
 
                             <div class="form-group">
-                              <label>Country</label>
-                              <select class="form-control bfh-states country" name="country">
+                             <label>Country</label> <label class="required-filed">*</label>
+                              <select class="form-control bfh-states country" id="country" name="country" required>
+
+                               <option value="">-</option> 
                               <?php
                               foreach ($this->master_country->list_country() as $key => $value) {
                                   $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
@@ -151,8 +153,9 @@
                         <div class="col-xs-12">
                           <div class="col-md-12">
                             <div class="form-group" >
-                               <span class="">*</span><label>Phone</label>
-                              <input id="phone" name="phone" type="phone" class="form-control" required >
+                              <label>Phone</label> <label class="required-filed">*</label>
+                             
+                              <input class="form-control" id="phone" name="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
                             </div>
 
                             <div class="form-group">
@@ -181,9 +184,10 @@
                         <div class="col-xs-12">
                           <div class="col-md-12">
                             <div class="form-group" style="margin-top:10px;">
-                              <label >Tax Class</label>
-                              <select class="form-control tax_class" name="tax_class">
-                                <option></option>
+                              <label >Tax Class</label> <label class="required-filed">*</label>
+                              <select class="form-control tax_class" id="tax_class" name="tax_class" required>
+                                <option value="">-</option>
+                                <option value="0">none</option>
                                 <?php
                                     foreach ($this->tool_model->get_tax() as $key => $value) {
                                         echo "<option value='".$value->tax_id."'>".$value->tax_name."</option>";
@@ -217,8 +221,9 @@
                            
 
                             <div class="form-group">
-                              <label>Status</label>
-                              <select class="form-control" name="status" >
+                              <label>Status</label> <label class="required-filed">*</label>
+                              <select class="form-control" name="status" required>
+                                <option value="">-</option>
                                 <option value="0">None</option>
                                 <option value="regular">regular customer</option>
                               </select>
@@ -233,29 +238,6 @@
                                 <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
                               </div>
                             </div>  -->
-
-                          
-
-                           
-                            <div class="form-group">
-                              <label>Payment Type</label>
-                              <select class="form-control" name="payment_type" class="payment-type">
-                                <option value="cash">Cash</option>
-                                <option value="transfer">transfer</option>
-                              </select>
-                            </div>
-
-
-                            <div class="form-group">
-                              <label>Group</label>
-                              <select class="form-control" name="group" id="group">
-                                  <option></option>
-                                 <option>online shop</option>
-                                 <option>tekstil</option>
-
-                              </select>
-                            </div>
-
 
                             <div class="form-group">
                               <label >Description</label>
@@ -292,13 +274,17 @@
 
 <script type="text/javascript">
 
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || /^\w+$/i.test(value);
+}, "Letters, numbers, and underscores only please");
+
 $('form#form_step_1').validate({
-      rules: { reference_id: { required: true, remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers" } },
+      rules: { reference_id: { required: true, remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",alphanumeric:true } },
       messages: { reference_id: { remote: 'Reference Id has been used. Please try another Reference Id' } }      
     });
 
 
-$('#group').select2();
+// $('#country').select2();
 
   $('#dp1').datepicker({
                 format: 'dd-mm-yyyy'

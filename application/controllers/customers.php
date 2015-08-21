@@ -103,16 +103,17 @@ class Customers extends MY_Controller {
 
 					$reference_id =  $_POST['reference_id'];
 					$name =  $_POST['name'];
+					$attn =  $_POST['attn'];
 					$email = $_POST['email'];
 					$address = $_POST['address'];
-					$attn =  $_POST['attn'];
 					$city = $_POST['city'];
+					$country = $_POST['country'];
 					$pos_code = $_POST['zip_code'];
 					$phone = $_POST['phone'];
 					$mobile = $_POST['mobile'];
 					$fax = $_POST['fax'];
-					//$pos_code = $_POST['tax_class'];
-
+					$tax_class = $_POST['tax_class'];
+					$description = $_POST['description'];
 
 					$regex = "/^[A-Za-z0-9_\-.\/]+$/";
 						// if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
@@ -126,14 +127,13 @@ class Customers extends MY_Controller {
 							$data['address'] 	  = $address;
 							$data['attn'] 		  = $attn;
 							$data['city']         = $city;
-							$data['country']      = $_POST['country'];
+							$data['country']      = $country;
 							$data['pos_code'] 	  = $pos_code;
-							$data['phone'] 		  = $_POST['phone'];
+							$data['phone'] 		  = $phone;
 							$data['mobile'] 	  = $mobile;
 							$data['fax'] 		  = $fax;
-							$data['tax_class'] 	  = $_POST['tax_class'];
-							$data['payment_type'] = $_POST['payment_type'];
-							$data['description']  = $_POST['description'];
+							$data['tax_class'] 	  = $tax_class;
+							$data['description']  = $description;
 							$data['status_active']= "Active";
 							$data['create_date']  = date('Y-m-d');
 							$data['create_by']	  = $this->session->userdata('username'); 
@@ -182,14 +182,11 @@ class Customers extends MY_Controller {
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
 					$data['tax_class'] 	  = $_POST['tax_class'];
-					$data['payment_type'] = $_POST['payment_type'];
 					$data['description']  = $_POST['description'];
 					$data['status_active']= (isset($_POST['is_active'])) ? 'Active' : 'inactive';
 					$data['update_date']  = date('Y-m-d');
 					$data['update_by']	  = $this->session->userdata('username'); 
 					$this->customers_model->customer_edit($reference_id,$data);
-						
-				
 					$status  = TRUE;
 					$message = "Edit success";
 					echo json_encode(array("status"=> $status, "message" => $message));
