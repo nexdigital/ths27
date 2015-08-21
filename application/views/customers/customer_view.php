@@ -155,6 +155,7 @@ $(document).ready(function(){
 
 
             $('#edit_customer').validate();
+            $('#send_email_form').validate();
             $('#message').wysihtml5();
             var tax_class = "<?php echo $get_customers->tax_class ?>";  
             var payment_type = "<?php echo $get_customers->payment_type ?>"; 
@@ -253,11 +254,9 @@ $(document).ready(function(){
                     dataType    : "json",
                     beforeSubmit: function(){
 
-                                    $("#send_email_form").validate();
                                     $(".send-email").addClass('disabled').html('Sending...');
 
                     },
-
                     success     : function(result){
 
                            if(result.status == true){
