@@ -218,16 +218,18 @@ class Customers extends MY_Controller {
 							$subject 	= $_POST['subject'];
 							$message 	= $_POST['message'];
 
-							$config = array(
+							if($_SERVER['HTTP_HOST'] != 'ths27.nexdigital.net') {
+								$config = array(
 
-									'protocol' => 'smtp',
-									'smtp_host' => 'ssl://smtp.gmail.com',
-									'smtp_port' => 465,
-									'smtp_user' => 'sahala161189@gmail.com',
-									'smtp_pass' => 'sahalamorgantobings',
-									'mailtype'	=> 'html'
-							);
-							$this->email->initialize( $config );
+										'protocol' => 'smtp',
+										'smtp_host' => 'ssl://smtp.gmail.com',
+										'smtp_port' => 465,
+										'smtp_user' => 'sahala161189@gmail.com',
+										'smtp_pass' => 'sahalamorgantobings',
+										'mailtype'	=> 'html'
+								);
+								$this->email->initialize( $config );
+							}
 							$this->email->set_newline( "\r\n" );
 							$this->email->from( "tataharmoni18@gmail.com", "No Reply" );
 							$this->email->to( $to );
