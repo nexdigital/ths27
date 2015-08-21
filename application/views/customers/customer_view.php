@@ -117,7 +117,7 @@
       <div class="modal-body">  
            <div class="form-group">
                   <span class="">*</span> <label>To</label>
-                  <input id="to"  name="to"  type="email"  class="form-control" required>
+                  <input id="to"  value="<?php echo $get_customers->email ?>" name="to"  type="email"  class="form-control" required>
              
             </div>
 
@@ -154,7 +154,7 @@ $(document).ready(function(){
             
 
 
-            $('#edit_customer,#send_email_form ').validate();
+            $('#edit_customer').validate();
             $('#message').wysihtml5();
             var tax_class = "<?php echo $get_customers->tax_class ?>";  
             var payment_type = "<?php echo $get_customers->payment_type ?>"; 
@@ -253,9 +253,11 @@ $(document).ready(function(){
                     dataType    : "json",
                     beforeSubmit: function(){
 
+                                    $("#send_email_form").validate();
                                     $(".send-email").addClass('disabled').html('Sending...');
 
                     },
+
                     success     : function(result){
 
                            if(result.status == true){
