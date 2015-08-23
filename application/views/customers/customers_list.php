@@ -24,10 +24,10 @@
     <th>Reference ID</th>
     <th>Name</th>
     <th>Country</th>
-    <th>Created by</th>
-    <th>Created date</th>
-    <th>Updated by</th>
-    <th>Updated date</th>
+    <th>Entry by</th>
+    <th>Entry date</th>
+    <th>Modified by</th>
+    <th>Modified date</th>
     <th>Status</th>
 
   </thead>

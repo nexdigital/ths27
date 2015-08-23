@@ -160,7 +160,7 @@ $(document).ready(function(){
             var tax_class = "<?php echo $get_customers->tax_class ?>";  
             var payment_type = "<?php echo $get_customers->payment_type ?>"; 
             var country = "<?php echo $get_customers->country ?>";           
-
+          
             if(tax_class ==  0 ){
                  $("#tax_class").val('0');
             }else{

@@ -69,7 +69,7 @@ class Manifest extends MY_Controller {
 			break;
 			case 'invoice':
 				$data['data']	= '';
-				$data['title']	= 'Print Invoice <h5>Print by MAWB NO and HAWB NO</h5>';
+				$data['title']	= 'Print Invoice';
 				$this->set_content('manifest/invoice',$data);				
 			break;
 			case 'report':
@@ -107,7 +107,6 @@ class Manifest extends MY_Controller {
 						'file_name'		=> $data_file['file_name'],
 						'mawb_no'		=> set_value('mawb_no'),
 						'consign_to'	=> set_value('consign_to'),
-						'flight_no'	=> set_value('flight_no'),
 						'flight_from'	=> set_value('flight_from'),
 						'flight_to'		=> set_value('flight_to'),
 						'gross_weight'	=> set_value('gross_weight'),
@@ -414,11 +413,11 @@ class Manifest extends MY_Controller {
 				$this->db->update('manifest_extra_charge_table');
 			break;
 			case 'print':
-				$master = $_POST['master'];
-				$host = $_POST['host'];
+				$master = explode(',', $_POST['master']);
+				$host = explode(',', $_POST['host']);
 
-				if($master) {
-					$file = $this->manifest_model->get_mawb($master);
+				foreach ($master as $row) {
+					$file = $this->manifest_model->get_mawb($row);
 					if($file) {
 						$query = $this->db->query("select * from manifest_data_table where file_id = '".$file->file_id."' and lower(status) in ('verified','success','finish')");
 						if($query->num_rows() > 0) {

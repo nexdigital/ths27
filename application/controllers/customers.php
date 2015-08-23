@@ -49,7 +49,7 @@ class Customers extends MY_Controller {
 		$data['get_tax']		= $this->tool_model->get_tax();
 		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
 	//	$data        	        = array();
-		$data['title']			= 'Customer View';
+		$data['title']			= 'Edit Customer';
 		$this->set_content('customers/customer_view',$data);
 
 		/**
@@ -135,7 +135,7 @@ class Customers extends MY_Controller {
 							$data['tax_class'] 	  = $tax_class;
 							$data['description']  = $description;
 							$data['status_active']= "Active";
-							$data['create_date']  = date('Y-m-d');
+							$data['create_date']  = date('Y-m-d H:i:s');
 							$data['create_by']	  = $this->session->userdata('username'); 
 
 							$this->customers_model->save_customer($data);
@@ -184,7 +184,7 @@ class Customers extends MY_Controller {
 					$data['tax_class'] 	  = $_POST['tax_class'];
 					$data['description']  = $_POST['description'];
 					$data['status_active']= (isset($_POST['is_active'])) ? 'Active' : 'inactive';
-					$data['update_date']  = date('Y-m-d');
+					$data['update_date']  = date('Y-m-d H:i:s');
 					$data['update_by']	  = $this->session->userdata('username'); 
 					$this->customers_model->customer_edit($reference_id,$data);
 					$status  = TRUE;
