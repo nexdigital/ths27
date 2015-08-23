@@ -167,18 +167,18 @@ function add_customer(){
            
             success: function(json) {
               if(json.status == 'success') {
-                     $('.message').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
+                     $('.alert-form').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
                       setTimeout(function(){   
-                          $('.message').fadeOut();
+                          $('.alert-form').fadeOut();
                         setPage('<?php echo base_url() ?>customers/home');
                         },800);    
               } 
               else if(json.status == 'redirect') {
                 setPage(json.message);
               }else if(json.status=='unsuccess'){
-                    $('.message').html(json.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn(); 
+                    $('.alert-form').html(json.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn(); 
                    setTimeout(function(){   
-                    $('.message').fadeOut();
+                    $('.alert-form').fadeOut();
                   },800);    
               }
             }
