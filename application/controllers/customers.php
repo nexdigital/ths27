@@ -257,6 +257,19 @@ class Customers extends MY_Controller {
 
 
 				break;
+
+				case 'print_label':
+
+						$name = "test";
+						$file_path = base_url('asset/pdf').$name.'.pdf';
+						$this->load->library('pdf');
+						$pdf = $this->pdf->load();
+						$data = "testr";
+						$html = $this->load->view('download/airwaybill',$data,true);  
+						$pdf->WriteHTML($html);
+						$pdf->Output($file_path, 'I');
+						echo json_encode(array("status"=> true, "message" => "test"));
+				break;
 		}
 	}
 	

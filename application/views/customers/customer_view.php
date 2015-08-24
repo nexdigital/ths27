@@ -95,6 +95,7 @@
             <button type="reset" class="btn btn-success" onClick="add_new();">Create New</button></a>    
             <button class="btn btn-success btn_edit" onClick="edit_customer();"> Update</button>
             <button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('customers/delete_customer/'.$get_customers->reference_id)?>')">Delete</button>
+           <button type="reset" class="btn btn-success" onClick="print_label();">Print Label</button></a>    
             <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>customers/home')">Cancel</button>
             <label class="result-message"></label>
 
@@ -115,12 +116,12 @@
 
   <form id="send_email_form">
       <div class="modal-body">  
-           <div class="form-group">
+           <div class="form-group" id="target_to">
                   <span class="">*</span> <label>To</label>
-                  <input id="to"  value="<?php echo $get_customers->email ?>" name="to"  type="email"  class="form-control" required>
-             
+                  <input id="to"  value="<?php echo $get_customers->email ?>" name="to"  type="email"  class="form-control to" required> 
             </div>
-
+              <span style="float:right;"><button type="reset" class="btn btn-warning" onClick="add_email()">Add</button></span>
+              <br/>
               <div class="form-group">
                   <span class="">*</span> <label>Subject</label>
                   <input id="subject"  name="subject"  type="text"  class="form-control" required>
@@ -129,7 +130,23 @@
 
         <div class="form-group">
                <span class="">*</span><label>Message</label>
-               <textarea id="message" name="message" class="form-control" style="resize:none;" required></textarea>
+               <textarea id="message" name="message" class="form-control" style="resize:none;" required>
+
+
+                <div>
+                  <br/>
+                  <br/>
+                  <br/>
+
+                  <b>PT. TATA HARMONI SARANATAMA</b><br/>
+                  Taman Dutamas Blok B1 No.27<br/>
+                  Jl.P.Tubagus Angke , Jakarta Barat .<br/>
+                  Tel.: 021-567 8289  <br/>   
+                  Fax.: 021-567 6536<br/>
+                  Email.: tatahasa@dnet.net.id<br/>
+                  Website: http://www.tataharmoni.com available for tracking your shipment now
+              </div>
+               </textarea>
                 
         </div>
         <center><div class="alert-email"></div></center>
@@ -299,7 +316,31 @@ $(document).ready(function(){
             $("#modal_email").modal('show');
 
 
-        }
+  }
+
+  function print_label()
+  {
+      $.ajax({
+
+
+                    url         : "<?php echo base_url()?>customers/ajax/print_label",
+                    type        : "POST",
+                    dataType    : "json",
+                    success     : function(result){
+
+                              alert(result.message);
+                    }
+
+      });
+  }
+
+  function add_email()
+  {
+  
+
+   
+    $( "#target_to" ).append( "<br/><input   class='form-control to' name='to'  type='email'  class='form-control' required><span><button type='reset' onClick='delete_email();'>Delete</button></span>" );
+  }
 
        
     </script>
