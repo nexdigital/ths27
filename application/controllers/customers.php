@@ -148,7 +148,7 @@ class Customers extends MY_Controller {
 
 								$status = "redirect";
 								$message = base_url('manifest/view/verification_details?mawb_no='.urlencode($file->mawb_no));
-								echo json_encode(array('status'=> 'redirect', 'message'=> $message ));
+								//echo json_encode(array('status'=> 'redirect', 'message'=> $message ));
 							} else {
 								$status = "success";
 								$message = "Save success";
