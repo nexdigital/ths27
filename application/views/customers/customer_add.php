@@ -164,7 +164,9 @@ function add_customer(){
             url: '<?php echo base_url()?>customers/ajax/add_customer',
             type: 'post',
             dataType: 'json',
-           
+            beforeSubmit : function(){
+                    $(".submit").addClass('disabled').html('Submit...');
+            },
             success: function(json) {
               if(json.status == 'success') {
                      $('.alert-form').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 

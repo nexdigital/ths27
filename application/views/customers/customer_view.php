@@ -30,7 +30,7 @@
     </div>
 
     <div class="form-group">
-            <label>City<label class="required-filed">*</label></label>
+            <label>City</label>
             <input type="text" value="<?php echo $get_customers->city ?>" id="city" class="form-control" name="city">
     </div>
 
@@ -47,7 +47,7 @@
     </div>
 
       <div class="form-group">
-            <label>Pos Code<label class="required-filed">*</label></label>
+            <label>Pos Code</label>
             <input type="text" value="<?php echo $get_customers->pos_code ?>" id="pos_code" class="form-control" name="post_code">
     </div>
 
@@ -57,12 +57,12 @@
     </div>
 
      <div class="form-group">
-            <label>Mobile<label class="required-filed">*</label></label>
+            <label>Mobile</label>
            <input type="text" value="<?php echo $get_customers->mobile ?>" id="mobile" class="form-control" name="mobile">
     </div>
 
       <div class="form-group">
-            <label>Fax<label class="required-filed">*</label></label>
+            <label>Fax</label>
             <input type="text" value="<?php echo $get_customers->fax ?>" id="fax" class="form-control" name="fax">
     </div>
 
@@ -81,7 +81,7 @@
     </div>
 
       <div class="form-group">
-            <label>Description<label class="required-filed">*</label></label>
+            <label>Description</label>
              <textarea name="description" id="description" class="form-control" style=" resize: none;"><?php echo $get_customers->description ?></textarea>
     </div>
 
