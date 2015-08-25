@@ -274,7 +274,7 @@ class Customers extends MY_Controller {
 							$this->email->message( $message );
 							if( !$this->email->send() ) {
 								$status		= false;
-								$message	= show_error($this->email->print_debugger());
+								$message_alert	= show_error($this->email->print_debugger());
 							} else {
 								
 								$component = array( 'to' => $value,
@@ -284,12 +284,13 @@ class Customers extends MY_Controller {
 													'date'		=> date('Y-m-d'));			
 								$this->customers_model->save_email($component);
 
-								$status		= true;
-								$message	= "Email has been sent.";
+							
 			                } 
+			                	$status		= true;
+								$message_alert	= "Email has been sent.";
 						}
 						
-						echo json_encode(array("status"=> $status, "message" => $message ));
+						echo json_encode(array("status"=> $status, "message" => $message_alert ));
 
 
 				break;
