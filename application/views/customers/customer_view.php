@@ -120,7 +120,7 @@
                 <span class="">*</span> <label>To</label>
                 <input id="to"  value="<?php echo $get_customers->email ?>" name="to[]"  type="email"  class="form-control to" required> 
               </div>
-              <span style="float:right;"><button type="reset" class="btn btn-warning" onClick="add_email()">Add</button></span>
+              <span style="float:right;"><span class="btn btn-warning" onClick="add_email()">Add</span></span>
               <br/>
               <div class="form-group">
                   <span class="">*</span> <label>Subject</label>
@@ -343,6 +343,8 @@ $(document).ready(function(){
     if(elm.find('input.form-control').length < 5) {
       elm.append("<input class='form-control' name='to[]' type='email' id='"+elm_id+"' required><button id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button>");
     }
+
+    return false;
   }
 </script>
 
