@@ -341,7 +341,7 @@ $(document).ready(function(){
     var elm_id = D.getTime();
 
     if(elm.find('input.form-control').length < 5) {
-      elm.append("<input class='form-control' name='to[]' type='email' id='"+elm_id+"' required><button id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button>");
+      elm.append(" <div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
     }
 
     return false;
