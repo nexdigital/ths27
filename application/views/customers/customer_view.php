@@ -116,10 +116,10 @@
 
   <form id="send_email_form">
       <div class="modal-body">  
-           <div class="form-group" id="target_to">
-                  <span class="">*</span> <label>To</label>
-                  <input id="to"  value="<?php echo $get_customers->email ?>" name="to"  type="email"  class="form-control to" required> 
-            </div>
+              <div class="form-group" id="target_to">
+                <span class="">*</span> <label>To</label>
+                <input id="to"  value="<?php echo $get_customers->email ?>" name="to[]"  type="email"  class="form-control to" required> 
+              </div>
               <span style="float:right;"><button type="reset" class="btn btn-warning" onClick="add_email()">Add</button></span>
               <br/>
               <div class="form-group">
@@ -334,14 +334,15 @@ $(document).ready(function(){
       });
   }
 
-  function add_email()
-  {
-  
+  function add_email(){
+    var D = new Date();
+    var elm = $("#target_to");
 
-   
-    $( "#target_to" ).append( "<br/><input   class='form-control to' name='to'  type='email'  class='form-control' required><span><button type='reset' onClick='delete_email();'>Delete</button></span>" );
+    var elm_id = D.getTime();
+
+    if(elm.find('input.form-control').length < 5) {
+      elm.append("<input class='form-control' name='to[]' type='email' id='"+elm_id+"' required><button id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button>");
+    }
   }
-
-       
-    </script>
+</script>
 
