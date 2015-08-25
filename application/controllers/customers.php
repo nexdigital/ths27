@@ -259,7 +259,10 @@ class Customers extends MY_Controller {
 										'smtp_port' => 465,
 										'smtp_user' => 'sahala161189@gmail.com',
 										'smtp_pass' => 'sahalamorgantobings',
-										'mailtype'	=> 'html'
+										"mailtype"	=> "html",
+										"charset"	=> "utf-8",
+										"newline"	=> "\n",
+										"wordwrap"	=> true
 								);
 								$this->email->initialize( $config );
 							}
