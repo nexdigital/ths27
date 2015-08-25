@@ -251,11 +251,7 @@ class Customers extends MY_Controller {
 								$message	= "Email has been sent.";
 			                } */
 							
-					
-						foreach($to as $key => $value){
-							
-							
-							if($_SERVER['HTTP_HOST'] != 'ths27.nexdigital.net') {
+						if($_SERVER['HTTP_HOST'] != 'ths27.nexdigital.net') {
 								$config = array(
 
 										'protocol' => 'smtp',
@@ -267,9 +263,11 @@ class Customers extends MY_Controller {
 								);
 								$this->email->initialize( $config );
 							}
+					
+						foreach($to as $key => $value){
 							$this->email->set_newline( "\r\n" );
 							$this->email->from( "tataharmoni18@gmail.com", "No Reply" );
-							$this->email->to( $to );
+							$this->email->to( $value );
 							$this->email->subject( $subject);
 							$this->email->message( $message );
 							if( !$this->email->send() ) {
