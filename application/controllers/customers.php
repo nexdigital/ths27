@@ -298,15 +298,25 @@ class Customers extends MY_Controller {
 
 				case 'print_label':
 
-						$name = "test";
-						$file_path = base_url('asset/pdf').$name.'.pdf';
 						$this->load->library('pdf');
 						$pdf = $this->pdf->load();
-						$data = "testr";
-						$html = $this->load->view('download/airwaybill',$data,true);  
+
+						$name = $_POST['name'];
+						$data['name'] =$name   ;
+						$data['attn'] =  $_POST['attn'];
+						$data['address'] =  $_POST['address'];
+						$data['phone'] =  $_POST['phone'];
+						$data['country'] =  $_POST['country'];
+
+						$html = $this->load->view('customers/pdf',$data,true);       
 						$pdf->WriteHTML($html);
-						$pdf->Output($file_path, 'I');
-						echo json_encode(array("status"=> true, "message" => "test"));
+						$pdf->Output(path_pdf . $name .'.pdf', 'F');
+						error_reporting( 0 );
+
+						// $status = true;
+						// $message = "Print label success. Download in <a href='".base_url(path_pdf . $name .'.pdf')."'><b><u>Here<u></b></a>";
+						// echo json_encode(array("status"=> $status, "message" => $message ));
+					
 				break;
 		}
 	}

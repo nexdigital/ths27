@@ -95,7 +95,17 @@
             <button type="reset" class="btn btn-success" onClick="add_new();">Create New</button></a>    
             <button class="btn btn-success btn_edit" onClick="edit_customer();"> Update</button>
             <button type="reset" class="btn btn-success btn-submit"  onClick="setPage('<?php echo base_url('customers/delete_customer/'.$get_customers->reference_id)?>')">Delete</button>
-           <button type="reset" class="btn btn-success" onClick="print_label();">Print Label</button></a>    
+            <?php 
+                $name = $get_customers->name ;
+                $attn = $get_customers->attn;
+                $address = $get_customers->address;
+                $phone = $get_customers->phone;
+                $country = $get_customers->country;
+
+            //    $parameter = 
+
+            ?>
+            <button type="reset" class="btn btn-success" onClick="print_label('<?php echo $name?>','<?php echo $attn ?>','<?php echo $address ?>','<?php echo $phone ?>','<?php echo $country ?>');">Print Label</button>  
             <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>customers/home')">Cancel</button>
             <label class="result-message"></label>
 
@@ -114,6 +124,7 @@
         <h4 class="modal-title">Email Form</h4>
       </div>
 
+    <center><label class="alert alert-danger" id="message_email" style="display:none"></label></center>
   <form id="send_email_form">
       <div class="modal-body">  
               <div class="form-group" id="target_to">
@@ -281,8 +292,10 @@ $(document).ready(function(){
                                     $('.alert-email').html(result.message).addClass('alert alert-success').fadeIn();
                             setTimeout(function(){
                                     
-                                   $('form#send_email_form').resetForm();
-                                   $("#modal_email").modal("hide");
+                                    $('form#send_email_form').resetForm();
+                                    $('.alert-email').fadeOut();
+                                    $(".send-email").removeClass('disabled').html('Send');
+                                    $("#modal_email").modal("hide");
                             },800);
                                   
 
@@ -318,18 +331,31 @@ $(document).ready(function(){
 
   }
 
-  function print_label()
+  function print_label(name,attn,address,phone,country)
   {
-      $.ajax({
-
+      
+              $.ajax({
 
                     url         : "<?php echo base_url()?>customers/ajax/print_label",
+                    data        : 'name='+name+'&attn='+attn+'&address='+address+'&phone='+phone+'&country='+country,
                     type        : "POST",
                     dataType    : "json",
+                    beforeSubmit: function(){
+                               
+                                     alert("test");
+                    },
                     success     : function(result){
 
-                              alert(result.message);
+                                alert("test");
+                               //$('.alert-email').html(result.message).addClass('alert alert-success').fadeIn();
                     }
+                    // error:      function( error )
+                    // {
+
+                    //      alert( "There's something wrong. Please contact admin");
+
+                    // }
+
 
       });
   }
@@ -341,10 +367,17 @@ $(document).ready(function(){
     var elm_id = D.getTime();
 
     if(elm.find('input.form-control').length < 5) {
-      elm.append(" <div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
+      elm.append(" <br/><div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
+    }else{
+
+      $("#message_email").html("add email cannot more than 5 textbox").fadeIn();
+      setTimeout(function(){
+        $("#message_email").fadeOut();
+      },800);
+      return false;
     }
 
-    return false;
+   
   }
 </script>
 
