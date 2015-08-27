@@ -145,7 +145,18 @@ jQuery.validator.addMethod("alphanumeric", function(value, element) {
 }, "Letters, numbers, and underscores only please");
 
 $('form#add_customer').validate({
-      rules: { reference_id: { required: true, remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",alphanumeric:true } },
+      rules: { reference_id: { 
+								required: true, 
+								remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
+								alphanumeric:true 
+							 },
+
+				name:		  {
+								required	 : true,
+								alphanumeric : true
+							  }
+				
+			 },
       messages: { reference_id: { remote: 'Reference Id has been used. Please try another Reference Id' } }      
     });
 
