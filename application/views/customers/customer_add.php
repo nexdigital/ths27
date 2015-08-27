@@ -154,6 +154,20 @@ $('form#add_customer').validate({
 				name:		  {
 								required	 : true,
 								alphanumeric : true
+							  },
+				attn :		  {
+								required     : true,
+								alphanumeric : true
+									
+							  },
+				city  :       {
+								required     : true,
+								alphanumeric : true
+							  },
+				zip_code :    {
+
+								required     : true,
+								alphanumeric : true
 							  }
 				
 			 },
