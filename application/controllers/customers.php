@@ -303,6 +303,9 @@ class Customers extends MY_Controller {
 						$pdf = $this->pdf->load();
 
 						$name = $_POST['name'];
+
+						$filename = time().'_'.str_ireplace(' ','_',trim($name));
+
 						$data['name'] =$name   ;
 						$data['attn'] =  $_POST['attn'];
 						$data['address'] =  $_POST['address'];
@@ -311,8 +314,8 @@ class Customers extends MY_Controller {
 
 						$html = $this->load->view('customers/pdf',$data,true);
 						$pdf->WriteHTML($html);
-						$pdf->Output(path_pdf . $name .'.pdf', 'F');
-						echo json_encode(array('redirect' => base_url('asset/pdf/'.$name.'.pdf')));				
+						$pdf->Output(path_pdf . $filename .'.pdf', 'F');
+						echo json_encode(array('redirect' => base_url('asset/pdf/'.$filename.'.pdf')));				
 				break;
 		}
 	}
