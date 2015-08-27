@@ -217,7 +217,8 @@ $('#edit_customer').validate({
 
 							  }
 				
-			 }     
+			 },
+      messages: { }      
     });
 
             
