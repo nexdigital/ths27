@@ -168,6 +168,18 @@ $('form#add_customer').validate({
 
 								required     : true,
 								alphanumeric : true
+							  },
+				mobile   :    {
+		
+								required     : true,
+								alphanumeric : true
+							
+							  },
+			   fax		:     {
+
+								required     : true,
+								alphanumeric : true
+
 							  }
 				
 			 },

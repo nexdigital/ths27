@@ -180,7 +180,7 @@
 
 $(document).ready(function(){
             
-
+		
 
             $('#edit_customer').validate();
             $('#send_email_form').validate();
@@ -198,6 +198,49 @@ $(document).ready(function(){
            
             $("#payment_type").val(payment_type);
             $("#country").val(country);
+
+
+
+			jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || /^\w+$/i.test(value);
+}, "Letters, numbers, and underscores only please");
+
+$('form#edit_customer').validate({
+      rules: {
+
+				name:		  {
+								required	 : true,
+								alphanumeric : true
+							  },
+				attn :		  {
+								required     : true,
+								alphanumeric : true
+									
+							  },
+				city  :       {
+								required     : true,
+								alphanumeric : true
+							  },
+				zip_code :    {
+
+								required     : true,
+								alphanumeric : true
+							  },
+				mobile   :    {
+		
+								required     : true,
+								alphanumeric : true
+							
+							  },
+			   fax		:     {
+
+								required     : true,
+								alphanumeric : true
+
+							  }
+				
+			 }    
+    });
 
 });
 
