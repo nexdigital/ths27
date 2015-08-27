@@ -276,6 +276,7 @@ class Customers extends MY_Controller {
 							if( !$this->email->send() ) {
 								$status		= false;
 								$message_alert	= show_error($this->email->print_debugger());
+								break;
 							} else {
 								
 								$component = array( 'to' => $value,
@@ -310,7 +311,9 @@ class Customers extends MY_Controller {
 						$data['attn'] =  $_POST['attn'];
 						$data['address'] =  $_POST['address'];
 						$data['phone'] =  $_POST['phone'];
-						$data['country'] =  $_POST['country'];
+
+						$get_country_name = $this->master_country->get_row_country($_POST['country']);
+						$data['country'] =  $get_country_name->country_name;
 
 						$html = $this->load->view('customers/pdf',$data,true);
 						$pdf->WriteHTML($html);

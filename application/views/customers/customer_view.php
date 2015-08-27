@@ -2,6 +2,9 @@
     .alert{
         padding: 5px;
     }
+     #editor {overflow:scroll; max-height:300px}
+
+
 
 </style>
 
@@ -127,10 +130,11 @@
     <center><label class="alert alert-danger" id="message_email" style="display:none"></label></center>
   <form id="send_email_form">
       <div class="modal-body">  
-              <div class="form-group" id="target_to">
+              <div class="input-group" id="target_to" style="display: block;">
                 <span class="">*</span> <label>To</label>
                 <input id="to"  value="<?php echo $get_customers->email ?>" name="to[]"  type="email"  class="form-control to" required> 
               </div>
+
               <span style="float:right;"><span class="btn btn-warning" onClick="add_email()">Add</span></span>
               <br/>
               <div class="form-group">
@@ -163,7 +167,7 @@
         <center><div class="alert-email"></div></center>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="close_email()">Close</button>
         <button type="submit" class="btn btn-success send-email" onClick="send_email();">Send Email</button>
       </div>
 
@@ -222,7 +226,7 @@ $('#edit_customer').validate({
     });
 
             
-            $('#send_email_form').validate();
+           // $('#send_email_form').validate();
             $('#message').wysihtml5();
             var tax_class = "<?php echo $get_customers->tax_class ?>";  
             var payment_type = "<?php echo $get_customers->payment_type ?>"; 
@@ -346,7 +350,7 @@ $('#edit_customer').validate({
                                     $('.alert-email').html(result.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn();
                             setTimeout(function(){
                                
-                                     $('.alert-email').html(result.message).fadeOut();
+                                    $('.alert-email').html(result.message).fadeOut();
                                     $(".send-email").removeClass('disabled').html('Send');
                             },800);
 
@@ -357,8 +361,11 @@ $('#edit_customer').validate({
                     error: function( error )
                     {
 
-                         alert( error );
-
+                         $('.alert-email').html("Wrong Email !! Please check all email field. ").removeClass('alert alert-success').addClass('alert alert-danger').fadeIn();
+                         setTimeout(function(){
+                             $('.alert-email').fadeOut();
+                             $(".send-email").removeClass('disabled').html('Send');
+                        },1000);
                     }
 
               });
@@ -392,9 +399,11 @@ $('#edit_customer').validate({
 
     var elm_id = D.getTime();
 
-    if(elm.find('input.form-control').length < 5) {
-      elm.append(" <br/><div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
-    }else{
+
+if(elm.find('input.form-control').length < 5) {
+     elm.append( "<div class='input-group' id='target_to"+elm_id+"'><input id='to' placeholder='Input email'  name='to[]'  type='email'  class='form-control to' ><span class='input-group-btn'><button class='btn btn-default' onClick='delete_target(\""+elm_id+"\")'>Delete</button><label id='to-error' class='error' for='to'></label></span></div>");
+  }
+  else{
 
       $("#message_email").html("add email cannot more than 5 textbox").fadeIn();
       setTimeout(function(){
@@ -403,7 +412,27 @@ $('#edit_customer').validate({
       return false;
     }
 
+
+    // if(elm.find('input.form-control').length < 5) {
+    //   elm.append(" <br/><div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
+    // }else{
+
+    //   $("#message_email").html("add email cannot more than 5 textbox").fadeIn();
+    //   setTimeout(function(){
+    //     $("#message_email").fadeOut();
+    //   },800);
+    //   return false;
+    // }
+
    
+  }
+
+
+
+  function delete_target(id)
+  {
+      $("#target_to"+id+"").remove(); 
+      return false;
   }
 </script>
 

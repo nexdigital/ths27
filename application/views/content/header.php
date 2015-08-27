@@ -33,6 +33,7 @@
 
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo base_url()?>style/css/chat.css" />
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo base_url()?>style/css/screen.css" />
+     <link href="<?php echo base_url('style/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'); ?>" rel="stylesheet" type="text/css" />            
     </head>
 
 <style>
