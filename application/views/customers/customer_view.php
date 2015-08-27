@@ -331,33 +331,16 @@ $(document).ready(function(){
 
   }
 
-  function print_label(name,attn,address,phone,country)
-  {
-      
-              $.ajax({
-
-                    url         : "<?php echo base_url()?>customers/ajax/print_label",
-                    data        : 'name='+name+'&attn='+attn+'&address='+address+'&phone='+phone+'&country='+country,
-                    type        : "POST",
-                    dataType    : "json",
-                    beforeSubmit: function(){
-                               
-                                     alert("test");
-                    },
-                    success     : function(result){
-
-                                alert("test");
-                               //$('.alert-email').html(result.message).addClass('alert alert-success').fadeIn();
-                    }
-                    // error:      function( error )
-                    // {
-
-                    //      alert( "There's something wrong. Please contact admin");
-
-                    // }
-
-
-      });
+  function print_label(name,attn,address,phone,country) {
+  $.ajax({
+    url         : "<?php echo base_url()?>customers/ajax/print_label",
+    data        : 'name='+name+'&attn='+attn+'&address='+address+'&phone='+phone+'&country='+country,
+    type        : "POST",
+    dataType    : "json",
+    success     : function(result){
+      window.open(result.redirect,'_blank');
+    }
+  });
   }
 
   function add_email(){

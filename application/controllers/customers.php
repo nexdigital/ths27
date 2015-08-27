@@ -298,6 +298,7 @@ class Customers extends MY_Controller {
 
 				case 'print_label':
 
+						error_reporting( 0 );
 						$this->load->library('pdf');
 						$pdf = $this->pdf->load();
 
@@ -308,15 +309,10 @@ class Customers extends MY_Controller {
 						$data['phone'] =  $_POST['phone'];
 						$data['country'] =  $_POST['country'];
 
-						$html = $this->load->view('customers/pdf',$data,true);       
+						$html = $this->load->view('customers/pdf',$data,true);
 						$pdf->WriteHTML($html);
 						$pdf->Output(path_pdf . $name .'.pdf', 'F');
-						error_reporting( 0 );
-
-						// $status = true;
-						// $message = "Print label success. Download in <a href='".base_url(path_pdf . $name .'.pdf')."'><b><u>Here<u></b></a>";
-						// echo json_encode(array("status"=> $status, "message" => $message ));
-					
+						echo json_encode(array('redirect' => base_url('asset/pdf/'.$name.'.pdf')));				
 				break;
 		}
 	}
