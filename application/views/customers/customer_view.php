@@ -180,34 +180,12 @@
 
 $(document).ready(function(){
             
-		
-
-            $('#edit_customer').validate();
-            $('#send_email_form').validate();
-            $('#message').wysihtml5();
-            var tax_class = "<?php echo $get_customers->tax_class ?>";  
-            var payment_type = "<?php echo $get_customers->payment_type ?>"; 
-            var country = "<?php echo $get_customers->country ?>";           
-          
-            if(tax_class ==  0 ){
-                 $("#tax_class").val('0');
-            }else{
-
-                 $("#tax_class").val(tax_class);
-            }
-           
-            $("#payment_type").val(payment_type);
-            $("#country").val(country);
-
-
-
-			jQuery.validator.addMethod("alphanumeric", function(value, element) {
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
     return this.optional(element) || /^\w+$/i.test(value);
 }, "Letters, numbers, and underscores only please");
 
-$('form#edit_customer').validate({
-      rules: {
-
+$('#edit_customer').validate({
+      rules: { 
 				name:		  {
 								required	 : true,
 								alphanumeric : true
@@ -239,8 +217,29 @@ $('form#edit_customer').validate({
 
 							  }
 				
-			 }    
+			 }     
     });
+
+            
+            $('#send_email_form').validate();
+            $('#message').wysihtml5();
+            var tax_class = "<?php echo $get_customers->tax_class ?>";  
+            var payment_type = "<?php echo $get_customers->payment_type ?>"; 
+            var country = "<?php echo $get_customers->country ?>";           
+          
+            if(tax_class ==  0 ){
+                 $("#tax_class").val('0');
+            }else{
+
+                 $("#tax_class").val(tax_class);
+            }
+           
+            $("#payment_type").val(payment_type);
+            $("#country").val(country);
+
+
+
+
 
 });
 
