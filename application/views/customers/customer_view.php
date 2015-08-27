@@ -401,7 +401,7 @@ $('#edit_customer').validate({
 
 
 if(elm.find('input.form-control').length < 5) {
-     elm.append( "<div class='input-group' id='target_to"+elm_id+"'><input id='to' placeholder='Input email'  name='to[]'  type='email'  class='form-control to' ><span class='input-group-btn'><button class='btn btn-default' onClick='delete_target(\""+elm_id+"\")'>Delete</button><label id='to-error' class='error' for='to'></label></span></div>");
+     elm.append( "<div class='input-group' id='target_to"+elm_id+"'><input id='to' placeholder='Input email'  name='to[]'  type='email'  class='form-control to' required ><span class='input-group-btn'><button class='btn btn-default' onClick='delete_target(\""+elm_id+"\")'>Delete</button><label id='to-error' class='error' for='to'></label></span></div>");
   }
   else{
 
