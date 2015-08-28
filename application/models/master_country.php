@@ -100,11 +100,11 @@ class Master_country extends CI_Model {
 		$len = strlen( $get );
 		
 		switch ( $len ) {
-			case "1": return "00000" . $get; break;
-			case "2": return "0000" . $get; break;
-			case "3": return "000" . $get; break;
-			case "4": return "00" . $get; break;
-			case "5": return "0" . $get; break;
+			case "1": return "CNT00000" . $get; break;
+			case "2": return "CNT0000" . $get; break;
+			case "3": return "CNT000" . $get; break;
+			case "4": return "CNT00" . $get; break;
+			case "5": return "CNT0" . $get; break;
 			default: return "".$get; break;
 		}
 	

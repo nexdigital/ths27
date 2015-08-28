@@ -482,7 +482,7 @@ class Master extends MY_Controller {
 											'currency_symbol'=> $_POST['currency_symbol'],
 											'currency_name'	 => $_POST['currency_name'],
 											'description'	 => $_POST['description'],
-											'is_active'		 => $v_isActive,
+											'is_active'		 => "active",
 											'created_by'	 => $this->session->userdata("username"),
 											'created_date'	 => date("Y-m-d H:i:s")
 											);

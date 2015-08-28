@@ -1,7 +1,7 @@
 <form id="form_country" method="post" action="<?php echo base_url()?>master/ajax/country/add">
 <div class="form-group">
 	<label>Country ID<label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="country_id" name="country_id" minlength="1"  required>
+		<input type="text" class="form-control" id="country_id" name="country_id" minlength="1" value="<?php echo $this->master_country->country_new_id()?>" required>
 </div>
 
 <div class="form-group">
@@ -24,9 +24,9 @@
 	<textarea class="form-control" name="description"></textarea>
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
 	<input type="checkbox" name="is_active" value="active"> Active
-</div>
+</div> -->
 
 <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
 <button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/country/index')?>')">Cancel</button>
@@ -46,9 +46,20 @@
 			      setPage('<?php echo base_url('master/country/edit')?>/' + term);
 			    }
   		});
+var regex=/^[0-9A-Za-z]+$/;
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || regex.test(value);
+}, "Letters and numbers only please");
 		
 		$('form#form_country').validate({
-			rules: { country_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/country/check_available_country" } },
+			rules: { country_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/country/check_available_country" },
+					//country_id :{ required:true,aplhanumeric:true }
+
+						country_id: { 
+										required: true, 
+										alphanumeric:true 
+								   }		
+				 },
 			messages: { country_name: { remote: 'Country has been added' } }			
 		});
 
@@ -61,7 +72,7 @@
 							    $('form#form_country').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
-							 	// setPage('<?php echo base_url() ?>master/view/country/index');
+							 	 setPage('<?php echo base_url() ?>master/view/country/index');
 							},800);
 						}else {
 							 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();
