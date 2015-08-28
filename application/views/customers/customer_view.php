@@ -57,7 +57,7 @@
 
      <div class="form-group">
             <label>Phone<label class="required-filed">*</label></label>
-            <input type="text" value="<?php echo $get_customers->phone ?>" id="phone" class="form-control" name="phone">
+            <input type="text" value="<?php echo $get_customers->phone ?>" id="phone" class="form-control" name="phone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
 
      <div class="form-group">
