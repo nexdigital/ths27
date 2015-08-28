@@ -1,7 +1,7 @@
 <form id="partner_form" method="post" action="<?php echo base_url()?>master/ajax/partner/partner_add">
 <div class="form-group">
 	<label>Partner ID<label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="partner_id" name="partner_id" minlength="1"  required>
+		<input type="text" class="form-control" id="partner_id" name="partner_id" minlength="1" value="<?php echo $this->partner_model->partner_new_id(); ?>"  required>
 </div>
 
 <div class="form-group">

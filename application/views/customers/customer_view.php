@@ -10,7 +10,7 @@
 
 
  <form  id="edit_customer">  
-  <input type="hidden" value="<?php echo $get_customers->reference_id ?>" id="Reference" class="form-control" name="reference" >  
+  <input type="hidden" value="<?php echo $get_customers->reference_id ?>" id="reference_id" class="form-control" name="reference_id" >  
     <div class="form-group">
             <label>Name<label class="required-filed">*</label></label>
             <input type="text"  value="<?php echo $get_customers->name ?>" id="name" class="form-control" name="name" required>
@@ -52,7 +52,7 @@
 
       <div class="form-group">
             <label>Pos Code</label>
-            <input type="text" value="<?php echo $get_customers->pos_code ?>" id="pos_code" class="form-control" name="post_code">
+            <input type="text" value="<?php echo $get_customers->pos_code ?>" id="zip_code" class="form-control" name="zip_code">
     </div>
 
      <div class="form-group">
@@ -83,6 +83,15 @@
             </select>
 
     </div>
+
+    <div class="form-group">
+                              <label>Status</label> <label class="required-filed">*</label>
+                              <select class="form-control" name="status" id="status"required>
+                                <option value="">-</option>
+                                <option value="0">None regular</option>
+                                <option value="regular">regular customer</option>
+                              </select>
+                            </div>
 
       <div class="form-group">
             <label>Description</label>
@@ -185,55 +194,56 @@
 
 $(document).ready(function(){
 
- $('#phone').bind("cut copy paste",function(e) {
+ $('#phone,#mobile,#fax').bind("cut copy paste",function(e) {
           e.preventDefault();
       });
 
 
-jQuery.validator.addMethod("alphanumeric", function(value, element) {
-    return this.optional(element) || /^\w+$/i.test(value);
-}, "Letters, numbers, and underscores only please");
+// jQuery.validator.addMethod("alphanumeric", function(value, element) {
+//     return this.optional(element) || /^\w+$/i.test(value);
+// }, "Letters, numbers, and underscores only please");
 
-$('#edit_customer').validate({
-      rules: { 
-				name:		  {
-								required	 : true,
-								alphanumeric : true
-							  },
-				attn :		  {
-								required     : true,
-								alphanumeric : true
+// $('#edit_customer').validate({
+//       rules: { 
+// 				name:		  {
+// 								required	 : true,
+// 								alphanumeric : true
+// 							  },
+// 				attn :		  {
+// 								required     : true,
+// 								alphanumeric : true
 									
-							  },
-				city  :       {
-								required     : true,
-								alphanumeric : true
-							  },
-				zip_code :    {
+// 							  },
+// 				city  :       {
+// 								required     : true,
+// 								alphanumeric : true
+// 							  },
+// 				zip_code :    {
 
-								required     : true,
-								alphanumeric : true
-							  },
-				mobile   :    {
+// 								required     : true,
+// 								alphanumeric : true
+// 							  },
+// 				mobile   :    {
 		
-								required     : true,
-								alphanumeric : true
+// 								required     : true,
+// 								alphanumeric : true
 							
-							  },
-			   fax		:     {
+// 							  },
+// 			   fax		:     {
 
-								required     : true,
-								alphanumeric : true
+// 								required     : true,
+// 								alphanumeric : true
 
-							  }
+// 							  }
 				
-			 },
-      messages: { }      
-    });
+// 			 },
+//       messages: { }      
+//     });
 
             
            // $('#send_email_form').validate();
             $('#message').wysihtml5();
+            var status = "<?php echo $get_customers->status ?>";
             var tax_class = "<?php echo $get_customers->tax_class ?>";  
             var payment_type = "<?php echo $get_customers->payment_type ?>"; 
             var country = "<?php echo $get_customers->country ?>";           
@@ -244,6 +254,14 @@ $('#edit_customer').validate({
 
                  $("#tax_class").val(tax_class);
             }
+
+            if(status ==  0 ){
+                 $("#status").val('0');
+            }else{
+
+                 $("#status").val(status);
+            }
+ 
            
             $("#payment_type").val(payment_type);
             $("#country").val(country);

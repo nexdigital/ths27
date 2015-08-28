@@ -61,12 +61,12 @@
 
                             <div class="form-group">
                               <label >Mobile</label>
-                              <input id="mobile" name="mobile" type="text" class="form-control">
+                              <input id="mobile" name="mobile" type="text" class="form-control"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                             </div>
 
                             <div class="form-group">
                               <label >Fax</label>
-                              <input id="fax" name="fax" type="text" class="form-control">
+                              <input id="fax" name="fax" type="text" class="form-control"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                             </div>
 
                       <div class="form-group" style="margin-top:10px;">
@@ -110,7 +110,7 @@
                               <label>Status</label> <label class="required-filed">*</label>
                               <select class="form-control" name="status" required>
                                 <option value="">-</option>
-                                <option value="0">None</option>
+                                <option value="0">None regular</option>
                                 <option value="regular">regular customer</option>
                               </select>
                             </div>
@@ -140,8 +140,14 @@
 
 <script type="text/javascript">
 
+$('#phone,#mobile,#fax').bind("cut copy paste",function(e) {
+          e.preventDefault();
+      });
+
+
+var regex=/^[0-9A-Za-z]+$/;
 jQuery.validator.addMethod("alphanumeric", function(value, element) {
-    return this.optional(element) || /^\w+$/i.test(value);
+    return this.optional(element) || regex.test(value);
 }, "Letters, numbers, and underscores only please");
 
 $('form#add_customer').validate({
@@ -149,38 +155,7 @@ $('form#add_customer').validate({
 								required: true, 
 								remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
 								alphanumeric:true 
-							 },
-
-				name:		  {
-								required	 : true,
-								alphanumeric : true
-							  },
-				attn :		  {
-								required     : true,
-								alphanumeric : true
-									
-							  },
-				city  :       {
-								required     : true,
-								alphanumeric : true
-							  },
-				zip_code :    {
-
-								required     : true,
-								alphanumeric : true
-							  },
-				mobile   :    {
-		
-								required     : true,
-								alphanumeric : true
-							
-							  },
-			   fax		:     {
-
-								required     : true,
-								alphanumeric : true
-
-							  }
+							 }
 				
 			 },
       messages: { reference_id: { remote: 'Reference Id has been used. Please try another Reference Id' } }      
@@ -208,8 +183,9 @@ function add_customer(){
               if(json.status == 'success') {
                      $('.alert-form').html(json.message).removeClass('alert alert-danger').addClass('alert alert-success').fadeIn(); 
                       setTimeout(function(){   
-                          $('.alert-form').fadeOut();
+                        $('.alert-form').fadeOut();
                         setPage('<?php echo base_url() ?>customers/home');
+                     //   $(".submit").removeClass('disabled').html('Submit');
                         },800);    
               } 
               else if(json.status == 'redirect') {

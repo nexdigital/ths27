@@ -3,6 +3,21 @@
 class Partner_model extends CI_Model {
 
 
+
+	function partner_new_id(){
+		$get = $this->db->count_all('partner');
+		$get = $get + 111;
+		$len = strlen($get);
+			switch ($len) {
+			case '1': return 'PART00000' . $get; break;
+			case '2': return 'PART0000' . $get; break;
+			case '3': return 'PART000' . $get; break;
+			case '4': return 'PART00' . $get; break;   
+			case '5': return 'PART0' . $get; break;   
+			default: return 'PART'.$get; break;
+			}
+	}
+
 	function get_partner(){
 
 		$this->db->select('a.country_id,a.country_name,b.*');

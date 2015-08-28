@@ -168,7 +168,7 @@ class Customers extends MY_Controller {
 
 				case 'edit_customer':
 
-					$reference_id = $_POST['reference'];
+					$reference_id = $_POST['reference_id'];
 					$data['reference_id'] = str_replace(' ', '', $reference_id );
 				//	$data['id_group'] 	  = $_POST['id_group'];
 					$data['name'] 		  = $_POST['name'];
@@ -177,7 +177,7 @@ class Customers extends MY_Controller {
 					$data['attn'] 		  = $_POST['attn'];
 					$data['city']         = $_POST['city'];
 					$data['country']      = $_POST['country'];
-					$data['pos_code'] 	  = $_POST['post_code'];
+					$data['pos_code'] 	  = $_POST['zip_code'];
 					$data['phone'] 		  = $_POST['phone'];
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
