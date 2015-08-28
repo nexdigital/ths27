@@ -29,8 +29,9 @@
 
      <div class="form-group">
             <label>Address<label class="required-filed">*</label></label>
-            <input type="text" value="<?php echo $get_customers->address ?>" id="address" class="form-control" name="address" required>
+            <textarea id="address" class="form-control" name="address" required><?php echo $get_customers->address ?></textarea>
     </div>
+
 
     <div class="form-group">
             <label>City</label>
