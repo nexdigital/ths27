@@ -87,7 +87,7 @@
 
      <div class="form-group">
           
-            <input type="checkbox" readonly name="is_active" id="is_active" <?php echo ($get_customers->status_active == 'Active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
+            <input type="checkbox" readonly name="is_active" id="is_active" <?php echo ($get_customers->status_active == 'Active') ? 'checked="checked"' : ''?> disabled> <label for="is_active">Active</label>
     </div>
 
                 <button class="btn btn-success" onclick="delete_user();">Yes</button>

@@ -12,13 +12,30 @@
 
 <div class="form-group">
 	<label>Telephone Number<label class="required-filed">*</label></label>
-	<input type="text" class="form-control" id="telephone" name="telephone" required>
+	<input type="text" class="form-control" id="telephone" name="telephone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
 </div>
 
 <div class="form-group">
-	<label>Email<label class="required-filed">*</label></label>
-	<input type="email" class="form-control" id="email" name="email" required>
+	<label>First Email<label class="required-filed">*</label></label>
+	<input type="email" class="form-control" id="email" name="email"  required>
 </div>
+
+<div class="form-group">
+	<label>Second Email</label>
+	<input type="email" class="form-control" id="second_email" name="second_email" >
+</div>
+
+<div class="form-group">
+	<label>Third Email</label>
+	<input type="email" class="form-control" id="third_email" name="third_email" >
+</div>
+
+<div class="form-group">
+	<label>Fourth Email</label>
+	<input type="email" class="form-control" id="fourth_email" name="fourth_email">
+</div>
+
+
 
 <div class="form-group">
 	<label>Address<label class="required-filed">*</label></label>
@@ -31,8 +48,9 @@
 </div>
 
 <div class="form-group">
-	<label>Country</label>
-	<select class="form-control" name="country" id="country">
+	<label>Country</label><label class="required-filed">*</label></label>
+	<select class="form-control" name="country" id="country" required>
+		<option value="">-</option>
 		<?php foreach ($this->tool_model->list_country() as $key => $value) {
 			echo '<option value="'.$value->country_id.'">'.$value->country_name.'</option>';	
 		} ?>
@@ -49,9 +67,9 @@
 	<textarea class="form-control" name="description"></textarea>
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
 	<input type="checkbox" name="is_active" value="active"> Active
-</div>
+</div> -->
 
 <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
 <button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/partner/index')?>')">Cancel</button>
@@ -70,9 +88,22 @@
 			      setPage('<?php echo base_url('master/partner/edit')?>/' + term);
 			    }
   		});
-		
+var regex=/^[0-9A-Za-z]+$/;
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || regex.test(value);
+}, "Letters and numbers only please");
+
+
 		$('form#partner_form').validate({
-			rules: { partner_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/partner/check_available_partner" } },
+			rules: { partner_name: { 
+										required: true, remote: "<?php echo base_url(); ?>master/ajax/partner/check_available_partner" 
+									}, 
+
+					partner_id: { 
+										required: true, 
+										alphanumeric:true 
+								   }				
+					},
 			messages: { partner_name: { remote: 'Partner has been added' } }			
 		});
 

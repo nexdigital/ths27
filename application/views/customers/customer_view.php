@@ -10,7 +10,12 @@
 
 
  <form  id="edit_customer">  
-  <input type="hidden" value="<?php echo $get_customers->reference_id ?>" id="reference_id" class="form-control" name="reference_id" >  
+
+   <div class="form-group">
+             <label>Reference Id</label> <label class="required-filed">*</label>
+             <input type="text" value="<?php echo $get_customers->reference_id ?>" id="reference_id" class="form-control" name="reference_id" readonly>  
+    </div>
+
     <div class="form-group">
             <label>Name<label class="required-filed">*</label></label>
             <input type="text"  value="<?php echo $get_customers->name ?>" id="name" class="form-control" name="name" required>
@@ -400,7 +405,8 @@ $(document).ready(function(){
 
   function open_modal(){
 
-            $("#modal_email").modal('show');
+       //     $("#modal_email").modal('show');
+         $( "#modal_email" ).modal({backdrop: "static", keyboard: false});  
 
 
   }

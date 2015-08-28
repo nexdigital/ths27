@@ -1,9 +1,9 @@
-<table id='table_partner' class="table table-striped" style="text-align:center">
+<table id='table_partner' class="table table-striped" style="width:100%">
 	<thead>
 		<tr>
-			<th>Id</th>
+			<th>Partner ID</th>
 			<th>Partner Name</th>
-			<th widht="20%">Email</th>
+			
 		<!--<th>Address</th>
 			<th>City</th> -->
 			<th>Country</th>
@@ -11,10 +11,10 @@
 			<th>Telephone</th>
 		
 		<!--	<th>Description</th>-->
-			<th>Created By</th>
-			<th>Created Date</th>
-			<th>Update By</th>
-			<th>Update Date</th>
+			<th>Entry By</th>
+			<th>Entry Date</th>
+			<th>Modified By</th>
+			<th>Modified Date</th>
 			<th>Status</th>	
 
 
@@ -26,9 +26,8 @@
 				foreach ($get_partner as $key => $value) {
 					echo '
 							<tr>
-								<td><a href="javascript:;" onClick="setPage(\''.base_url('master/partner/edit/'.$value->partner_id.'').'\')">'.$value->partner_id.'</a></td>
+							<td><a href="javascript:;" onClick="setPage(\''.base_url('master/partner/edit/'.$value->partner_id.'').'\')">'.$value->partner_id.'</a></td>
 							<td>'.$value->company_name.'</td>
-							<td widht="20%">'.$value->email.'</td>
 							<td>'.$value->country_name.'</td>
 							<td>'.$value->telephone_number.'</td>
 							<td>'.$value->entry_by.'</td>

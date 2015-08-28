@@ -50,7 +50,7 @@
 </div>
 
 <div class="form-group">
-    <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_partner->is_active == 'active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
+    <input type="checkbox" name="is_active" id="is_active"  <?php echo ($get_partner->is_active == 'active') ? 'checked="checked"' : ''?> disabled> <label for="is_active">Active</label>
 </div>
 
  <button type="submit" class="btn btn-success btn-submit" data-loading-text="Process...">Yes</button>

@@ -1,6 +1,8 @@
 <form id="partner_form" method="post" action="<?php echo base_url()?>master/ajax/partner/edit">
+
+	
 <div class="form-group">
-	<label>Partner ID<label class="required-filed">*</label></label>
+	<label>Patner ID<label class="required-filed">*</label></label>
 		<input type="text" class="form-control" id="partner_id" name="partner_id" minlength="1"  value="<?php echo $get_partner->partner_id ?>" readonly>
 </div>
 
@@ -12,12 +14,27 @@
 
 <div class="form-group">
 	<label>Telephone Number<label class="required-filed">*</label></label>
-	<input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $get_partner->telephone_number ?>"  required>
+	<input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $get_partner->telephone_number ?>" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
 </div>
 
 <div class="form-group">
-	<label>Email<label class="required-filed">*</label></label>
-	<input type="email" class="form-control" id="email" name="email" value="<?php echo $get_partner->email ?>"  required>
+	<label>First Email<label class="required-filed">*</label></label>
+	<input type="email" class="form-control" id="email" name="email" value="<?php echo $get_partner->email ?>" required>
+</div>
+
+<div class="form-group">
+	<label>Second Email</label>
+	<input type="email" class="form-control" id="second_email" name="second_email" value="<?php echo $get_partner->second_email ?>" >
+</div>
+
+<div class="form-group">
+	<label>Third Email</label>
+	<input type="email" class="form-control" id="third_email" name="third_email" value="<?php echo $get_partner->third_email ?>" >
+</div>
+
+<div class="form-group">
+	<label>Fourth Email</label>
+	<input type="email" class="form-control" id="fourth_email" name="fourth_email" value="<?php echo $get_partner->fourth_email ?>" >
 </div>
 
 <div class="form-group">
@@ -31,8 +48,9 @@
 </div>
 
 <div class="form-group">
-	<label>Country</label>
-	<select class="form-control" name="country" id="country">
+	<label>Country</label><label class="required-filed">*</label></label>
+	<select class="form-control" name="country" id="country" required>
+		<option value="">-</option>
 		<?php foreach ($this->tool_model->list_country() as $key => $value) {
 			echo '<option value="'.$value->country_id.'">'.$value->country_name.'</option>';	
 		} ?>
@@ -46,7 +64,7 @@
 
 <div class="form-group">
 	<label>Description</label>
-		<textarea class="form-control" name="description" id="description" required><?php echo $get_partner->description ?></textarea>
+		<textarea class="form-control" name="description" id="description"><?php echo $get_partner->description ?></textarea>
 </div>
 
 <div class="form-group">
@@ -62,6 +80,11 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		var val_country = "<?php echo $get_partner->country_id?>";
+		$("#country").val(val_country);
+
+
+
 		 $('input[name="country_id"]').autoComplete({
 			    minChars: 1,
 			    source: function(term, response){
@@ -73,10 +96,10 @@
 			    }
   		});
 		
-		$('form#form_country').validate({
-			rules: { partner_name: { required: true, remote: "<?php echo base_url(); ?>master/ajax/country/check_available_country" } },
-			messages: { partner_name: { remote: 'Country has been added' } }			
-		});
+		// $('form#partner_form').validate({
+		// 	rules: { partner_name: {	required: true, remote: "<?php echo base_url(); ?>master/ajax/partner/check_available_partner"  } },
+		// 	messages: { partner_name: { remote: 'Partner has been added' } }			
+		// });
 
 			$('form#partner_form').ajaxForm({
 				dataType:'json',

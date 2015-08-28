@@ -148,7 +148,7 @@ $('#phone,#mobile,#fax').bind("cut copy paste",function(e) {
 var regex=/^[0-9A-Za-z]+$/;
 jQuery.validator.addMethod("alphanumeric", function(value, element) {
     return this.optional(element) || regex.test(value);
-}, "Letters, numbers, and underscores only please");
+}, "Letters and numbers only please");
 
 $('form#add_customer').validate({
       rules: { reference_id: { 
@@ -185,7 +185,7 @@ function add_customer(){
                       setTimeout(function(){   
                         $('.alert-form').fadeOut();
                         setPage('<?php echo base_url() ?>customers/home');
-                     //   $(".submit").removeClass('disabled').html('Submit');
+                       
                         },800);    
               } 
               else if(json.status == 'redirect') {
@@ -193,6 +193,7 @@ function add_customer(){
               }else if(json.status=='unsuccess'){
                     $('.alert-form').html(json.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn(); 
                    setTimeout(function(){   
+                     $(".submit").removeClass('disabled').html('Submit');
                     $('.alert-form').fadeOut();
                   },800);    
               }
