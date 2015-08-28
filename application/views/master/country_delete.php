@@ -1,5 +1,5 @@
 <div class="toolbar">
-  <label>Are you sure want delete this record?</table>
+  <label>Are you sure want delete this record?</label>
 </div>
 <form id="form_country" method="post" action="<?php echo base_url('master/ajax/country/delete/'.$get_country->country_id)?>">
 <div class="form-group">
@@ -28,7 +28,7 @@
 </div>
 
 <div class="form-group">
-	      <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_country->is_active == 'active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
+	      <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_country->is_active == 'active') ? 'checked="checked"' : ''?> disabled> <label for="is_active">Active</label>
 </div>
 
 

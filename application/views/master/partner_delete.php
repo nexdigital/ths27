@@ -1,3 +1,7 @@
+<div class="toolbar">
+  <label>Are you sure want delete this record?</label>
+</div>
+
 <form id="partner_form" method="post" action="<?php echo base_url('master/ajax/partner/delete_partner/'.$get_partner->partner_id )?>">
 <div class="form-group">
 	<label>Partner ID<label class="required-filed">*</label></label>

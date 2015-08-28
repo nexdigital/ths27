@@ -5,7 +5,9 @@
 
 </style>
 
-
+<div class="toolbar">
+  <label>Are you sure want delete this record?</label>
+</div>
  <form  id="delete_customer">  
   <input type="hidden" value="<?php echo $get_customers->reference_id ?>" id="Reference" class="form-control" name="reference" >  
     <div class="form-group">
