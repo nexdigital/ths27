@@ -1,12 +1,19 @@
 <form id="form_currency" method="post" action="<?php  echo base_url()?>master/ajax/currency/add">
+
+	<div class="form-group">
+		<label>Currency ID <label class="required-filed">*</label></label>
+		<input type="text" class="form-control" id="currency_id" name="currency_id" required>
+	</div>
+
+
 	<div class="form-group">
 		<label>Currency <label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="concept" name="currency" >
+		<input type="text" class="form-control" id="currency" name="currency" required>
 	</div>
 
 	<div class="form-group">
 		<label>Rate<label class="required-filed">*</label></label>
-		<input type="text" class="form-control" id="concept" name="rate">
+		<input type="text" class="form-control" id="rate" name="rate" required>
 	</div>
 
 	<div class="form-group">
@@ -17,6 +24,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		$("#form_currency").validate();
+
+
 		$('.datepicker').datepicker({
 	        format: "yyyy-mm-dd"
 	    })
