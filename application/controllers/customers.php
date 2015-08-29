@@ -124,7 +124,7 @@ class Customers extends MY_Controller {
 							$data['reference_id'] = str_replace(' ', '', $reference_id );
 							$data['name'] 		  = htmlspecialchars($name);
 							$data['email'] 		  = $email;
-							$data['address'] 	  = $address;
+							$data['address'] 	  = htmlspecialchars($address);
 							$data['attn'] 		  = htmlspecialchars($attn);
 							$data['city']         = htmlspecialchars($city);
 							$data['country']      = $country;
@@ -173,7 +173,7 @@ class Customers extends MY_Controller {
 				//	$data['id_group'] 	  = $_POST['id_group'];
 					$data['name'] 		  = htmlspecialchars($_POST['name']);
 					$data['email'] 		  = $_POST['email'];
-					$data['address'] 	  = $_POST['address'];
+					$data['address'] 	  = htmlspecialchars($_POST['address']);
 					$data['attn'] 		  = htmlspecialchars($_POST['attn']);
 					$data['city']         = htmlspecialchars($_POST['city']);
 					$data['country']      = $_POST['country'];
