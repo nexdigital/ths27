@@ -419,8 +419,11 @@ $(document).ready(function(){
     type        : "POST",
     dataType    : "json",
     success     : function(result){
-      window.open(result.redirect,'_blank');
-    }
+			 window.open(result.redirect,'_blank');
+    },
+	error		: function(error){
+					alert(error);
+	}
   });
   }
 
