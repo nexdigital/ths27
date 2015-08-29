@@ -57,7 +57,7 @@
 
       <div class="form-group">
             <label>Pos Code</label>
-            <input type="text" value="<?php echo $get_customers->pos_code ?>" id="zip_code" class="form-control" name="zip_code">
+            <input type="text" value="<?php echo $get_customers->pos_code ?>" id="zip_code" class="form-control" name="zip_code" maxlength="20">
     </div>
 
      <div class="form-group">
@@ -310,6 +310,7 @@ $(document).ready(function(){
                             }else{
 
                                 ('.result-message').html(result.message).addClass('alert alert-success').fadeIn();
+								
                             }
                     },
                     error: function( error )

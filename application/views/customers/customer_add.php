@@ -50,7 +50,7 @@
 
                             <div class="form-group">
                               <label >Zip Code</label>
-                              <input id="post_code" name="zip_code" type="text" class="form-control">
+                              <input id="post_code" name="zip_code" type="text" class="form-control"  maxlength="20">
                             </div>
 
                             <div class="form-group" >
