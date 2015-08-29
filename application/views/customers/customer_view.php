@@ -123,7 +123,7 @@
             //    $parameter = 
 
             ?>
-            <button type="reset" class="btn btn-success" onClick="print_label('<?php echo $name?>','<?php echo $attn ?>','<?php echo $address ?>','<?php echo $phone ?>','<?php echo $country ?>');">Print Label</button>  
+            <button type="button" class="btn btn-success" onClick="print_label('<?php echo $name?>','<?php echo $attn ?>','<?php echo $address ?>','<?php echo $phone ?>','<?php echo $country ?>');">Print Label</button>  
             <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>customers/home')">Cancel</button>
             <label class="result-message"></label>
 
