@@ -422,7 +422,7 @@ $(document).ready(function(){
 			 window.open(result.redirect,'_blank');
     },
 	error		: function(error){
-					alert(error);
+					alert("Error.Please check name / address of customer");
 	}
   });
   }
