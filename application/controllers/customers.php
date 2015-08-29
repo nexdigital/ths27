@@ -122,7 +122,7 @@ class Customers extends MY_Controller {
 						// 	&& preg_match($regex, $fax)) {
 
 							$data['reference_id'] = str_replace(' ', '', $reference_id );
-							$data['name'] 		  = $name;
+							$data['name'] 		  = htmlspecialchars($name);
 							$data['email'] 		  = $email;
 							$data['address'] 	  = $address;
 							$data['attn'] 		  = $attn;
