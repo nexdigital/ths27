@@ -125,10 +125,10 @@ class Customers extends MY_Controller {
 							$data['name'] 		  = htmlspecialchars($name);
 							$data['email'] 		  = $email;
 							$data['address'] 	  = $address;
-							$data['attn'] 		  = $attn;
-							$data['city']         = $city;
+							$data['attn'] 		  = htmlspecialchars($attn);
+							$data['city']         = htmlspecialchars($city);
 							$data['country']      = $country;
-							$data['pos_code'] 	  = $pos_code;
+							$data['pos_code'] 	  = htmlspecialchars($pos_code);
 							$data['phone'] 		  = $phone;
 							$data['mobile'] 	  = $mobile;
 							$data['fax'] 		  = $fax;
@@ -174,10 +174,10 @@ class Customers extends MY_Controller {
 					$data['name'] 		  = htmlspecialchars($_POST['name']);
 					$data['email'] 		  = $_POST['email'];
 					$data['address'] 	  = $_POST['address'];
-					$data['attn'] 		  = $_POST['attn'];
-					$data['city']         = $_POST['city'];
+					$data['attn'] 		  = htmlspecialchars($_POST['attn']);
+					$data['city']         = htmlspecialchars($_POST['city']);
 					$data['country']      = $_POST['country'];
-					$data['pos_code'] 	  = $_POST['zip_code'];
+					$data['pos_code'] 	  = htmlspecialchars($_POST['zip_code']);
 					$data['phone'] 		  = $_POST['phone'];
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
