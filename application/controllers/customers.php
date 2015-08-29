@@ -171,7 +171,7 @@ class Customers extends MY_Controller {
 					$reference_id = $_POST['reference_id'];
 					$data['reference_id'] = str_replace(' ', '', $reference_id );
 				//	$data['id_group'] 	  = $_POST['id_group'];
-					$data['name'] 		  = $_POST['name'];
+					$data['name'] 		  = htmlspecialchars($_POST['name']);
 					$data['email'] 		  = $_POST['email'];
 					$data['address'] 	  = $_POST['address'];
 					$data['attn'] 		  = $_POST['attn'];
