@@ -13,23 +13,23 @@
 
    <div class="form-group">
              <label>Reference Id</label> <label class="required-filed">*</label>
-             <input type="text" value="<?php echo $get_customers->reference_id ?>" id="reference_id" class="form-control" name="reference_id" readonly>  
+             <input type="text" maxlength="20" placeholder="maximal character  20"  value="<?php echo $get_customers->reference_id ?>" id="reference_id" class="form-control" name="reference_id" readonly>  
     </div>
 
     <div class="form-group">
             <label>Name<label class="required-filed">*</label></label>
-            <input type="text"  value="<?php echo $get_customers->name ?>" id="name" class="form-control" name="name" required>
+            <input type="text" maxlength="100" placeholder="maximal character 100"  value="<?php echo $get_customers->name ?>" id="name" class="form-control" name="name" required>
     </div>
 
 
   <div class="form-group">
             <label>Attn<label class="required-filed">*</label></label>
-            <input type="text" value="<?php echo $get_customers->attn ?>" id="attn" class="form-control" name="attn" required>
+            <input type="text" maxlength="100" placeholder="maximal character 100" value="<?php echo $get_customers->attn ?>" id="attn" class="form-control" name="attn" required>
     </div>
 
     <div class="form-group">
             <label>Email<label class="required-filed">*</label></label>
-            <input type="text" value="<?php echo $get_customers->email ?>" id="email" class="form-control" name="email" required>
+            <input type="text" maxlength="100" placeholder="maximal character 100" value="<?php echo $get_customers->email ?>" id="email" class="form-control" name="email" required>
     </div>
 
      <div class="form-group">
@@ -40,7 +40,7 @@
 
     <div class="form-group">
             <label>City</label>
-            <input type="text" value="<?php echo $get_customers->city ?>" id="city" class="form-control" name="city">
+            <input type="text" maxlength="100" placeholder="maximal character 100" value="<?php echo $get_customers->city ?>" id="city" class="form-control" name="city">
     </div>
 
      <div class="form-group">
@@ -57,22 +57,34 @@
 
       <div class="form-group">
             <label>Pos Code</label>
-            <input type="text" value="<?php echo $get_customers->pos_code ?>" id="zip_code" class="form-control" name="zip_code" maxlength="20">
+            <input type="text" maxlength="20" placeholder="maximal character 20" value="<?php echo $get_customers->pos_code ?>" id="zip_code" class="form-control" name="zip_code" maxlength="20">
     </div>
 
-     <div class="form-group">
-            <label>Phone<label class="required-filed">*</label></label>
-            <input type="text" value="<?php echo $get_customers->phone ?>" id="phone" class="form-control" name="phone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-    </div>
+  <div class="row">
+
+             <div class="col-md-2">
+                <div class="form-group" >
+                  <label>Code Phone</label> <label class="required-filed">*</label>
+                  <input class="form-control" value="<?php echo $get_customers->code_phone ?>" maxlength="10" placeholder="maximal character 10" id="c_phone" name="c_phone" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group" >
+                  <label>Phone</label> <label class="required-filed">*</label>
+                  <input class="form-control"  value="<?php echo $get_customers->phone ?>" maxlength="20" placeholder="maximal character  20" id="phone" name="phone" type="text" required>
+                </div>
+            </div>
+  </div>
+    
 
      <div class="form-group">
             <label>Mobile</label>
-           <input type="text" value="<?php echo $get_customers->mobile ?>" id="mobile" class="form-control" name="mobile">
+           <input type="text" maxlength="20" placeholder="maximal character 20" value="<?php echo $get_customers->mobile ?>" id="mobile" class="form-control" name="mobile" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
 
       <div class="form-group">
             <label>Fax</label>
-            <input type="text" value="<?php echo $get_customers->fax ?>" id="fax" class="form-control" name="fax">
+            <input type="text" maxlength="20" placeholder="maximal character 20" value="<?php echo $get_customers->fax ?>" id="fax" class="form-control" name="fax" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
 
       <div class="form-group">
@@ -100,11 +112,10 @@
 
       <div class="form-group">
             <label>Description</label>
-             <textarea name="description" id="description" class="form-control" style=" resize: none;"><?php echo $get_customers->description ?></textarea>
+             <textarea name="description" maxlength="100" placeholder="maximal character 100" id="description" class="form-control" style=" resize: none;"><?php echo $get_customers->description ?></textarea>
     </div>
 
      <div class="form-group">
-          
             <input type="checkbox" name="is_active" id="is_active" <?php echo ($get_customers->status_active == 'Active') ? 'checked="checked"' : ''?>> <label for="is_active">Active</label>
     </div>
 
@@ -199,10 +210,7 @@
 
 $(document).ready(function(){
 
- $('#phone,#mobile,#fax').bind("cut copy paste",function(e) {
-          e.preventDefault();
-      });
-
+ 
 
 // jQuery.validator.addMethod("alphanumeric", function(value, element) {
 //     return this.optional(element) || /^\w+$/i.test(value);
@@ -427,7 +435,7 @@ $(document).ready(function(){
   });
   }
 
-  function add_email(){
+function add_email(){
     var D = new Date();
     var elm = $("#target_to");
 

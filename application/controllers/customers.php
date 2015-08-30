@@ -114,6 +114,7 @@ class Customers extends MY_Controller {
 					$fax = $_POST['fax'];
 					$tax_class = $_POST['tax_class'];
 					$description = $_POST['description'];
+					$c_phone = $_POST['c_phone'];
 
 					$regex = "/^[A-Za-z0-9_\-.\/]+$/";
 						// if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
@@ -129,6 +130,7 @@ class Customers extends MY_Controller {
 							$data['city']         = htmlspecialchars($city);
 							$data['country']      = $country;
 							$data['pos_code'] 	  = htmlspecialchars($pos_code);
+							$data['code_phone'] 	  = $c_phone;
 							$data['phone'] 		  = $phone;
 							$data['mobile'] 	  = $mobile;
 							$data['fax'] 		  = $fax;
@@ -168,6 +170,7 @@ class Customers extends MY_Controller {
 
 				case 'edit_customer':
 
+
 					$reference_id = $_POST['reference_id'];
 					$data['reference_id'] = str_replace(' ', '', $reference_id );
 				//	$data['id_group'] 	  = $_POST['id_group'];
@@ -178,6 +181,7 @@ class Customers extends MY_Controller {
 					$data['city']         = htmlspecialchars($_POST['city']);
 					$data['country']      = $_POST['country'];
 					$data['pos_code'] 	  = htmlspecialchars($_POST['zip_code']);
+					$data['code_phone']   = $_POST['c_phone'];
 					$data['phone'] 		  = $_POST['phone'];
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
@@ -320,6 +324,29 @@ class Customers extends MY_Controller {
 						$pdf->Output(path_pdf . $filename .'.pdf', 'F');
 						echo json_encode(array('redirect' => base_url('asset/pdf/'.$filename.'.pdf')));				
 				break;
+
+				case 'autoComplete':
+						$name = $_GET['q'];
+						$this->db->like('name',$name);
+						$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$name_customers_list = array();
+						foreach($get->result() as $row) {
+							$name_customers_list[] = $row->name;
+						}
+
+						echo json_encode($name_customers_list);
+				break;
+
+			case 'check_available_name':
+
+						$name = $_GET['name'];
+						$get = $this->db->query("select * from customer_table where name = '".strtolower($name)."' And status_active = 'Active'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+				break;
+
 		}
 	}
 	

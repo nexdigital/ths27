@@ -5,33 +5,38 @@
 
                            <div class="form-group">
                               <label>Reference Id</label> <label class="required-filed">*</label>
-                              <input id="reference_id"  name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
+                              <input id="reference_id" maxlength="20" placeholder="maximal character  20" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
                              
                             </div>
 
                             <div class="form-group">
                               <label>Name</label> <label class="required-filed">*</label>
-                              <input id="name" name="name"  type="text" class="form-control" required>
+                              <input id="name" name="name" maxlength="100" placeholder="maximal character  100"  type="text" class="form-control" required>
                             </div>
 
                             <div class="form-group">
                              <label>Attn</label> <label class="required-filed">*</label>
-                              <input id="attn" name="attn" type="text" class="form-control" required>
+                              <input id="attn" name="attn" maxlength="100" placeholder="maximal character  100" type="text" class="form-control" required>
                             </div>     
 
-                            <div class="form-group">
+                            <div id="target_to">
+                            <div class="form-group" >
                                <label >E-mail</label> <label class="required-filed">*</label>
-                              <input id="email" name="email" type="email" class="form-control" required>
+                                  <input id="email" name="email" maxlength="100" placeholder="maximal character 100" type="email" class="form-control" required>
                             </div>
-
+                         
+                          </div>
+                            <div class="form-group">
+                                   <button type="button" class="btn btn-warning" onClick="add_email()">Add Email</button>
+                            </div>
                             <div class="form-group">
                              <label>Address</label> <label class="required-filed">*</label>
-                              <textarea class="form-control" name="address" style="resize:none" required></textarea>
+                              <textarea class="form-control" maxlength="200" placeholder="maximal character  200" name="address" style="resize:none" required></textarea>
                             </div>
 
                             <div class="form-group">
                               <label>City</label>
-                              <input id="city" name="city" type="text" class="form-control">
+                              <input id="city" name="city" type="text" maxlength="100" placeholder="maximal character  100" class="form-control">
                             </div>
 
                             <div class="form-group">
@@ -50,23 +55,33 @@
 
                             <div class="form-group">
                               <label >Zip Code</label>
-                              <input id="post_code" name="zip_code" type="text" class="form-control"  maxlength="20">
+                              <input id="post_code" name="zip_code" maxlength="20" placeholder="maximal character  20" type="text" class="form-control"  maxlength="20">
                             </div>
 
-                            <div class="form-group" >
-                              <label>Phone</label> <label class="required-filed">*</label>
-                             
-                              <input class="form-control" id="phone" name="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+                            <div class="row">
+
+                               <div class="col-md-2">
+                                  <div class="form-group" >
+                                    <label>Code Phone</label> <label class="required-filed">*</label>
+                                    <input class="form-control" maxlength="10" placeholder="maximal character 10" id="c_phone" name="c_phone" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="form-group" >
+                                    <label>Phone</label> <label class="required-filed">*</label>
+                                    <input class="form-control" maxlength="20" placeholder="maximal character  20" id="phone" name="phone" type="text" required>
+                                  </div>
+                              </div>
                             </div>
 
                             <div class="form-group">
                               <label >Mobile</label>
-                              <input id="mobile" name="mobile" type="text" class="form-control"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                              <input id="mobile" name="mobile" maxlength="20" placeholder="maximal character  20"  type="text" class="form-control"  maxlength="15" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                             </div>
 
                             <div class="form-group">
                               <label >Fax</label>
-                              <input id="fax" name="fax" type="text" class="form-control"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                              <input id="fax" name="fax" type="text" maxlength="20" placeholder="maximal character  20"  class="form-control" maxlength="15" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                             </div>
 
                       <div class="form-group" style="margin-top:10px;">
@@ -127,7 +142,7 @@
 
                             <div class="form-group">
                               <label >Description</label>
-                              <textarea class="form-control" id="remark" name="description" rows="5" style="resize:none"></textarea>
+                              <textarea class="form-control" maxlength="100" placeholder="maximal character  100"  id="remark" name="description" rows="5" style="resize:none"></textarea>
                             </div>
      <input type="hidden" name="hawb_no" value="<?php echo (isset($_GET['hawb_no'])) ? $_GET['hawb_no'] : ''?>">
      <input type="hidden" name="customer_type" value="<?php echo (isset($_GET['customer_type'])) ? $_GET['customer_type'] : ''?>">
@@ -140,9 +155,16 @@
 
 <script type="text/javascript">
 
-$('#phone,#mobile,#fax').bind("cut copy paste",function(e) {
-          e.preventDefault();
+
+     $('input[name="name"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete') ?>', { q: term }, function(data){ response(data); });
+          }
       });
+
+
 
 
 var regex=/^[0-9A-Za-z]+$/;
@@ -151,14 +173,28 @@ jQuery.validator.addMethod("alphanumeric", function(value, element) {
 }, "Letters and numbers only please");
 
 $('form#add_customer').validate({
-      rules: { reference_id: { 
-								required: true, 
-								remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
-								alphanumeric:true 
-							 }
+      rules: { reference_id: 
+                { 
+  								required: true, 
+  								remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
+  								alphanumeric:true 
+							  },
+
+                name :
+                {
+                    required: true, 
+                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name"
+                }
 				
 			 },
-      messages: { reference_id: { remote: 'Reference Id has been used. Please try another Reference Id' } }      
+      messages: { reference_id: {
+
+                         remote: 'Reference Id has been used. Please try another Reference Id' 
+                  }, 
+                      name : {  
+                          remote: 'name has been created. Please try another name'  
+                      } 
+                }      
     });
 
 
@@ -197,10 +233,69 @@ function add_customer(){
                     $('.alert-form').fadeOut();
                   },800);    
               }
+            },
+
+            error : function(){
+
+                   alert("wrong format. Please check all field");
+
+                   $(".submit").removeClass('disabled').html('Submit');
             }
           });
 
 
 }
+
+function get_number(){
+
+
+
+      return text ;
+
+   
+}
+
+function add_email(){
+    var D = new Date();
+    var elm = $("#target_to");
+
+    var elm_id = D.getTime();
+  
+
+    alert(get_number());
+
+if(elm.find('input.form-control').length < 5) {
+     elm.append( "<div class='input-group' id='target_to"+elm_id+"'><input id='to' placeholder='Input email'  name='email'  type='email'  class='form-control to' required ><span class='input-group-btn'><button class='btn btn-default' type='button' onClick='delete_target(\""+elm_id+"\")'>Delete</button><label id='to-error' class='error' for='to'></label></span></div>");
+  }
+  else{
+
+      $("#message_email").html("add email cannot more than 5 textbox").fadeIn();
+      setTimeout(function(){
+        $("#message_email").fadeOut();
+      },800);
+      return false;
+    }
+
+
+    // if(elm.find('input.form-control').length < 5) {
+    //   elm.append(" <br/><div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
+    // }else{
+
+    //   $("#message_email").html("add email cannot more than 5 textbox").fadeIn();
+    //   setTimeout(function(){
+    //     $("#message_email").fadeOut();
+    //   },800);
+    //   return false;
+    // }
+
+   
+  }
+
+ function delete_target(id)
+  {
+      $("#target_to"+id+"").remove(); 
+      return false;
+  }
+
 
 </script>
