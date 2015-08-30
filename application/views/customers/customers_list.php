@@ -3,6 +3,7 @@
   <thead>
     <th>Reference ID</th>
     <th>Name</th>
+    <th>Attn</th>
     <th>Country</th>
     <th>Telepon Number</th>
     <th>Entry by</th>
@@ -18,11 +19,13 @@
       foreach($get_customers as $key => $val){
 
       if(strlen($val->name) >20 ){ $name = substr($val->name,0,20).'...';}else{ $name = $val->name; }
-      if(strlen($val->phone) >20 ){ $name = substr($val->phone,0,20).'...';}else{$phone = $val->phone; }
+      if(strlen($val->phone) >20 ){ $phone = substr($val->phone,0,20).'...';}else{$phone = $val->phone; }
+      if(strlen($val->attn) >20 ){ $attn = substr($val->attn,0,20).'...';}else{$attn = $val->attn; }
 
       echo '<tr>
       <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$val->reference_id.'').'\')">'.$val->reference_id.'</a></td>
       <td>'.$name.'</td>
+      <td>'.$attn.'</td>
       <td>'.$val->country_name.'</td>
       <td>('.$val->code_phone.') '.$phone.'</td>
       <td>'.$val->create_by.'</td>
@@ -40,7 +43,7 @@
 $(document).ready(function(){ 
 
   $('table.table').dataTable({
-     "scrollX": true
+     "bFilter": false
   });
   $('select.sumoselect').SumoSelect();
   $("#mytable #checkall").click(function () {
