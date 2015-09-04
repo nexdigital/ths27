@@ -225,7 +225,7 @@ $('form#add_customer').validate({
                 name :
                 {
                     required: true, 
-                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name" 
+                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name?reference_id=<?php echo $get_customers->reference_id ?>"
                 },
 
                 c_phone :
