@@ -11,6 +11,11 @@ class MY_Controller extends CI_Controller {
 				$_POST[$key] = htmlspecialchars($row);
 			}
 		}
+		if(count($_GET) > 0) {
+			foreach($_GET as $key => $row) {
+				$_GET[$key] = htmlspecialchars($row);
+			}
+		}
 	}
 
 	function set_content($page,$data){
