@@ -21,7 +21,7 @@
 
                             <!-- <div id="target_to"> -->
                             <div class="form-group" >
-                               <label >E-mail</label> <label class="required-filed">*</label>
+                               <label >E-mail</label> 
                                   <input id="email" name="email" maxlength="100" placeholder="max 100 character" type="email" class="form-control" required>
                             </div>
 
@@ -225,7 +225,7 @@ $('form#add_customer').validate({
                 name :
                 {
                     required: true, 
-                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name?reference_id=<?php echo $get_customers->reference_id ?>"
+                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name"
                 },
 
                 c_phone :

@@ -383,7 +383,7 @@ class Customers extends MY_Controller {
 			case 'check_available_name':
 
 						$name = $_GET['name'];
-						$reference_id = $_GET['reference_id'];
+						$reference_id = (isset($_GET['reference_id'])) ? $_GET['reference_id'] : null ;
 						$get = $this->db->query("select * from customer_table where name = '".strtolower($name)."' And status_active = 'Active' And reference_id != '".$reference_id."' ");
 						if($get->num_rows() == 0) echo "true";
 						else echo "false";
@@ -442,9 +442,34 @@ class Customers extends MY_Controller {
 						}else{
 									$get_customers =  $this->customers_model->get_data();
 						}
-								
-						$status 	=  TRUE;
-						echo json_encode(array('status' => $status , 'message' => $message));				
+
+						if(sizeof($get_customers) > 0)
+						{
+							$head[] = array('Reference ID', 'Name', 'Attn', 'Country','Telephone Number', 'Entry By', 'Entry Date', 'Modified By', 'Modifed Date','Status');
+							foreach($get_customers as $row) {
+								$head[] = array($row->reference_id,$row->name,$row->attn,$row->country_name,$row->phone,$row->create_by,$row->create_date,$row->update_by,$row->update_date,$row->status_active);
+							}
+
+							//print_r($head);
+							$file_name = time()."_customer_file.csv";
+							$fp = fopen(path_pdf.$file_name, 'w');
+
+
+							foreach ($head as $fields) {
+
+							    fputcsv($fp, $fields);
+							}
+
+							$button     =  "<a href='".base_url('asset/pdf/'.$file_name)."'><button class='btn btn-primary'>Download CSV</button></a>";		
+							$status 	=  TRUE;
+						}else
+						{
+							$status 	=  FALSE;
+							$button     = "";
+						}
+
+						
+						echo json_encode(array('status' => $status , 'button' => $button));				
 
 
 			break;

@@ -45,14 +45,16 @@
   </tbody>
 </table>
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>              
-<a href="#" onClick="print_csv();"><button class="btn btn-primary">Print CSV</button></a>      
+<a href="#" onClick="print_csv();"><button class="btn btn-primary">Print CSV</button></a>     
+<span id="button_download"></span> 
 
 
 <script type="text/javascript">
 $(document).ready(function(){ 
 
    $('table.table').dataTable({
-     "bFilter": false
+     "bFilter": false,
+      "bInfo" : false
   });
   $('select.sumoselect').SumoSelect();
   $("#mytable #checkall").click(function () {
@@ -83,6 +85,10 @@ function search()
             data      : "search_input="+search_input,
             type      : "post",
             dataType  : "json",
+             beforeSend : function(){
+
+                            $("#button_download").html( "" ).fadeOut("fast");
+            },
             success   : function(result){
 
                         $("#result_search").empty();
@@ -107,12 +113,24 @@ function print_csv()
             data      : "search_input="+search_input,
             type      : "post",
             dataType  : "json",
+            beforeSend : function(){
+
+                            $("#button_download").html( "" ).fadeOut("fast");
+            },
             success   : function(result){
 
-                        $("#result_search").empty();
-                        setTimeout(function(){   
-                             $("#result_search").html( result.message);
-                        },2);
+                if(result.status == true )
+                {
+                    $("#button_download").html( result.button ).fadeIn("slow");
+                }else
+                {
+                  alert("there's no available data");
+                }
+                       //$("#result_search").empty();
+                       
+                          //   $("#result_search").html( result.message);
+                            
+                     
             }
 
       });
