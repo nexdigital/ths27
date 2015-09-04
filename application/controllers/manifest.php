@@ -583,13 +583,16 @@ class Manifest extends MY_Controller {
 				$discount_id = $_GET['discount_id'];
 				$this->load->view('manifest/modal_edit_discount',array('data' => $this->manifest_model->get_by_hawb($hawb_no), 'discount' => $this->manifest_model->get_by_discount($discount_id)));
 				break;
+			case 'send_email':
+				$hawb_no = $_GET['hawb_no'];
+				$this->load->view('manifest/modal_send_email',array('data' => $this->manifest_model->get_by_hawb($hawb_no)));
+				break;
 			
 			default:
 				# code...
 				break;
 		}
 	}
-
 }
 
 ?>

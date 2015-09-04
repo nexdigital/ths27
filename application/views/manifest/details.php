@@ -8,6 +8,7 @@
         <!-- Split button -->
           <button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/data')?>')">Back</button>
           <?php if($data->status == 'verified') { ?><button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/edit?hawb_no='.$data->hawb_no) ?>')">Edit</button> <?php } ?>
+          <button type="button" class="btn btn-default send-email">Send Email</button>
           <button type="button" class="btn btn-default">Invoice</button>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">
             <span class="caret"></span>
@@ -259,6 +260,8 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        var hawb_no = '<?php echo $data->hawb_no ?>';
+
         $('table.table').dataTable();
         $('.add_discount').click(function(){
             $.get('<?php echo base_url().'manifest/modal/add_discount?hawb_no='.$data->hawb_no ?>',function(data){
@@ -311,6 +314,12 @@
             setTimeout(function(){
                 setPage('<?php echo base_url('manifest/view/details?hawb_no='.$data->hawb_no) ?>');
             },5000);
+        })
+        $('.send-email').click(function(){
+            $.get('<?php echo base_url().'manifest/modal/send_email?hawb_no='.$data->hawb_no ?>',function(data){
+                $('#modal_box').html(data);
+            });
+            $('#modal_box').modal('show');
         })
     })
 </script>
