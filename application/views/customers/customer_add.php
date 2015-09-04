@@ -26,12 +26,12 @@
                             </div>
 
                               <div class="form-group" >
-                               <label >Second E-mail</label> <label class="required-filed">*</label>
+                               <label >Second E-mail</label> 
                                   <input id="second_email" name="second_email" maxlength="100" placeholder="max 100 character" type="email" class="form-control">
                             </div>
 
                               <div class="form-group" >
-                               <label >Third E-mail</label> <label class="required-filed">*</label>
+                               <label >Third E-mail</label> 
                                   <input id="third_email" name="third_email" maxlength="100" placeholder="max 100 character" type="email" class="form-control">
                             </div>
                            
