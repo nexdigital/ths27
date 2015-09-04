@@ -6,6 +6,11 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
         session_start();
 		#$this->system->set_all_activity_log();
+		if(count($_POST) > 0) {
+			foreach($_POST as $key => $row) {
+				$_POST[$key] = htmlspecialchars($row);
+			}
+		}
 	}
 
 	function set_content($page,$data){
