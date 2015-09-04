@@ -231,6 +231,28 @@ class Customers_model extends CI_Model {
 			$get = $this->db->get('customer_table');
 			return $get->row();
 	}
+
+	function get_customer_search($search)
+	{
+			$this->db->select('a.*,b.country_id,b.country_name');
+			$this->db->distinct();
+			$this->db->from('customer_table a');
+			$this->db->join('master_country_table b','b.country_id = a.country');
+			$this->db->like('a.name',$search);
+			$this->db->or_like('a.reference_id',$search);
+			$this->db->or_like('a.attn',$search);
+			//$this->db->where('country',$search);
+			$this->db->or_like('a.phone',$search);
+			$this->db->or_like('a.create_by',$search);
+			$this->db->or_like('a.create_date',$search);
+			$this->db->or_like('a.update_by',$search);
+			$this->db->or_like('a.update_date',$search);
+			$this->db->or_like('a.status_active',$search);
+			$sql = $this->db->get('customer_table');
+			return $sql->result();
+	}
+
+	
 }
 
 ?>

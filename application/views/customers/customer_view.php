@@ -32,6 +32,34 @@
             <input type="text" maxlength="100" placeholder="maximal character 100" value="<?php echo $get_customers->email ?>" id="email" class="form-control" name="email" required>
     </div>
 
+    <?php 
+
+
+          if( isset($get_customers->second_email)){ $second_email = $get_customers->second_email; } else{ $second_email = "";}
+          if( isset($get_customers->third_email)){ $third_email = $get_customers->third_email; } else{ $third_email = "";}
+
+         //telephone
+
+          if( isset($get_customers->second_c_phone)){ $second_c_phone = $get_customers->second_c_phone; } else{ $second_c_phone = "";}
+          if( isset($get_customers->second_phone)){ $second_phone = $get_customers->second_phone; } else{ $second_phone = "";}
+
+          if( isset($get_customers->third_c_phone)){ $third_c_phone = $get_customers->third_c_phone; } else{ $third_c_phone = "";}
+          if( isset($get_customers->third_phone)){ $third_phone = $get_customers->third_phone; } else{ $third_phone = "";}
+
+          // if( isset($get_customers->second_email)){ $second_email = $get_customers->second_email; } else{ $second_email = "";}
+          // if( isset($get_customers->third_email)){ $third_email = $get_customers->third_email; } else{ $third_email = "";}
+    ?>
+
+    <div class="form-group" >
+        <label >Second E-mail</label> <label class="required-filed">*</label>
+        <input id="second_email" name="second_email" maxlength="100" value="<?php echo $second_email ?>" placeholder="max 100 character" type="email" class="form-control">
+    </div>
+
+    <div class="form-group" >
+          <label >Third E-mail</label> <label class="required-filed">*</label>
+          <input id="third_email" name="third_email" maxlength="100" value="<?php echo $third_email ?>" placeholder="max 100 character" type="email" class="form-control">
+      </div>
+
      <div class="form-group">
             <label>Address<label class="required-filed">*</label></label>
             <textarea id="address" class="form-control" name="address" required><?php echo $get_customers->address ?></textarea>
@@ -75,6 +103,38 @@
                 </div>
             </div>
   </div>
+
+  <div class="row">
+
+                               <div class="col-md-2">
+                                  <div class="form-group" >
+                                    <label>Second Code Phone</label> 
+                                    <input class="form-control" value="<?php echo $second_c_phone ?>" maxlength="10" placeholder="max 10 character" id="second_c_phone" name="second_c_phone" type="text" >
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="form-group" >
+                                    <label>Second Phone</label>
+                                    <input class="form-control" value="<?php echo $second_phone ?>" maxlength="20" placeholder="max 20 character" id="second_phone" name="second_phone" type="text" >
+                                  </div>
+                              </div>
+                            </div>
+
+                             <div class="row">
+
+                               <div class="col-md-2">
+                                  <div class="form-group" >
+                                    <label>Third Code Phone</label>
+                                    <input class="form-control" value="<?php echo $third_c_phone ?>" maxlength="10" placeholder="max 10 character" id="third_c_phone" name="third_c_phone" type="text"  >
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="form-group" >
+                                    <label>Third Phone</label> 
+                                    <input class="form-control" value="<?php echo $third_phone ?>"  maxlength="20" placeholder="max 20 character" id="third_phone" name="third_phone" type="text"  >
+                                  </div>
+                              </div>
+                            </div>
     
 
      <div class="form-group">
@@ -211,47 +271,101 @@
 $(document).ready(function(){
 
  
+     $('input[name="name"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
 
-// jQuery.validator.addMethod("alphanumeric", function(value, element) {
-//     return this.optional(element) || /^\w+$/i.test(value);
-// }, "Letters, numbers, and underscores only please");
 
-// $('#edit_customer').validate({
-//       rules: { 
-// 				name:		  {
-// 								required	 : true,
-// 								alphanumeric : true
-// 							  },
-// 				attn :		  {
-// 								required     : true,
-// 								alphanumeric : true
-									
-// 							  },
-// 				city  :       {
-// 								required     : true,
-// 								alphanumeric : true
-// 							  },
-// 				zip_code :    {
 
-// 								required     : true,
-// 								alphanumeric : true
-// 							  },
-// 				mobile   :    {
-		
-// 								required     : true,
-// 								alphanumeric : true
-							
-// 							  },
-// 			   fax		:     {
+$('form#edit_customer').validate({
+      rules: { reference_id: 
+                { 
+                  required: true, 
+                  remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
+                  alphanumeric:true 
+                },
 
-// 								required     : true,
-// 								alphanumeric : true
+                name :
+                {
+                    required: true, 
+                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name?reference_id=<?php echo $get_customers->reference_id ?>"
+                },
 
-// 							  }
-				
-// 			 },
-//       messages: { }      
-//     });
+                c_phone :
+                {
+
+                  required: true,
+                  number: true
+                },
+
+                 phone :
+                {
+
+                  required: true,
+                  number: true
+                },
+
+                 second_c_phone :
+                {
+
+                 
+                  number: true
+                },
+
+                second_phone :
+                {
+
+               
+                  number: true
+                },
+
+                 third_c_phone :
+                {
+
+               
+                  number: true
+                },
+
+                 third_phone :
+                {
+
+                
+                  number: true
+                },
+
+                  mobile :
+                {
+
+               
+                  number: true
+                },
+
+
+                fax :
+                {
+
+               
+                  number: true
+                }
+
+        
+       },
+      messages: { reference_id: {
+
+                         remote: 'Reference Id has been used. Please try another Reference Id' 
+                  }, 
+                      name : {  
+                          remote: 'name has been created. Please try another name'  
+                      } 
+                }      
+    });
+
+
+
 
             
            // $('#send_email_form').validate();

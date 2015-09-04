@@ -5,38 +5,48 @@
 
                            <div class="form-group">
                               <label>Reference Id</label> <label class="required-filed">*</label>
-                              <input id="reference_id" maxlength="20" placeholder="maximal character  20" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
+                              <input id="reference_id" maxlength="20" placeholder="max 20 character" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
                              
                             </div>
 
                             <div class="form-group">
                               <label>Name</label> <label class="required-filed">*</label>
-                              <input id="name" name="name" maxlength="100" placeholder="maximal character  100"  type="text" class="form-control" required>
+                              <input id="name" name="name" maxlength="100" placeholder="max 100 character"  type="text" class="form-control" required>
                             </div>
 
                             <div class="form-group">
                              <label>Attn</label> <label class="required-filed">*</label>
-                              <input id="attn" name="attn" maxlength="100" placeholder="maximal character  100" type="text" class="form-control" required>
+                              <input id="attn" name="attn" maxlength="100" placeholder="max 100 character" type="text" class="form-control" required>
                             </div>     
 
-                            <div id="target_to">
+                            <!-- <div id="target_to"> -->
                             <div class="form-group" >
                                <label >E-mail</label> <label class="required-filed">*</label>
-                                  <input id="email" name="email" maxlength="100" placeholder="maximal character 100" type="email" class="form-control" required>
+                                  <input id="email" name="email" maxlength="100" placeholder="max 100 character" type="email" class="form-control" required>
                             </div>
-                         
-                          </div>
-                            <div class="form-group">
+
+                              <div class="form-group" >
+                               <label >Second E-mail</label> <label class="required-filed">*</label>
+                                  <input id="second_email" name="second_email" maxlength="100" placeholder="max 100 character" type="email" class="form-control">
+                            </div>
+
+                              <div class="form-group" >
+                               <label >Third E-mail</label> <label class="required-filed">*</label>
+                                  <input id="third_email" name="third_email" maxlength="100" placeholder="max 100 character" type="email" class="form-control">
+                            </div>
+                           
+                          <!-- </div> -->
+                           <!--  <div class="form-group">
                                    <button type="button" class="btn btn-warning" onClick="add_email()">Add Email</button>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                              <label>Address</label> <label class="required-filed">*</label>
-                              <textarea class="form-control" maxlength="200" placeholder="maximal character  200" name="address" style="resize:none" required></textarea>
+                              <textarea class="form-control" maxlength="200" placeholder="max 200 character" name="address" style="resize:none" required></textarea>
                             </div>
 
                             <div class="form-group">
                               <label>City</label>
-                              <input id="city" name="city" type="text" maxlength="100" placeholder="maximal character  100" class="form-control">
+                              <input id="city" name="city" type="text" maxlength="100" placeholder="max 100 character" class="form-control">
                             </div>
 
                             <div class="form-group">
@@ -55,7 +65,7 @@
 
                             <div class="form-group">
                               <label >Zip Code</label>
-                              <input id="post_code" name="zip_code" maxlength="20" placeholder="maximal character  20" type="text" class="form-control"  maxlength="20">
+                              <input id="post_code" name="zip_code" maxlength="20" placeholder="max 20 character" type="text" class="form-control"  maxlength="20">
                             </div>
 
                             <div class="row">
@@ -63,25 +73,57 @@
                                <div class="col-md-2">
                                   <div class="form-group" >
                                     <label>Code Phone</label> <label class="required-filed">*</label>
-                                    <input class="form-control" maxlength="10" placeholder="maximal character 10" id="c_phone" name="c_phone" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                    <input class="form-control" maxlength="10" placeholder="max 10 character" id="c_phone" name="c_phone" type="text"  required>
                                   </div>
                               </div>
                               <div class="col-md-10">
                                   <div class="form-group" >
                                     <label>Phone</label> <label class="required-filed">*</label>
-                                    <input class="form-control" maxlength="20" placeholder="maximal character  20" id="phone" name="phone" type="text" required>
+                                    <input class="form-control" maxlength="20" placeholder="max 20 character" id="phone" name="phone" type="text" required>
+                                  </div>
+                              </div>
+                            </div>
+
+                             <div class="row">
+
+                               <div class="col-md-2">
+                                  <div class="form-group" >
+                                    <label>Second Code Phone</label> 
+                                    <input class="form-control" maxlength="10" placeholder="max 10 character" id="second_c_phone" name="second_c_phone" type="text" >
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="form-group" >
+                                    <label>Second Phone</label>
+                                    <input class="form-control" maxlength="20" placeholder="max 20 character" id="second_phone" name="second_phone" type="text" >
+                                  </div>
+                              </div>
+                            </div>
+
+                             <div class="row">
+
+                               <div class="col-md-2">
+                                  <div class="form-group" >
+                                    <label>Third Code Phone</label>
+                                    <input class="form-control" maxlength="10" placeholder="max 10 character" id="third_c_phone" name="third_c_phone" type="text"  >
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="form-group" >
+                                    <label>Third Phone</label> 
+                                    <input class="form-control" maxlength="20" placeholder="max 20 character" id="third_phone" name="third_phone" type="text"  >
                                   </div>
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label >Mobile</label>
-                              <input id="mobile" name="mobile" maxlength="20" placeholder="maximal character  20"  type="text" class="form-control"  maxlength="15" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                              <input id="mobile" name="mobile" maxlength="20" placeholder="max 20 character"  type="text" class="form-control"  maxlength="15" >
                             </div>
 
                             <div class="form-group">
                               <label >Fax</label>
-                              <input id="fax" name="fax" type="text" maxlength="20" placeholder="maximal character  20"  class="form-control" maxlength="15" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                              <input id="fax" name="fax" type="text" maxlength="20" placeholder="max 20 character"  class="form-control" maxlength="15"  >
                             </div>
 
                       <div class="form-group" style="margin-top:10px;">
@@ -142,7 +184,7 @@
 
                             <div class="form-group">
                               <label >Description</label>
-                              <textarea class="form-control" maxlength="100" placeholder="maximal character  100"  id="remark" name="description" rows="5" style="resize:none"></textarea>
+                              <textarea class="form-control" maxlength="100" placeholder="max 100 character"  id="remark" name="description" rows="5" style="resize:none"></textarea>
                             </div>
      <input type="hidden" name="hawb_no" value="<?php echo (isset($_GET['hawb_no'])) ? $_GET['hawb_no'] : ''?>">
      <input type="hidden" name="customer_type" value="<?php echo (isset($_GET['customer_type'])) ? $_GET['customer_type'] : ''?>">
@@ -183,8 +225,69 @@ $('form#add_customer').validate({
                 name :
                 {
                     required: true, 
-                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name"
+                    remote: "<?php echo base_url(); ?>customers/ajax/check_available_name" 
+                },
+
+                c_phone :
+                {
+
+                  required: true,
+                  number: true
+                },
+
+                 phone :
+                {
+
+                  required: true,
+                  number: true
+                },
+
+                 second_c_phone :
+                {
+
+                 
+                  number: true
+                },
+
+                second_phone :
+                {
+
+               
+                  number: true
+                },
+
+                 third_c_phone :
+                {
+
+               
+                  number: true
+                },
+
+                 third_phone :
+                {
+
+                
+                  number: true
+                },
+
+                  mobile :
+                {
+
+               
+                  number: true
+                },
+
+
+                fax :
+                {
+
+               
+                  number: true
                 }
+
+
+
+
 				
 			 },
       messages: { reference_id: {
@@ -246,14 +349,7 @@ function add_customer(){
 
 }
 
-function get_number(){
 
-
-
-      return text ;
-
-   
-}
 
 function add_email(){
     var D = new Date();
@@ -262,10 +358,12 @@ function add_email(){
     var elm_id = D.getTime();
   
 
-    alert(get_number());
+    // alert(get_number());
 
 if(elm.find('input.form-control').length < 5) {
-     elm.append( "<div class='input-group' id='target_to"+elm_id+"'><input id='to' placeholder='Input email'  name='email'  type='email'  class='form-control to' required ><span class='input-group-btn'><button class='btn btn-default' type='button' onClick='delete_target(\""+elm_id+"\")'>Delete</button><label id='to-error' class='error' for='to'></label></span></div>");
+     alert( global_counter++);
+     elm.append( "<div class='input-group' id='target_to"+global_counter+"'><input id='to' placeholder='Input email'  name='email'  type='email'  class='form-control to' required ><span class='input-group-btn'><button class='btn btn-default' type='button' onClick='delete_target(\""+elm_id+"\")'>Delete</button><label id='to-error' class='error' for='to'></label></span></div>");
+    
   }
   else{
 
@@ -276,6 +374,7 @@ if(elm.find('input.form-control').length < 5) {
       return false;
     }
 
+ var global_counter = 0;
 
     // if(elm.find('input.form-control').length < 5) {
     //   elm.append(" <br/><div class='input-group'><input class='form-control' name='to[]' type='email' id='"+elm_id+"' required> <span class='input-group-btn'><button class='btn btn-default' id='"+elm_id+"' type='reset' onClick=\"$('input#"+elm_id+", button#"+elm_id+", label#"+elm_id+"-error').remove(); return false;\">Delete</button></span></div>");
@@ -288,7 +387,8 @@ if(elm.find('input.form-control').length < 5) {
     //   return false;
     // }
 
-   
+  
+
   }
 
  function delete_target(id)

@@ -105,16 +105,27 @@ class Customers extends MY_Controller {
 					$name =  $_POST['name'];
 					$attn =  $_POST['attn'];
 					$email = $_POST['email'];
+					$second_email = $_POST['second_email'];
+					$third_email = $_POST['third_email'];
 					$address = $_POST['address'];
 					$city = $_POST['city'];
 					$country = $_POST['country'];
 					$pos_code = $_POST['zip_code'];
+
 					$phone = $_POST['phone'];
+					$c_phone = $_POST['c_phone'];
+
+					$second_phone = $_POST['second_phone'];
+					$second_c_phone = $_POST['second_c_phone'];
+
+					$third_phone = $_POST['third_phone'];
+					$third_c_phone = $_POST['third_c_phone'];
+
 					$mobile = $_POST['mobile'];
 					$fax = $_POST['fax'];
 					$tax_class = $_POST['tax_class'];
 					$description = $_POST['description'];
-					$c_phone = $_POST['c_phone'];
+					
 
 					$regex = "/^[A-Za-z0-9_\-.\/]+$/";
 						// if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
@@ -125,13 +136,23 @@ class Customers extends MY_Controller {
 							$data['reference_id'] = str_replace(' ', '', $reference_id );
 							$data['name'] 		  = htmlspecialchars($name);
 							$data['email'] 		  = $email;
+							$data['second_email'] = $second_email;
+							$data['third_email']  = $third_email;
 							$data['address'] 	  = htmlspecialchars($address);
 							$data['attn'] 		  = htmlspecialchars($attn);
 							$data['city']         = htmlspecialchars($city);
 							$data['country']      = $country;
 							$data['pos_code'] 	  = htmlspecialchars($pos_code);
-							$data['code_phone'] 	  = $c_phone;
+							$data['code_phone']   = $c_phone;
 							$data['phone'] 		  = $phone;
+
+							$data['second_c_phone']   = $second_c_phone;
+							$data['second_phone'] 		  = $second_phone;
+
+							$data['third_c_phone']   = $third_c_phone;
+							$data['third_phone'] 		  = $third_phone;
+
+
 							$data['mobile'] 	  = $mobile;
 							$data['fax'] 		  = $fax;
 							$data['tax_class'] 	  = $tax_class;
@@ -171,18 +192,38 @@ class Customers extends MY_Controller {
 				case 'edit_customer':
 
 
+					$second_email = $_POST['second_email'];
+					$third_email = $_POST['third_email'];
+
+					$second_phone = $_POST['second_phone'];
+					$second_c_phone = $_POST['second_c_phone'];
+
+					$third_phone = $_POST['third_phone'];
+					$third_c_phone = $_POST['third_c_phone'];
+
+
 					$reference_id = $_POST['reference_id'];
 					$data['reference_id'] = str_replace(' ', '', $reference_id );
 				//	$data['id_group'] 	  = $_POST['id_group'];
 					$data['name'] 		  = htmlspecialchars($_POST['name']);
 					$data['email'] 		  = $_POST['email'];
+					$data['second_email'] = $second_email;
+					$data['third_email']  = $third_email;
 					$data['address'] 	  = htmlspecialchars($_POST['address']);
 					$data['attn'] 		  = htmlspecialchars($_POST['attn']);
 					$data['city']         = htmlspecialchars($_POST['city']);
 					$data['country']      = $_POST['country'];
 					$data['pos_code'] 	  = htmlspecialchars($_POST['zip_code']);
+
 					$data['code_phone']   = $_POST['c_phone'];
 					$data['phone'] 		  = $_POST['phone'];
+
+					$data['second_c_phone']   		= $second_c_phone;
+					$data['second_phone'] 		  	= $second_phone;
+
+					$data['third_c_phone']   		= $third_c_phone;
+					$data['third_phone'] 		  	= $third_phone;
+
 					$data['mobile'] 	  = $_POST['mobile'];
 					$data['fax'] 		  = $_POST['fax'];
 					$data['tax_class'] 	  = $_POST['tax_class'];
@@ -342,10 +383,71 @@ class Customers extends MY_Controller {
 			case 'check_available_name':
 
 						$name = $_GET['name'];
-						$get = $this->db->query("select * from customer_table where name = '".strtolower($name)."' And status_active = 'Active'");
+						$reference_id = $_GET['reference_id'];
+						$get = $this->db->query("select * from customer_table where name = '".strtolower($name)."' And status_active = 'Active' And reference_id != '".$reference_id."' ");
 						if($get->num_rows() == 0) echo "true";
 						else echo "false";
-				break;
+			break;
+
+			case 'search':
+
+						
+						$search        = $_POST['search_input'];
+						$message = "";
+						
+						if(isset($search))
+						{
+									$get_customers =  $this->customers_model->get_customer_search($search);
+				
+						}else{
+									$get_customers =  $this->customers_model->get_data();
+						}
+
+						if(sizeof($get_customers) > 0){
+
+									foreach ($get_customers as $key => $value) {
+											
+											$message 	.= "<tr>
+																	<td>".$value->reference_id."</td>
+																	<td>".$value->name."</td>
+																	<td>".$value->attn."</td>
+																	<td>".$value->country_name."</td>
+																	<td>(".$value->code_phone.")".$value->phone."</td>
+																	<td>".$value->create_by."</td>
+																	<td>".$value->create_date."</td>
+																	<td>".$value->update_by."</td>
+																	<td>".$value->update_date."</td>
+																	<td>".$value->status_active."</td>
+														   <tr>";
+												   
+									}
+						}else{
+							$message 	= "No available data";
+						}
+						
+								
+						$status 	=  TRUE;
+						echo json_encode(array('status' => $status , 'message' => $message));				
+			break;
+
+			case 'print_csv' :
+
+						$search        = $_POST['search_input'];
+						//$message = "";
+						
+						if(isset($search))
+						{
+									$get_customers =  $this->customers_model->get_customer_search($search);
+				
+						}else{
+									$get_customers =  $this->customers_model->get_data();
+						}
+								
+						$status 	=  TRUE;
+						echo json_encode(array('status' => $status , 'message' => $message));				
+
+
+			break;
 
 		}
 	}

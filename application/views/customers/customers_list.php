@@ -1,4 +1,11 @@
-
+ <div class="col-lg-6" style="float:right">
+    <div class="input-group">
+      <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onClick="search();">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
 <table id="example2" class="table  table-striped table-hovered">         
   <thead>
     <th>Reference ID</th>
@@ -14,7 +21,7 @@
 
   </thead>
 
-  <tbody>
+  <tbody id="result_search">
     <?php 
       foreach($get_customers as $key => $val){
 
@@ -38,11 +45,13 @@
   </tbody>
 </table>
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>              
+<a href="#" onClick="print_csv();"><button class="btn btn-primary">Print CSV</button></a>      
+
 
 <script type="text/javascript">
 $(document).ready(function(){ 
 
-  $('table.table').dataTable({
+   $('table.table').dataTable({
      "bFilter": false
   });
   $('select.sumoselect').SumoSelect();
@@ -61,4 +70,51 @@ $(document).ready(function(){
     
     $("[data-toggle=tooltip]").tooltip();
 });
+
+
+function search()
+{
+      
+      var search_input = $("#search_input").val();
+
+      $.ajax({
+
+            url       : "<?php echo base_url()?>customers/ajax/search",
+            data      : "search_input="+search_input,
+            type      : "post",
+            dataType  : "json",
+            success   : function(result){
+
+                        $("#result_search").empty();
+                        setTimeout(function(){   
+                             $("#result_search").html( result.message);
+                        },2);
+            }
+
+      });
+
+}
+
+
+function print_csv()
+{
+
+      var search_input = $("input[name=search_input]").val();
+
+      $.ajax({
+
+            url       : "<?php echo base_url()?>customers/ajax/print_csv",
+            data      : "search_input="+search_input,
+            type      : "post",
+            dataType  : "json",
+            success   : function(result){
+
+                        $("#result_search").empty();
+                        setTimeout(function(){   
+                             $("#result_search").html( result.message);
+                        },2);
+            }
+
+      });
+}
 </script>
