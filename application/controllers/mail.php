@@ -24,7 +24,6 @@ class Mail extends CI_Controller {
 			$this->email->set_newline("\r\n");
 			$this->email->from( "tataharmoni18@gmail.com", "No Reply" );
 			$this->email->to($_POST['to']);
-			$this->email->cc($_POST['cc']);
 			$this->email->subject($_POST['subject']);
 			$this->email->message($_POST['message']);
 			if(!$this->email->send()) {

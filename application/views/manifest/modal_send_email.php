@@ -13,7 +13,6 @@ $consignee = $this->db->query("select * from customer_table where reference_id =
                 <div class="form-group">
                     <label>*To</label>
                     <input type="email" name="to" class="form-control" value="<?php $consignee->row('email');?>" required>
-                    <br/>CC: <input type="email" name="cc" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
