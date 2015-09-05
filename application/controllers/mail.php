@@ -31,9 +31,6 @@ class Mail extends CI_Controller {
 			} else {
 				echo json_encode(array('status' => 'success'));
 			}
-			echo '<pre>';
-			print_r($this->email->print_debugger());
-			echo '</pre>';
 		}
 	}
 }
