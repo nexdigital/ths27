@@ -196,7 +196,15 @@
 </form>
 
 <script type="text/javascript">
+  
 
+     $('input[name="reference_id"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoCompleteID') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
 
      $('input[name="name"]').autoComplete({
           minChars: 1,

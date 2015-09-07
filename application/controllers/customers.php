@@ -366,6 +366,20 @@ class Customers extends MY_Controller {
 						echo json_encode(array('redirect' => base_url('asset/pdf/'.$filename.'.pdf')));				
 				break;
 
+				case 'autoCompleteID':
+						$reference_id = $_GET['q'];
+						$this->db->like('reference_id',$reference_id);
+						$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$ID_customers_list = array();
+						foreach($get->result() as $row) {
+							$ID_customers_list[] = $row->reference_id;
+						}
+
+						echo json_encode($ID_customers_list);
+				break;
+
 				case 'autoComplete':
 						$name = $_GET['q'];
 						$this->db->like('name',$name);
