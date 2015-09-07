@@ -21,7 +21,7 @@
 
                             <!-- <div id="target_to"> -->
                             <div class="form-group" >
-                               <label >E-mail</label> 
+                               <label >E-mail</label> <label class="required-filed">*</label>
                                   <input id="email" name="email" maxlength="100" placeholder="max 100 character" type="email" class="form-control" required>
                             </div>
 
