@@ -1,11 +1,19 @@
+ <form id="search_form" method="post" action="<?php echo base_url()?>customers/ajax/search" >
  <div class="col-lg-6" style="float:right">
+ 
     <div class="input-group">
-      <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" onClick="search();">Go!</button>
-      </span>
+
+     
+            <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">Go!</button>
+              <!-- <input type="submit" class="btn btn-default" value="Go!"> -->
+            </span>
+    
     </div><!-- /input-group -->
+     
   </div><!-- /.col-lg-6 -->
+ </form>
 <table id="example2" class="table  table-striped table-hovered">         
   <thead>
     <th>Reference ID</th>
@@ -51,12 +59,26 @@
 
 
 <script type="text/javascript">
+
+$("input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        $("#search_form").submit();
+    }
+});
+
 $(document).ready(function(){ 
+
 
    $('table.table').dataTable({
      "bFilter": false,
       "bInfo" : false
   });
+
+
+
+
+
   $('select.sumoselect').SumoSelect();
   $("#mytable #checkall").click(function () {
         if ($("#mytable #checkall").is(':checked')) {
@@ -72,29 +94,20 @@ $(document).ready(function(){
     });
     
     $("[data-toggle=tooltip]").tooltip();
-});
 
 
-function search()
-{
-      
-      var search_input = $("#search_input").val();
-
-      $.ajax({
-
-            url       : "<?php echo base_url()?>customers/ajax/search",
-            data      : "search_input="+search_input,
-            type      : "post",
-            dataType  : "json",
-             beforeSend : function(){
+     $('form#search_form').ajaxForm({
+        
+            dataType  : 'json',
+            beforeSubmit  : function(){
                             $("#MyLinks").removeAttr("onClick");
                             $("#button_download").html( "" ).fadeOut("fast");
             },
             success   : function(result){
 
-                    if(result.status == true){
+                if(result.status == true){
 
-                       $("#result_search").empty();
+                        $("#result_search").empty();
                          $("#Print_csv").removeAttr("Disabled")
                         $("#MyLinks").attr({
                                               href    : result.link_result,
@@ -114,14 +127,107 @@ function search()
                     }
                        
             },
-            error   : function(){
+              error   : function(){
 
-                  alert("File corrupt. Please refresh and try again");
-            }
+                    alert("File corrupt. Please refresh and try again");
+              }
+            
 
-      });
+        });
 
-}
+   // var search_input = $("#search_input").val();
+
+
+           
+            // url       : "<?php echo base_url()?>customers/ajax/search",
+            // data      : "search_input="+search_input,
+            // type      : "post",
+            // dataType  : "json",
+            //  beforeSend : function(){
+            //                 $("#MyLinks").removeAttr("onClick");
+            //                 $("#button_download").html( "" ).fadeOut("fast");
+            // },
+            // success   : function(result){
+
+            //         if(result.status == true){
+
+            //            $("#result_search").empty();
+            //              $("#Print_csv").removeAttr("Disabled")
+            //             $("#MyLinks").attr({
+            //                                   href    : result.link_result,
+            //                                   target  :"_blank" 
+            //                                });
+            //             setTimeout(function(){   
+            //                  $("#result_search").html( result.message);
+            //             },2);
+
+            //         }else{
+
+            //             $("#result_search").empty();
+            //             $("#Print_csv").attr("Disabled","disabled")
+            //             setTimeout(function(){   
+            //                  $("#result_search").html( result.message);
+            //             },2);
+            //         }
+                       
+            // },
+            // error   : function(){
+
+            //       alert("File corrupt. Please refresh and try again");
+            // }
+
+
+      
+});
+
+
+// function search()
+// {
+      
+    
+
+//       $.ajax({
+
+//             url       : "<?php echo base_url()?>customers/ajax/search",
+//             data      : "search_input="+search_input,
+//             type      : "post",
+//             dataType  : "json",
+//              beforeSend : function(){
+//                             $("#MyLinks").removeAttr("onClick");
+//                             $("#button_download").html( "" ).fadeOut("fast");
+//             },
+//             success   : function(result){
+
+//                     if(result.status == true){
+
+//                        $("#result_search").empty();
+//                          $("#Print_csv").removeAttr("Disabled")
+//                         $("#MyLinks").attr({
+//                                               href    : result.link_result,
+//                                               target  :"_blank" 
+//                                            });
+//                         setTimeout(function(){   
+//                              $("#result_search").html( result.message);
+//                         },2);
+
+//                     }else{
+
+//                         $("#result_search").empty();
+//                         $("#Print_csv").attr("Disabled","disabled")
+//                         setTimeout(function(){   
+//                              $("#result_search").html( result.message);
+//                         },2);
+//                     }
+                       
+//             },
+//             error   : function(){
+
+//                   alert("File corrupt. Please refresh and try again");
+//             }
+
+//       });
+
+// }
 
 function print_csv()
 {
