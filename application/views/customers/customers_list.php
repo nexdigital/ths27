@@ -45,7 +45,7 @@
   </tbody>
 </table>
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>              
-<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary">Print CSV</button></a>    
+<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>    
 <a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
 
 
@@ -95,6 +95,7 @@ function search()
                     if(result.status == true){
 
                        $("#result_search").empty();
+                         $("#Print_csv").removeAttr("Disabled")
                         $("#MyLinks").attr({
                                               href    : result.link_result,
                                               target  :"_blank" 
@@ -106,7 +107,7 @@ function search()
                     }else{
 
                         $("#result_search").empty();
-                      
+                        $("#Print_csv").attr("Disabled","disabled")
                         setTimeout(function(){   
                              $("#result_search").html( result.message);
                         },2);

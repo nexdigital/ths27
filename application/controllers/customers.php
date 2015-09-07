@@ -463,7 +463,7 @@ class Customers extends MY_Controller {
 
 							}else{
 
-								$status 	=  FALSELSELSE;
+								$status 	=  FALSE;
 								$message 	= "No available data";
 								$link_result       = "javascript();";
 
