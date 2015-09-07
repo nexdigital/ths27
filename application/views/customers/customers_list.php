@@ -113,6 +113,10 @@ function search()
                         },2);
                     }
                        
+            },
+            error   : function(){
+
+                  alert("File corrupt. Please refresh and try again");
             }
 
       });
@@ -132,14 +136,25 @@ function print_csv()
             dataType  : "json",
             success   : function(result){
 
-                        
-                    $("#download_all").attr({
+                     if(result.status ==  true){
+
+                          $("#download_all").attr({
                                               href    : result.link_result,
                                               target  :"_blank" 
-                      });
-                    $('#button_all').click();
+                          });
+                        $('#button_all').click();
+
+                     }else{
+
+                        alert(result.message);
+                     }   
+                  
 
 
+            },
+            error   : function(){
+
+                  alert("File corrupt. Please refresh and try again");
             }
 
       });
