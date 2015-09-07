@@ -45,8 +45,9 @@
   </tbody>
 </table>
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>              
-<a href="#" onClick="print_csv();"><button class="btn btn-primary">Print CSV</button></a>     
-<span id="button_download"></span> 
+<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary">Print CSV</button></a>    
+<a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
+
 
 
 <script type="text/javascript">
@@ -86,21 +87,36 @@ function search()
             type      : "post",
             dataType  : "json",
              beforeSend : function(){
-
+                            $("#MyLinks").removeAttr("onClick");
                             $("#button_download").html( "" ).fadeOut("fast");
             },
             success   : function(result){
 
-                        $("#result_search").empty();
+                    if(result.status == true){
+
+                       $("#result_search").empty();
+                        $("#MyLinks").attr({
+                                              href    : result.link_result,
+                                              target  :"_blank" 
+                                           });
                         setTimeout(function(){   
                              $("#result_search").html( result.message);
                         },2);
+
+                    }else{
+
+                        $("#result_search").empty();
+                      
+                        setTimeout(function(){   
+                             $("#result_search").html( result.message);
+                        },2);
+                    }
+                       
             }
 
       });
 
 }
-
 
 function print_csv()
 {
@@ -113,26 +129,21 @@ function print_csv()
             data      : "search_input="+search_input,
             type      : "post",
             dataType  : "json",
-            beforeSend : function(){
-
-                            $("#button_download").html( "" ).fadeOut("fast");
-            },
             success   : function(result){
 
-                if(result.status == true )
-                {
-                    $("#button_download").html( result.button ).fadeIn("slow");
-                }else
-                {
-                  alert("there's no available data");
-                }
-                       //$("#result_search").empty();
-                       
-                          //   $("#result_search").html( result.message);
-                            
-                     
+                        
+                    $("#download_all").attr({
+                                              href    : result.link_result,
+                                              target  :"_blank" 
+                      });
+                    $('#button_all').click();
+
+
             }
 
       });
 }
+
+
+//
 </script>

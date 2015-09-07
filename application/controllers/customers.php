@@ -420,59 +420,66 @@ class Customers extends MY_Controller {
 						if(sizeof($get_customers) > 0){
 
 									foreach ($get_customers as $key => $value) {
-															//<a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$val->reference_id.'').'\')">'.$val->reference_id.'</a>
-											// $message 	.= "<tr>
-											// 						<td>".$value->reference_id."</td>
-											// 						<td>".$value->name."</td>
-											// 						<td>".$value->attn."</td>
-											// 						<td>".$value->country_name."</td>
-											// 						<td>(".$value->code_phone.")".$value->phone."</td>
-											// 						<td>".$value->create_by."</td>
-											// 						<td>".$value->create_date."</td>
-											// 						<td>".$value->update_by."</td>
-											// 						<td>".$value->update_date."</td>
-											// 						<td>".$value->status_active."</td>
-											// 			   <tr>";
+									  if(strlen($value->name) >20 ){ $name = substr($value->name,0,20).'...';}else{ $name = $value->name; }
+								      if(strlen($value->phone) >20 ){ $phone = substr($value->phone,0,20).'...';}else{$phone = $value->phone; }
+								      if(strlen($value->attn) >20 ){ $attn = substr($value->attn,0,20).'...';}else{$attn = $value->attn; }
 
 											$message       .= 
 																	'<tr>
 																      <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$value->reference_id.'').'\')">'.$value->reference_id.'</a></td>
-																      <td>'.$value->name.'</td>
-																      <td>'.$value->attn.'</td>
+																      <td>'.$name.'</td>
+																      <td>'.$attn.'</td>
 																      <td>'.$value->country_name.'</td>
-																      <td>('.$value->code_phone.') '.$value->phone.'</td>
+																      <td>('.$value->code_phone.') '.$phone.'</td>
 																      <td>'.$value->create_by.'</td>
 																      <td>'.$value->create_date.'</td>
 																      <td>'.$value->update_by.'</td>
 																      <td>'.$value->update_date.'</td>
 																      <td>'.$value->status_active.'</td>
       																</tr>';
-												   
+
 									}
-						}else{
-							$message 	= "No available data";
-						}
+
+
+				      						$head[] = array('Reference ID', 'Name', 'Attn','Email', 'Address','Country','Telephone Number', 'Tax', 'Status','Entry By', 'Entry Date', 'Modified By', 'Modifed Date','Status');
+											foreach($get_customers as $row) {
+												$head[] = array($row->reference_id,$row->name,$row->attn,$row->email,$row->address, $row->country_name,$row->phone,$row->tax_class,$row->status_active,$row->create_by,$row->create_date,$row->update_by,$row->update_date,$row->status_active);
+											}
+
+											//print_r($head);
+											$file_name = time()."_customer_file.csv";
+											$fp = fopen(path_pdf.$file_name, 'w');
+
+
+											foreach ($head as $fields) {
+
+											    fputcsv($fp, $fields);
+											}
+
+											$link_result     = base_url('asset/pdf/'.$file_name);								
+												   
+
+												$status 	=  TRUE;	
+
+							}else{
+
+								$status 	=  FALSELSELSE;
+								$message 	= "No available data";
+								$link_result       = "javascript();";
+
+							}
 						
 								
-						$status 	=  TRUE;
-						echo json_encode(array('status' => $status , 'message' => $message));				
+					
+						echo json_encode(array('status' => $status , 'message' => $message , 'link_result' => $link_result));				
 			break;
 
-			case 'print_csv' :
+				case 'print_csv' :
 
-						$search        = $_POST['search_input'];
-						//$message = "";
-						
-						if(isset($search))
-						{
-									$get_customers =  $this->customers_model->get_customer_search($search);
 				
-						}else{
-									$get_customers =  $this->customers_model->get_data();
-						}
-
-						if(sizeof($get_customers) > 0)
-						{
+						
+						$get_customers =  $this->customers_model->get_data();
+						
 							$head[] = array('Reference ID', 'Name', 'Attn', 'Country','Telephone Number', 'Entry By', 'Entry Date', 'Modified By', 'Modifed Date','Status');
 							foreach($get_customers as $row) {
 								$head[] = array($row->reference_id,$row->name,$row->attn,$row->country_name,$row->phone,$row->create_by,$row->create_date,$row->update_by,$row->update_date,$row->status_active);
@@ -482,26 +489,21 @@ class Customers extends MY_Controller {
 							$file_name = time()."_customer_file.csv";
 							$fp = fopen(path_pdf.$file_name, 'w');
 
+							$dir = base_url('asset/pdf/'.$file_name);	
 
 							foreach ($head as $fields) {
 
 							    fputcsv($fp, $fields);
 							}
 
-							$button     =  "<a href='".base_url('asset/pdf/'.$file_name)."'><button class='btn btn-primary'>Download CSV</button></a>";		
-							$status 	=  TRUE;
-						}else
-						{
-							$status 	=  FALSE;
-							$button     = "";
-						}
+								
+							echo json_encode(array('link_result' => $dir ));	
 
-						
-						echo json_encode(array('status' => $status , 'button' => $button));				
 
 
 			break;
 
+			
 		}
 	}
 	
