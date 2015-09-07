@@ -1,4 +1,5 @@
 <link href="<?php echo base_url()?>style/css/bootstrap.css" rel="stylesheet" type="text/css" />
+
 <style>
     body {
     background-color: white;
@@ -68,8 +69,8 @@
 
 
 </style>
-<div class="container">
-
+<div class="container">  
+  
     <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
 
         <div class="row">
@@ -87,13 +88,14 @@
                 <div class="panel-title text-center">Login</div>
             </div>
 
+        <form id="login_form" method="post" action="<?php echo base_url()?>login/sbt_login">
             <div class="panel-body" >
 
                  <div  id="alert-form" style="display:none"></div>
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="user" type="text" class="form-control" name="username" value="" placeholder="User">
+                        <input id="username" type="text" class="form-control" name="username" value="" placeholder="User">
                     </div>
                         <br/>
                     <div class="input-group">
@@ -104,53 +106,81 @@
                     <div class="form-group">
                         <!-- Button -->
                         <div class="col-sm-12 controls">
-                           <button onclick="login()" class="btn btn-primary">Sign in</button>
+                           <button class="btn btn-primary">Sign in</button>
                         </div>
                     </div>
 
+                </div>
 
-
-            </div>
+            </form>
         </div>
     </div>
+ 
 </div>
 
 
 <script src="<?php echo base_url()?>style/js/jquery-1.11.2.min.js"></script>
 
 <script src="<?php echo base_url()?>style/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>style/js/jquery.form.js" type="text/javascript"></script>   
+
 
 <script>
 
- function login(){
+$(document).ready(function() {
+  
+        // var username  = $("#user").val();
+        // var password  = $("#password").val();
 
-        var base_url  = "<?php echo base_url()?>";
-        var username  = $("#user").val();
-        var password  = $("#password").val();
+     //   $('#login_form').submit(function(event) {
 
-     	$.ajax({
-                url         : base_url + "login/sbt_login",
-                type        : "POST",
-               	dataType    :'json',
-                data        : { username: username, password: password },
-                success: function(data){
-                       
-                        if(data.status == true){
-                               $('#alert-form').removeClass("alert alert-danger").addClass("alert alert-success").html(data.message).fadeIn();
-                               setTimeout(function(){
-                                    $('#alert-form').html(data.message).fadeOut();
-                                      location.reload();
-                                },1000);
-                         }else{
-                              $('#alert-form').removeClass("alert alert-success").addClass("alert alert-danger").html(data.message).fadeIn();
-                              setTimeout(function(){
-                                    $('#alert-form').html(data.message).fadeOut();
+      $('form#login_form').ajaxForm({
+        dataType:'json',
+        success: function(data){
           
-                                },800);
-                         }
-                }
-        });
+            if(data.status == true){
+ 
+                $('#alert-form').removeClass("alert alert-danger").addClass("alert alert-success").html(data.message).fadeIn();
+                //  $('form#form_country').resetForm();
+               setTimeout(function(){
+                 //$('.alert-form').html(result.message).fadeOut();
+                  location.reload("<?php echo base_url()?>");
+              },800);
+            }else {
+                $('#alert-form').removeClass("alert alert-success").addClass("alert alert-danger").html(data.message).fadeIn();
+                   setTimeout(function(){
+                   $('#alert-form').html(data.message).fadeOut();
+              },800);
+            }
+             
+        
+        }
+      });
 
- }
+
+        // $('form#login_form').ajaxForm({
+            
+        //       	dataType      :'json',
+        //         data          : { username: username, password: password },
+        //         success: function(data){
+                       
+        //                 if(data.status == true){
+        //                        $('#alert-form').removeClass("alert alert-danger").addClass("alert alert-success").html(data.message).fadeIn();
+        //                        setTimeout(function(){
+        //                             $('#alert-form').html(data.message).fadeOut();
+        //                               location.reload();
+        //                         },1000);
+        //                  }else{
+        //                       $('#alert-form').removeClass("alert alert-success").addClass("alert alert-danger").html(data.message).fadeIn();
+        //                       setTimeout(function(){
+        //                             $('#alert-form').html(data.message).fadeOut();
+          
+        //                         },800);
+        //                  }
+        //         }
+        // });
+
+});
+
 
 </script>
