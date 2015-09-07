@@ -420,19 +420,33 @@ class Customers extends MY_Controller {
 						if(sizeof($get_customers) > 0){
 
 									foreach ($get_customers as $key => $value) {
-											
-											$message 	.= "<tr>
-																	<td>".$value->reference_id."</td>
-																	<td>".$value->name."</td>
-																	<td>".$value->attn."</td>
-																	<td>".$value->country_name."</td>
-																	<td>(".$value->code_phone.")".$value->phone."</td>
-																	<td>".$value->create_by."</td>
-																	<td>".$value->create_date."</td>
-																	<td>".$value->update_by."</td>
-																	<td>".$value->update_date."</td>
-																	<td>".$value->status_active."</td>
-														   <tr>";
+															//<a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$val->reference_id.'').'\')">'.$val->reference_id.'</a>
+											// $message 	.= "<tr>
+											// 						<td>".$value->reference_id."</td>
+											// 						<td>".$value->name."</td>
+											// 						<td>".$value->attn."</td>
+											// 						<td>".$value->country_name."</td>
+											// 						<td>(".$value->code_phone.")".$value->phone."</td>
+											// 						<td>".$value->create_by."</td>
+											// 						<td>".$value->create_date."</td>
+											// 						<td>".$value->update_by."</td>
+											// 						<td>".$value->update_date."</td>
+											// 						<td>".$value->status_active."</td>
+											// 			   <tr>";
+
+											$message       .= 
+																	'<tr>
+																      <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$value->reference_id.'').'\')">'.$value->reference_id.'</a></td>
+																      <td>'.$value->name.'</td>
+																      <td>'.$value->attn.'</td>
+																      <td>'.$value->country_name.'</td>
+																      <td>('.$value->code_phone.') '.$value->phone.'</td>
+																      <td>'.$value->create_by.'</td>
+																      <td>'.$value->create_date.'</td>
+																      <td>'.$value->update_by.'</td>
+																      <td>'.$value->update_date.'</td>
+																      <td>'.$value->status_active.'</td>
+      																</tr>';
 												   
 									}
 						}else{
