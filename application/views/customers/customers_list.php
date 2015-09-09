@@ -72,7 +72,8 @@ $(document).ready(function(){
 
    $('table.table').dataTable({
      "bFilter": false,
-      "bInfo" : false
+      "bInfo" : false,
+      "autoWidth": false
   });
 
 

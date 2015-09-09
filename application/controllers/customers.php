@@ -84,11 +84,14 @@ class Customers extends MY_Controller {
 
 
 	function delete_customer($reference_id){
-				$data['get_tax']		= $this->tool_model->get_tax();
-				$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
-			//	$data        	        = array();
-				$data['title']			= 'Customer Delete';
-				$this->set_content('customers/customer_delete',$data);
+
+			
+					$data['get_tax']		= $this->tool_model->get_tax();
+					$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
+				//	$data        	        = array();
+					$data['title']			= 'Customer Delete';
+					$this->set_content('customers/customer_delete',$data);
+
 	}
 
 	function email(){
@@ -100,8 +103,9 @@ class Customers extends MY_Controller {
 	function ajax($page = null){
 			switch ($page) {
 				case 'add_customer':
+					if($this->session->userdata('login') == TRUE){
 
-					$reference_id =  $_POST['reference_id'];
+							$reference_id =  $_POST['reference_id'];
 					$name =  $_POST['name'];
 					$attn =  $_POST['attn'];
 					$email = $_POST['email'];
@@ -185,13 +189,16 @@ class Customers extends MY_Controller {
 						// 		$message = "wrong input format";
 						// }
 								
-								echo json_encode(array('status'=> $status, 'message'=> $message));
+								
+
+					}
+						echo json_encode(array('status'=> $status, 'message'=> $message));
 
 				break;
 
 				case 'edit_customer':
 
-
+					if($this->session->userdata('login') == TRUE){
 					$second_email = $_POST['second_email'];
 					$third_email = $_POST['third_email'];
 
@@ -234,17 +241,29 @@ class Customers extends MY_Controller {
 					$this->customers_model->customer_edit($reference_id,$data);
 					$status  = TRUE;
 					$message = "Edit success";
+				}
 					echo json_encode(array("status"=> $status, "message" => $message));
 
 				break;
 
 				case 'delete_customer':
 
+				//	$update_by = $this->session->userdata('username');
+					if( $this->session->userdata('login') == TRUE){
+
+						$data['update_date']  = date('Y-m-d H:i:s');
+						$data['update_by']	  = $this->session->userdata('username'); 
 						$reference_id = $_POST['reference'];
 						$data['status_active']= "deleted";
 						$this->customers_model->customer_edit($reference_id,$data);
+						$status =  TRUE;
+						$message = "Delete Success";
+					}else{
+						$status =  FALSE;
+						$message = "Delete Unsuccessfully";
+					}
 
-						echo json_encode(array("status"=> TRUE, "message" => "Delete Success"));
+						echo json_encode(array("status"=> $status , "message" => $message));
 
 
 				break;
@@ -258,7 +277,7 @@ class Customers extends MY_Controller {
 				break;
 
 				case 'send_email':
-
+						if($this->session->userdata('login') == TRUE){
 							$to 		= $_POST['to'];
 							$subject 	= $_POST['subject'];
 							$message 	= $_POST['message'];
@@ -337,6 +356,10 @@ class Customers extends MY_Controller {
 								$message_alert	= "Email has been sent.";
 						}
 						
+					}else{
+								$status		= lose;
+								$message_alert	= "Failed to sent email.";
+					}
 						echo json_encode(array("status"=> $status, "message" => $message_alert ));
 
 

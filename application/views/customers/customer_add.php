@@ -343,14 +343,21 @@ function add_customer(){
                      $(".submit").removeClass('disabled').html('Submit');
                     $('.alert-form').fadeOut();
                   },800);    
+              }else if(json.status == 'error_function'){
+
+                    $('.alert-form').fadeIn(json.message);  
+                    setTimeout(function(){   
+                        location.reload();
+                  },800);    
               }
             },
 
             error : function(){
 
-                   alert("wrong format. Please check all field");
-
+                   alert("wrong format. Please check all field");  
                    $(".submit").removeClass('disabled').html('Submit');
+                   location.reload();
+
             }
           });
 

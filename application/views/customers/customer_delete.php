@@ -226,12 +226,21 @@
                             },800);
                                   
 
-                            }
+                       }else {
+
+                            $('.result-message').html(result.message).addClass('alert alert-success').fadeIn();
+                              setTimeout(function(){
+                                    
+                                    location.reload();
+                                   //setPage('<?php echo base_url() ?>customers/home');
+                            },800);
+                       }
                     },
-                    error: function( error )
+                   error: function( error )
                     {
 
                          alert( error );
+                         location.reload();
 
                     }
 

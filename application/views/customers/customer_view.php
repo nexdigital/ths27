@@ -439,7 +439,7 @@ $('form#edit_customer').validate({
                     {
 
                          alert( "There's something wrong with update customers.Please contact Admin" );
-
+                        location.reload();
                     }
 
               });
@@ -462,6 +462,7 @@ $('form#edit_customer').validate({
                     {
 
                          alert( error );
+                         location.reload();
 
                     }
 
@@ -498,6 +499,16 @@ $('form#edit_customer').validate({
                             },800);
                                   
 
+                            }else if( result.status == lose ){
+
+                                  $('.alert-email').html(result.message).fadeOut();
+                                  setTimeout(function(){
+                               
+                                  
+                                   location.reload();
+                                 },800);
+
+
                             }else{
                                     $('.alert-email').html(result.message).removeClass('alert alert-success').addClass('alert alert-danger').fadeIn();
                             setTimeout(function(){
@@ -517,6 +528,7 @@ $('form#edit_customer').validate({
                          setTimeout(function(){
                              $('.alert-email').fadeOut();
                              $(".send-email").removeClass('disabled').html('Send');
+                             location.reload();
                         },1000);
                     }
 
