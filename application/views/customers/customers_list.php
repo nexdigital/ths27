@@ -73,7 +73,8 @@ $(document).ready(function(){
    $('table.table').dataTable({
      "bFilter": false,
       "bInfo" : false,
-      "autoWidth": false
+      "autoWidth": false,
+       stateSave: true
   });
 
 
