@@ -1,19 +1,60 @@
- <form id="search_form" method="post" action="<?php echo base_url()?>customers/ajax/search" >
- <div class="col-lg-6" style="float:right">
- 
-    <div class="input-group">
 
-     
-            <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="submit">Go!</button>
-              <!-- <input type="submit" class="btn btn-default" value="Go!"> -->
-            </span>
+
+
+  <div class="panel panel-default">
+  <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
+  <div class="panel-body collapse" id="demo">
+  <form id="search_form" method="post" action="<?php echo base_url()?>customers/ajax/search" > 
+   <table class="table" style="width:100%">
+            <tbody>
+                    <tr>
+                        <td> <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for..."></td>
+                        <td><input type="text" name="name" class="form-control" placeholder="Name"></td>
+                        <td><input type="text" name="attn" class="form-control" placeholder="Attn"></td>
+                        <td>
+                                <select class="form-control" id="country" name="country">
+                                  <option value=""></option>
+                                        <?php foreach ($this->tool_model->list_country() as $key => $value) { 
+                                                echo "<option value='".$value->country_id."'>".$value->country_name."</option>";
+
+
+                                        } ?>
+                                  </select>
+
+
+                        </td>
+                        <td><input type="text" name="phone" class="form-control" placeholder="Telephone Number"></td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" name="entry_date" class="form-control" placeholder="Entry Date"></td>
+                        <td><input type="text" name="entry_by" class="form-control" placeholder="Entry By"></td>
+                        <td><input type="text" name="modified_by" class="form-control" placeholder="Modified By"></td>
+                        <td><input type="text" name="modified_date" class="form-control" placeholder="Modified Date"></td>
+                        <td><input type="text" name="status" class="form-control" placeholder="Status"></td>
+                    </tr>
+                     <tr>
+                         <td><button class="btn btn-default" type="submit">Search!</button></td>
+                     </tr> 
+            </tbody>
+
+     </table> 
+     </form> 
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
     
-    </div><!-- /input-group -->
-     
-  </div><!-- /.col-lg-6 -->
- </form>
+
+
 <table id="example2" class="table  table-striped table-hovered">         
   <thead>
     <th>Reference ID</th>
@@ -70,7 +111,7 @@ $("input").keypress(function(event) {
 $(document).ready(function(){ 
 
 
-   $('table.table').dataTable({
+   $('#example2').dataTable({
      "bFilter": false,
       "bInfo" : false,
       "autoWidth": false,
