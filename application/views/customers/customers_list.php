@@ -57,7 +57,7 @@
 
 <table id="example2" class="table  table-striped table-hovered">         
   <thead>
-    <th>Referaence ID</th>
+    <th>Reference ID</th>
     <th>Name</th>
     <th>Attn</th>
     <th>Country</th>
