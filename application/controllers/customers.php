@@ -392,7 +392,7 @@ class Customers extends MY_Controller {
 				case 'autoCompleteID':
 						$reference_id = $_GET['q'];
 						$this->db->like('reference_id',$reference_id);
-						$this->db->where_in('status_active',array('active'));
+					//	$this->db->where_in('status_active',array('active'));
 						$get = $this->db->get('customer_table');
 
 						$ID_customers_list = array();
@@ -406,7 +406,7 @@ class Customers extends MY_Controller {
 				case 'autoComplete':
 						$name = $_GET['q'];
 						$this->db->like('name',$name);
-						$this->db->where_in('status_active',array('active'));
+				//		$this->db->where_in('status_active',array('active'));
 						$get = $this->db->get('customer_table');
 
 						$name_customers_list = array();
@@ -415,6 +415,34 @@ class Customers extends MY_Controller {
 						}
 
 						echo json_encode($name_customers_list);
+				break;
+
+				case 'autoComplete_attn':
+						$attn = $_GET['q'];
+						$this->db->like('attn',$attn);
+				//		$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$name_customers_attn = array();
+						foreach($get->result() as $row) {
+							$name_customers_attn[] = $row->attn;
+						}
+
+						echo json_encode($name_customers_attn);
+				break;
+
+				case 'autoComplete_phone':
+						$phone = $_GET['q'];
+						$this->db->like('phone',$phone);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$name_customers_phone = array();
+						foreach($get->result() as $row) {
+							$name_customers_phone[] = $row->phone;
+						}
+
+						echo json_encode($name_customers_phone);
 				break;
 
 			case 'check_available_name':

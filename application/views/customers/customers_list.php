@@ -1,6 +1,3 @@
-
-
-
   <div class="panel panel-default">
   <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
   <div class="panel-body collapse" id="demo">
@@ -9,7 +6,7 @@
             <tbody>
                     <tr>
                        <!--  <td> <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for..."></td> -->
-                         <td> <input type="text" id="reference_id" name="reference_id" class="form-control" placeholder="Search for..."></td>
+                         <td> <input type="text" id="reference_id" name="reference_id" class="form-control" placeholder="Reference ID"></td>
                         <td><input type="text" name="name" class="form-control" placeholder="Name"></td>
                         <td><input type="text" name="attn" class="form-control" placeholder="Attn"></td>
                         <td>
@@ -137,6 +134,38 @@ $("input").keypress(function(event) {
         $("#search_form").submit();
     }
 });
+
+$('input[name="reference_id"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoCompleteID') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+     $('input[name="name"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+     $('input[name="attn"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_attn') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+        $('input[name="phone"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_phone') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
 
 $(document).ready(function(){ 
 
