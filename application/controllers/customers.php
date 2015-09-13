@@ -429,17 +429,64 @@ class Customers extends MY_Controller {
 			case 'search':
 
 						
-						$search        = $_POST['search_input'];
-						$message = "";
-						
-						if(isset($search))
-						{
-									$get_customers =  $this->customers_model->get_customer_search($search);
-				
-						}else{
-									$get_customers =  $this->customers_model->get_data();
+						$reference_id        	= $_POST['reference_id'];
+						$name 		   			= $_POST['name'];
+						$attn 					= $_POST['attn'];
+						$country 				= $_POST['country'];
+						$phone 					= $_POST['phone'];
+						$country 				= $_POST['country'];
+						$entry_date 			= $_POST['entry_date'];
+						$entry_by 				= $_POST['entry_by'];
+						$modified_by 			= $_POST['modified_by'];
+						$modified_date 			= $_POST['modified_date'];
+						$status 				= $_POST['status'];
+
+						$message 				= "";
+						$where   				= "" ;
+
+						if($reference_id  != "")
+						{		
+							$where .= "WHERE a.reference_id like '%".$reference_id."%'" ;
+						}
+						if($name  != "")
+						{		
+							  $where .= $where != "" ? " AND a.name like '%".$name."%'" : "WHERE a.name like '%".$name."%'" ; 
+					 	}
+					 	 if($attn  != "")
+						{		
+							  $where .= $where != "" ? " AND a.attn like '%".$attn."%'" : "WHERE a.attn like '%".$attn."%'" ; 
+						}
+						 if($country  != "")
+						{		
+							  $where .= $where != "" ? " AND a.country like '%".$country."%'" : "WHERE a.country like '%".$country."%'" ; 
+						}
+						if($phone  != "")
+						{		
+							  $where .= $where != "" ? " AND a.phone like '%".$phone."%'" : "WHERE a.phone like '%".$phone."%'" ; 
+						}
+						 if($entry_date  != "")
+						{		
+							  $where .= $where != "" ? " AND a.create_date like '%".$entry_date."%'" : "WHERE a.create_date like '%".$entry_date."%'" ; 
+						}
+						 if($entry_by  != "")
+						{		
+							  $where .= $where != "" ? " AND a.create_by like '%".$entry_by."%'" : "WHERE a.create_by like '%".$entry_by."%'" ; 
+						}
+						 if($modified_by  != "")
+						{		
+							  $where .= $where != "" ? " AND a.update_by like '%".$modified_by."%'" : "WHERE a.update_by like '%".$modified_by."%'" ; 
+						}
+						 if($modified_date  != "")
+						{		
+							  $where .= $where != "" ? " AND a.update_date like '%".$modified_date."%'" : "WHERE a.update_date like '%".$modified_date."%'" ; 
+						}
+						 if($status  != "")
+						{		
+							  $where .= $where != "" ? " AND a.status_active like '%".$status."%'" : "WHERE a.status_active like '%".$status."%'" ; 
 						}
 
+
+						$get_customers =  $this->customers_model->get_customer_search($where);
 						if(sizeof($get_customers) > 0){
 
 									foreach ($get_customers as $key => $value) {

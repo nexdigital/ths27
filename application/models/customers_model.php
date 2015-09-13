@@ -38,10 +38,11 @@ class Customers_model extends CI_Model {
 		$this->db->select('a.*,b.country_id,b.country_name');
 		$this->db->from('customer_table a');
 		$this->db->join('master_country_table b','b.country_id = a.country');
+		$this->db->order_by('a.create_date',"DESC");
 		$query = $this->db->get();
 		return $query->result();
-		
-		
+		// $query = $this->db->query("select a.*,b.country_id,b.country_name from customer_table as a LEFT JOIN master_country_table as b  ON  b.country_id = a.country  ORDER BY  a.create_date ASC ");
+		// return $query->result();
 		
 	}
 	
@@ -232,27 +233,32 @@ class Customers_model extends CI_Model {
 			return $get->row();
 	}
 
-	function get_customer_search($search)
+	// function get_customer_search($search)
+	// {
+	// 		$this->db->select('a.*,b.country_id,b.country_name');
+	// 		$this->db->distinct();
+	// 		$this->db->from('customer_table a');
+	// 		$this->db->join('master_country_table b','b.country_id = a.country');
+	// 		$this->db->like('a.name',$search);
+	// 		$this->db->or_like('a.reference_id',$search);
+	// 		$this->db->or_like('a.attn',$search);
+	// 		//$this->db->where('country',$search);
+	// 		$this->db->or_like('a.phone',$search);
+	// 		$this->db->or_like('a.create_by',$search);
+	// 		$this->db->or_like('a.create_date',$search);
+	// 		$this->db->or_like('a.update_by',$search);
+	// 		$this->db->or_like('a.update_date',$search);
+	// 		$this->db->or_like('a.status_active',$search);
+	// 		$sql = $this->db->get('customer_table');
+	// 		return $sql->result();
+	// }
+
+	function get_customer_search($where)
 	{
-			$this->db->select('a.*,b.country_id,b.country_name');
-			$this->db->distinct();
-			$this->db->from('customer_table a');
-			$this->db->join('master_country_table b','b.country_id = a.country');
-			$this->db->like('a.name',$search);
-			$this->db->or_like('a.reference_id',$search);
-			$this->db->or_like('a.attn',$search);
-			//$this->db->where('country',$search);
-			$this->db->or_like('a.phone',$search);
-			$this->db->or_like('a.create_by',$search);
-			$this->db->or_like('a.create_date',$search);
-			$this->db->or_like('a.update_by',$search);
-			$this->db->or_like('a.update_date',$search);
-			$this->db->or_like('a.status_active',$search);
-			$sql = $this->db->get('customer_table');
-			return $sql->result();
+		$query = $this->db->query("select a.* ,b.country_id, b.country_name from customer_table as a LEFT JOIN master_country_table as b ON a.country = b.country_id ".$where." ");
+		return $query->result();
 	}
 
-	
 }
 
 ?>

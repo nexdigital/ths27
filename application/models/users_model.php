@@ -66,6 +66,13 @@ class Users_model extends CI_Model {
 			
  		}
 
+
+ 	   function get_username()
+ 	   {
+ 	   		$get = $this->db->get("user_table");
+ 	   		return $get->result();
+ 	   }
+ 	
  	}
 
  ?>

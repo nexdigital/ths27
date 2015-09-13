@@ -5,15 +5,16 @@
   <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
   <div class="panel-body collapse" id="demo">
   <form id="search_form" method="post" action="<?php echo base_url()?>customers/ajax/search" > 
-   <table class="table" style="width:100%">
+   <table class="table" style="width:100%" border="0">
             <tbody>
                     <tr>
-                        <td> <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for..."></td>
+                       <!--  <td> <input type="text" id="search_input" name="search_input" class="form-control" placeholder="Search for..."></td> -->
+                         <td> <input type="text" id="reference_id" name="reference_id" class="form-control" placeholder="Search for..."></td>
                         <td><input type="text" name="name" class="form-control" placeholder="Name"></td>
                         <td><input type="text" name="attn" class="form-control" placeholder="Attn"></td>
                         <td>
                                 <select class="form-control" id="country" name="country">
-                                  <option value=""></option>
+                                  <option value="">Select Country</option>
                                         <?php foreach ($this->tool_model->list_country() as $key => $value) { 
                                                 echo "<option value='".$value->country_id."'>".$value->country_name."</option>";
 
@@ -23,15 +24,44 @@
 
 
                         </td>
-                        <td><input type="text" name="phone" class="form-control" placeholder="Telephone Number"></td>
+                        <td><input type="text" name="phone" id="phone" class="form-control" placeholder="Telephone Number"></td>
                     </tr>
 
                     <tr>
-                        <td><input type="text" name="entry_date" class="form-control" placeholder="Entry Date"></td>
-                        <td><input type="text" name="entry_by" class="form-control" placeholder="Entry By"></td>
-                        <td><input type="text" name="modified_by" class="form-control" placeholder="Modified By"></td>
-                        <td><input type="text" name="modified_date" class="form-control" placeholder="Modified Date"></td>
-                        <td><input type="text" name="status" class="form-control" placeholder="Status"></td>
+                        <td><div class="input-daterange" id="datepicker"><input type="text" name="entry_date" id="entry_date" class="form-control" placeholder="Entry Date"></div></td>
+                        <td>
+                              <select class="form-control" name="entry_by" id="entry_by">
+                                    <option value="">Entry By</option>
+                                     <?php foreach ($this->users_model->get_username() as $key => $value) { 
+                                                echo "<option value='".$value->username."'>".$value->username."</option>";
+
+
+                                        } ?>
+                              </select> 
+
+                        </td>
+                        <td><div class="input-daterange " id="datepicker"><input type="text" name="modified_date" id="modified_date" class="form-control" placeholder="Modified Date"></div></td>
+                        <td>
+
+                             <select class="form-control" name="modified_by" id="modified_by">
+                                    <option value="">Modified By</option>
+                                     <?php foreach ($this->users_model->get_username() as $key => $value) { 
+                                                echo "<option value='".$value->username."'>".$value->username."</option>";
+
+
+                                        } ?>
+                              </select> 
+                         </td>
+                       
+                       
+                        <td>
+                            <select class="form-control" name="status" id="status">
+                                <option value="">Select Status</option>
+                                <option value="Active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="deleted">Deleted</option>
+                            </select>
+                        </td>
                     </tr>
                      <tr>
                          <td><button class="btn btn-default" type="submit">Search!</button></td>
@@ -110,16 +140,25 @@ $("input").keypress(function(event) {
 
 $(document).ready(function(){ 
 
+  $('.input-daterange').datepicker({
+        format: "yyyy-mm-dd"
+    })
 
    $('#example2').dataTable({
      "bFilter": false,
       "bInfo" : false,
       "autoWidth": false,
+        "bSort": false,
        stateSave: true
   });
 
-
-
+$('form#search_form').validate({
+      rules: { phone: 
+                { 
+                  number: true
+                }
+              }
+});
 
 
   $('select.sumoselect').SumoSelect();
