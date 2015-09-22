@@ -222,7 +222,7 @@ $('form#search_form').validate({
                         $("#result_search").empty();
                          $("#Print_csv").removeAttr("Disabled");
                         // $(".paginate_button").removeAttr("Disabled")
-                        $('.paginate_button ').removeClass('disabled');
+                        $('.paginate_button ').fadeIn();
 
                         $("#MyLinks").attr({
                                               href    : result.link_result,
@@ -238,7 +238,7 @@ $('form#search_form').validate({
                         $("#Print_csv").attr("Disabled","disabled");
                         // $(".paginate_button").attr("Disabled","disabled") ;
 
-                        $('.paginate_button ').addClass('disabled');
+                        $('.paginate_button ').fadeOut();
                         setTimeout(function(){   
                              $("#result_search").html( result.message);
                         },2);
