@@ -178,6 +178,7 @@ $(document).ready(function(){
       "bInfo" : false,
       "autoWidth": false,
         "bSort": false,
+          "pagingType": "full_numbers",
        stateSave: true
   });
 
@@ -219,7 +220,10 @@ $('form#search_form').validate({
                 if(result.status == true){
 
                         $("#result_search").empty();
-                         $("#Print_csv").removeAttr("Disabled")
+                         $("#Print_csv").removeAttr("Disabled");
+                        // $(".paginate_button").removeAttr("Disabled")
+                        $('.current').removeClass('disabled');
+
                         $("#MyLinks").attr({
                                               href    : result.link_result,
                                               target  :"_blank" 
@@ -231,7 +235,10 @@ $('form#search_form').validate({
                     }else{
 
                         $("#result_search").empty();
-                        $("#Print_csv").attr("Disabled","disabled")
+                        $("#Print_csv").attr("Disabled","disabled");
+                        // $(".paginate_button").attr("Disabled","disabled") ;
+
+                        $('.current').addClass('disabled');
                         setTimeout(function(){   
                              $("#result_search").html( result.message);
                         },2);
