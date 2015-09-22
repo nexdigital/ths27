@@ -34,13 +34,6 @@ class Customers extends MY_Controller {
 		$data['title']			= 'Customers';
 		$this->set_content('customers/customers_list',$data);
 
-		/**
-		$data['get_customers']  = $this->customers_model->get_data();
-		$json['content']		= $this->load->view('customers/customers_list',$data,true);
-		$json['title']			= 'Customers';
-		echo json_encode($json);
-		//break;
-		**/
 	}
 
 	//function view_customer($reference_id){
@@ -48,16 +41,16 @@ class Customers extends MY_Controller {
 
 		$data['get_tax']		= $this->tool_model->get_tax();
 		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
-	//	$data        	        = array();
 		$data['title']			= 'Edit Customer';
 		$this->set_content('customers/customer_view',$data);
+	}
 
-		/**
-		$data['get_customers']  = $this->customers_model->get_by_id($reference_id);
-		$json['content']		= $this->load->view('customers/customer_view',$data,true);
-		$json['title']			= 'View Customers';
-		echo json_encode($json);
-		**/
+	function view_customer_name($name)
+	{
+		$data['get_tax']		= $this->tool_model->get_tax();
+		$data['get_customers'] 	= $this->customers_model->get_by_name($name);
+		$data['title']			= 'Edit Customer';
+		$this->set_content('customers/customer_view',$data);
 	}
 
 	function add_customer(){
@@ -511,8 +504,9 @@ class Customers extends MY_Controller {
 						 if($status  != "")
 						{		
 							  $where .= $where != "" ? " AND a.status_active like '%".$status."%'" : "WHERE a.status_active like '%".$status."%'" ; 
+						}else{
+							$where .= " ORDER BY reference_id ASC LIMIT 10";
 						}
-
 
 						$get_customers =  $this->customers_model->get_customer_search($where);
 						if(sizeof($get_customers) > 0){
