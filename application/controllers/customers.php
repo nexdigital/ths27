@@ -505,7 +505,7 @@ class Customers extends MY_Controller {
 						{		
 							  $where .= $where != "" ? " AND a.status_active like '%".$status."%'" : "WHERE a.status_active like '%".$status."%'" ; 
 						}else{
-							$where .= " ORDER BY reference_id ASC LIMIT 10";
+							$where .= " ORDER BY create_date DESC LIMIT 10";
 						}
 
 						$get_customers =  $this->customers_model->get_customer_search($where);
