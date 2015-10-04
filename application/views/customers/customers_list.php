@@ -174,7 +174,7 @@ $(document).ready(function(){
     })
 
    $('#example2').dataTable({
-     "bFilter": false,
+     "bFilter": true,
       "bInfo" : false,
       "autoWidth": false,
         "bSort": false,
