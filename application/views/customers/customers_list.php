@@ -61,7 +61,10 @@
                         </td>
                     </tr>
                      <tr>
-                         <td><button class="btn btn-default" type="submit">Search!</button></td>
+                         <td><button class="btn btn-default" type="submit">Search!</button>
+                            <button class="btn btn-danger" onClick ="reset_search()" type="submit">Reset</button>
+                         </td>
+                         
                      </tr> 
             </tbody>
 
@@ -382,6 +385,11 @@ function print_csv()
             }
 
       });
+}
+
+function reset_search()
+{
+  $('#search_form')[0].reset();
 }
 
 

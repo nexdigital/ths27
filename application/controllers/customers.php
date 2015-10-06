@@ -54,7 +54,16 @@ class Customers extends MY_Controller {
 	}
 
 	function add_customer(){
-		$data['reference_id']	= $this->customers_model->customer_new_id();
+
+		foreach ($this->customers_model->customer_new_id() as $key => $value) {
+			$angka  = $value->reference_id;
+			$cus  = substr($angka,0,4);
+			$back  = substr($angka,4);
+			$tambah = $back + 1;
+			
+			$data['reference_id'] = $cus.sprintf('%06d',$tambah) ;
+		}
+		
 		$data['get_group']		= $this->master_customer->get_group();
 		if(isset($_GET['hawb_no'])) {
 			$data['data_host']		= $this->manifest_model->get_data($_GET['hawb_no']);

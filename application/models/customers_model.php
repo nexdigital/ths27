@@ -56,7 +56,7 @@ class Customers_model extends CI_Model {
 	
 	
 	function customer_new_id(){
-		$get = $this->db->count_all('customer_table');
+		/*$get = $this->db->count_all('customer_table');
 		$get = $get + 111;
 		$len = strlen($get);
 			switch ($len) {
@@ -66,7 +66,11 @@ class Customers_model extends CI_Model {
 			case '4': return 'CUST00' . $get; break;   
 			case '5': return 'CUST0' . $get; break;   
 			default: return 'CUST'.$get; break;
-			}
+			}*/
+		$db = $this->db->query('select * from customer_table ORDER BY cust_id DESC LIMIT 1');
+		return $db->result();
+		
+    		
 	}
 
 	function customer_edit($reference_id,$data)
