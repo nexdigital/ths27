@@ -30,6 +30,8 @@ class Customers extends MY_Controller {
 	}
 
 	public function home() {
+		$data['menu']			= "Master";
+		$data['submenu']		= "Customers";
 		$data['get_customers']	= $this->customers_model->get_data();
 		$data['title']			= 'Customers';
 		$this->set_content('customers/customers_list',$data);
