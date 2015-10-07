@@ -226,6 +226,7 @@ $('form#search_form').validate({
                          $("#Print_csv").removeAttr("Disabled");
                         // $(".paginate_button").removeAttr("Disabled")
                         $('.paginate_button ').fadeIn();
+						$('#example2_length').fadeIn();
 
                         $("#MyLinks").attr({
                                               href    : result.link_result,
