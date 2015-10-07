@@ -591,11 +591,34 @@ class Customers extends MY_Controller {
 						
 						if(sizeof($get_customers) > 0){
 
-									$head[] = array('Reference ID', 'Name', 'Attn', 'Country','Telephone Number', 'Entry By', 'Entry Date', 'Modified By', 'Modifed Date','Status');
+									$head[] = array('Reference ID', 'Name','First Email','Second Email','Third Email','Address','Attn','City','Country','Zip Code','Phone Number','Second Phone Number','Third Phone Number','Mobile','Fax','Tax Class','Status Active','Entry Date','Entry By','Modified Date','Modified By');
 									foreach($get_customers as $row) {
-										$head[] = array($row->reference_id,$row->name,$row->attn,$row->country_name,$row->phone,$row->create_by,$row->create_date,$row->update_by,$row->update_date,$row->status_active);
-									}
+										$phone = "(".$row->code_phone.")".$row->phone;
+										if ($row->second_c_phone == "")
+											{
+												$second_phone = "";
+												
+											}else{
+												$second_phone = "(".$row->second_c_phone.")".$row->second_phone;
+											}
+										
+										if($row->third_c_phone == "")
+										{
+											$third_phone ="";
+											
+										}else{
+											$third_phone = "(".$row->third_c_phone.")".$row->third_phone;
+										}
 
+										if($row->update_date =="0000-00-00 00:00:00")
+										{
+											$updated_date = "";
+										}else
+										{
+												$updated_date = $row->update_date;
+										}
+										$head[] = array($row->reference_id,$row->name,$row->email,$row->second_email,$row->third_email,$row->address,$row->attn,$row->city,$row->country_name,$row->pos_code,$phone,$second_phone,$third_phone,$row->mobile,$row->fax,$row->tax_class,$row->status_active,$row->create_date,$row->create_by,$updated_date,$row->update_by);
+									}
 									//print_r($head);
 									$file_name = time()."_customer_file.csv";
 									$fp = fopen(path_pdf.$file_name, 'w');
@@ -622,6 +645,32 @@ class Customers extends MY_Controller {
 
 			
 		}
+	}
+
+	function rahasia()
+	{
+
+				$count = sizeof( $this->customers_model->get_data());
+				$angka  = "CUST000111";
+				$cus  = substr($angka,0,4);
+				$back  = substr($angka,4);
+				$tambah = $back;
+
+
+				for($i= $angka; $i <= 60; $i++){
+				       	
+
+				         $data['reference_id'] = $cus.sprintf('%06d',$tambah );
+				      
+				       	$this->customers_model->rahasia($i,$data);
+				    	$tambah++;
+				   
+	
+				}
+					
+				 	echo $count;
+
+
 	}
 	
 

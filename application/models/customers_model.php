@@ -53,6 +53,11 @@ class Customers_model extends CI_Model {
 		return $query->row();
 	}
 	
+	function rahasia( $cust_id,$data)
+	{
+			$this->db->where('cust_id',$cust_id);
+			$this->db->update('customer_table', $data); 	
+	}
 	
 	
 	function customer_new_id(){
@@ -79,6 +84,8 @@ class Customers_model extends CI_Model {
 		$this->db->update('customer_table', $data); 	
 		
 	}
+
+
 	
 	function customer_delete($reference_id)
 	{
