@@ -43,6 +43,8 @@ class Customers extends MY_Controller {
 
 		$data['get_tax']		= $this->tool_model->get_tax();
 		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
+		$data['menu']			= "Master > Customers";
+		$data['submenu']		= "View Customer";
 		$data['title']			= 'Edit Customer';
 		$this->set_content('customers/customer_view',$data);
 	}
@@ -71,6 +73,8 @@ class Customers extends MY_Controller {
 			$data['data_host']		= $this->manifest_model->get_data($_GET['hawb_no']);
 			$data['customer_type']		= $_GET['customer_type'];
 		}
+		$data['menu']			= "Master > Customers";
+		$data['submenu']		= "Add Customer";
 		$data['title']			= 'Add Customer';
 		$this->set_content('customers/customer_add',$data);
 
@@ -88,11 +92,13 @@ class Customers extends MY_Controller {
 
 
 	function delete_customer($reference_id){
-
+			
 			
 					$data['get_tax']		= $this->tool_model->get_tax();
 					$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
 				//	$data        	        = array();
+					$data['menu']			= "Master > Customers";
+					$data['submenu']		= "Delete Customer";
 					$data['title']			= 'Customer Delete';
 					$this->set_content('customers/customer_delete',$data);
 
