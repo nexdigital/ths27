@@ -242,6 +242,7 @@ $('form#search_form').validate({
                         // $(".paginate_button").attr("Disabled","disabled") ;
 
                         $('.paginate_button ').fadeOut();
+						$('#example2_length').fadeOut();
                         setTimeout(function(){   
                              $("#result_search").html( result.message);
                         },2);
