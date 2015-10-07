@@ -657,7 +657,7 @@ class Customers extends MY_Controller {
 				$tambah = $back;
 
 
-				for($i= $angka; $i <= 60; $i++){
+				for($i= 1; $i <= 60; $i++){
 				       	
 
 				         $data['reference_id'] = $cus.sprintf('%06d',$tambah );
