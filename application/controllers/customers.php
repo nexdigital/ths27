@@ -115,7 +115,8 @@ class Customers extends MY_Controller {
 				case 'add_customer':
 					if($this->session->userdata('login') == TRUE){
 
-							$reference_id =  $_POST['reference_id'];
+
+					$reference_id =  $_POST['reference_id'];
 					$name =  $_POST['name'];
 					$attn =  $_POST['attn'];
 					$email = $_POST['email'];
@@ -141,12 +142,23 @@ class Customers extends MY_Controller {
 					$description = $_POST['description'];
 					
 
-					$regex = "/^[A-Za-z0-9_\-.\/]+$/";
-						// if (preg_match($regex, $reference_id) && preg_match($regex, $name) 
-						// 	&& preg_match($regex, $attn) && preg_match($regex, $city)
-						// 	&& preg_match($regex, $pos_code) && preg_match($regex, $phone) &&preg_match($regex, isset($mobile))
-						// 	&& preg_match($regex, $fax)) {
+					$check_customers = $this->customers_model->check_customers($reference_id);
+					if($check_customers)
+					{
+						$angka  = $reference_id;
+						$cus  = substr($angka,0,4);
+						$back  = substr($angka,4);
+						$tambah = $back + 1;
+			
+						
 
+						$status = "no_available";
+						$message = "Reference Id has been used before. Please try again to submit after window is close";
+						$new_reference = $cus.sprintf('%06d',$tambah);
+					}else{
+						
+							$regex = "/^[A-Za-z0-9_\-.\/]+$/";
+						
 							$data['reference_id'] = str_replace(' ', '', $reference_id );
 							$data['name'] 		  = htmlspecialchars($name);
 							$data['email'] 		  = $email;
@@ -185,24 +197,20 @@ class Customers extends MY_Controller {
 
 								$status = "redirect";
 								$message = base_url('manifest/view/verification_details?mawb_no='.urlencode($file->mawb_no));
+								$new_reference = "";
 								//echo json_encode(array('status'=> 'redirect', 'message'=> $message ));
 							} else {
 								$status = "success";
 								$message = "Save success";
+								$new_reference = "";
 								//echo json_encode(array('status'=> 'success', 'message'=> 'Save success'));
 							}
 
-
-						// }else{
-
-						// 		$status = "unsuccess";
-						// 		$message = "wrong input format";
-						// }
-								
-								
-
+	
 					}
-						echo json_encode(array('status'=> $status, 'message'=> $message));
+
+				}
+						echo json_encode(array('status'=> $status, 'message'=> $message,'new_reference'=>$new_reference));
 
 				break;
 
@@ -647,31 +655,71 @@ class Customers extends MY_Controller {
 		}
 	}
 
+
+	function rubah_id()
+	{
+		
+		$array = array();
+        	$no = 1;
+
+    	    foreach ($this->customers_model->get_tech() as $key => $value) {
+
+   
+        			$array[$value->cust_id] = $no;
+    		    	$no++;
+
+    	    }
+    	    $this->customers_model->update_tech($array);    	
+
+
+	}
 	function rahasia()
 	{
-
-				$count = sizeof( $this->customers_model->get_data());
-				$angka  = "CUST000111";
+		$array = array();
+        $no = 1;
+				/*$array = array();
+        		$no = 1;
+        		$angka  = "CUST000111";
 				$cus  = substr($angka,0,4);
 				$back  = substr($angka,4);
 				$tambah = $back;
 
+    	    foreach ($this->customers_model->get_tech() as $key => $value) {
 
-				for($i= 1; $i <= 60; $i++){
-				       	
+   
+        			$array[$value->cust_id] = $no;
+    		    	
+					for($i=1;$i<=20;$i++){
+					      $tambah;
+					      $data['reference_id'] =  $cus.sprintf('%06d',$tambah);
+					     // $this->customers_model->rahasia($value->cust_id,$data);
+					     
+					      $tambah++;
+					      					 echo $no."--". $cus.sprintf('%06d',$tambah)."<br/>";
+					}
 
-				         $data['reference_id'] = $cus.sprintf('%06d',$tambah );
-				      
-				       	$this->customers_model->rahasia($i,$data);
-				    	$tambah++;
-				   
-	
-				}
-					
-				 	echo $count;
+					$no++;	
+    	    }
+    	    $this->customers_model->update_tech($array);    	*/
+    	    $angka  = "CUST000111";
+			$cus  = substr($angka,0,4);
+			$back  = substr($angka,4);
+			$tambah = $back;
+    	    for ($i=1; $i <= 64 ; $i++) { 
+
+    	    	// echo $no;
+    	    	 $data['reference_id'] =  $cus.sprintf('%06d',$tambah);
+    	    	 $this->customers_model->rahasia($no,$data);
+
+    	    	$tambah++;
+    	    	$no++;
+    		}	
 
 
 	}
+
+
+
 	
 
 

@@ -270,6 +270,30 @@ class Customers_model extends CI_Model {
 		return $query->result();
 	}
 
+	 function get_tech()
+    {
+        $db = $this->db->query('select cust_id from customer_table');
+        return $db->result();
+    }
+
+    function update_tech($array)
+    {
+        // $con = mysql_connect('localhost','root','','smart_platform');
+        foreach ($array as $key => $value) {
+
+             
+             $sql = mysql_query("UPDATE  customer_table set cust_id = '".$value."' where `cust_id` = '".$key."'");
+
+        }
+        // mysqli_close($con);
+       
+
+    }
+
+
+
+	
+
 }
 
 ?>

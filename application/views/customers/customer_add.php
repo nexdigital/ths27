@@ -5,7 +5,7 @@
 
                            <div class="form-group">
                               <label>Reference Id</label> <label class="required-filed">*</label>
-                              <input id="reference_id" maxlength="20" placeholder="max 20 character" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
+                              <input id="reference_id" maxlength="20" placeholder="max 20 character" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>" readonly>
                              
                             </div>
 
@@ -195,6 +195,23 @@
 
 </form>
 
+ 
+  <div class="modal fade" id="no_available_modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+         
+         
+        </div>
+        <div class="modal-body">
+           <center><p class="message_available"></p></center>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
   
 
@@ -223,12 +240,14 @@ jQuery.validator.addMethod("alphanumeric", function(value, element) {
 }, "Letters and numbers only please");
 
 $('form#add_customer').validate({
-      rules: { reference_id: 
+      rules: { 
+/*
+              reference_id: 
                 { 
   								required: true, 
   								remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
   								alphanumeric:true 
-							  },
+							  },*/
 
                 name :
                 {
@@ -298,10 +317,12 @@ $('form#add_customer').validate({
 
 				
 			 },
-      messages: { reference_id: {
+      messages: {
+
+       /*  reference_id: {
 
                          remote: 'Reference Id has been used. Please try another Reference Id' 
-                  }, 
+                  }, */
                       name : {  
                           remote: 'name has been created. Please try another name'  
                       } 
@@ -343,7 +364,21 @@ function add_customer(){
                      $(".submit").removeClass('disabled').html('Submit');
                     $('.alert-form').fadeOut();
                   },800);    
-              }else if(json.status == 'error_function'){
+              }else if(json.status == 'no_available'){
+
+
+                  $("#no_available_modal").modal("show");
+                  $(".message_available").html(json.message);
+                   setTimeout(function(){   
+                        $("#no_available_modal").modal("hide");
+                  },800);   
+                   $("#reference_id").val(json.new_reference);
+                    $(".submit").removeClass('disabled').html('Submit');
+
+              }
+
+
+              else if(json.status == 'error_function'){
 
                     $('.alert-form').fadeIn(json.message);  
                     setTimeout(function(){   
@@ -356,7 +391,7 @@ function add_customer(){
 
                    alert("wrong format. Please check all field");  
                    $(".submit").removeClass('disabled').html('Submit');
-                   location.reload();
+                   // location.reload();
 
             }
           });
