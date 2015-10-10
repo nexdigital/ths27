@@ -1,4 +1,4 @@
-  <div class="panel panel-default">
+  <div class="panel panel-default" style="display:none">
   <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
   <div class="panel-body collapse" id="demo">
   <form id="search_form" method="post" action="<?php echo base_url()?>customers/ajax/search" > 
@@ -100,8 +100,24 @@
 
   </thead>
 
+<tfoot>
+            <tr>
+                <th>Reference ID</th>
+                <th>Name</th>
+                <th>Attn</th>
+                <th>Country</th>
+                <th>Telepon Number</th>
+                <th>Entry by</th>
+                <th>Entry date</th>
+                <th>Modified by</th>
+                <th>Modified date</th>
+                <th>Status</th>
+            </tr>
+</tfoot>
+
+
   <tbody id="result_search">
-    <?php 
+    <?php
       foreach($get_customers as $key => $val){
 
       if(strlen($val->name) >20 ){ $name = substr($val->name,0,20).'...';}else{ $name = $val->name; }
@@ -123,10 +139,10 @@
       } ?>
   </tbody>
 </table>
-<a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>              
-<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>    
+<a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>
+<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
 <a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
-
+<button class="btn btn-warning" onClick="reset_dt_view();">Reset</button>
 
 
 <script type="text/javascript">
@@ -170,24 +186,49 @@ $('input[name="reference_id"]').autoComplete({
           }
       });
 
-$(document).ready(function(){ 
+$(document).ready(function(){
 
   $('.input-daterange').datepicker({
         format: "yyyy-mm-dd"
-    })
+  });
 
-   $('#example2').dataTable({
+
+   $('#example2 tfoot th').each( function () {
+        var title = $('#example2 thead th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+
+
+// var table = $('#example2').DataTable();
+
+$("#example2").dataTable({
      "bFilter": true,
       "bInfo" : false,
       "autoWidth": false,
-        "bSort": false,
-          "pagingType": "full_numbers",
-       stateSave: true
-  });
+      "bSort": false,
+      "pagingType": "full_numbers",
+      "scrollX": true,
+      stateSave: true,
+      "fnStateSave": function(oSettings, oData) { save_dt_view(oSettings, oData); },
+      "fnStateLoad": function(oSettings) { return load_dt_view(oSettings); }
+      
 
+  });
+ $('#example2').DataTable().columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
 $('form#search_form').validate({
-      rules: { phone: 
-                { 
+      rules: { phone:
+                {
                   number: true
                 }
               }
@@ -207,12 +248,12 @@ $('form#search_form').validate({
             });
         }
     });
-    
+
     $("[data-toggle=tooltip]").tooltip();
 
 
      $('form#search_form').ajaxForm({
-        
+
             dataType  : 'json',
             beforeSubmit  : function(){
                             $("#MyLinks").removeAttr("onClick");
@@ -232,7 +273,7 @@ $('form#search_form').validate({
                                               href    : result.link_result,
                                               target  :"_blank" 
                                            });
-                        setTimeout(function(){   
+                        setTimeout(function(){
                              $("#result_search").html( result.message);
                         },2);
 
@@ -244,11 +285,11 @@ $('form#search_form').validate({
 
                         $('.paginate_button ').fadeOut();
 						$('#example2_length').fadeOut();
-                        setTimeout(function(){   
+                        setTimeout(function(){
                              $("#result_search").html( result.message);
                         },2);
                     }
-                       
+
             },
               error   : function(){
 
@@ -261,7 +302,7 @@ $('form#search_form').validate({
    // var search_input = $("#search_input").val();
 
 
-           
+
             // url       : "<?php echo base_url()?>customers/ajax/search",
             // data      : "search_input="+search_input,
             // type      : "post",
@@ -377,7 +418,7 @@ function print_csv()
 
                         alert(result.message);
                      }   
-                  
+
 
 
             },
@@ -392,6 +433,17 @@ function print_csv()
 function reset_search()
 {
   $('#search_form')[0].reset();
+}
+
+
+function save_dt_view (oSettings, oData) {
+  localStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+}
+function load_dt_view (oSettings) {
+  return JSON.parse( localStorage.getItem('DataTables_'+window.location.pathname) );
+}
+function reset_dt_view() {
+  localStorage.removeItem('DataTables_'+window.location.pathname);
 }
 
 

@@ -184,7 +184,7 @@
 
                             <div class="form-group">
                               <label >Description</label>
-                              <textarea class="form-control" maxlength="100" placeholder="max 100 character"  id="remark" name="description" rows="5" style="resize:none"></textarea>
+                              <textarea class="form-control" maxlength="100" placeholder="max 100 character"  id="remark" name="description" rows="1" style="resize:none"></textarea>
                             </div>
      <input type="hidden" name="hawb_no" value="<?php echo (isset($_GET['hawb_no'])) ? $_GET['hawb_no'] : ''?>">
      <input type="hidden" name="customer_type" value="<?php echo (isset($_GET['customer_type'])) ? $_GET['customer_type'] : ''?>">
