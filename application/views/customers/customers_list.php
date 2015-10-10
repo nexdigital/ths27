@@ -142,7 +142,7 @@
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>
 <a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
 <a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
-<button class="btn btn-warning" onClick="reset_dt_view();">Reset</button>
+<!-- <button class="btn btn-warning" onClick="fnResetAllFilters();">Reset</button>   -->
 
 
 <script type="text/javascript">
@@ -209,10 +209,8 @@ $("#example2").dataTable({
       "bSort": false,
       "pagingType": "full_numbers",
       "scrollX": true,
-      stateSave: true,
-      "fnStateSave": function(oSettings, oData) { save_dt_view(oSettings, oData); },
-      "fnStateLoad": function(oSettings) { return load_dt_view(oSettings); }
-      
+      stateSave: true
+
 
   });
  $('#example2').DataTable().columns().every( function () {
@@ -435,17 +433,11 @@ function reset_search()
   $('#search_form')[0].reset();
 }
 
+function fnResetAllFilters() {
+     //state.clear()
+   var table = $('#example2').DataTable();
+    $('input[type="text"]').val('');
 
-function save_dt_view (oSettings, oData) {
-  localStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
 }
-function load_dt_view (oSettings) {
-  return JSON.parse( localStorage.getItem('DataTables_'+window.location.pathname) );
-}
-function reset_dt_view() {
-  localStorage.removeItem('DataTables_'+window.location.pathname);
-}
-
-
 //
 </script>
