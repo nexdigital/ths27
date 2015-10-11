@@ -42,6 +42,7 @@
 setPage('<?php echo base_url('master/dashboard') ?>');
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript">
 jQuery.validator.addMethod("alphanumeric", function(value, element) {
     return this.optional(element) || /^\w+$/i.test(value);
