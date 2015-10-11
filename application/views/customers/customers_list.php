@@ -87,16 +87,16 @@
 
 <table id="example2" class="table  table-striped table-hovered">         
   <thead>
-    <th>Reference ID</th>
-    <th>Name</th>
-    <th>Attn</th>
-    <th>Country</th>
-    <th>Telepon Number</th>
-    <th>Entry by</th>
-    <th>Entry date</th>
-    <th>Modified by</th>
-    <th>Modified date</th>
-    <th>Status</th>
+    <th row_name="cust_ref_id">Reference ID</th>
+    <th row_name="cust_name">Name</th>
+    <th row_name="cust_attn">Attn</th>
+    <th row_name="cust_country">Country</th>
+    <th row_name="cust_telp_number">Telepon Number</th>
+    <th row_name="cust_entry_by">Entry by</th>
+    <th row_name="cust_entry_date">Entry date</th>
+    <th row_name="cust_modified_by">Modified by</th>
+    <th row_name="cust_modified_date">Modified date</th>
+    <th row_name="cust_status">Status</th>
 
   </thead>
 
@@ -142,6 +142,7 @@
 <a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>
 <a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
 <a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
+<button class="btn btn-warning" onCLick="reset_search_table()">Reset Search</button>
 <!-- <button class="btn btn-warning" onClick="fnResetAllFilters();">Reset</button>   -->
 
 
@@ -195,7 +196,10 @@ $(document).ready(function(){
 
    $('#example2 tfoot th').each( function () {
         var title = $('#example2 thead th').eq( $(this).index() ).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        var row_name = $('#example2 thead th').eq( $(this).index() ).attr('row_name');
+        var cookie_value = ($.cookie(row_name) && $.cookie(row_name) !== '') ? $.cookie(row_name) : '';
+
+        $(this).html( '<input type="text" placeholder="Search '+title+'" id="'+ row_name +'" value="'+ cookie_value +'" />' );
     } );
 
 
@@ -217,10 +221,13 @@ $("#example2").dataTable({
         var that = this;
  
         $( 'input', this.footer() ).on( 'keyup change', function () {
+          var cookie_name = $(this).attr('id');
             if ( that.search() !== this.value ) {
                 that
                     .search( this.value )
                     .draw();
+                    $.cookie(cookie_name,this.value);
+                    console.log(this.value);
             }
         } );
     } );
@@ -440,4 +447,19 @@ function fnResetAllFilters() {
 
 }
 //
+
+function reset_search_table(){
+  var table = $('#example2').DataTable();
+  table
+    .search('')
+    .columns().search('')
+    .draw();
+  
+  $('#example2 tfoot th').each( function () {
+        var title = $('#example2 thead th').eq( $(this).index() ).text();
+        var row_name = $('#example2 thead th').eq( $(this).index() ).attr('row_name');
+        $.removeCookie(row_name);
+        $('input#' + row_name).val('');
+  });
+}
 </script>
