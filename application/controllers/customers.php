@@ -569,9 +569,10 @@ class Customers extends MY_Controller {
       																</tr>';
 
 									}
+									//'base_url('customers/add_customer')
 											$message .= '</tbody></table>
 
-														<a href="#" onClick="setPage()"><button class="btn btn-primary">Add Customer</button></a>
+														<a href="#" onClick="setPage(\''.base_url('customers/add_customer/').'\')"><button class="btn btn-primary">Add Customer</button></a>
 														<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
 														<a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
 													    ';
