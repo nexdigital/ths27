@@ -44,7 +44,7 @@ class Customers extends MY_Controller {
 		$data['get_tax']		= $this->tool_model->get_tax();
 		$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
 		$data['menu']			= "Master > Customers";
-		$data['submenu']		= "View Customer";
+		$data['submenu']		= "Edit Customer";
 		$data['title']			= 'Edit Customer';
 		$this->set_content('customers/customer_view',$data);
 	}
@@ -98,7 +98,7 @@ class Customers extends MY_Controller {
 					$data['get_customers'] 	= $this->customers_model->get_by_id($reference_id);
 				//	$data        	        = array();
 					$data['menu']			= "Master > Customers";
-					$data['submenu']		= "Delete Customer";
+					$data['submenu']		= "Customer Delete";
 					$data['title']			= 'Customer Delete';
 					$this->set_content('customers/customer_delete',$data);
 
