@@ -475,19 +475,32 @@ class Customers extends MY_Controller {
 			case 'search':
 
 						
-						$reference_id        	= $_POST['reference_id'];
-						$name 		   			= $_POST['name'];
-						$attn 					= $_POST['attn'];
-						$country 				= $_POST['country'];
-						$phone 					= $_POST['phone'];
-						$country 				= $_POST['country'];
-						$entry_date 			= $_POST['entry_date'];
-						$entry_by 				= $_POST['entry_by'];
-						$modified_by 			= $_POST['modified_by'];
-						$modified_date 			= $_POST['modified_date'];
-						$status 				= $_POST['status'];
+						$reference_id        	= $this->input->post('reference_id');
+						$name 		   			= $this->input->post('name');
+						$attn 					= $this->input->post('attn');
+						$country 				= $this->input->post('country');
+						$phone 					= $this->input->post('phone');
+						$country 				= $this->input->post('country');
+						$entry_date 			= $this->input->post('entry_date');
+						$entry_by 				= $this->input->post('entry_by');
+						$modified_by 			= $this->input->post('modified_by');
+						$modified_date 			= $this->input->post('modified_date');
+						$status 				= $this->input->post('status');
 
-						$message 				= "";
+						$message 				= '<table id="example2" class="table  table-striped table-hovered">         
+													  <thead>
+													    <th row_name="cust_ref_id">Reference ID</th>
+													    <th row_name="cust_name">Name</th>
+													    <th row_name="cust_attn">Attn</th>
+													    <th row_name="cust_country">Country</th>
+													    <th row_name="cust_telp_number">Telepon Number</th>
+													    <th row_name="cust_entry_by">Entry by</th>
+													    <th row_name="cust_entry_date">Entry date</th>
+													    <th row_name="cust_modified_by">Modified by</th>
+													    <th row_name="cust_modified_date">Modified date</th>
+													    <th row_name="cust_status">Status</th>
+
+ 													 </thead>';
 						$where   				= "" ;
 
 						if($reference_id  != "")
@@ -529,11 +542,11 @@ class Customers extends MY_Controller {
 						 if($status  != "")
 						{		
 							  $where .= $where != "" ? " AND a.status_active like '%".$status."%'" : "WHERE a.status_active like '%".$status."%'" ; 
-						}else{
-							$where .= " ORDER BY create_date DESC LIMIT 10";
 						}
-
+						//echo  $where;
 						$get_customers =  $this->customers_model->get_customer_search($where);
+						//echo $get_customers;
+						//exit;
 						if(sizeof($get_customers) > 0){
 
 									foreach ($get_customers as $key => $value) {
@@ -556,6 +569,12 @@ class Customers extends MY_Controller {
       																</tr>';
 
 									}
+											$message .= '</tbody></table>
+
+														<a href="#" onClick="setPage()"><button class="btn btn-primary">Add Customer</button></a>
+														<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
+														<a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
+														<button class="btn btn-warning" onCLick="reset_search_table()">Reset Search</button>';
 
 
 				      						$head[] = array('Reference ID', 'Name', 'Attn','Email', 'Address','Country','Telephone Number', 'Tax', 'Status','Entry By', 'Entry Date', 'Modified By', 'Modifed Date','Status');

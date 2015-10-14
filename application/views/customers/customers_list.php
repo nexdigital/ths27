@@ -1,7 +1,7 @@
-  <div class="panel panel-default" style="display:none">
+  <div class="panel panel-default">
   <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
   <div class="panel-body collapse" id="demo">
-  <form id="search_form" method="post" action="<?php echo base_url()?>customers/ajax/search" > 
+  <form id="search_form" method="post" action="<?php echo base_url('customers/ajax/search') ?>"> 
    <table class="table" style="width:100%" border="0">
             <tbody>
                     <tr>
@@ -69,85 +69,17 @@
             </tbody>
 
      </table> 
+
+
      </form> 
   </div>
 </div>
 
 
 
-
-
-
-
-
-
-
-    
-
-
-<table id="example2" class="table  table-striped table-hovered">         
-  <thead>
-    <th row_name="cust_ref_id">Reference ID</th>
-    <th row_name="cust_name">Name</th>
-    <th row_name="cust_attn">Attn</th>
-    <th row_name="cust_country">Country</th>
-    <th row_name="cust_telp_number">Telepon Number</th>
-    <th row_name="cust_entry_by">Entry by</th>
-    <th row_name="cust_entry_date">Entry date</th>
-    <th row_name="cust_modified_by">Modified by</th>
-    <th row_name="cust_modified_date">Modified date</th>
-    <th row_name="cust_status">Status</th>
-
-  </thead>
-
-<tfoot>
-            <tr>
-                <th>Reference ID</th>
-                <th>Name</th>
-                <th>Attn</th>
-                <th>Country</th>
-                <th>Telepon Number</th>
-                <th>Entry by</th>
-                <th>Entry date</th>
-                <th>Modified by</th>
-                <th>Modified date</th>
-                <th>Status</th>
-            </tr>
-</tfoot>
-
-
-  <tbody id="result_search">
-    <?php
-      foreach($get_customers as $key => $val){
-
-      if(strlen($val->name) >20 ){ $name = substr($val->name,0,20).'...';}else{ $name = $val->name; }
-      if(strlen($val->phone) >20 ){ $phone = substr($val->phone,0,20).'...';}else{$phone = $val->phone; }
-      if(strlen($val->attn) >20 ){ $attn = substr($val->attn,0,20).'...';}else{$attn = $val->attn; }
-
-      echo '<tr>
-      <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$val->reference_id.'').'\')">'.$val->reference_id.'</a></td>
-      <td>'.$name.'</td>
-      <td>'.$attn.'</td>
-      <td>'.$val->country_name.'</td>
-      <td>('.$val->code_phone.') '.$phone.'</td>
-      <td>'.$val->create_by.'</td>
-      <td>'.$val->create_date.'</td>
-      <td>'.$val->update_by.'</td>
-      <td>'.$val->update_date.'</td>
-      <td>'.$val->status_active.'</td>
-      </tr>';
-      } ?>
-  </tbody>
-</table>
-<a href="#" onClick="setPage('<?php echo base_url('customers/add_customer')?>')"><button class="btn btn-primary">Add Customer</button></a>
-<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
-<a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
-<button class="btn btn-warning" onCLick="reset_search_table()">Reset Search</button>
-<!-- <button class="btn btn-warning" onClick="fnResetAllFilters();">Reset</button>   -->
-
+<div id="hasil_pertama"></div>
 
 <script type="text/javascript">
-
 $("input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
@@ -188,6 +120,50 @@ $('input[name="reference_id"]').autoComplete({
       });
 
 $(document).ready(function(){
+  get_advsearch_cookie();
+  $.post('<?php echo base_url('customers/ajax/search') ?>',$('form#search_form').serializeArray(),function(data){
+    result = JSON.parse(data);
+    if(result.status == true){
+      $("#hasil_pertama").html(result.message);                             
+      $("#example2").dataTable({"bFilter": true,
+                                  "bInfo" : false,
+                                  "autoWidth": false,
+                                  "pagingType": "full_numbers",
+                                  "scrollX": true,
+                                  stateSave: true,
+                                  });
+      }else{
+
+        $("#hasil_pertama").html(result.message);    
+      } 
+  })
+  $('form#search_form').ajaxForm({
+      dataType  : 'json',
+      beforeSubmit: function(arr,form,options){
+        $.each(arr, function(key,val){
+          $.cookie('advsearch_customer_' + val.name,val.value);
+        })
+      },
+      success: function(result){
+        if(result.status == true){
+          $("#hasil_pertama").html(result.message);                             
+          $("#example2").dataTable({"bFilter": true,
+                                      "bInfo" : false,
+                                      "autoWidth": false,
+                                      "pagingType": "full_numbers",
+                                      "scrollX": true,
+                                      stateSave: true,
+                                      });
+          }else{
+        
+                $("#hasil_pertama").html(result.message);    
+          } 
+      },
+      error: function(){
+        alert("File corrupt. Please refresh and try again");
+      }
+  });
+
 
   $('.input-daterange').datepicker({
         format: "yyyy-mm-dd"
@@ -206,17 +182,16 @@ $(document).ready(function(){
 
 // var table = $('#example2').DataTable();
 
-$("#example2").dataTable({
+/*$("#example2").dataTable({
      "bFilter": true,
       "bInfo" : false,
       "autoWidth": false,
       "bSort": false,
       "pagingType": "full_numbers",
       "scrollX": true,
-      stateSave: true
-
-
-  });
+      stateSave: true,
+});
+*/
  $('#example2').DataTable().columns().every( function () {
         var that = this;
  
@@ -254,99 +229,7 @@ $('form#search_form').validate({
         }
     });
 
-    $("[data-toggle=tooltip]").tooltip();
-
-
-     $('form#search_form').ajaxForm({
-
-            dataType  : 'json',
-            beforeSubmit  : function(){
-                            $("#MyLinks").removeAttr("onClick");
-                            $("#button_download").html( "" ).fadeOut("fast");
-            },
-            success   : function(result){
-
-                if(result.status == true){
-
-                        $("#result_search").empty();
-                         $("#Print_csv").removeAttr("Disabled");
-                        // $(".paginate_button").removeAttr("Disabled")
-                        $('.paginate_button ').fadeIn();
-						$('#example2_length').fadeIn();
-
-                        $("#MyLinks").attr({
-                                              href    : result.link_result,
-                                              target  :"_blank" 
-                                           });
-                        setTimeout(function(){
-                             $("#result_search").html( result.message);
-                        },2);
-
-                    }else{
-
-                        $("#result_search").empty();
-                        $("#Print_csv").attr("Disabled","disabled");
-                        // $(".paginate_button").attr("Disabled","disabled") ;
-
-                        $('.paginate_button ').fadeOut();
-						$('#example2_length').fadeOut();
-                        setTimeout(function(){
-                             $("#result_search").html( result.message);
-                        },2);
-                    }
-
-            },
-              error   : function(){
-
-                    alert("File corrupt. Please refresh and try again");
-              }
-            
-
-        });
-
-   // var search_input = $("#search_input").val();
-
-
-
-            // url       : "<?php echo base_url()?>customers/ajax/search",
-            // data      : "search_input="+search_input,
-            // type      : "post",
-            // dataType  : "json",
-            //  beforeSend : function(){
-            //                 $("#MyLinks").removeAttr("onClick");
-            //                 $("#button_download").html( "" ).fadeOut("fast");
-            // },
-            // success   : function(result){
-
-            //         if(result.status == true){
-
-            //            $("#result_search").empty();
-            //              $("#Print_csv").removeAttr("Disabled")
-            //             $("#MyLinks").attr({
-            //                                   href    : result.link_result,
-            //                                   target  :"_blank" 
-            //                                });
-            //             setTimeout(function(){   
-            //                  $("#result_search").html( result.message);
-            //             },2);
-
-            //         }else{
-
-            //             $("#result_search").empty();
-            //             $("#Print_csv").attr("Disabled","disabled")
-            //             setTimeout(function(){   
-            //                  $("#result_search").html( result.message);
-            //             },2);
-            //         }
-                       
-            // },
-            // error   : function(){
-
-            //       alert("File corrupt. Please refresh and try again");
-            // }
-
-
-      
+    $("[data-toggle=tooltip]").tooltip();      
 });
 
 
@@ -461,5 +344,18 @@ function reset_search_table(){
         $.removeCookie(row_name);
         $('input#' + row_name).val('');
   });
+}
+
+function get_advsearch_cookie(){
+ $('input[name=reference_id]').val($.cookie('advsearch_customer_reference_id'));
+ $('input[name=name]').val($.cookie('advsearch_customer_name'));
+ $('input[name=attn]').val($.cookie('advsearch_customer_attn'));
+ $('select[name=country]').val($.cookie('advsearch_customer_country'));
+ $('input[name=phone]').val($.cookie('advsearch_customer_phone'));
+ $('input[name=entry_date]').val($.cookie('advsearch_customer_entry_date'));
+ $('select[name=entry_by]').val($.cookie('advsearch_customer_entry_by'));
+ $('input[name=modified_date]').val($.cookie('advsearch_customer_modified_date'));
+ $('select[name=modified_by]').val($.cookie('advsearch_customer_modified_by'));
+ $('select[name=status]').val($.cookie('advsearch_customer_status'));
 }
 </script>
