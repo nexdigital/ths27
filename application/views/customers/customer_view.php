@@ -285,7 +285,7 @@ $('form#edit_customer').validate({
       rules: { reference_id: 
                 { 
                   required: true, 
-                  remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
+                  // remote: "<?php echo base_url(); ?>customers/ajax/check_available_customers",
                   alphanumeric:true 
                 },
 
