@@ -59,14 +59,24 @@ class Customers extends MY_Controller {
 
 	function add_customer(){
 
-		foreach ($this->customers_model->customer_new_id() as $key => $value) {
+
+		$max = $this->customers_model->max_id();
+      	$koko = $this->customers_model->get_by_cust_id($max->cust_id);
+      	$angka  =$koko->reference_id;
+      	$cus  = substr($angka,0,4);
+		$back  = substr($angka,4);
+		$tambah = $back + 1;
+
+		$data['reference_id'] = $cus.sprintf('%06d',$tambah) ;
+		
+		/*foreach ($this->customers_model->customer_new_id() as $key => $value) {
 			$angka  = $value->reference_id;
 			$cus  = substr($angka,0,4);
 			$back  = substr($angka,4);
 			$tambah = $back + 1;
 			
 			$data['reference_id'] = $cus.sprintf('%06d',$tambah) ;
-		}
+		}*/
 		
 		$data['get_group']		= $this->master_customer->get_group();
 		if(isset($_GET['hawb_no'])) {

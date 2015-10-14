@@ -290,6 +290,19 @@ class Customers_model extends CI_Model {
 
     }
 
+    function get_by_cust_id($max)
+    {
+    	$this->db->where('cust_id',$max);
+    	$db = $this->db->get('customer_table');
+    	return $db->row();
+    }
+    function max_id()
+    {
+    	$this->db->select_max('cust_id');
+		$query = $this->db->get('customer_table');
+		return $query->row();
+    }
+
     
 
 

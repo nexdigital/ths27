@@ -5,7 +5,7 @@
 
                            <div class="form-group">
                               <label>Reference Id</label> <label class="required-filed">*</label>
-                              <input id="reference_id" maxlength="20" placeholder="max 20 character" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>" readonly>
+                              <input id="reference_id" maxlength="20" placeholder="max 20 character" name="reference_id"  type="text"  class="form-control" value="<?php echo $reference_id ?>">
                              
                             </div>
 
@@ -220,6 +220,9 @@
           source: function(term, response){
               try { xhr.abort(); } catch(e){}
               xhr = $.getJSON('<?php echo base_url('customers/ajax/autoCompleteID') ?>', { q: term }, function(data){ response(data); });
+          },
+          onSelect: function(e, term, item){
+            setPage('<?php echo base_url('customers/view_customer')?>/' + term);
           }
       });
 
