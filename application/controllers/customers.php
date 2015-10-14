@@ -574,7 +574,7 @@ class Customers extends MY_Controller {
 														<a href="#" onClick="setPage()"><button class="btn btn-primary">Add Customer</button></a>
 														<a id="MyLinks" onClick="print_csv();"><button class="btn btn-primary" id="Print_csv">Print CSV</button></a>
 														<a id="download_all" style="display:none;"><button id="button_all">Download</button> </a>
-													   
+													    ';
 
 
 				      						$head[] = array('Reference ID', 'Name', 'Attn','Email', 'Address','Country','Telephone Number', 'Tax', 'Status','Entry By', 'Entry Date', 'Modified By', 'Modifed Date','Status');
