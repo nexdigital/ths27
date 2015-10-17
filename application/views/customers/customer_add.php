@@ -167,7 +167,7 @@
                               <label>Status</label> <label class="required-filed">*</label>
                               <select class="form-control" name="status" required>
                                 <option value="">-</option>
-                                <option value="0">None regular</option>
+                                <option value="none">None regular</option>
                                 <option value="regular">regular customer</option>
                               </select>
                             </div>

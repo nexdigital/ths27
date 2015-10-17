@@ -21,7 +21,7 @@
 
 
                         </td>
-                        <td><input type="text" name="phone" id="phone" class="form-control" placeholder="Telephone Number"></td>
+                         <td><input type="text" name="phone" id="phone" class="form-control" placeholder="Telephone Number"></td>
                     </tr>
 
                     <tr>
@@ -60,6 +60,51 @@
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                          <td><input type="email" name="first_email" id="first_email" placeholder="First Email" class="form-control"></td>
+                        <!--   <td><input type="email" name="second_email" id="second_email" placeholder="Second Email" class="form-control"></td>
+                          <td><input type="email" name="third_email" id="third_email" placeholder="Third Email" class="form-control"></td> -->
+                          <td><input type="text" name="city" id="city" placeholder="city" class="form-control"></td>
+                          <td><input type="text" name="zip_code" id="zip_code" placeholder="Zip Code" class="form-control"></td>
+                          <td><input type="text" name="mobile" id="mobile" placeholder="Mobile" class="form-control"></td>
+                          <td><input type="text" name="fax" id="fax" placeholder="fax" class="form-control"></td>
+                   </tr>
+                       
+                       <!--  <td><input type="text" name="second_phone" id="second_phone" placeholder="Second Phone" class="form-control"></td>
+                        <td><input type="text" name="third_phone" id="third_phone" placeholder="Third Phone" class="form-control"></td> -->
+                        
+                   
+
+                    <tr>
+                        <td>
+                            <select class="form-control tax_class" id="tax_class" name="tax_class">
+                                <option value="">-</option>
+                                <option value="0">none</option>
+                                <?php
+                                    foreach ($this->tool_model->get_tax() as $key => $value) {
+                                        echo "<option value='".$value->tax_id."'>".$value->tax_name."</option>";
+                                    }
+
+
+
+                                 ?>
+
+                              </select>
+                        </td>
+                        <td>
+                            <select class="form-control" name="status_regular">
+                                <option value="">-</option>
+                                <option value="none">None regular</option>
+                                <option value="regular">regular customer</option>
+                              </select>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                    
+                         <td> <textarea class="form-control" maxlength="100" placeholder="description"  id="remark" name="description" rows="1" style="resize:none"></textarea></td>
+                        <td> <textarea class="form-control" maxlength="100" placeholder="address"  id="address" name="address" rows="1" style="resize:none"></textarea></td>
+
+                    </tr> -->
                      <tr>
                          <td><button class="btn btn-default" type="submit">Search!</button>
                             <button class="btn btn-danger" onClick ="reset_search()" type="submit">Reset</button>
@@ -111,13 +156,87 @@ $('input[name="reference_id"]').autoComplete({
           }
       });
 
-        $('input[name="phone"]').autoComplete({
+    $('input[name="phone"]').autoComplete({
           minChars: 1,
           source: function(term, response){
               try { xhr.abort(); } catch(e){}
               xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_phone') ?>', { q: term }, function(data){ response(data); });
           }
       });
+
+      $('input[name="first_email"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_email') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+// second_email
+
+ $('input[name="second_email"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_secondemail') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+ $('input[name="third_email"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_thirdemail') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+ $('input[name="city"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_city') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+ $('input[name="zip_code"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_zip') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+ $('input[name="zip_code"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_zip') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+ $('input[name="mobile"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_mobile') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+  $('input[name="fax"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_fax') ?>', { q: term }, function(data){ response(data); });
+          }
+      });
+
+  /*$('input[name="second_phone"]').autoComplete({
+          minChars: 1,
+          source: function(term, response){
+              try { xhr.abort(); } catch(e){}
+              xhr = $.getJSON('<?php echo base_url('customers/ajax/autoComplete_second_phone') ?>', { q: term }, function(data){ response(data); });
+          }
+      });*/
+
 
 $(document).ready(function(){
   get_advsearch_cookie();

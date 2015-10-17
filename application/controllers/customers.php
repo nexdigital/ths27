@@ -67,8 +67,20 @@ class Customers extends MY_Controller {
 		$back  = substr($angka,4);
 		$tambah = $back + 1;
 
-		$data['reference_id'] = $cus.sprintf('%06d',$tambah) ;
-		
+		$reference_id = $cus.sprintf('%06d',$tambah);
+
+		$check_available = $this->customers_model->check_customers($reference_id);
+
+		if($check_available)
+		{
+			$cus_ava  = substr($reference_id,0,4);
+			$back_cus_ava  = substr($reference_id,4);
+			$tambah_ava = $back_cus_ava + 1;
+			$data['reference_id'] = $cus_ava.sprintf('%06d',$tambah_ava);
+		}else
+		{
+				$data['reference_id'] = $reference_id ;
+		}
 		/*foreach ($this->customers_model->customer_new_id() as $key => $value) {
 			$angka  = $value->reference_id;
 			$cus  = substr($angka,0,4);
@@ -194,6 +206,7 @@ class Customers extends MY_Controller {
 							$data['tax_class'] 	  = $tax_class;
 							$data['description']  = $description;
 							$data['status_active']= "Active";
+							$data['status']		  = $_POST["status"];
 							$data['create_date']  = date('Y-m-d H:i:s');
 							$data['create_by']	  = $this->session->userdata('username'); 
 
@@ -473,6 +486,119 @@ class Customers extends MY_Controller {
 						echo json_encode($name_customers_phone);
 				break;
 
+				case 'autoComplete_email':
+						$email = $_GET['q'];
+						$this->db->like('email',$email);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$email_customers = array();
+						foreach($get->result() as $row) {
+							$email_customers[] = $row->email;
+						}
+
+						echo json_encode($email_customers);
+				break;
+
+				case 'autoComplete_secondemail':
+						$email = $_GET['q'];
+						$this->db->like('second_email',$email);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$email_customers = array();
+						foreach($get->result() as $row) {
+							$email_customers[] = $row->second_email;
+						}
+
+						echo json_encode($email_customers);
+				break;
+
+				case 'autoComplete_thirdemail':
+						$email = $_GET['q'];
+						$this->db->like('third_email',$email);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$email_customers = array();
+						foreach($get->result() as $row) {
+							$email_customers[] = $row->third_email;
+						}
+
+						echo json_encode($email_customers);
+				break;
+
+				case 'autoComplete_city':
+						$city = $_GET['q'];
+						$this->db->like('city',$city);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$city_customers = array();
+						foreach($get->result() as $row) {
+							$city_customers[] = $row->city;
+						}
+
+						echo json_encode($city_customers);
+				break;
+
+				case 'autoComplete_zip':
+						$pos_code = $_GET['q'];
+						$this->db->like('pos_code',$pos_code);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$pos_code_customers = array();
+						foreach($get->result() as $row) {
+							$pos_code_customers[] = $row->pos_code;
+						}
+
+						echo json_encode($pos_code_customers);
+				break;
+
+
+				case 'autoComplete_mobile':
+						$mobile = $_GET['q'];
+						$this->db->like('mobile',$mobile);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$mobile_customers = array();
+						foreach($get->result() as $row) {
+							$mobile_customers[] = $row->mobile;
+						}
+
+						echo json_encode($mobile_customers);
+				break;
+
+				case 'autoComplete_fax':
+						$fax = $_GET['q'];
+						$this->db->like('fax',$fax);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$fax_customers = array();
+						foreach($get->result() as $row) {
+							$fax_customers[] = $row->fax;
+						}
+
+						echo json_encode($fax_customers);
+				break;
+				//autoComplete_second_phone
+
+				/*case 'autoComplete_second_phone':
+						$pos_code = $_GET['q'];
+						$this->db->like('pos_code',$pos_code);
+					//	$this->db->where_in('status_active',array('active'));
+						$get = $this->db->get('customer_table');
+
+						$pos_code_customers = array();
+						foreach($get->result() as $row) {
+							$pos_code_customers[] = $row->pos_code;
+						}
+
+						echo json_encode($pos_code_customers);
+				break;*/
 			case 'check_available_name':
 
 						$name = $_GET['name'];
@@ -496,9 +622,20 @@ class Customers extends MY_Controller {
 						$modified_by 			= $this->input->post('modified_by');
 						$modified_date 			= $this->input->post('modified_date');
 						$status 				= $this->input->post('status');
+						//new
+						$email 					= $this->input->post('first_email');
+						$city 					= $this->input->post('city');
+						$zip_code 				= $this->input->post('zip_code');
+						$mobile 				= $this->input->post('mobile');
+						$fax 					= $this->input->post('fax');
+						$tax_class 				= $this->input->post('tax_class');
+						$status_regular 		= $this->input->post('status_regular');
+
+						
 
 						$message 				= '<table id="example2" class="table  table-striped table-hovered">         
 													  <thead>
+													   <th  row_name="cust_id">Customer ID</th>
 													    <th row_name="cust_ref_id">Reference ID</th>
 													    <th row_name="cust_name">Name</th>
 													    <th row_name="cust_attn">Attn</th>
@@ -521,7 +658,7 @@ class Customers extends MY_Controller {
 						{		
 							  $where .= $where != "" ? " AND a.name like '%".$name."%'" : "WHERE a.name like '%".$name."%'" ; 
 					 	}
-					 	 if($attn  != "")
+					 	if($attn  != "")
 						{		
 							  $where .= $where != "" ? " AND a.attn like '%".$attn."%'" : "WHERE a.attn like '%".$attn."%'" ; 
 						}
@@ -533,7 +670,42 @@ class Customers extends MY_Controller {
 						{		
 							  $where .= $where != "" ? " AND a.phone like '%".$phone."%'" : "WHERE a.phone like '%".$phone."%'" ; 
 						}
-						 if($entry_date  != "")
+						if($email  != "")
+						{		
+							  $where .= $where != "" ? " AND a.email like '%".$email."%'" : "WHERE a.email like '%".$email."%'" ; 
+						}
+
+						if($city  != "")
+						{		
+							  $where .= $where != "" ? " AND a.city like '%".$city."%'" : "WHERE a.city like '%".$city."%'" ; 
+						}
+
+						if($zip_code  != "")
+						{		
+							  $where .= $where != "" ? " AND a.pos_code like '%".$zip_code."%'" : "WHERE a.pos_code like '%".$zip_code."%'" ; 
+						}
+
+						if($mobile  != "")
+						{		
+							  $where .= $where != "" ? " AND a.mobile like '%".$mobile."%'" : "WHERE a.mobile like '%".$mobile."%'" ; 
+						}
+
+						if($fax  != "")
+						{		
+							  $where .= $where != "" ? " AND a.mobile like '%".$fax."%'" : "WHERE a.fax like '%".$fax."%'" ; 
+						}
+
+						if($tax_class  != "")
+						{		
+							  $where .= $where != "" ? " AND a.tax_class like '%".$tax_class."%'" : "WHERE a.tax_class like '%".$tax_class."%'" ; 
+						}
+
+						if($status_regular  != "")
+						{		
+							  $where .= $where != "" ? " AND a.status like '%".$status_regular."%'" : "WHERE a.status like '%".$status_regular."%'" ; 
+						}
+						
+						if($entry_date  != "")
 						{		
 							  $where .= $where != "" ? " AND a.create_date like '%".$entry_date."%'" : "WHERE a.create_date like '%".$entry_date."%'" ; 
 						}
@@ -566,6 +738,7 @@ class Customers extends MY_Controller {
 
 											$message       .= 
 																	'<tr>
+																	  <td>'.$value->cust_id.'</td>	
 																      <td><a href="javascript:;" onClick="setPage(\''.base_url('customers/view_customer/'.$value->reference_id.'').'\')">'.$value->reference_id.'</a></td>
 																      <td>'.$name.'</td>
 																      <td>'.$attn.'</td>
