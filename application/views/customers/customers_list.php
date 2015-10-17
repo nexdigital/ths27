@@ -476,5 +476,13 @@ function get_advsearch_cookie(){
  $('input[name=modified_date]').val($.cookie('advsearch_customer_modified_date'));
  $('select[name=modified_by]').val($.cookie('advsearch_customer_modified_by'));
  $('select[name=status]').val($.cookie('advsearch_customer_status'));
+ $('input[name=first_email]').val($.cookie('advsearch_customer_first_email'));
+ $('input[name=city]').val($.cookie('advsearch_customer_city'));
+ $('input[name=zip_code]').val($.cookie('advsearch_customer_zip_code'));
+ $('input[name=mobile]').val($.cookie('advsearch_customer_mobile'));
+ $('input[name=fax]').val($.cookie('advsearch_customer_fax'));
+ $('select[name=tax_class]').val($.cookie('advsearch_customer_tax_class'));
+ $('select[name=status]').val($.cookie('advsearch_customer_status'));
+ $('select[name=status_regular]').val($.cookie('advsearch_customer_status_regular'));
 }
 </script>

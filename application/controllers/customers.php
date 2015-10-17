@@ -922,6 +922,23 @@ class Customers extends MY_Controller {
 	}
 
 
+	function update_to_regular()
+	{
+
+		foreach ($this->customers_model->get_tech() as $key => $value) {
+
+   
+        	 $data["status"] = "none";
+        	 $this->customers_model->rahasia($value->cust_id,$data);    
+        	 // print_r($data);
+			
+    		    
+
+    	}
+    	  	
+	}
+
+
 
 	
 
