@@ -725,6 +725,9 @@ class Customers extends MY_Controller {
 						{		
 							  $where .= $where != "" ? " AND a.status_active like '%".$status."%'" : "WHERE a.status_active like '%".$status."%'" ; 
 						}
+
+
+						$session_where = $this->session->set_userdata('session_where', $where);
 						//echo  $where;
 						$get_customers =  $this->customers_model->get_customer_search($where);
 						//echo $get_customers;
@@ -798,7 +801,9 @@ class Customers extends MY_Controller {
 
 				
 						
-						$get_customers =  $this->customers_model->get_data();
+						$where = $this->session->userdata('session_where');
+						//echo  $where;
+						$get_customers =  $this->customers_model->get_customer_search($where);
 						
 						if(sizeof($get_customers) > 0){
 
