@@ -26,7 +26,7 @@
 				foreach ($get_partner as $key => $value) {
 					echo '
 							<tr>
-							<td><a href="javascript:;" onClick="setPage(\''.base_url('master/partner/edit/'.$value->partner_id.'').'\')">'.$value->partner_id.'</a></td>
+							<td><a href="javascript:;" onClick="setPage(\''.base_url('partner/edit_form/'.$value->partner_id.'').'\')">'.$value->partner_id.'</a></td>
 							<td>'.$value->company_name.'</td>
 							<td>'.$value->country_name.'</td>
 							<td>'.$value->telephone_number.'</td>
@@ -44,7 +44,7 @@
 	</tbody>
 </table>
 
-<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'master/partner/add'?>')">Add Partner</button>
+<button class="btn btn-primary" onCLick="setPage('<?php echo base_url().'partner/partner_form'?>')">Add Partner</button>
 
 
 <script>

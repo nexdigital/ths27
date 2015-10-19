@@ -394,7 +394,7 @@ function add_customer(){
 
                    alert("wrong format. Please check all field");  
                    $(".submit").removeClass('disabled').html('Submit');
-                   // location.reload();
+                   location.reload();
 
             }
           });

@@ -1,4 +1,4 @@
-<form id="partner_form" method="post" action="<?php echo base_url()?>master/ajax/partner/edit">
+<form id="partner_form" method="post" action="<?php echo base_url()?>partner/edit_proses">
 
 	
 <div class="form-group">
@@ -73,7 +73,7 @@
 
 <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/partner/add')">Create New</button>
 <button type="submit" class="btn btn-success btn-update" data-loading-text="Process...">Update</button>
-<button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/partner/delete/<?php echo $get_partner->partner_id ?>')">Delete</button>
+<button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>partner/delete_form/<?php echo $get_partner->partner_id ?>')">Delete</button>
 <button type="reset" class="btn btn-danger" onclick="setPage('<?php echo base_url() ?>master/partner/index')">Cancel</button>
 <label class="alert-form" ></label>
 </form>
@@ -84,23 +84,6 @@
 		$("#country").val(val_country);
 
 
-
-		 $('input[name="country_id"]').autoComplete({
-			    minChars: 1,
-			    source: function(term, response){
-			        try { xhr.abort(); } catch(e){}
-			        xhr = $.getJSON('<?php echo base_url('master/ajax/country/autoComplete') ?>', { q: term }, function(data){ response(data); });
-			    },
-			    onSelect: function(e, term, item){
-			      setPage('<?php echo base_url('master/country/edit')?>/' + term);
-			    }
-  		});
-		
-		// $('form#partner_form').validate({
-		// 	rules: { partner_name: {	required: true, remote: "<?php echo base_url(); ?>master/ajax/partner/check_available_partner"  } },
-		// 	messages: { partner_name: { remote: 'Partner has been added' } }			
-		// });
-
 			$('form#partner_form').ajaxForm({
 				dataType:'json',
 				success: function(result){
@@ -110,7 +93,7 @@
 							    $('form#partner_form').resetForm();
 							 setTimeout(function(){
 								 $('.alert-form').html(result.message).fadeOut();
-							 	 setPage('<?php echo base_url() ?>master/partner/index');
+							 	 setPage('<?php echo base_url() ?>partner/index');
 							},800);
 						}else {
 							 $('.alert-form').html(result.message).addClass('alert-danger').removeClass('alert-success').fadeIn();

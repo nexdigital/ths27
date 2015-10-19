@@ -49,52 +49,6 @@ class Master extends MY_Controller {
 	}
 
 
-	function partner($method= null,$id=null){
-		switch ($method) {
-			case 'index':
-					
-
-						$data['get_partner']	= $this->partner_model->get_partner($id);
-						$data['title']			= 'Partner';
-						$this->set_content('master/partner',$data);
-
-				break;
-
-			case 'add':
-					
-
-						//$data['data']	= $this->master_country->list_country();
-						$data['title']	= 'Create Partner';
-						$this->set_content('master/partner_add',$data);
-
-			break;
-
-			case 'edit':
-			
-						$data['get_partner']	= $this->partner_model->get_partner_row($id);
-						$data['title']	= 'Edit Partner';
-						$this->set_content('master/partner_edit',$data);
-
-			break;
-
-			case 'delete':
-						$data['get_partner']	= $this->partner_model->get_partner_row($id);
-						$data['title']	= 'Delete Partner';
-						$this->set_content('master/partner_delete',$data);
-
-
-			break;
-
-
-
-			
-			default:
-				# code...
-				break;
-		}
-
-	}
-
 	function view($master = null,$page = null) {
 		switch ($master) {
 			case 'country':
