@@ -12,6 +12,7 @@ class Partner extends MY_Controller {
 
 	function index()
 	{
+
 			$data['get_partner']	= $this->partner_model->get_partner();
 			$data['title']			= 'Partner';
 			$this->set_content('master/partner',$data);
@@ -20,6 +21,8 @@ class Partner extends MY_Controller {
 
 	function partner_form()
 	{
+		$data['menu']			= "Partner";
+		$data['submenu']		= "Create Partner";
 		$data['title']	= 'Create Partner';
 		$this->set_content('master/partner_add',$data);
 	}
