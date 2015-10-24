@@ -81,7 +81,7 @@
 </div> -->
 
 <button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
-<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/partner/index')?>')">Cancel</button>
+<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('partner/index')?>')">Cancel</button>
 <label class="alert-form" ></label>
 </form>
 
