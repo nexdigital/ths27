@@ -1,7 +1,7 @@
   <div class="panel panel-default">
   <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
   <div class="panel-body collapse" id="demo">
-  <form id="search_form" method="post"  > 
+  <form id="search_form" method="post" action="<?php echo base_url('customers/ajax/search') ?>">
    <table class="table" style="width:100%" border="0">
             <tbody>
                     <tr>

@@ -78,6 +78,12 @@ class Partner_model extends CI_Model {
 
 	}
 
+	function get_partner_search($where)
+	{
+		$query = $this->db->query("select a.* ,b.country_id, b.country_name from partner as a LEFT JOIN master_country_table as b ON a.country_id = b.country_id ".$where." ");
+		return $query->result();
+	}
+
 
 
 

@@ -786,8 +786,14 @@ class Customers extends MY_Controller {
 
 							}else{
 
-								$status 	=  FALSE;
-								$message 	= "No available data";
+								 $status 	=  FALSE;
+								 $message 	.= '<tr>
+				 									<td>No available data</td>
+				 								</tr>
+				 								<tr>
+				 									<td><a href="#" onClick="setPage(\''.base_url('customers/add_customer/').'\')"><button class="btn btn-primary">Add Customer</button></a></td>
+				 								</tr>
+				 								';
 								$link_result       = "javascript();";
 
 							}

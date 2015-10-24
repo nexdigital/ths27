@@ -12,10 +12,11 @@ class Partner extends MY_Controller {
 
 	function index()
 	{
-
+			$data['menu']			= "Master";
+			$data['submenu']		= "Partner";
 			$data['get_partner']	= $this->partner_model->get_partner();
 			$data['title']			= 'Partner';
-			$this->set_content('master/partner',$data);
+			$this->set_content('partner/partner',$data);
 
 	}
 
@@ -24,21 +25,21 @@ class Partner extends MY_Controller {
 		$data['menu']			= "Partner";
 		$data['submenu']		= "Create Partner";
 		$data['title']	= 'Create Partner';
-		$this->set_content('master/partner_add',$data);
+		$this->set_content('partner/partner_add',$data);
 	}
 
 	function edit_form($id)
 	{
 			$data['get_partner']	= $this->partner_model->get_partner_row($id);
 			$data['title']	= 'Edit Partner';
-			$this->set_content('master/partner_edit',$data);
+			$this->set_content('partner/partner_edit',$data);
 	}
 
 	function delete_form($id)
 	{
 		$data['get_partner']	= $this->partner_model->get_partner_row($id);
 		$data['title']	= 'Delete Partner';
-		$this->set_content('master/partner_delete',$data);
+		$this->set_content('partner/partner_delete',$data);
 	}
 
 
@@ -191,6 +192,118 @@ class Partner extends MY_Controller {
 			}
 			echo json_encode($partner_name_list);
 
+	}
+
+	function search()
+	{
+			$partner_id        	= $this->input->post('partner_id');
+			$partner_name      	= $this->input->post('partner_name');
+			$country        	= $this->input->post('country');
+			$email        		= $this->input->post('email');
+			$phone        		= $this->input->post('phone');
+			$entry_by       	= $this->input->post('entry_by');
+			$entry_date        	= $this->input->post('entry_date');
+			$modified_date      = $this->input->post('modified_date');
+			$modified_by       	= $this->input->post('modified_by');
+			$status       		= $this->input->post('status');
+
+			$where 				= "";
+			$message 			= '<table id="example2" class="table  table-striped table-hovered">         
+									  <thead>
+									    <th>ID</th>
+										<th row_name="partner_id">Partner ID</th>
+										<th row_name="partner_name">Partner Name</th>
+										<th row_name="country">Country</th>
+										<th row_name="email">Email</th>
+										<th row_name="telephone">Telephone</th>
+										<th row_name="entry_by">Entry By</th>
+										<th row_name="entry_date">Entry Date</th>
+										<th row_name="modified_by">Modified By</th>
+										<th row_name="modified_date">Modified Date</th>
+										<th row_name="status">Status</th>	
+
+									</thead>';
+
+			if($partner_id  != "")
+			{		
+				$where .= "WHERE a.partner_id like '%".$partner_id."%'" ;
+			}
+			if($partner_name  != "")
+			{		
+				  $where .= $where != "" ? " AND a.company_name like '%".$partner_name."%'" : "WHERE a.company_name like '%".$partner_name."%'" ; 
+		 	}
+		 	if($country  != "")
+			{		
+				  $where .= $where != "" ? " AND a.country_id like '%".$country."%'" : "WHERE a.country_id like '%".$country."%'" ; 
+		 	}
+		 	if($email  != "")
+			{		
+				  $where .= $where != "" ? " AND a.email like '%".$email."%'" : "WHERE a.email like '%".$email."%'" ; 
+		 	}
+		 	if($phone  != "")
+			{		
+				  $where .= $where != "" ? " AND a.telephone_number like '%".$phone."%'" : "WHERE a.telephone_number like '%".$phone."%'" ; 
+		 	}
+		 	if($entry_date  != "")
+			{		
+				  $where .= $where != "" ? " AND a.entry_date like '%".$entry_date."%'" : "WHERE a.entry_date like '%".$entry_date."%'" ; 
+		 	}
+
+		 	if($entry_by  != "")
+			{		
+				  $where .= $where != "" ? " AND a.entry_by like '%".$entry_by."%'" : "WHERE a.entry_by like '%".$entry_by."%'" ; 
+		 	}
+		 	if($modified_date  != "")
+			{		
+				  $where .= $where != "" ? " AND a.update_date like '%".$modified_date."%'" : "WHERE a.update_date like '%".$modified_date."%'" ; 
+		 	}
+		 	if($modified_by  != "")
+			{		
+				  $where .= $where != "" ? " AND a.update_by like '%".$modified_by."%'" : "WHERE a.update_by like '%".$modified_by."%'" ; 
+		 	}
+
+		 	if($status  != "")
+			{		
+				  $where .= $where != "" ? " AND a.is_active like '%".$status."%'" : "WHERE a.is_active like '%".$status."%'" ; 
+		 	}
+		 	
+
+
+		 	$get_partner =  $this->partner_model->get_partner_search($where);	
+
+		 	if(sizeof($get_partner) > 0){
+		 		foreach ($get_partner as $key => $value) {
+		 		$message       .= 
+									'<tr>
+										    <td>'.$value->id.'</td>
+											<td><a href="javascript:;" onClick="setPage(\''.base_url('partner/edit_form/'.$value->partner_id.'').'\')">'.$value->partner_id.'</a></td>
+											<td>'.$value->company_name.'</td>
+											<td>'.$value->country_name.'</td>
+											<td>'.$value->email.'</td>
+											<td>'.$value->telephone_number.'</td>
+											<td>'.$value->entry_by.'</td>
+											<td>'.$value->entry_date.'</td>
+											<td>'.$value->update_by.'</td>
+											<td>'.$value->update_date.'</td>
+											<td>'.$value->is_active.'</td>
+									</tr>';
+		 		}
+
+
+		 	
+			$status = true;
+
+		 	}else{
+		 		$status 	=  FALSE;
+				 $message 	.= '<tr>
+				 					<td>No available data</td>
+				 				</tr>
+				 				';
+				
+		 	}	
+		 	$message .= '</tbody></table>';			
+		 	
+			echo json_encode(array('status' => $status , 'message' => $message));	
 	}
 							
 
