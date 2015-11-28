@@ -11,7 +11,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label>Hawb No</label>
                 <input type="text" class="form-control txt-hawb" name="hawb_no" required>
