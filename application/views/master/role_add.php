@@ -1,10 +1,10 @@
 <form method="post" id="add_role_form" action="<?php echo base_url('master/add_user_role/add_role') ?>">
 
-		<div class="form-group">
+		<!-- <div class="form-group">
 		  <label>ID Type <label class="required-filed">*</label></label>
 		  <input type="text" class="form-control" id="id_type" name="id_type" maxlength="30" required>
 		</div>
-
+ -->
 
 		<div class="form-group">
 		  <label>Type User <label class="required-filed">*</label></label>
@@ -12,17 +12,20 @@
 		</div>
 
 		  <label>Role <label class="required-filed">*</label></label>
-		
+		  <div class="form-group">
+	     		 <input type="checkbox" onClick="toggle(this)" /> Select All<br/>
+	 	 </div>
+	 	 <hr/>
 		  <?php 
 
 		  $no = 1;
 		  foreach ($this->master_user->get_role() as $key => $value) {
 		  			
-		  		echo ' <div class="form-group">
+		  		echo '<div class="col-md-4"> <div class="form-group">
 
-		  					  <input type="checkbox" name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;
+		  					  <label><input type="checkbox" id="role" name="role[]" value="'.$value->id.'"> '.$value->access.'</label>&nbsp;
 
-		  				</div>
+		  				</div></div>
 		  		';
 
 
@@ -48,6 +51,15 @@
 
 
 <script type="text/javascript">
+
+function toggle(source) {
+    checkboxes = document.getElementsByName('role[]');
+	  for(var i=0, n=checkboxes.length;i<n;i++) {
+	    checkboxes[i].checked = source.checked;
+	  }
+}
+
+
 $(document).ready(function(){
 
 	$('input[name="id_type"]').autoComplete({

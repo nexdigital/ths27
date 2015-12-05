@@ -1130,7 +1130,6 @@ class Master extends MY_Controller {
 
 			case 'add_role':
 
-					$id_type = $_POST['id_type'];
 					$type = $_POST['type'];
 					$role = $_POST['role'];
 					$description = $_POST['description'];
@@ -1151,18 +1150,17 @@ class Master extends MY_Controller {
 								$v_isActive = "inactive";
 						}	
 
-							$regex = "/^[a-zA-Z0-9_ ]*$/";
-								if (preg_match($regex, $type) && preg_match($regex, $id_type) ) {
+						
 
-										$data['id_type']		= $id_type;
-										$data['type']			= $type;
+										// $data['id_type']		= $id_type;
+										$data['type']			= htmlspecialchars($type);
 										$data['created_by']		= $this->session->userdata('user_id');
 										$data['created_date']	= date('Y-m-d');
 										$data['status']			= $v_isActive;
-										$data['description']	= $description;
+										$data['description']	= htmlspecialchars($description);
 										$this->master_user->insert_type($data);
 
-										//$last_id = $this->db->insert_id();
+										$id_type = $this->db->insert_id();
 
 
 										 for ($i=0; $i < sizeof($role) ; $i++) { 
@@ -1176,11 +1174,7 @@ class Master extends MY_Controller {
 
 								    $status = TRUE;		 
 									$message = "Save Success";
-								}else{
-
-									$status = False;		 
-									$message = "Wrong format input";
-								}
+							
 
 					}
 

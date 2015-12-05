@@ -43,7 +43,7 @@ class Master_user extends CI_Model {
 
 	function get_access(){
 
-			$query = $this->db->query('select * from user_type_table ORDER BY created_date ASC');
+			$query = $this->db->query('select * from user_type_table WHERE status = "active" ORDER BY created_date ASC');
 			return $query->result();
 
 	}
@@ -136,8 +136,10 @@ class Master_user extends CI_Model {
 
 	function get_role(){
 
-
+			$parent_disable = array('19', '20', '21');
+			$this->db->where_not_in('parent',!$parent_disable);
 			$get = $this->db->get('user_access_table');
+
 			return $get->result();
 
 	}

@@ -205,94 +205,63 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Manifest</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                            
-                               <?php 
-
+                       
+                         <?php 
                             $id_type = $this->session->userdata('type');
+
+                            $get_list_menu = $this->db->query("select * from user_access_table where parent = 0");
+                            foreach($get_list_menu->result() as $key => $row){
+                                $get_list_menu_parent = $this->db->query("select * from user_access_table where parent = '".$row->id."'");
+
+                                $show_main_menu = false;
+                                $elm_menu_item = false;
+                                foreach($get_list_menu_parent->result() as $key_parent => $row_parent) {
+                                    $check_role = $this->db->query("select * from user_role_table where id_type='".$id_type."' and access_level = '".$row_parent->id."'");
+                                    if($check_role->num_rows() > 0){
+                                        $show_main_menu = true;
+                                        $elm_menu_item .= '<li><a href="#"  onClick="setPage(\''.base_url("".$row_parent->link."").'\')"><i class="fa fa-angle-double-right"></i>'.$row_parent->access.'</a></li>';
+                                    }
+                                }
+
+                                if($show_main_menu){
+                                    echo '<li class="treeview"><a href="#"  onClick="setPage(\''.base_url("".$row->link."").'\')"><i class="fa fa-angle-double-right"></i>'.$row->access.'</a>';
+                                    echo ' <ul class="treeview-menu">';
+                                    echo $elm_menu_item;
+                                    echo '</ul>';                                   
+                                }
+                            }
+
+                            /* DISABLE
+
+
+                               $id_type = $this->session->userdata('type');
                                foreach ($this->users_model->get_menu($id_type) as $key => $value) {
-                               // echo 'setPage("'.base_url($value->link).'")';
-                                  echo '<li><a href="#"  onClick="setPage(\''.base_url("".$value->link."").'\')"><i class="fa fa-angle-double-right"></i>'.$value->access.'</a></li>';
-                                   
-                               } ?>
+                                        
+                                    // echo $value->access;
+                                    // echo $this->db->last_query();
 
-                              <!--   
-                            onClick="setPage('<?php echo base_url('manifest/view/create_host')?>')"
-                              <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i>Upload File</a></li>
-                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i>Create Host</a></li>
-                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Data</a></li>
-                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Verification </a></li>
-                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Download Data </a></li>
-                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Report Snow </a></li>
-                                <li><a href="#"  onClick=""><i class="fa fa-angle-double-right"></i> Print Invoice </a></li> -->
-                            </ul>
-                        </li>
-                     <!--    <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Customers</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                              
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>All Customers</a></li>
-                            </ul>
-                        </li>
-                        -->
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Finance</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('finance/home')?>')"><i class="fa fa-angle-double-right"></i>Data Need Payment</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('finance/data_payment')?>')"><i class="fa fa-angle-double-right"></i>Data Payment</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('finance/data_payment_finish')?>')"><i class="fa fa-angle-double-right"></i>Data Payment Finish</a></li>
-                               <!--  <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Invoice</a></li> -->
-                               <!--  <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Debit None</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Credit Note</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Payment Invoice</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Cash/Bank Transfer</a></li> -->
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Master</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('customers/home')?>')"><i class="fa fa-angle-double-right"></i>Customers</a></li>
-                                <li><a href="javascript:;"  onClick="setPage('<?php echo base_url('partner/index')?>')"><i class="fa fa-angle-double-right"></i>Partner</a></li>
-                                 <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/country/index')?>')"><i class="fa fa-angle-double-right"></i>Country</a></li>
-                                <li><a href="#" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency Rate</a></li>
-                              <!--<li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/master_customer_group')?>')"><i class="fa fa-angle-double-right"></i>Customer Group</a></li>-->
-                               
-                           <!--     <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/currency/index')?>')"><i class="fa fa-angle-double-right"></i>Currency</a></li>  -->
-                             <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/airlines/index')?>')"><i class="fa fa-angle-double-right"></i>Airlines</a></li> -->
-                               <!-- <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/term_of_payment/index')?>')"><i class="fa fa-angle-double-right"></i>Term Of Payment</a></li> -->
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/business/index')?>')"><i class="fa fa-angle-double-right"></i>Business</a></li>
-                               <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/view/holiday/index')?>')"><i class="fa fa-angle-double-right"></i>Holiday</a></li> -->
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/user/index')?>')"><i class="fa fa-angle-double-right"></i>User</a></li>
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/add_user_role/index')?>')"><i class="fa fa-angle-double-right"></i>User Role</a></li>
-                               <!-- <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/bank/index_bank_branch')?>')"><i class="fa fa-angle-double-right"></i>Bank</a></li>
-                             <!--   <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/bank/index')?>')"><i class="fa fa-angle-double-right"></i>Cash/Bank Book</a></li>-->
-                                <li id="upload_menu"><a href="#" onClick="setPage('<?php echo base_url('master/tax/index')?>')"><i class="fa fa-angle-double-right"></i>Tax</a></li>
-                            </ul>
+                                  
+                                    echo '<li class="treeview"><a href="#"  onClick="setPage(\''.base_url("".$value->link."").'\')"><i class="fa fa-angle-double-right"></i>'.$value->access.'</a>';
+                                 
+                                    echo ' <ul class="treeview-menu">';
 
-                            <ul class="treeview-menu">
-                              
-                              
-                            </ul>
-                        </li>                       
+                                    foreach ($this->users_model->get_child($id_type,$value->id) as $key => $row) {
+                                                
+                                            echo '<li><a href="#"  onClick="setPage(\''.base_url("".$row->link."").'\')"><i class="fa fa-angle-double-right"></i>'.$row->access.'</a></li>';
+
+                                    }
+                                    echo '</ul></li>';
+
+                               } 
+
+                               ;
+
+                            */
+                               ?>
+                       
+
                     </ul>
+
                 </section>
                 <!-- /.sidebar -->
             </aside>

@@ -3,20 +3,23 @@
 class MY_Controller extends CI_Controller {
 
 	function __construct() {
-		parent::__construct();
-        session_start();
-		#$this->system->set_all_activity_log();
-		if(count($_POST) > 0) {
-			foreach($_POST as $key => $row) {
-				$_POST[$key] = htmlspecialchars($row);
-			}
-		}
-		if(count($_GET) > 0) {
-			foreach($_GET as $key => $row) {
-				$_GET[$key] = htmlspecialchars($row);
-			}
-		}
-	}
+		  parent::__construct();
+		        session_start();
+		  #$this->system->set_all_activity_log();
+		  if(count($_POST) > 0) {
+
+		   	foreach($_POST as $key => $row) {
+		    	if(!is_array($_POST[$key])) $_POST[$key] = htmlspecialchars($row);
+		   	}
+		  }
+		  
+		  if(count($_GET) > 0) {
+		   	foreach($_GET as $key => $row) {
+		    	if(!is_array($_GET[$key])) $_GET[$key] = htmlspecialchars($row);
+		   	}
+		  }
+ }
+
 
 	function set_content($page,$data){
 		

@@ -60,10 +60,22 @@ class Users_model extends CI_Model {
      		$this->db->select('*');
      		$this->db->from("user_role_table a");
      		$this->db->join("user_access_table b","b.id = a.access_level");
-     		$this->db->where('id_type',$id_type);	
+     		$this->db->where('a.id_type',$id_type);	
+     		$this->db->where('b.parent','0');	
      		$get  = $this->db->get();
+     		// echo $this->db->last_query(); die();
      		return $get->result();
-			
+
+
+     		// $sql = $this->db->query("SELECT * from user_role_table as a LEFT JOIN user_access_table as b ON `b.id` = `a.access_level` WHERE `a.id_type` = '".$id_type."' and b.parent = 0");
+			// return $sql->result();
+ 		}
+
+
+ 		function get_child($id_type,$id_access)
+ 		{	
+ 			$query = $this->db->query("SELECT * FROM (`user_role_table` a) JOIN `user_access_table` b ON `b`.`id` = `a`.`access_level` WHERE `a`.`id_type` = '".$id_type."' AND `b`.`parent` = '".$id_access."'");
+ 			return $query->result();
  		}
 
 

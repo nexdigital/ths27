@@ -2,8 +2,8 @@
 
 		<div class="form-group">
 		
-		  <label>ID Type <label class="required-filed">*</label></label>
-		  <input type="text" name="id_type" class="form-control" value = "<?php echo $get_role->id_type ?>" readonly>
+		  <!-- <label>ID Type <label class="required-filed">*</label></label> -->
+		  <input type="hidden" name="id_type" class="form-control" value = "<?php echo $get_role->id_type ?>" readonly>
 		</div>
 
 		<div class="form-group">
@@ -14,7 +14,9 @@
 		</div>
 
 		  <label>Role <label class="required-filed">*</label></label>
-		
+		   <div class="form-group">
+	     		 <input type="checkbox" onClick="toggle(this)" /> Select All<br/>
+	 	 </div>	
 		  <?php  /*foreach ($get_checked as $key => $value) {
 		  		
 		  		echo ' <div class="form-group">
@@ -45,7 +47,7 @@
 		  	}
 		  			
 		  	
-		  		echo '<div class="form-group"><input type="checkbox" '.$checked .' name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;</div>';	
+		  		echo '<div class="col-md-4"> <div class="form-group"><input type="checkbox" '.$checked .' name="role[]" value="'.$value->id.'"> '.$value->access.'&nbsp;</div></div>';	
 
 		  } ?>
 
@@ -74,6 +76,13 @@
 
 
 <script type="text/javascript">
+
+function toggle(source) {
+    checkboxes = document.getElementsByName('role[]');
+	  for(var i=0, n=checkboxes.length;i<n;i++) {
+	    checkboxes[i].checked = source.checked;
+	  }
+}
 $(document).ready(function(){
 	 	$('form#edit_role_form').validate({
 	 			 rules: {
