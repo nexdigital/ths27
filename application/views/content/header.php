@@ -267,8 +267,3 @@
             </aside>
 
             
-
-<script type="text/javascript">
-
-
-</script>   

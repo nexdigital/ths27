@@ -1,12 +1,14 @@
-<table class="table table-striped">
+<table class="table table-striped" id="table_currency">
 	<thead>
 		<tr>
 			<th>Currency</th>
 			<th>Rate</th>
-			<th>Entry Date</th>
 			<th>Entry By</th>
-			<th>Update Date</th>
-			<th>Update By</th>
+			<th>Entry Date</th>
+			<th>Modified By</th>
+			<th>Modified Date</th>
+			<th>Status</th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -14,11 +16,13 @@
 		echo '
 			<tr>
 				<td><a href="javascript:;" onClick="setPage(\''.base_url().'master/view/currency/edit?id='.$row->exchange_rate_id.'\')">'.$row->exchange_rate_name.'</a></td>
-				<td>'.number_format($row->exchange_rate_value).'</td>
-				<td>'.$row->entry_date.'</td>
+				<td>Rp.'.number_format($row->exchange_rate_value).'</td>
 				<td>'.$row->entry_by.'</td>
-				<td>'.$row->update_date.'</td>
+				<td>'.$row->entry_date.'</td>
 				<td>'.$row->update_by.'</td>
+				<td>'.$row->update_date.'</td>
+				<td>'.$row->status.'</td>
+			
 			</tr>
 		';
 	}?>
@@ -28,6 +32,6 @@
 
 <script>
 $(document).ready( function () {
-    $('table.table').DataTable();
+    $('#table_currency').DataTable();
 });
 </script>

@@ -556,10 +556,11 @@ class Master extends MY_Controller {
 			case 'currency':
 				switch ($method) {
 					case 'add':
-						$this->db->set('exchange_rate_name',$_POST['currency']);
+						$this->db->set('exchange_rate_name',$_POST['currency_name']);
 						$this->db->set('exchange_rate_value',$_POST['rate']);
 						$this->db->set('entry_date',date('Y-m-d h:i:s'));
-						$this->db->set('entry_by',null);
+						$this->db->set('entry_by',$this->session->userdata('user_id'));
+						$this->db->set('status','active');
 						$this->db->insert('master_exchange_rate_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
 					break;
@@ -567,14 +568,25 @@ class Master extends MY_Controller {
 						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
 						$this->db->set('exchange_rate_name',$_POST['exchange_rate_name']);
 						$this->db->set('exchange_rate_value',$_POST['exchange_rate_value']);
+						$this->db->set('update_date',date('Y-m-d h:i:s'));
+						$this->db->set('update_by',$this->session->userdata('user_id'));
 						$this->db->update('master_exchange_rate_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>Currency has been updated'));
 					break;
 					case 'delete':
 						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
-						$this->db->delete('master_exchange_rate_table');
+						$this->db->set('status','deleted');
+						$this->db->update('master_exchange_rate_table');
 						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>Currency has been updated'));
 					break;
+
+					case 'check_available_currency':
+						$currency_name = $_GET['currency_name'];
+						$get = $this->db->query("select * from master_exchange_rate_table where exchange_rate_name = '".strtolower($currency_name)."'");
+						if($get->num_rows() == 0) echo "true";
+						else echo "false";
+					break;
+
 					default:
 						header("HTTP/1.0 404 Not Found");
 					break;

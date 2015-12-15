@@ -412,6 +412,15 @@ class Tool_model extends CI_Model {
 	     $this->session->set_userdata( $session );
 	     session_destroy();
 	}
+
+
+	function get_country_to_currency()
+	{
+		$this->db->where('is_active','active');
+		$this->db->not_like('country_name','indonesia');
+		$get = $this->db->get('master_country_table');
+		return $get->result();
+	}
 }
 
 ?>

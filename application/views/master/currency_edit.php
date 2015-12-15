@@ -1,7 +1,7 @@
 <form id="form_currency" method="post" action="<?php  echo base_url()?>master/ajax/currency/edit">
 	<input type="hidden" name="exchange_rate_id" value="<?php echo $data->exchange_rate_id ?>">
 	<div class="form-group">
-		<label>Currency <label class="required-filed">*</label></label>
+		<label>Currency Name <label class="required-filed">*</label></label>
 		<input type="text" class="form-control" name="exchange_rate_name" value="<?php echo $data->exchange_rate_name ?>">
 	</div>
 

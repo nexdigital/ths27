@@ -11,6 +11,7 @@
 				<th>Date Payment</th>
 				<th>Created By</th>
 				<th>Status</th>
+				
 		</thead>
 
 		<tbody>
