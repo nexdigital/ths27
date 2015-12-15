@@ -556,28 +556,45 @@ class Master extends MY_Controller {
 			case 'currency':
 				switch ($method) {
 					case 'add':
-						$this->db->set('exchange_rate_name',$_POST['currency_name']);
-						$this->db->set('exchange_rate_value',$_POST['rate']);
-						$this->db->set('entry_date',date('Y-m-d h:i:s'));
-						$this->db->set('entry_by',$this->session->userdata('user_id'));
-						$this->db->set('status','active');
-						$this->db->insert('master_exchange_rate_table');
-						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>New currency has been added'));
+
+							$currency_name = $_POST['currency_name'];
+							$check_currency = $this->master_currency->check_currency( $currency_name );
+
+							if(!$check_currency)
+							{
+								$this->db->set('exchange_rate_name',$_POST['currency_name']);
+								$this->db->set('exchange_rate_value',$_POST['rate']);
+								$this->db->set('entry_date',date('Y-m-d h:i:s'));
+								$this->db->set('entry_by',$this->session->userdata('username'));
+								$this->db->set('status','active');
+								$this->db->insert('master_exchange_rate_table');
+								$status  = 'success'; 
+								$message = 'New currency has been added';
+							}
+							else
+							{
+								$status  = 'warning'; 
+								$message = 'Currency Name Has been created before';
+							}
+							
+
+
+						echo json_encode(array('status' => $status, 'message' => $message));
 					break;
 					case 'edit':
 						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
 						$this->db->set('exchange_rate_name',$_POST['exchange_rate_name']);
 						$this->db->set('exchange_rate_value',$_POST['exchange_rate_value']);
 						$this->db->set('update_date',date('Y-m-d h:i:s'));
-						$this->db->set('update_by',$this->session->userdata('user_id'));
+						$this->db->set('update_by',$this->session->userdata('username'));
 						$this->db->update('master_exchange_rate_table');
-						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>Currency has been updated'));
+						echo json_encode(array('status' => 'success', 'message' => 'Currency has been updated'));
 					break;
 					case 'delete':
 						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
 						$this->db->set('status','deleted');
 						$this->db->update('master_exchange_rate_table');
-						echo json_encode(array('status' => 'success', 'message' => '<strong>Success</strong><br/>Currency has been updated'));
+						echo json_encode(array('status' => 'success', 'message' => 'Currency has been Deleted'));
 					break;
 
 					case 'check_available_currency':

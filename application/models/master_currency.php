@@ -3,7 +3,7 @@
 class Master_currency extends CI_Model {
 	
 	function get_exchange_rate_list() {
-		$get = $this->db->query("select * from master_exchange_rate_table");
+		$get = $this->db->query(" select a.*,b.username from master_exchange_rate_table as a LEFT JOIN user_table as b on b.user_id = a.entry_by and b.user_id = b.update_by ");
 		return $get->result();
 	}
 
@@ -12,6 +12,21 @@ class Master_currency extends CI_Model {
 		return $get->row('exchange_rate_value');
 	}
 	
+
+	function check_currency( $currency_name ) {
+		
+		$this->db->where( "exchange_rate_name",  $currency_name);
+		$this->db->where( "status = 'active'");
+		$get	= $this->db->get( "master_exchange_rate_table" );
+		if( $get->num_rows() > 0 )
+			return $get->row();
+		else
+			return FALSE;
+	
+	}
+
+
+
 	/*
 	function list_currency_type(){
 		$get = $this->db->query("select * from master_currency_type_table");

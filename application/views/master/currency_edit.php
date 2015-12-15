@@ -2,7 +2,7 @@
 	<input type="hidden" name="exchange_rate_id" value="<?php echo $data->exchange_rate_id ?>">
 	<div class="form-group">
 		<label>Currency Name <label class="required-filed">*</label></label>
-		<input type="text" class="form-control" name="exchange_rate_name" value="<?php echo $data->exchange_rate_name ?>">
+		<input type="text" class="form-control" name="exchange_rate_name" value="<?php echo $data->exchange_rate_name ?>" readonly>
 	</div>
 
 	<div class="form-group">
@@ -12,8 +12,9 @@
 
 	<div class="form-group">
 		<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Update</button>
-		<button type="button" class="btn btn-danger delete" exchange_rate_id="<?php echo $data->exchange_rate_id ?>">Delete</button>
+		<button type="button" class="btn btn-success delete" exchange_rate_id="<?php echo $data->exchange_rate_id ?>">Delete</button>
 		<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')">Cancel</button>
+		<label class="alert-form" ></label>
 	</div>
 </div>
 
@@ -27,16 +28,16 @@
 			success:function(data){			
 				$('#message_form').remove();
 				if(data.status == "success"){
-					$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
+					$('.alert-form').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
 					$('form#form_currency').resetForm();
 				} else if(data.status == "warning") {
-					$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');				
+					$('.alert-form').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');				
 				}
 				$('#message_form').fadeIn('slow');
 				setTimeout(function(){ 
 					$('#message_form').fadeOut('slow');
 					setPage('<?php echo base_url('master/view/currency/index')?>')
-				}, 5000);
+				}, 1200);
 			},
 			error:function(data){
 				$('#message_form').remove();
@@ -46,7 +47,7 @@
 				setTimeout(function(){ 
 					$('#message_form').fadeOut('slow');
 					setPage('<?php echo base_url('master/view/currency/index')?>')
-				}, 5000);
+				}, 1200);
 			},
 			beforeSubmit:function(){
 				$('button.submit-upload').button('loading');

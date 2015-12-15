@@ -33,7 +33,8 @@
 <div class="form-group">
 		<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Submit</button>
 		<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')">Cancel</button>
-	</div>
+		<label class="alert-form" ></label>
+</div>
 
 </form>
 
@@ -79,16 +80,25 @@ $(document).ready(function() {
 			success:function(data){			
 				$('#message_form').remove();
 				if(data.status == "success"){
-					$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
-					$('form#form_currency').resetForm();
+					$('.alert-form').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
+				
+					$('#message_form').fadeIn('slow');
+					setTimeout(function(){ 
+						$('#message_form').fadeOut('slow');
+						$('form#form_currency').resetForm();
+						 setPage('<?php echo base_url('master/view/currency/index')?>')
+					}, 1200);
+
+
 				} else if(data.status == "warning") {
-					$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-warning" role="alert">'+data.message+'</div>');				
-				}
-				$('#message_form').fadeIn('slow');
+					$('.alert-form').prepend('<div id="message_form" style="display:none;" class="alert alert-danger" role="alert">'+data.message+'</div>');				
+					$('#message_form').fadeIn('slow');
 				setTimeout(function(){ 
 					$('#message_form').fadeOut('slow');
-					setPage('<?php echo base_url('master/view/currency/index')?>')
-				}, 5000);
+					 // setPage('<?php echo base_url('master/view/currency/index')?>')
+				}, 1200);
+				}
+				
 			},
 			error:function(data){
 				$('#message_form').remove();
@@ -98,7 +108,7 @@ $(document).ready(function() {
 				setTimeout(function(){ 
 					$('#message_form').fadeOut('slow');
 					setPage('<?php echo base_url('master/view/currency/index')?>')
-				}, 5000);
+				}, 1200);
 			},
 			beforeSubmit:function(){
 				$('button.submit-upload').button('loading');
