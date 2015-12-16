@@ -592,6 +592,7 @@ class Master extends MY_Controller {
 					break;
 					case 'delete':
 						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
+						$this->db->set('update_by',$this->session->userdata('username'));
 						$this->db->set('status','deleted');
 						$this->db->update('master_exchange_rate_table');
 						echo json_encode(array('status' => 'success', 'message' => 'Currency has been Deleted'));
