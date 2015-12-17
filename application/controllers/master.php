@@ -49,7 +49,7 @@ class Master extends MY_Controller {
 	}
 
 
-	function view($master = null,$page = null) {
+	function view($master = null,$page = null,$id_currency = null) {
 		switch ($master) {
 			case 'country':
 				switch ($page) {
@@ -86,326 +86,37 @@ class Master extends MY_Controller {
 						$this->set_content('master/currency_add',$data);
 					break;
 					case 'edit':
-						$id = $_GET['id'];
+						 // $id = $_GET['id'];
 
-						$query = $this->db->query("select * from master_exchange_rate_table where exchange_rate_id = '$id'");
+						$query = $this->db->query("select * from master_exchange_rate_table where exchange_rate_id = '$id_currency'");
 
 						$data['data']			= $query->row();
 						$data['title']			= 'Currency #'.$query->row("exchange_rate_name");
 						$this->set_content('master/currency_edit',$data);
+					break;
+
+					case 'delete':
+							// $id = $_GET['id'];
+							$query = $this->db->query("select * from master_exchange_rate_table where exchange_rate_id = '$id_currency'");
+							$data['data']			= $query->row();
+							$data['title']			= 'Delete Currency';
+						$this->set_content('master/currency_delete',$data);
 					break;
 					default:
 						header("HTTP/1.0 404 Not Found");
 					break;
 				}
 				break;
-				case 'term_of_payment':
-					switch ($page) {
-						case 'index':
-							$data['title']			= 'Term Of Payment';
-							$this->set_content('master/top_list',$data);
-						break;						
-						case 'add':
-							$data['title']			= 'Add Term Of Payment';
-							$this->set_content('master/top_add',$data);
-						break;						
-						default:
-							header("HTTP/1.0 404 Not Found");
-						break;
-					}
-				break;
-				case 'airlines':
-					switch ($page) {
-						case 'index':
-							$data['title']			= 'Airlines';
-							$this->set_content('master/airlines_list',$data);
-						break;
-						case 'add':
-							$data['list_country']	= $this->master_country->list_country();
-							$data['title']			= 'Add Airlines';
-							$this->set_content('master/airlines_add',$data);
-						break;						
-						default:
-							header("HTTP/1.0 404 Not Found");
-						break;
-					}
-				break;
-				case 'holiday':
-					switch ($page) {
-						case 'index':
-							$data['title']			= 'Holiday';
-							$this->set_content('master/holiday_list',$data);
-						break;
-						case 'add':
-							$data['list_country']	= $this->master_country->list_country();
-							$data['title']			= 'Add Holiday';
-							$this->set_content('master/holiday_add',$data);
-						break;						
-						default:
-							header("HTTP/1.0 404 Not Found");
-						break;
-					}
-				break;
-				case 'add_group':
-						$data['title']			= 'Add Group Customer';
-						$this->set_content('master/group_form',$data);
-				break;
+		
 			default:
 				header("HTTP/1.0 404 Not Found");
 			break;
 		}
 	}
-
-	function master_customer_group(){
-		$this->set_content('master/master_group',array('title' => 'Master Customers Group'));
-
-		/**
-		$data				= array();
-		$json['content'] 	= $this->load->view('master/master_group',$data,true);
-		$json['title']		= 'Customers Group';
-		echo json_encode($json);
-		**/
-	}
-
-
-	function business($page=null, $id=null){
-
-			switch ($page) {
-				case 'index':
-					$data['get_business']	= $this->master_business->get_business();
-					$data['title']			= 'Master Business';
-					$this->set_content('master/master_business',$data);
-
-				break;
-
-				case 'add_business' :
-				
-					$data['title']			= 'Add Business';
-					$this->set_content('master/business_form',$data);
-
-				break;
-
-				case 'edit_business' :
-					$data['get_business_row']	= $this->master_business->get_row($id);
-					$data['title']				= 'Edit Business';
-					$this->set_content('master/business_edit',$data);
-
-				break;
-
-				case 'delete':
-					$data['get_business_row']	= $this->master_business->get_row($id);
-					$data['title']				= 'Delete Business';
-					$this->set_content('master/business_delete',$data);
-
-				break;
-			}
-
-	}
-
-	
-
 	
 	function ajax($page = null, $method = null, $id = null){
 		switch ($page) {
-			case 'bank':
-				switch ($method) {
-					case 'add':
-						$bank['bank_id'] 			= $_POST['bank_id'];
-						$bank['bank_name'] 			= $_POST['bank_name'];
-						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
-						$bank['country_id'] 		= $_POST['country_id'];	
-						$bank['description'] 		= $_POST['description'];
-						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
-						$bank['entry_date']			= date('Y-m-d h:i:s');
-						$bank['entry_by']			= $this->session->userdata('user_id');
-
-						$this->db->where('lower(bank_id)',strtolower($bank['bank_id']));
-						$get = $this->db->get('master_bank_table');
-						if($get->num_rows() > 0) {
-							echo 'false';
-							echo json_encode(array('status' => 'warning', 'message' => 'Sorry BANK ID has been used!'));
-						} else {
-							$this->db->insert('master_bank_table',$bank);
-							echo json_encode(array('status' => 'success', 'message' => 'New bank has been added'));
-						}
-					break;
-
-					case 'edit':
-					/*	$bank['bank_name'] 			= $_POST['bank_name'];
-						$bank['bank_swift_code'] 	= $_POST['bank_swift_code'];
-						$bank['country_id'] 		= $_POST['country_id'];	
-						$bank['description'] 		= $_POST['description'];
-						$bank['is_active'] 			= (isset($_POST['is_active'])) ? 'active' : 'inactive';
-						$this->db->where('bank_id',$id);
-						$this->db->update('master_bank_table',$bank);
-						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully updated'));*/
-						$status = TRUE;
-						$message = "teast";
-						echo json_encode(array('status' =>$status, 'message' => $message));
-					break;
-					
-					case 'delete':
-						$bank['is_active'] 			= 'deleted';
-						$this->db->where('lower(bank_id)',strtolower($id));
-						$this->db->update('master_bank_table',$bank);
-						echo json_encode(array('status' => 'success', 'message' => 'Bank successfully deleted'));
-					break;
-					case 'check_available_bank_id':
-						$bank_id = $_GET['bank_id'];
-						$this->db->where('lower(bank_id)',strtolower($bank_id));
-						$get = $this->db->get('master_bank_table');
-						if($get->num_rows() > 0) echo 'false';
-						else echo 'true';
-					break;
-					case 'autoComplete':
-						$bank_id = $_GET['q'];
-						$this->db->like('bank_id',$bank_id);
-						$this->db->where_in('is_active',array('active'));
-						$get = $this->db->get('master_bank_table');
-
-						$bank_id_list = array();
-						foreach($get->result() as $row) {
-							$bank_id_list[] = $row->bank_id;
-						}
-
-						echo json_encode($bank_id_list);
-					break;
-					default:
-					# code...
-					break;
-				}
-			break;
-
-
-			case 'business':
-
-					switch ($method) {
-						case 'add':
-
-							$business_id 		= str_replace(' ', '', $_POST['business_id']);
-							$business_name 		= $_POST['business_name'];
-							$description		= $_POST['description'];
-							$check_business = $this->master_business->check_available_business($business_id);
-
-							if($check_business){
-								$status = FALSE;
-								$message = "ID business has been created before";	
-
-							}else{
-
-
-								$regex = "/^[a-zA-Z0-9_ ]*$/";
-								if (preg_match($regex, $business_name) && preg_match($regex, $business_id) ) {
-									$component  = array('business_id' 	=> $business_id,
-														'business_name' => $business_name,	
-														'description'	=> $description,
-														'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
-														'created_date'	=> date("Y-m-d"),
-														'created_by'	=> $this->session->userdata("username")
-														 );	
-
-									$this->master_business->add_business($component);
-									$status = TRUE;
-									$message = "Save Success";	
-								}else{
-									$status = FALSE;
-									$message = "wrong format input";	
-								}
-
-							}
-								
-							
-							echo json_encode(array('status' => $status, 'message' =>$message ));
-						break;
-
-						case 'check_available':
-							
-								$business_name = $_GET['business_name'];
-								$get = $this->db->query("select * from master_business where business_name = '".strtolower($business_name)."'");
-								if($get->num_rows() == 0) echo "true";
-								else echo "false";
-						break;	
-
-						case 'business_edit':
-
-								$business_id 		= $_POST['business_id'];
-								$business_name 		= $_POST['business_name'];
-								$description		= $_POST['description'];
-
-								$check_name = $this->master_business->check_available_name($business_id,$business_name );
-
-								if($check_name){
-
-										$status = FALSE;
-										$message = "Business name has been created before";
-
-								}else{
-
-								$regex = "/^[a-zA-Z0-9_ ]*$/";
-								if (preg_match($regex, $business_name)) {
-									$component  = array(	
-														'business_name' => $business_name,	
-														'description'	=> $description,
-														'is_active'		=> (isset($_POST['is_active'])) ? 'active' : 'inactive',
-														'update_by'		=> $this->session->userdata("username"),
-														'update_date'	=> date('Y-m-d')
-														 );	
-
-									//$this->session->userdata("username")
-
-									$this->master_business->edit_business($business_id,$component);
-									$status = TRUE;
-									$message = "Edit Success";	
-									}else{
-										$status = FALSE;
-										$message = "wrong format input";		
-									}
-								}
-							
-
-								echo json_encode(array('status' => $status, 'message' =>$message ));
-
-
-						break;
-
-						case 'delete':
-
-						$get_business = $this->master_business->get_row($id);
-
-						if($get_business->is_active == "deleted"){
-
-							$status = FALSE;
-							$message = "Business Has been deleted before";
-
-						}else{
-							$this->master_business->delete($id);
-							$status = TRUE;
-							$message = "Business successfully deleted";
-						}
-
-						echo json_encode(array('status' => $status, 'message' => $message));
-						break;
-
-						case 'autoComplete':
-								$business_id = $_GET['q'];
-								$this->db->like('business_id',$business_id);
-								$this->db->where_in('is_active',array('active'));
-								$get = $this->db->get('master_business');
-
-								$business_id_list = array();
-								foreach($get->result() as $row) {
-									$business_id_list[] = $row->business_id;
-								}
-								echo json_encode($business_id_list);
-						break;
-
-
-						default:
-							# code...
-							break;
-					}
-
-			break;
+		
 			case 'country':
 				switch ($method) {
 					case 'add':
@@ -595,7 +306,11 @@ class Master extends MY_Controller {
 						$this->db->set('update_by',$this->session->userdata('username'));
 						$this->db->set('status','deleted');
 						$this->db->update('master_exchange_rate_table');
-						echo json_encode(array('status' => 'success', 'message' => 'Currency has been Deleted'));
+						// echo json_encode(array('status' => 'success', 'message' => 'Currency has been Deleted'));
+						$status = "success";
+						$message = "Currency has been Deleted";
+						echo json_encode(array('status' =>$status, 'message' => $message));
+
 					break;
 
 					case 'check_available_currency':

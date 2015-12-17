@@ -3,7 +3,7 @@
 class Master_currency extends CI_Model {
 	
 	function get_exchange_rate_list() {
-		$get = $this->db->query(" select a.*,b.username from master_exchange_rate_table as a LEFT JOIN user_table as b on b.user_id = a.entry_by and b.user_id = b.update_by ");
+		$get = $this->db->query(" select * from master_exchange_rate_table order by entry_date DESC ");
 		return $get->result();
 	}
 
