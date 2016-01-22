@@ -310,7 +310,7 @@
         })
 
         $('a.print').click(function(){
-            window.open("<?php echo base_url('invoice/printout/'.$data->hawb_no) ?>","_blank");
+            window.open("<?php echo base_url('invoice/priview/'.$data->hawb_no) ?>","_blank");
             setTimeout(function(){
                 setPage('<?php echo base_url('manifest/view/details?hawb_no='.$data->hawb_no) ?>');
             },5000);
