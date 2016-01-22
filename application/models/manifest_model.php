@@ -1,5 +1,10 @@
 <?php
 class Manifest_model extends CI_Model {
+
+	private $import_handling = 50;
+	private $export_handling = 100;
+
+
 	function check_available_mawb($mawb_no) {
 		$query = $this->db->query("select * from manifest_file_table where mawb_no = '$mawb_no' limit 1");
 		if($query->num_rows() > 0) return false;
@@ -319,6 +324,45 @@ class Manifest_model extends CI_Model {
 		return $query;
 	}
 
+	function get_freight($hawb_no){
+		$get = $this->get_by_hawb($hawb_no);
+		$total_handling = $this->get_handling_jakarta($hawb_no);
+		$total_freight = 0;
+		if($get->manifest_type === 'import') {
+			$total_freight = $get->collect - $total_handling;			
+		} else if($get->manifest_type === 'export'){
+			$total_freight = $get->prepaid - $total_handling;
+		}
+		return $total_freight;
+	}
+	function get_handling_jakarta($hawb_no){
+		$get = $this->get_by_hawb($hawb_no);
+		if($get->manifest_type === 'import') {
+			$total_handling = $this->import_handling * $get->kg;			
+		} else if($get->manifest_type === 'export'){
+			$total_handling = $this->export_handling * $get->kg;
+		}
+		return $total_handling;
+	}
 	
+	function get_total($hawb_no){		
+		$get = $this->get_by_hawb($hawb_no);
+		$nt = $get->exchange_rate;
+		
+		$freight = $this->get_freight($hawb_no) * $nt;
+		$handling_jakarta = $this->get_handling_jakarta($hawb_no) * $nt;
+		
+		$reimbursement = $this->invoice_model->get_total_item($hawb_no,'reimbursement'); //on rupiah
+		$non_reimbursement = $this->invoice_model->get_total_item($hawb_no,'non_reimbursement'); //on rupiah
+		
+		$is_tax = $this->invoice_model->is_tax($hawb_no);
+		$total_tax = 0;
+		if($is_tax){
+			$total_tax = $this->invoice_model->get_total_tax($hawb_no);
+		}
+				
+		$calculator = $freight + $reimbursement + $handling_jakarta + $non_reimbursement + $total_tax;
+		return $calculator;
+	}
 }
 ?>
