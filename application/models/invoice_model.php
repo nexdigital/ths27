@@ -92,10 +92,6 @@ class Invoice_model extends CI_Model {
 	}
 	
 	function create($hawb_no) {
-		ob_start();
-		$this->load->library('pdf');
-		$pdf = $this->pdf->load();
-
 		$data['data'] = $this->manifest_model->get_by_hawb($hawb_no);
 		$data['shipper'] = $this->customers_model->get_by_id($data['data']->shipper);
 		$data['consignee'] = $this->customers_model->get_by_id($data['data']->consignee);
@@ -115,11 +111,12 @@ class Invoice_model extends CI_Model {
 		$data['total_invoice'] = $this->manifest_model->get_total($hawb_no); //return on rupiah
 		
 		$html = $this->load->view('manifest/airwaybill_printout',$data,true);
+		include_once APPPATH . 'libraries/mpdf60/mpdf.php';
+		$mpdf=new mPDF('c','A4'); 
 		
-		$filename = path_invoice . $hawb_no.time().'.pdf';
-		
-		$pdf->WriteHTML($html);
-		return $pdf->Output($filename,'I');
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
+		exit;
 	}
 
 	function barcode_1d($string) {

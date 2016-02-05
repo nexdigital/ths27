@@ -8,7 +8,7 @@
 <input type="hidden" name="item_hawb_no" value="<?php echo $data->hawb_no ?>">
 <?php
 $receipt = array('THS','Consumer');
-for($i=0;$i<=0;$i++){?>
+for($i=0;$i<=1;$i++){?>
 <div class="paper">
     <div class="contaier">
         <div class="header">
@@ -38,6 +38,7 @@ for($i=0;$i<=0;$i++){?>
 				</div>
 			</div>
 			<div class="details">
+				<div style="height:300px;">
 				<?php if(($data->manifest_type === 'import' && $data->collect) || ($data->manifest_type === 'export' && $data->prepaid)): ?>
 				<div class="item-field">
 					<div class="item" style="width:100%;"><strong>Reimbursement</strong></div>
@@ -87,9 +88,12 @@ for($i=0;$i<=0;$i++){?>
 					<div class="value invoice_total"><?php echo number_format($total_invoice) ?></div>
 				</div>
 				<?php endif; ?>
-				<div class="item" style="width:100%; margin-top:20px;"></div>
-				<div class="item" style="width:140px; text-align:center;">Jakarta, <?php echo date('d/m/Y')?></div><div class="value" style="width:160px; text-align:center;">Shipper/Consignee</div>
-				<div class="item" style="margin-top:50px; width:140px; text-align:center;">Authorized</div><div class="value" style="margin-top:50px; width:160px; text-align:center;">Name</div>						
+				</div>
+				<div class="item" style="width:160px; margin-bottom: 50px; text-align:center;">Jakarta, <?php echo date('d/m/Y')?></div>
+				<div class="value" style="width:130px; margin-bottom: 50px; text-align:center;">Shipper/Consignee</div>
+				
+				<div class="item" style="width:160px; text-align:center;">Authorized</div>
+				<div class="value" style="width:130px; text-align:center;">Name</div>						
 			</div>
 	    </div>
     </div>

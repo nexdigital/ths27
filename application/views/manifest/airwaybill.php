@@ -103,7 +103,7 @@
 							<div class="value invoice_total"><?php echo number_format($total_invoice) ?></div>
 						</div>
 						<?php endif; ?>
-					</	>
+					</td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>

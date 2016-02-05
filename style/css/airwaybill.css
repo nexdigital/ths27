@@ -5,8 +5,10 @@
 	padding: 0px;
 	margin: 0px;
 }
+@page {
+    margin:10px;
+}
 .paper {
-	width: 210mm;
 	margin: auto;
 	margin-bottom: 20px;
 	padding-bottom: 20px;
@@ -42,7 +44,6 @@
 
 .content {
 	padding: 10px;
-	height: 267px;
 	line-height: 20px;
 }
 
