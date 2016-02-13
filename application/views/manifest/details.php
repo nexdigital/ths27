@@ -129,25 +129,25 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label>Total</label>
+            <label>Total <em>Exclude handling jakarta and PPN</em></label>
             <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'normal')) ?></p>
         </div>
-        <div class="col-sm-6" style="padding:0px;">
+        <div class="col-sm-6 hidden" style="padding:0px;">
             <label>Discount</label>
             <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'discount')) ?></p>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 hidden">
             <label>Charge</label>
             <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'charge')) ?></p>
         </div>
         <div class="form-group">
-            <label>Subtotal</label>
+            <label>Subtotal <em>Exclude handling jakarta and PPN</em></label>
             <p class="form-control">Rp. <?php echo number_format($this->manifest_model->subtotal($data->hawb_no,'all')) ?></p>
         </div>
     </div>
 </div>
 
-<div class="col-lg-6 col-sm-6 col-xs-6" style="padding:0px 5px 0px 0px;">
+<div class="col-lg-6 col-sm-6 col-xs-6 hidden" style="padding:0px 5px 0px 0px;">
 <div class="toolbar">
     <div class="btn-group" role="group" aria-label="...">
         <!-- Split button -->
@@ -207,7 +207,7 @@
 </table>
 </div>
 
-<div class="col-lg-6 col-sm-6 col-xs-6" style="padding:0px 0px 0px 5px;">
+<div class="col-lg-6 col-sm-6 col-xs-6 hidden" style="padding:0px 0px 0px 5px;">
 <div class="toolbar">
     <div class="btn-group" role="group" aria-label="...">
         <div class="btn-group">

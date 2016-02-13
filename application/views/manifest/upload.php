@@ -82,7 +82,6 @@
     </div>
 </div>
 </form>
-
 <script type="text/javascript">
 $(document).ready(function(){
 	/*Form upload manfiest*/
@@ -92,7 +91,7 @@ $(document).ready(function(){
 	});
 	$('form#form_upload_manifest').ajaxForm({
 		dataType:'json',
-		success:function(data){			
+		success:function(data){
 			$('#message_form').remove();
 			if(data.status == "success"){
 				$('section.content').prepend('<div id="message_form" style="display:none;" class="alert alert-success" role="alert">'+data.message+'</div>');
@@ -113,7 +112,7 @@ $(document).ready(function(){
 			setTimeout(function(){ $('#message_form').fadeOut('slow'); }, 5000);
 		},
 		beforeSubmit:function(){
-            $('.submit-upload').addClass('disabled');
+            // $('.submit-upload').addClass('disabled');
         }
 	});
 	/*Form upload manfiest End*/

@@ -55,36 +55,36 @@
 							<div class="reimbursement">
 								<!-- Reimbursement -->
 								<div class="item" style="width:160px;">Freight</div>
-								<div class="item" style="width:20px;">RP</div>
+								<div class="item" style="width:100px;">RP</div>
 								<div class="value"><?php echo number_format($freight) ?></div>
 								<?php
 									foreach($reimbursement as $key => $row){
 										echo '
 										<div class="item-'.$row->id.'">
 											<div class="item" style="width:160px;">'.$row->name.'  <a href="javascript:void(0);" class="remove-item" data-id="'.$row->id.'">X</a></div>
-											<div class="item" style="width:20px;">RP</div>
+											<div class="item" style="width:100px;">RP</div>
 											<div class="value">'.number_format($row->value).'</div>
 										</div>';
 									}
 								?>
 								<div class="item" style="width:160px;">Materai</div>
-								<div class="item" style="width:20px;">RP</div>
+								<div class="item" style="width:100px;">RP</div>
 								<div class="value"><?php echo number_format($materai) ?></div>
 							</div>	                    
 							<div class="item" style="width:100%;"><a href="javascript:void(0);" class="add-item" data-type="reimbursement">Add item</a></div>
 		
-							<div class="item" style="width:100%; margin-top:20px;"><strong>NON REIMBUSEMENT</strong></div>
+							<div class="item" style="width:100%; margin-top:100px;"><strong>NON REIMBUSEMENT</strong></div>
 							<div class="non_reimbursement">
 								<!-- Non Reimbursement -->
 								<div class="item" style="width:160px;">Handling Jakarta</div>
-								<div class="item" style="width:20px;">RP</div>
+								<div class="item" style="width:100px;">RP</div>
 								<div class="value"><?php echo number_format($handling_jakarta) ?></div>
 								<?php
 									foreach($non_reimbursement as $key => $row){
 										echo '
 										<div class="item-'.$row->id.'">
 											<div class="item" style="width:160px;">'.$row->name.'  <a href="javascript:void(0);" class="remove-item" data-id="'.$row->id.'">X</a></div>
-											<div class="item" style="width:20px;">RP</div>
+											<div class="item" style="width:100px;">RP</div>
 											<div class="value">'.number_format($row->value).'</div>
 										</div>';
 									}
@@ -94,12 +94,12 @@
 							<div class="item" style="width:100%;"><a href="javascript:void(0);" class="add-item" data-type="non_reimbursement">Add item</a></div>
 							
 							<div class="item" style="width:160px;"><input type="checkbox" class="item-tax" <?php echo ($is_tax) ? 'checked="checked"' : '' ?>>tax</div>
-							<div class="item" style="width:20px;">RP</div>
+							<div class="item" style="width:100px;">RP</div>
 							<div class="value invoice_tax"><?php echo number_format($total_tax) ?></div>
 		
 							<div class="item" style="width:100%; margin-top:10px;">&nbsp;</div>
 							<div class="item" style="width:160px;">TOTAL</div>
-							<div class="item" style="width:20px;">RP</div>
+							<div class="item" style="width:100px;">RP</div>
 							<div class="value invoice_total"><?php echo number_format($total_invoice) ?></div>
 						</div>
 						<?php endif; ?>

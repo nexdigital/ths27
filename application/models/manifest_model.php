@@ -245,7 +245,7 @@ class Manifest_model extends CI_Model {
 				return $subtotal;
 			break;
 			case 'normal':
-				$subtotal += $data->kg * $data->rate;
+				$subtotal += $data->collect;
 
 				$subtotal += $data->other_charge_tata;
 				$subtotal += $data->other_charge_pml;
@@ -255,7 +255,7 @@ class Manifest_model extends CI_Model {
 			break;
 
 			case 'amount':
-				$subtotal += $data->kg * $data->rate;
+				$subtotal += $data->collect;
 				$subtotal = $subtotal * $data->exchange_rate;
 				return $subtotal;
 			break;

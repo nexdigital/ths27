@@ -117,11 +117,11 @@ $(document).ready(function(){
 	$('#sandbox-container .input-daterange').datepicker({
 	    format: "yyyy-mm-dd"
 	})
-	$('button#submit').click(function(){
-		$.get('<?php echo base_url() ?>manifest/get/master_data',{'data_type':'','status':'','start_date':'','end_date':''},function(data){
-			alert(data);
-		})
-	})
+	// $('button#submit').click(function(){
+	// 	$.get('<?php echo base_url() ?>manifest/get/master_data',{'data_type':'','status':'','start_date':'','end_date':''},function(data){
+	// 		alert(data);
+	// 	})
+	// })
 
 	$.get('<?php echo base_url() ?>master/charts',{'chart':'column','sort_by':'total_kg','sort_order':'desc','limit':'50'},function(data){
 		$('.charts-container').html(data);

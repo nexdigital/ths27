@@ -55,6 +55,8 @@ class Manifest extends MY_Controller {
 			break;
 			case 'details':
 				$hawb_no = $_GET['hawb_no'];
+				$this->invoice_model->barcode_qrcode($hawb_no);
+
 				$data['data'] = $this->manifest_model->get_by_hawb($hawb_no);
 				$data['discount'] = $this->manifest_model->get_discount($hawb_no);
 				$data['extra_charge'] = $this->manifest_model->get_extra_charge($hawb_no);
@@ -84,7 +86,6 @@ class Manifest extends MY_Controller {
 		switch ($page) {
 			case 'upload':
 				include path_app . 'libraries/PHPExcel/IOFactory.php';
-					
 				//Upload file excel to attachment
 				$config['allowed_types'] = '*';
 				$config['upload_path'] = path_attachment;
@@ -98,7 +99,8 @@ class Manifest extends MY_Controller {
 				$this->form_validation->set_rules('partner_id', 'partner_id', 'required');
 				$this->form_validation->run();
 
-				if ($this->upload->do_upload()) {
+				if($this->upload->do_upload()) {
+					error_log('here upload');
 					$data_file = $this->upload->data();
 
 					/*UPLOAD FILE================================================================*/
@@ -178,7 +180,7 @@ class Manifest extends MY_Controller {
 									$mapping[$no]['rate'] 				= (!in_array($header['rate'].$key, $merge_cell)) ? $value[$header['rate']] : $sheetData[$this->tool_model->get_key_cell($header['rate'].$key,$merge_cell)][$header['rate']];
 									$mapping[$no]['remarks'] 			= (!in_array($header['remarks'].$key, $merge_cell)) ? $value[$header['remarks']] : $sheetData[$this->tool_model->get_key_cell($header['remarks'].$key,$merge_cell)][$header['remarks']];
 									$mapping[$no]['status']				= 'Unverified';
-									$mapping[$no]['exchange_rate']  	= $this->master_currency->get_exchange_rate_value('nt');
+									$mapping[$no]['exchange_rate']  	= $this->master_currency->get_exchange_rate_value('ntd');
 									$mapping[$no]['created_date']		= date('Y-m-d h:i:s');
 									$mapping[$no]['last_update']		= date('Y-m-d h:i:s');
 									$mapping[$no]['user_id']			= $this->session->userdata('user_id');
@@ -209,6 +211,8 @@ class Manifest extends MY_Controller {
 						$json['message'] 	= "<strong>Upload Error!</strong><br/>Please fixing your header file, bellow header need correction: <br/>".$errorHeader;
 						echo json_encode($json);
 					}
+				} else {
+					error_log('Failed to upload');
 				}
 			break;
 

@@ -60,7 +60,7 @@
 							  </button>
 							  <ul class="dropdown-menu" role="menu">
 							    <li><a href="javascript:;" onCLick="setPage(\''.base_url('manifest/view/details?hawb_no='.$row->hawb_no).'\')">Details</a></li>
-							    <li><a href="javascript:;">Payment</a></li>
+							    <li class="hidden"><a href="javascript:;">Payment</a></li>
 							  </ul>
 							</div>
 						</td>
@@ -86,10 +86,10 @@ $(document).ready(function(){
 	$('#sandbox-container .input-daterange').datepicker({
 	    format: "yyyy-mm-dd"
 	})
-	$('button#submit').click(function(){
-		$.get('<?php echo base_url() ?>manifest/get/master_data',{'data_type':'','status':'','start_date':'','end_date':''},function(data){
-			alert(data);
-		})
-	})
+	// $('button#submit').click(function(){
+	// 	$.get('<?php echo base_url() ?>manifest/get/master_data',{'data_type':'','status':'','start_date':'','end_date':''},function(data){
+	// 		alert(data);
+	// 	})
+	// })
 })
 </script>
