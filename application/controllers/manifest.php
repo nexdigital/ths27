@@ -180,7 +180,7 @@ class Manifest extends MY_Controller {
 									$mapping[$no]['rate'] 				= (!in_array($header['rate'].$key, $merge_cell)) ? $value[$header['rate']] : $sheetData[$this->tool_model->get_key_cell($header['rate'].$key,$merge_cell)][$header['rate']];
 									$mapping[$no]['remarks'] 			= (!in_array($header['remarks'].$key, $merge_cell)) ? $value[$header['remarks']] : $sheetData[$this->tool_model->get_key_cell($header['remarks'].$key,$merge_cell)][$header['remarks']];
 									$mapping[$no]['status']				= 'Unverified';
-									$mapping[$no]['exchange_rate']  	= $this->master_currency->get_exchange_rate_value('ntd');
+									$mapping[$no]['exchange_rate']  	= $this->master_currency->get_exchange_rate_value('nt');
 									$mapping[$no]['created_date']		= date('Y-m-d h:i:s');
 									$mapping[$no]['last_update']		= date('Y-m-d h:i:s');
 									$mapping[$no]['user_id']			= $this->session->userdata('user_id');
