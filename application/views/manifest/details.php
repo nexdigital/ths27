@@ -7,7 +7,7 @@
     <div class="btn-group" role="group" aria-label="...">
         <!-- Split button -->
           <button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/data')?>')">Back</button>
-          <?php if($data->status == 'verified') { ?><button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/edit?hawb_no='.$data->hawb_no) ?>')">Edit</button> <?php } ?>
+          <button type="button" class="btn btn-default" onclick="setPage('<?php echo base_url('manifest/view/edit?hawb_no='.$data->hawb_no) ?>')">Edit</button>
           <button type="button" class="btn btn-default send-email">Send Email</button>
           <button type="button" class="btn btn-default">Invoice</button>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="height:30px;">

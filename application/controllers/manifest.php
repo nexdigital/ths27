@@ -21,8 +21,18 @@ class Manifest extends MY_Controller {
 			break;
 			case 'data':
 				$data['data']	= '';
-				$data['title']	= 'Master Data Manifest <h5>All manifest host with status Verified and Finishing</h5>';
+				$data['title']	= 'Master Data Host <h5>All manifest host with status Verified and Finishing</h5>';
 				$this->set_content('manifest/master_data',$data);
+			break;
+			case 'master':
+				$data['data']	= '';
+				$data['title']	= 'Master Manifest';
+				$this->set_content('manifest/master_manifest',$data);
+			break;
+			case 'getdetailsmanifest':
+				$data['fileid']	= $_GET['file_id'];
+				$data['title']	= 'Master Manifest';
+				$this->set_content('manifest/master_manifest_details',$data);
 			break;
 			case 'verification':
 				$data['data']	= $this->manifest_model->get_data_unverified();
@@ -216,6 +226,38 @@ class Manifest extends MY_Controller {
 				}
 			break;
 
+			case 'createmanifest':
+				$this->form_validation->set_rules('file_id', 'file_id', '');
+				$this->form_validation->set_rules('mawb_no', 'mawb_no', 'required');
+				$this->form_validation->set_rules('consign_to', 'consign_to', 'required');
+				$this->form_validation->set_rules('flight_no', 'flight_no', 'required');
+				$this->form_validation->set_rules('flight_from', 'flight_from', 'required');
+				$this->form_validation->set_rules('flight_to', 'flight_to', 'required');
+				$this->form_validation->set_rules('gross_weight', 'gross_weight', 'required');
+				$this->form_validation->set_rules('partner_id', 'partner_id', 'required');
+				$this->form_validation->run();
+
+				/*UPLOAD FILE================================================================*/
+				$file = array(
+					'file_id'		=> $this->tool_model->generate_file_id(),
+					'mawb_no'		=> set_value('mawb_no'),
+					'consign_to'	=> set_value('consign_to'),
+					'flight_no'	=> set_value('flight_no'),
+					'flight_from'	=> set_value('flight_from'),
+					'flight_to'		=> set_value('flight_to'),
+					'gross_weight'	=> set_value('gross_weight'),
+					'partner_id'	=> set_value('partner_id'),
+					'created_date'	=> date('Y-m-d h:i:s')
+				);
+				/*UPLOAD FILE END =============================================================*/
+				if(!set_value('file_id'))
+					$this->manifest_model->insert_file($file);
+				else 
+					$this->manifest_model->update_file(set_value('file_id'),$file);
+
+				echo json_encode(array('status' => 'ok', 'message' => ''));
+			break;
+
 			case 'insert':
 				$this->form_validation->set_rules('shipper','shipper','required');
 				$this->form_validation->set_rules('consignee','consignee','required');
@@ -292,6 +334,12 @@ class Manifest extends MY_Controller {
 				$json['status'] 	= "success";
 				$json['message'] 	= "<strong>Save Success!</strong>";
 				echo json_encode($json);
+			break;
+
+			case 'getfilemanifest':
+				$mawbno = $this->input->get('mawbno');
+				$query = $this->db->query("select * from manifest_file_table where mawb_no = ?",array($mawbno));
+				echo json_encode($query->row());
 			break;
 
 			case 'check_available_mawb':
@@ -596,6 +644,31 @@ class Manifest extends MY_Controller {
 				# code...
 				break;
 		}
+	}
+
+	function findhawb(){
+		$hawb_no = $_GET['q'];
+		$this->db->like('lower(hawb_no)',strtolower($hawb_no));
+		$this->db->where('file_id',null);
+		$get = $this->db->get('manifest_data_table');
+
+		$hawb_no_list = array();
+		foreach($get->result() as $row) {
+			$hawb_no_list[] = $row->hawb_no;
+		}
+		echo json_encode($hawb_no_list);
+
+	}
+
+	function addhostmanifest(){
+		$file_id = $this->input->get('file_id');
+		$hawb_no = $this->input->get('hawb_no');
+
+		$this->db->set('file_id',$file_id);
+		$this->db->where('hawb_no',$hawb_no);
+		$this->db->update('manifest_data_table');
+
+		echo json_encode(array('status' => 'ok'));
 	}
 }
 

@@ -18,6 +18,12 @@ class Manifest_model extends CI_Model {
 	function insert_file($file) {
 		$this->db->insert('manifest_file_table',$file);
 	}
+	function update_file($fileid,$file) {
+		$this->db->where('file_id',$fileid);
+		unset($file['file_id']);
+		unset($file['mawb_no']);
+		$this->db->update('manifest_file_table',$file);
+	}
 	function insert_data($data) {
 		$this->db->insert('manifest_data_table',$data);
 	}
