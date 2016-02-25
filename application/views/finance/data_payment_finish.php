@@ -1,4 +1,17 @@
-
+  <div class="panel panel-default">
+  <div class="panel-heading"  data-toggle="collapse" data-target="#demo"><a href="#">Advance Search</a></div>
+  <div class="panel-body collapse" id="demo">
+  		<div class="row">
+	  		<div class="col-md-4">
+	  			<input type="text" class="form-control" name="date_from" id="date_from" placeholder="from">
+	  		</div>
+	  		<div class="col-md-4">
+	  			<input type="text" class="form-control" name="date_to" id="date_to" placeholder="to">
+	  		</div>
+	  	</div><br/>
+	  	<button class="btn btn-primary" id="btn_search_date">Search</button>
+  </div>
+</div>
 <table class="table table-striped table-hovered">
 		<thead>
 				
