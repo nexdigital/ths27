@@ -325,6 +325,8 @@ class Manifest extends MY_Controller {
 				$data['other_charge_tata'] = $_POST['other_charge_tata'];
 				$data['other_charge_pml'] = $_POST['other_charge_pml'];
 
+				$data['mawb_type'] = $_POST['mawb_type'];
+
 				$data['currency']		= $_POST['currency'];
 				$data['exchange_rate']	= $this->master_currency->get_exchange_rate_value($_POST['currency']);
 

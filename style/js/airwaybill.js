@@ -7,7 +7,7 @@ $(document).ready(function(){
 		if($('#add-item-invoice').length > 0) return false;
 
 		var element;
-		element = '<div id="add-item-invoice">'+
+		element = '<div id="add-item-invoice" class="item" style="width:100%;">'+
 			'<input type="hidden" name="item_type" value="'+type+'">'+
 			'<input type="text" name="item_name" placeholder="Item name">'+
 			'<input type="number" name="item_value" placeholder="Item value">'+
@@ -34,8 +34,9 @@ $(document).ready(function(){
 				success:function(data){
 					$('#add-item-invoice').remove();
 					var element;
-					element = '<div class="item-'+data.id+'"><div class="item" style="width:160px;">'+data.name+' <a href="javascript:void(0)" class="remove-item" data-id="'+data.id+'" title="Remove item">X</a></div>'+
-					'<div class="item" style="width:20px;">RP</div>'+
+					element = '<div class="item-'+data.id+'" style="width:100%;">'+
+					'<div class="item" style="width:160px;">'+data.name+' <a href="javascript:void(0)" class="remove-item" data-id="'+data.id+'" title="Remove item">X</a></div>'+
+					'<div class="item">RP</div>'+
 					'<div class="value">'+data.value+'</div></div>';
 					$('div.' + type).append(element);
 					update_invoice();

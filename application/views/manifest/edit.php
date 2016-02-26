@@ -119,16 +119,22 @@
             <textarea class="form-control" rows="2" name="remarks" style="resize:none;"><?php echo $data->remarks ?></textarea>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group">
             <label>Other Charge Tata</label>
             <input class="form-control txt-charge-tata" type="text" name="other_charge_tata" value="<?php echo $data->other_charge_tata ?>">
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group">
             <label>Other Charge PML</label>
             <input class="form-control txt-charge-pml" type="text" name="other_charge_pml" value="<?php echo $data->other_charge_pml ?>">
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label>Type</label>
+            <input class="form-control" type="text" name="mawb_type" value="<?php echo ucwords($data->mawb_type) ?>">
         </div>
     </div>
     <div class="col-sm-6">

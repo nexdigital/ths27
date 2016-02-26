@@ -18,7 +18,7 @@
 	
 <input type="hidden" name="item_hawb_no" value="<?php echo $data->hawb_no ?>">
 <?php for($i=1;$i<=1;$i++){?>
-<div class="paper">
+<div class="paper" style="width:830px; margin:auto;">
     <div class="contaier">
         <div class="header">
             <img src="<?=base_url()?>asset/images/tata-logo.png" class="logo" style="float:left; height:70px; margin-top:5px;">
@@ -35,12 +35,12 @@
         <div class="content">
 			<table style="width:100%;">
 				<tr>
-					<td>
+					<td style="padding:0px; vertical-align:top;">
 						<div style="border-bottom:1px dotted #000;">
-						Sender: <?php echo $shipper->name.'<br>'.$shipper->address.'<br>'.$shipper->attn.'<br> Phone: '.$shipper->phone.' / '.$shipper->mobile;?>
+						Sender: <?php echo $shipper->name.'<br>'.$shipper->address.'<br>'.$shipper->attn.'<br> Phone: ('.$shipper->code_phone.') '.$shipper->phone.' / '.$shipper->mobile;?>
 						</div>
 						<div style="border-bottom:1px dotted #000; margin-top:3px;">
-						Consignee: <?php echo $consignee->name.'<br>'.$consignee->address.'<br>'.$consignee->attn.'<br> Phone: '.$consignee->phone.' / '.$consignee->mobile;?>
+						Consignee: <?php echo $consignee->name.'<br>'.$consignee->address.'<br>'.$consignee->attn.'<br> Phone: ('.$consignee->code_phone.') '.$consignee->phone.' / '.$consignee->mobile;?>
 						</div>
 						<div style="margin-top:3px;">
 						Description: <br/>
@@ -48,43 +48,46 @@
 						NT 1 = <?php echo $data->exchange_rate; ?><br/>
 						</div>
 					</td>
-					<td>
+					<td style="padding:0px; vertical-align:top;">
 						<?php if(($data->manifest_type === 'import' && $data->collect) || ($data->manifest_type === 'export' && $data->prepaid)): ?>
 						<div class="item-field">
 							<div class="item" style="width:100%;"><strong>REIMBUSEMENT</strong></div>
 							<div class="reimbursement">
 								<!-- Reimbursement -->
-								<div class="item" style="width:160px;">Freight</div>
-								<div class="item" style="width:100px;">RP</div>
-								<div class="value"><?php echo number_format($freight) ?></div>
+								<div class="item" style="width:100%">
+									<div class="item" style="width:160px;">Freight</div>
+									<div class="item" style="width:10px;">RP</div>
+									<div class="value"><?php echo number_format($freight) ?></div>
+								</div>
 								<?php
 									foreach($reimbursement as $key => $row){
 										echo '
-										<div class="item-'.$row->id.'">
+										<div class="item-'.$row->id.'" style="width:100%;">
 											<div class="item" style="width:160px;">'.$row->name.'  <a href="javascript:void(0);" class="remove-item" data-id="'.$row->id.'">X</a></div>
-											<div class="item" style="width:100px;">RP</div>
+											<div class="item" style="width:10px;">RP</div>
 											<div class="value">'.number_format($row->value).'</div>
 										</div>';
 									}
 								?>
-								<div class="item" style="width:160px;">Materai</div>
-								<div class="item" style="width:100px;">RP</div>
-								<div class="value"><?php echo number_format($materai) ?></div>
 							</div>	                    
-							<div class="item" style="width:100%;"><a href="javascript:void(0);" class="add-item" data-type="reimbursement">Add item</a></div>
+							<div class="item" style="width:100%;">
+								<a href="javascript:void(0);" class="add-item" data-type="reimbursement">Add item</a>
+							</div>
 		
-							<div class="item" style="width:100%; margin-top:100px;"><strong>NON REIMBUSEMENT</strong></div>
+							<div class="item" style="width:100%; margin-top:30px;"><strong>NON REIMBUSEMENT</strong></div>
 							<div class="non_reimbursement">
 								<!-- Non Reimbursement -->
-								<div class="item" style="width:160px;">Handling Jakarta</div>
-								<div class="item" style="width:100px;">RP</div>
-								<div class="value"><?php echo number_format($handling_jakarta) ?></div>
+								<div class="item" style="width:100%">
+									<div class="item" style="width:160px;">Handling Jakarta</div>
+									<div class="item" style="width:10px;">RP</div>
+									<div class="value"><?php echo number_format($handling_jakarta) ?></div>
+								</div>
 								<?php
 									foreach($non_reimbursement as $key => $row){
 										echo '
-										<div class="item-'.$row->id.'">
+										<div class="item-'.$row->id.'" style="width:100%;">
 											<div class="item" style="width:160px;">'.$row->name.'  <a href="javascript:void(0);" class="remove-item" data-id="'.$row->id.'">X</a></div>
-											<div class="item" style="width:100px;">RP</div>
+											<div class="item" style="width:10px;">RP</div>
 											<div class="value">'.number_format($row->value).'</div>
 										</div>';
 									}
@@ -93,13 +96,15 @@
 							
 							<div class="item" style="width:100%;"><a href="javascript:void(0);" class="add-item" data-type="non_reimbursement">Add item</a></div>
 							
-							<div class="item" style="width:160px;"><input type="checkbox" class="item-tax" <?php echo ($is_tax) ? 'checked="checked"' : '' ?>>tax</div>
-							<div class="item" style="width:100px;">RP</div>
-							<div class="value invoice_tax"><?php echo number_format($total_tax) ?></div>
+							<div class="item" style="width:100%">
+								<div class="item" style="width:160px;"><input type="checkbox" class="item-tax" <?php echo ($is_tax) ? 'checked="checked"' : '' ?>>tax</div>
+								<div class="item" style="width:10px;">RP</div>
+								<div class="value invoice_tax"><?php echo number_format($total_tax) ?></div>
+							</div>
 		
 							<div class="item" style="width:100%; margin-top:10px;">&nbsp;</div>
 							<div class="item" style="width:160px;">TOTAL</div>
-							<div class="item" style="width:100px;">RP</div>
+							<div class="item">RP</div>
 							<div class="value invoice_total"><?php echo number_format($total_invoice) ?></div>
 						</div>
 						<?php endif; ?>
@@ -109,7 +114,7 @@
 					<td>&nbsp;</td>
 					<td>
 						<div class="item" style="width:140px; text-align:center;">Jakarta, <?php echo date('d/m/Y')?></div><div class="value" style="width:160px; text-align:center;">Shipper/Consignee</div>
-						<div class="item" style="margin-top:50px; width:140px; text-align:center;">Authorized</div><div class="value" style="margin-top:50px; width:160px; text-align:center;">Name</div>						
+						<div class="item" style="margin-top:50px; width:140px; text-align:center;">Authorized</div><div class="value" style="margin-top:50px; width:160px; text-align:left;">Name: <br/>Date: </div>						
 					</td>
 				</tr>
 			</table>

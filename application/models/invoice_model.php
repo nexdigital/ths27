@@ -5,9 +5,6 @@ class Invoice_model extends CI_Model {
 	private $ppn_handling_jakarta = 10;
 	private $nt_handling_jakarta = 50;
 
-	private $allow_charge_materai = true;
-	private $charge_materai = 6000; //On Rupiah
-
 	function add_item($hawb_no,$type,$name,$value){
 		$this->db->set('hawb_no',$hawb_no);
 		$this->db->set('type',$type);
@@ -31,7 +28,7 @@ class Invoice_model extends CI_Model {
 	
 	function get_total_item($hawb_no,$type){
 		$total = 0;
-		if($type === 'reimbursement' && $this->allow_charge_materai) $total += $this->charge_materai;		
+
 		$query = "SELECT SUM(value) as total FROM invoice_items WHERE hawb_no = '".$hawb_no."' AND type = '".$type."'";
 		$get = $this->db->query($query);
 		$total += $get->row('total');
@@ -85,12 +82,7 @@ class Invoice_model extends CI_Model {
 			return $this->db->insert_id();
 		} else return true;
 	}
-	
-	function is_charge_materai(){
-		if($this->allow_charge_materai) return $this->charge_materai;
-		else return false;
-	}
-	
+
 	function create($hawb_no) {
 		$data['data'] = $this->manifest_model->get_by_hawb($hawb_no);
 		$data['shipper'] = $this->customers_model->get_by_id($data['data']->shipper);
@@ -98,9 +90,7 @@ class Invoice_model extends CI_Model {
 		
 		$data['freight'] = $this->manifest_model->get_freight($hawb_no) * $data['data']->exchange_rate;
 		$data['handling_jakarta'] = $this->manifest_model->get_handling_jakarta($hawb_no) * $data['data']->exchange_rate;
-		
-		$data['materai'] = $this->invoice_model->is_charge_materai();
-		
+
 		$data['reimbursement'] = $this->invoice_model->get_item($hawb_no,'reimbursement');
 		$data['non_reimbursement'] = $this->invoice_model->get_item($hawb_no,'non_reimbursement');
 		

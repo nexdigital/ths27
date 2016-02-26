@@ -4,7 +4,6 @@ class Invoice extends MY_Controller {
 	
 	private $ppn_handling_jakarta = 10;
 	private $nt_handling_jakarta = 50;
-	private $charge_materai = 6000; //On Rupiah
 
 	function __construct(){
 		parent::__construct();
@@ -20,8 +19,6 @@ class Invoice extends MY_Controller {
 		
 		$data['freight'] = $this->manifest_model->get_freight($hawb_no) * $data['data']->exchange_rate;
 		$data['handling_jakarta'] = $this->manifest_model->get_handling_jakarta($hawb_no) * $data['data']->exchange_rate;
-		
-		$data['materai'] = $this->invoice_model->is_charge_materai();
 		
 		$data['reimbursement'] = $this->invoice_model->get_item($hawb_no,'reimbursement');
 		$data['non_reimbursement'] = $this->invoice_model->get_item($hawb_no,'non_reimbursement');

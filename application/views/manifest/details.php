@@ -115,16 +115,22 @@
             <textarea class="form-control" rows="2" name="description" style="resize:none;" readonly> <?php echo $data->remarks; ?></textarea>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group">
             <label>Other Charge Tata</label>
                 <p class="form-control"><?php echo $data->other_charge_tata; ?></p>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group">
             <label>Other Charge PML</label>
             <p class="form-control"><?php echo $data->other_charge_pml; ?></p>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label>Type</label>
+            <p class="form-control"><?php echo ucwords($data->mawb_type); ?></p>
         </div>
     </div>
     <div class="col-sm-6">
