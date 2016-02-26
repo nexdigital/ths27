@@ -274,7 +274,7 @@ class Manifest extends MY_Controller {
 						$data['rate']			= $_POST['rate'];
 
 						$amount = preg_replace( '/[^0-9]/', '', $_POST['amount']);
-						$amount = ($amount / $this->master_currency->get_exchange_rate_value($_POST['currency']));
+						// $amount = ($amount / $this->master_currency->get_exchange_rate_value($_POST['currency']));
 
 						$data['collect']		= ($_POST['type_payment'] == 'collect') ? $amount : null;
 						$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? $amount : null;
@@ -323,7 +323,7 @@ class Manifest extends MY_Controller {
 				$data['rate']			= $_POST['rate'];
 
 				$amount = preg_replace( '/[^0-9]/', '', $_POST['amount']);
-				$amount = ($amount / $this->master_currency->get_exchange_rate_value($_POST['currency']));
+				// $amount = ($amount / $this->master_currency->get_exchange_rate_value($_POST['currency']));
 
 				$data['collect']		= ($_POST['type_payment'] == 'collect') ? $amount : null;
 				$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? $amount : null;
@@ -522,7 +522,7 @@ class Manifest extends MY_Controller {
 				$exchange_rate = $this->master_currency->get_exchange_rate_value($currency);
 
 				$amount = $kg * $rate;
-				$amount = $amount * $exchange_rate;
+				// $amount = $amount * $exchange_rate;
 				echo number_format($amount);
 			break;
 			case 'sum_total_host':
@@ -539,7 +539,7 @@ class Manifest extends MY_Controller {
 				$amount = ($charge_tata + $charge_pml) + $amount;
 
 				$amount = $amount * $exchange_rate;
-				echo number_format($amount);
+				echo "Rp. " . number_format($amount);
 			break;
 			case 'sum_total_after_discount':
 				$hawb_no = $_POST['hawb_no'];
