@@ -252,13 +252,12 @@ class Manifest_model extends CI_Model {
 				return $subtotal;
 			break;
 			case 'normal':
-				$subtotal += $data->collect;
+				$subtotal += ($data->manifest_type == 'import') ? $data->collect : $data->prepaid;
 
 				$subtotal += $data->other_charge_tata;
 				$subtotal += $data->other_charge_pml;
 				
 				$subtotal = $subtotal * $data->exchange_rate;
-				error_log("$subtotal: " . $subtotal);
 				return $subtotal;
 			break;
 
