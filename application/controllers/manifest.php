@@ -273,8 +273,10 @@ class Manifest extends MY_Controller {
 						$data['kg']				= $_POST['kg'];
 						$data['rate']			= $_POST['rate'];
 
-						$data['collect']		= ($_POST['type_payment'] == 'collect') ? str_ireplace(',','',$_POST['amount']) : null;
-						$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? str_ireplace(',','',$_POST['amount']) : null;
+						$amount = preg_replace( '/[^0-9]/', '', $_POST['amount']);
+
+						$data['collect']		= ($_POST['type_payment'] == 'collect') ? $amount : null;
+						$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? $amount : null;
 
 						$data['shipper']		= $_POST['shipper'];
 						$data['consignee']		= $_POST['consignee'];
@@ -282,6 +284,8 @@ class Manifest extends MY_Controller {
 						$data['remarks']		= $_POST['remarks'];
 						$data['other_charge_tata'] = $_POST['other_charge_tata'];
 						$data['other_charge_pml'] = $_POST['other_charge_pml'];
+
+						$data['mawb_type'] = strtolower($_POST['mawb_type']);
 
 						$data['status']			= 'verified';
 						$data['created_date']	= date('Y-m-d');
