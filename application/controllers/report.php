@@ -2,6 +2,8 @@
 
 class Report extends MY_Controller {
 	
+	private $flightcountry = array('taiwan' => 'tw','china' => 'chn','hongkong' => 'hkg','indonesia' => 'id');
+
 	function __construct() {
 		parent::__construct();
 		$this->load->model('report_model');
@@ -12,36 +14,18 @@ class Report extends MY_Controller {
 	}
 
 	function customer_card() {
-		/*if(isset($_GET['file_id'])) {
-			if($this->report_model->get_by_file_id($_GET['file_id'])) {
-				$file_id = $_GET['file_id'];
-				$data = array(
-					'valid_file' => TRUE,
-					'data'	=> $this->report_model->get_by_file_id($file_id),
-					'total_pp' => $this->report_model->get_total('prepaid',$file_id),
-					'total_cc' => $this->report_model->get_total('collect',$file_id),
-					'total_pkg' => $this->report_model->get_total('pkg',$file_id),
-					'total_pcs' => $this->report_model->get_total('pcs',$file_id),
-					'total_kg' => $this->report_model->get_total('kg',$file_id),
-					'total_value' => $this->report_model->get_total('value',$file_id),
-					'total_oth_chr_tata' => $this->report_model->get_total('other_charge_tata',$file_id),
-					'total_oth_chr_pml' => $this->report_model->get_total('other_charge_pml',$file_id)
-				);
-			}
-		}
-		$data['list_file'] = $this->report_model->get_all_file();*/
 		$this->set_layout('report/snow_card',array('title' => 'Debit Note'));
 	}
 
 	function snow(){
 		$date = $_GET['date'];
-		$from = $_GET['from'];
-		$to = $_GET['to'];
+		$from = strtolower($_GET['from']);
+		$to = strtolower($_GET['to']);
 
 		switch ($from) {
-			case 'taiwan':
+			case 'tw':
 				switch ($to) {
-					case 'jakarta':
+					case 'id':
 						$this->snow_taiwan_jakarta();
 						break;					
 					default:
@@ -49,9 +33,9 @@ class Report extends MY_Controller {
 						break;
 				}
 				break;
-			case 'vietnam':
+			case 'vn':
 				switch($to) {
-					case 'jakarta':
+					case 'id':
 						$this->snow_vietnam_jakarta();
 						break;
 					default:
@@ -59,12 +43,12 @@ class Report extends MY_Controller {
 						break;
 				}
 				break;
-			case 'jakarta':
+			case 'id':
 				switch ($to) {
-					case 'taiwan':
+					case 'tw':
 						$this->snow_jakarta_taiwan();
 						break;
-					case 'vietnam':
+					case 'vn':
 						$this->snow_jakarta_vietnam();
 						break;
 					default:
@@ -76,178 +60,37 @@ class Report extends MY_Controller {
 				echo 'Not Found';
 				break;
 		}
-
-
-		/*
-		$file_id = $_GET['file_id'];
-
-		//Get all data without pouchen, fengtay and pibk
-		if($this->report_model->get_by_file_id($file_id)) {
-			$data = $this->report_model->get_by_file_id($file_id);
-
-			if(strtolower($data->flight_from) == 'taiwan') {
-				$snow['header']						= $data;
-
-				#=================================================================================================================================================================================================================
-				$no = 0;
-				$snow['host'][$no]['date'] 					= substr($data->created_date,0,10);
-				$snow['host'][$no]['host'] 					= $data->mawb_no;
-				$snow['host'][$no]['gw_hc'] 				= $this->report_model->get_total_where('kg',$file_id,'mawb_type',array('hc'));
-				$snow['host'][$no]['gw_ftz'] 				= $this->report_model->get_total_where('kg',$file_id,'mawb_type',array('ftz'));
-				$snow['host'][$no]['gw_docftz']				= $this->report_model->get_count_where($file_id,'mawb_type',array('ftz'));
-				$snow['host'][$no]['gw_total']				= $snow['host'][$no]['gw_hc'] + $snow['host'][$no]['gw_ftz'];
-
-				$snow['host'][$no]['in_pp'] 				= $this->report_model->get_total('prepaid',$file_id);
-				$snow['host'][$no]['in_cc']					= $this->report_model->get_total('collect',$file_id);
-				$snow['host'][$no]['in_total']				= $snow['host'][$no]['in_pp'] + $snow['host'][$no]['in_cc'];
-				
-				$snow['host'][$no]['cost_pml_charge'] 		= $this->report_model->get_total('other_charge_pml',$file_id);
-				$snow['host'][$no]['cost_pml_freight'] 		= $snow['host'][$no]['gw_total'] * 56;
-
-				$snow['host'][$no]['cost_tata_hc']			= $snow['host'][$no]['gw_hc'] * 192;
-				$snow['host'][$no]['cost_tata_ftz']			= ($snow['host'][$no]['gw_ftz'] * 16) + (640 * $snow['host'][$no]['gw_docftz']);
-				$snow['host'][$no]['cost_tata_charge'] 		= $this->report_model->get_total('other_charge_tata',$file_id);
-
-				$snow['host'][$no]['cost_total']			= $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] + $snow['host'][$no]['cost_tata_hc'] + $snow['host'][$no]['cost_tata_ftz'] + $snow['host'][$no]['cost_tata_charge'];
-
-				$snow['host'][$no]['profit'] 				= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-
-				$debit_credit 							= ($snow['host'][$no]['profit']/2) + $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] - $snow['host'][$no]['in_pp'];
-				$snow['host'][$no]['debit_credit']		= ($debit_credit < 0) ? number_format($debit_credit,1) : number_format($debit_credit,1);
-				#=================================================================================================================================================================================================================
-				$list_mawb_type = array('pouchen','fengtay');
-				$no++;
-				foreach ($list_mawb_type as $val) {
-					if($this->report_model->search_mawb_type($val)){
-						$snow['host'][$no]['date'] 				= '';
-						$snow['host'][$no]['host'] 				= $val;
-						$snow['host'][$no]['gw_hc'] 			= $this->report_model->get_total_where('kg',$file_id,'mawb_type',array($val . '_hc'));
-						$snow['host'][$no]['gw_ftz'] 			= $this->report_model->get_total_where('kg',$file_id,'mawb_type',array($val . '_ftz'));
-						$snow['host'][$no]['gw_docftz']			= $this->report_model->get_count_where($file_id,'mawb_type',array($val . '_ftz'));
-						$snow['host'][$no]['gw_total']			= $snow['host'][$no]['gw_hc'] + $snow['host'][$no]['gw_ftz'];
-
-						$snow['host'][$no]['in_pp'] 			= $this->report_model->get_total_where('prepaid',$file_id,'mawb_type',array($val . '_ftz',$val . '_hc'));
-						$snow['host'][$no]['in_cc']				= $this->report_model->get_total_where('prepaid',$file_id,'mawb_type',array($val . '_ftz',$val . '_hc'));
-						$snow['host'][$no]['in_total']			= $snow['host'][$no]['in_pp'] + $snow['host'][$no]['in_cc'];
-						
-						$snow['host'][$no]['cost_pml_charge'] 	= $this->report_model->get_total_where('other_charge_pml',$file_id,'mawb_type',array($val . '_ftz',$val . '_hc'));
-						$snow['host'][$no]['cost_pml_freight'] 	= $snow['host'][$no]['gw_total'] * 56;
-
-						$snow['host'][$no]['cost_tata_hc']		= $snow['host'][$no]['gw_hc'] * 192;
-						$snow['host'][$no]['cost_tata_ftz']		= ($snow['host'][$no]['gw_ftz'] * 16) + (640 * $snow['host'][$no]['gw_docftz']);
-						$snow['host'][$no]['cost_tata_charge'] 	= $this->report_model->get_total_where('other_charge_tata',$file_id,'mawb_type',array($val . '_ftz',$val . '_hc'));
-
-						$snow['host'][$no]['cost_total']		= $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] + $snow['host'][$no]['cost_tata_hc'] + $snow['host'][$no]['cost_tata_ftz'] + $snow['host'][$no]['cost_tata_charge'];
-
-						$snow['host'][$no]['profit'] 			= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-
-						$profit_split							= ($val == 'pouchen') ? 3 : 2;
-
-						$debit_credit 							= ($snow['host'][$no]['profit']/$profit_split) + $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] - $snow['host'][$no]['in_pp'];
-						$snow['host'][$no]['debit_credit']		= ($debit_credit < 0) ? number_format($debit_credit,1) : number_format($debit_credit,1);
-
-						$no++;
-					}
-				}
-				if($this->report_model->search_mawb_type('pibk')) {
-					$pibk = $this->report_model->get_manifest_by_mawb_type('pibk');
-					foreach ($pibk as $key => $row) {
-						$snow['host'][$no]['date'] 				= '';
-						$snow['host'][$no]['host']	 			= $row->hawb_no .' P.I.B.K';
-						$snow['host'][$no]['gw_hc'] 			= $this->report_model->get_total_where_by_hawb('kg',$row->hawb_no,'mawb_type',array('hc'));
-						$snow['host'][$no]['gw_ftz'] 			= $this->report_model->get_total_where_by_hawb('kg',$row->hawb_no,'mawb_type',array('ftz'));
-						$snow['host'][$no]['gw_docftz']			= '';
-						$snow['host'][$no]['gw_total']			= $snow['host'][$no]['gw_hc'] + $snow['host'][$no]['gw_ftz'];
-
-						$snow['host'][$no]['in_pp'] 			= $row->prepaid;
-						$snow['host'][$no]['in_cc']				= $row->collect;
-						$snow['host'][$no]['in_total']			= $snow['host'][$no]['in_pp'] + $snow['host'][$no]['in_cc'];
-
-						$snow['host'][$no]['cost_pml_charge'] 	= $row->other_charge_pml;
-						$snow['host'][$no]['cost_pml_freight'] 	= $snow['host'][$no]['gw_total'] * 56;
-
-						$snow['host'][$no]['cost_tata_hc']		= $snow['host'][$no]['gw_hc'] * 192;
-						$snow['host'][$no]['cost_tata_ftz']		= ($snow['host'][$no]['gw_ftz'] * 16) + (640 * $snow['host'][$no]['gw_docftz']);
-						$snow['host'][$no]['cost_tata_charge'] 	= $row->other_charge_tata;
-
-						$snow['host'][$no]['cost_total']		= $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] + $snow['host'][$no]['cost_tata_hc'] + $snow['host'][$no]['cost_tata_ftz'] + $snow['host'][$no]['cost_tata_charge'];
-
-						$snow['host'][$no]['profit'] 			= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-
-						$debit_credit 							= ($snow['host'][$no]['profit']/2) + $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] - $snow['host'][$no]['in_pp'];
-						$snow['host'][$no]['debit_credit']		= ($debit_credit < 0) ? $debit_credit : $debit_credit;
-
-						$no++;
-					}
-				}
-				$this->set_layout('report/snow_taiwan',$snow);
-			} else if(strtolower($data->flight_from) == 'vietnam') {
-				$no = 0;
-				$manifest_from_vietnam = $this->report_model->manifest_from_vietnam($data->file_id);
-				if($manifest_from_vietnam) {
-					foreach ($manifest_from_vietnam as $key => $row) {
-						$snow['host'][$no]['date'] 				= '';
-						$snow['host'][$no]['host']	 			= $row->hawb_no;
-						$snow['host'][$no]['gw_hc'] 			= $this->report_model->get_total_where_by_hawb('kg',$row->hawb_no,'mawb_type',array('hc'));
-						$snow['host'][$no]['gw_ftz'] 			= $this->report_model->get_total_where_by_hawb('kg',$row->hawb_no,'mawb_type',array('ftz'));
-						$snow['host'][$no]['gw_docftz']			= $this->report_model->get_count_where_by_hawb($row->hawb_no,'mawb_type',array('ftz'));
-						$snow['host'][$no]['gw_total']			= $snow['host'][$no]['gw_hc'] + $snow['host'][$no]['gw_ftz'];
-
-						$snow['host'][$no]['in_pp'] 			= $row->prepaid;
-						$snow['host'][$no]['in_cc']				= $row->collect;
-						$snow['host'][$no]['in_total']			= $snow['host'][$no]['in_pp'] + $snow['host'][$no]['in_cc'];
-
-						$snow['host'][$no]['cost_pml_charge'] 	= $row->other_charge_pml;
-						$snow['host'][$no]['cost_pml_freight'] 	= $snow['host'][$no]['gw_total'] * 56;
-
-						$snow['host'][$no]['cost_tata_hc']		= $snow['host'][$no]['gw_hc'] * 192;
-						$snow['host'][$no]['cost_tata_ftz']		= ($snow['host'][$no]['gw_ftz'] * 16) + (640 * $snow['host'][$no]['gw_docftz']);
-						$snow['host'][$no]['cost_tata_tpe']		= $snow['host'][$no]['gw_total'] * (56+26);
-						$snow['host'][$no]['cost_tata_charge'] 	= $row->other_charge_tata;
-
-						$snow['host'][$no]['cost_total']		= $snow['host'][$no]['cost_pml_charge'] + $snow['host'][$no]['cost_pml_freight'] + $snow['host'][$no]['cost_tata_hc'] + $snow['host'][$no]['cost_tata_ftz'] + $snow['host'][$no]['cost_tata_charge'];
-
-						$snow['host'][$no]['profit'] 			= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-
-						$snow['host'][$no]['tata'] 				= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-						$snow['host'][$no]['lita'] 				= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-						$snow['host'][$no]['pml'] 				= $snow['host'][$no]['in_total'] - $snow['host'][$no]['cost_total'];
-
-						$no++;
-					}
-				}
-
-				$this->set_layout('report/snow_vietnam',$snow);
-			} else echo 'Not Found';
-		} else echo 'Not Found';
-		*/
 	}
 
 	function snow_taiwan_jakarta(){
 		$date = $_GET['date'];
-		$get_file_id = $this->report_model->get_file_id_by_upload_date($date,array('taiwan','china','hongkong'));
+		$from = strtolower($_GET['from']);
+		$to = strtolower($_GET['to']);
 
+		$get_file_id = $this->report_model->get_file_id_by_upload_date($date,array('taiwan','china','hongkong'));
 		$snow['host'] = array();
 
 		if($get_file_id) {
 			foreach ($get_file_id as $key => $row) {
+				$flight = (isset($this->flightcountry[$row->flight_from])) ? $this->flightcountry[$row->flight_from] : false;
+
 				#GW
-				$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('hc'),strtolower($row->flight_from));
-				$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('ftz'),strtolower($row->flight_from));
-				$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array('ftz'),strtolower($row->flight_from));
+				$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('hc'),strtolower($flight));
+				$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('ftz'),strtolower($flight));
+				$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array('ftz'),strtolower($flight));
 				$gw_total				= $gw_hc + $gw_ftz;
 
 				#INCOME
-				$in_pp 					= $this->report_model->get_total('prepaid',$row->file_id,strtolower($row->flight_from));
-				$in_cc					= $this->report_model->get_total('collect',$row->file_id,strtolower($row->flight_from));
+				$in_pp 					= $this->report_model->get_total('prepaid',$row->file_id,strtolower($flight));
+				$in_cc					= $this->report_model->get_total('collect',$row->file_id,strtolower($flight));
 				$in_total				= $in_pp + $in_cc;
 
 				#COST
-				$cost_pml_charge 		= $this->report_model->get_total('other_charge_pml',$row->file_id,strtolower($row->flight_from));
+				$cost_pml_charge 		= $this->report_model->get_total('other_charge_pml',$row->file_id,strtolower($flight));
 				$cost_pml_freight 		= $gw_total * 56;
 				$cost_tata_hc			= $gw_hc * 192;
 				$cost_tata_ftz			= ($gw_ftz * 16) + (640 * $gw_docftz);
-				$cost_tata_charge 		= $this->report_model->get_total('other_charge_tata',$row->file_id,strtolower($row->flight_from));
+				$cost_tata_charge 		= $this->report_model->get_total('other_charge_tata',$row->file_id,strtolower($flight));
 				$cost_total				= $cost_pml_charge + $cost_pml_freight + $cost_tata_hc + $cost_tata_ftz + $cost_tata_charge;
 
 				$profit 				= $in_total - $cost_total;
@@ -284,22 +127,22 @@ class Report extends MY_Controller {
 				foreach ($list_mawb_type as $type) {
 					if($this->report_model->get_manifest_by_mawb_type_and_file_id($row->file_id,$type,strtolower($row->flight_from))) {
 						#GW
-						$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_hc'),strtolower($row->flight_from));
-						$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_ftz'),strtolower($row->flight_from));
-						$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array($type . '_ftz'),strtolower($row->flight_from));
+						$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_hc'),strtolower($flight));
+						$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_ftz'),strtolower($flight));
+						$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array($type . '_ftz'),strtolower($flight));
 						$gw_total				= $gw_hc + $gw_ftz;
 
 						#INCOME
-						$in_pp 					= $this->report_model->get_total_where('prepaid',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($row->flight_from));
-						$in_cc					= $this->report_model->get_total_where('collect',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($row->flight_from));
+						$in_pp 					= $this->report_model->get_total_where('prepaid',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($flight));
+						$in_cc					= $this->report_model->get_total_where('collect',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($flight));
 						$in_total				= $in_pp + $in_cc;
 
 						#COST
-						$cost_pml_charge 		= $this->report_model->get_total_where('other_charge_pml',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($row->flight_from));
+						$cost_pml_charge 		= $this->report_model->get_total_where('other_charge_pml',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($flight));
 						$cost_pml_freight 		= $gw_total * 56;
 						$cost_tata_hc			= $gw_hc * 192;
 						$cost_tata_ftz			= ($gw_ftz * 16) + (640 * $gw_docftz);
-						$cost_tata_charge 		= $this->report_model->get_total_where('other_charge_tata',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($row->flight_from));
+						$cost_tata_charge 		= $this->report_model->get_total_where('other_charge_tata',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),strtolower($flight));
 						$cost_total				= $cost_pml_charge + $cost_pml_freight + $cost_tata_hc + $cost_tata_ftz + $cost_tata_charge;
 
 						$profit 				= $in_total - $cost_total;
@@ -339,9 +182,9 @@ class Report extends MY_Controller {
 				if($pibk_data = $this->report_model->get_manifest_by_mawb_type_and_file_id($row->file_id,'pibk',strtolower($row->flight_from))) {
 					foreach ($pibk_data as $key => $pibk_row) {
 						#GW
-						$gw_hc 					= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array('hc'),strtolower($row->flight_from));
-						$gw_ftz 				= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array('ftz'),strtolower($row->flight_from));
-						$gw_docftz				= $this->report_model->get_count_where_by_hawb($pibk_row->hawb_no,'mawb_type',array('ftz'),strtolower($row->flight_from));
+						$gw_hc 					= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array('hc'),strtolower($flight));
+						$gw_ftz 				= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array('ftz'),strtolower($flight));
+						$gw_docftz				= $this->report_model->get_count_where_by_hawb($pibk_row->hawb_no,'mawb_type',array('ftz'),strtolower($flight));
 						$gw_total				= $gw_hc + $gw_ftz;
 
 						#INCOME
@@ -388,7 +231,7 @@ class Report extends MY_Controller {
 					}
 				}
 
-				$get_from_other_country = $this->report_model->get_data_by_other_country($row->file_id,strtolower($row->flight_from));
+				$get_from_other_country = $this->report_model->get_data_by_other_country($row->file_id,strtolower($flight));
 				if($get_from_other_country) {
 					foreach ($get_from_other_country as $key => $other_country_row) {
 						#GW
@@ -465,25 +308,30 @@ class Report extends MY_Controller {
 
 	function snow_vietnam_jakarta() {
 		$date = $_GET['date'];
+		$from = strtolower($_GET['from']);
+		$to = strtolower($_GET['to']);
+
 		$get_file_id = $this->report_model->get_file_id_by_upload_date($date,'vietnam');
 
 		$snow['host'] = array();
 
 		if($get_file_id) {
 			foreach ($get_file_id as $key => $row) {
+					$flight = (isset($this->flightcountry[$row->flight_from])) ? $this->flightcountry[$row->flight_from] : false;
+
 					#GW
-					$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('hc'),'vietnam');
-					$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('ftz'),'vietnam');
-					$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array('ftz'),'vietnam');
+					$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('hc'),$flight);
+					$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array('ftz'),$flight);
+					$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array('ftz'),$flight);
 					$gw_total				= $gw_hc + $gw_ftz;
 
 					#INCOME
-					$in_pp 					= $this->report_model->get_total('prepaid',$row->file_id,'vietnam');
-					$in_cc					= $this->report_model->get_total('collect',$row->file_id,'vietnam');
+					$in_pp 					= $this->report_model->get_total('prepaid',$row->file_id,$flight);
+					$in_cc					= $this->report_model->get_total('collect',$row->file_id,$flight);
 					$in_total				= $in_pp + $in_cc;
 
 					#COST
-					$cost_pml_charge 		= $this->report_model->get_total('other_charge_pml',$row->file_id,'vietnam');
+					$cost_pml_charge 		= $this->report_model->get_total('other_charge_pml',$row->file_id,$flight);
 
 					if($gw_total < 100) {
 						$cost_pml_freight 		= $gw_total * (39 + 38);
@@ -500,7 +348,7 @@ class Report extends MY_Controller {
 
 					$cost_tata_hc			= $gw_hc * 64;
 					$cost_tata_ftz			= ($gw_ftz * 16) + (640 * $gw_docftz);
-					$cost_tata_charge 		= $this->report_model->get_total('other_charge_tata',$row->file_id,'vietnam');
+					$cost_tata_charge 		= $this->report_model->get_total('other_charge_tata',$row->file_id,$flight);
 					$cost_tata_tpe	 		= $gw_total * (56 + 26);
 					$cost_total				= $cost_pml_charge + $cost_pml_freight + $cost_tata_hc + $cost_tata_ftz + $cost_tata_charge;
 
@@ -543,18 +391,18 @@ class Report extends MY_Controller {
 				foreach ($list_mawb_type as $type) {
 					if($this->report_model->get_manifest_by_mawb_type_and_file_id($row->file_id,$type,'vietnam')) {
 						#GW
-						$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_hc'),'vietnam');
-						$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_ftz'),'vietnam');
-						$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array($type . '_ftz'),'vietnam');
+						$gw_hc 					= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_hc'),$flight);
+						$gw_ftz 				= $this->report_model->get_total_where('kg',$row->file_id,'mawb_type',array($type . '_ftz'),$flight);
+						$gw_docftz				= $this->report_model->get_count_where($row->file_id,'mawb_type',array($type . '_ftz'),$flight);
 						$gw_total				= $gw_hc + $gw_ftz;
 
 						#INCOME
-						$in_pp 					= $this->report_model->get_total_where('prepaid',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),'vietnam');
-						$in_cc					= $this->report_model->get_total_where('collect',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),'vietnam');
+						$in_pp 					= $this->report_model->get_total_where('prepaid',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),$flight);
+						$in_cc					= $this->report_model->get_total_where('collect',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),$flight);
 						$in_total				= $in_pp + $in_cc;
 
 						#COST
-						$cost_pml_charge 		= $this->report_model->get_total_where('other_charge_pml',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),'vietnam');
+						$cost_pml_charge 		= $this->report_model->get_total_where('other_charge_pml',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),$flight);
 						
 
 						if($gw_total < 100) {
@@ -573,7 +421,7 @@ class Report extends MY_Controller {
 
 						$cost_tata_hc			= $gw_hc * 64;
 						$cost_tata_ftz			= ($gw_ftz * 16) + (640 * $gw_docftz);
-						$cost_tata_charge 		= $this->report_model->get_total_where('other_charge_tata',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),'vietnam');
+						$cost_tata_charge 		= $this->report_model->get_total_where('other_charge_tata',$row->file_id,'mawb_type',array($type . '_ftz',$type . '_hc'),$flight);
 						$cost_tata_tpe	 		= $gw_total * (56 + 26);
 						$cost_total				= $cost_pml_charge + $cost_pml_freight + $cost_tata_hc + $cost_tata_ftz + $cost_tata_charge;
 
@@ -618,9 +466,9 @@ class Report extends MY_Controller {
 				if($pibk_data = $this->report_model->get_manifest_by_mawb_type_and_file_id($row->file_id,'pibk','vietnam')) {
 					foreach ($pibk_data as $key => $pibk_row) {
 						#GW
-						$gw_hc 					= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array('pibk'),'vietnam');
-						$gw_ftz 				= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array(''),'vietnam');
-						$gw_docftz				= $this->report_model->get_count_where_by_hawb($pibk_row->hawb_no,'mawb_type',array(''),'vietnam');
+						$gw_hc 					= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array('pibk'),$flight);
+						$gw_ftz 				= $this->report_model->get_total_where_by_hawb('kg',$pibk_row->hawb_no,'mawb_type',array(''),$flight);
+						$gw_docftz				= $this->report_model->get_count_where_by_hawb($pibk_row->hawb_no,'mawb_type',array(''),$flight);
 						$gw_total				= $gw_hc + $gw_ftz;
 
 						#INCOME
@@ -693,9 +541,9 @@ class Report extends MY_Controller {
 		if($data_on_other_manifest) {
 			foreach ($data_on_other_manifest as $key => $other_manifest) {
 				#GW
-				$gw_hc 					= $this->report_model->get_total_where_by_hawb('kg',$other_manifest->hawb_no,'mawb_type',array('hc'),'vietnam');
-				$gw_ftz 				= $this->report_model->get_total_where_by_hawb('kg',$other_manifest->hawb_no,'mawb_type',array('ftz'),'vietnam');
-				$gw_docftz				= $this->report_model->get_count_where_by_hawb($other_manifest->hawb_no,'mawb_type',array('ftz'),'vietnam');
+				$gw_hc 					= $this->report_model->get_total_where_by_hawb('kg',$other_manifest->hawb_no,'mawb_type',array('hc'),$flight);
+				$gw_ftz 				= $this->report_model->get_total_where_by_hawb('kg',$other_manifest->hawb_no,'mawb_type',array('ftz'),$flight);
+				$gw_docftz				= $this->report_model->get_count_where_by_hawb($other_manifest->hawb_no,'mawb_type',array('ftz'),$flight);
 				$gw_total				= $gw_hc + $gw_ftz;
 
 				#INCOME
@@ -754,24 +602,27 @@ class Report extends MY_Controller {
 
 	function snow_jakarta_taiwan(){
 		$date = $_GET['date'];
+		$from = strtolower($_GET['from']);
+		$to = strtolower($_GET['to']);
+
 		$snow['host'] = array();
 
 
 		$get_manifest = $this->report_model->get_snow_jakarta_to_country_by_upload_date($date,'taiwan');
 		if($get_manifest) {
 			foreach ($get_manifest as $key => $row) {
-				$snow_jakarta_taiwan = $this->report_model->get_snow_local_from_to($row->file_id,'jakarta','taiwan');
+				$snow_jakarta_taiwan = $this->report_model->get_snow_local_from_to($row->file_id,$from,$to);
 				if($snow_jakarta_taiwan) {
-					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','taiwan','kg');
-					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','taiwan','kg');
-					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','taiwan','prepaid');
-					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','taiwan','collect');
+					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,$from,$to,'kg');
+					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,$from,$to,'kg');
+					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,$from,$to,'prepaid');
+					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,$from,$to,'collect');
 					$in_total			= $in_pp + $in_cc;
 
-					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','taiwan','other_charge_tata');				
+					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,$from,$to,'other_charge_tata');				
 					$cost_tata_freight	= $gw_mawb * 96;
 					$cost_pml_handling 	= $gw_mawb * 20;
-					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','taiwan','other_charge_pml');
+					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,$from,$to,'other_charge_pml');
 					$cost_total			= $cost_tata_charge + $cost_tata_freight + $cost_pml_handling + $cost_pml_charge;
 
 					$profit 			= $in_total - $cost_total;
@@ -804,18 +655,18 @@ class Report extends MY_Controller {
 						'acu_refund' 		=> $acu_refund
 						);
 				}
-				$snow_jakarta_hongkong = $this->report_model->get_snow_local_from_to($row->file_id,'jakarta','hongkong');
+				$snow_jakarta_hongkong = $this->report_model->get_snow_local_from_to($row->file_id,'id','hkg');
 				if($snow_jakarta_hongkong) {
-					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','hongkong','kg');
-					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','hongkong','kg');
-					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','hongkong','prepaid');
-					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','hongkong','collect');
+					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'id','hkg','kg');
+					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'id','hkg','kg');
+					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'id','hkg','prepaid');
+					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'id','hkg','collect');
 					$in_total			= $in_pp + $in_cc;
 
-					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','hongkong','other_charge_tata');				
+					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'id','hkg','other_charge_tata');				
 					$cost_tata_freight	= $gw_mawb * 96;
 					$cost_pml_handling 	= $gw_mawb * 20;
-					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','hongkong','other_charge_pml');
+					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'id','hkg','other_charge_pml');
 					$cost_total			= $cost_tata_charge + $cost_tata_freight + $cost_pml_handling + $cost_pml_charge;
 
 					$profit 			= $in_total - $cost_total;
@@ -848,18 +699,18 @@ class Report extends MY_Controller {
 						'acu_refund' 		=> $acu_refund
 						);
 				}
-				$snow_jakarta_china = $this->report_model->get_snow_local_from_to($row->file_id,'jakarta','china');
+				$snow_jakarta_china = $this->report_model->get_snow_local_from_to($row->file_id,'id','chn');
 				if($snow_jakarta_china) {
-					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','china','kg');
-					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','china','kg');
-					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','china','prepaid');
-					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','china','collect');
+					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'id','chn','kg');
+					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'id','chn','kg');
+					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'id','chn','prepaid');
+					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'id','chn','collect');
 					$in_total			= $in_pp + $in_cc;
 
-					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','china','other_charge_tata');				
+					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'id','chn','other_charge_tata');				
 					$cost_tata_freight	= $gw_mawb * 96;
 					$cost_pml_handling 	= $gw_mawb * 20;
-					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','china','other_charge_pml');
+					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'id','chn','other_charge_pml');
 					$cost_total			= $cost_tata_charge + $cost_tata_freight + $cost_pml_handling + $cost_pml_charge;
 
 					$profit 			= $in_total - $cost_total;
@@ -1045,19 +896,19 @@ class Report extends MY_Controller {
 		$get_manifest = $this->report_model->get_snow_jakarta_to_country_by_upload_date($date,'vietnam');
 		if($get_manifest) {
 			foreach ($get_manifest as $key => $row) {
-				$snow_jakarta_vietnam = $this->report_model->get_snow_local_from_to($row->file_id,'jakarta','vietnam');
+				$snow_jakarta_vietnam = $this->report_model->get_snow_local_from_to($row->file_id,'id','vn');
 				if($snow_jakarta_vietnam) {
-					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','vietnam','kg');
-					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','vietnam','kg');
-					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','vietnam','prepaid');
-					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','vietnam','collect');
+					$gw_selling 		= $this->report_model->snow_local_get_total_where($row->file_id,'id','vn','kg');
+					$gw_mawb    		= $this->report_model->snow_local_get_total_where($row->file_id,'id','vn','kg');
+					$in_pp 				= $this->report_model->snow_local_get_total_where($row->file_id,'id','vn','prepaid');
+					$in_cc 				= $this->report_model->snow_local_get_total_where($row->file_id,'id','vn','collect');
 					$in_total			= $in_pp + $in_cc;
 
 					$cost_tata_tpe		= $gw_mawb * (26+52);				
-					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','vietnam','other_charge_tata');				
+					$cost_tata_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'id','vn','other_charge_tata');				
 					$cost_tata_freight	= $gw_mawb * (64+33);
 					$cost_pml_handling 	= $gw_mawb * 64;
-					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'jakarta','vietnam','other_charge_pml');
+					$cost_pml_charge	= $this->report_model->snow_local_get_total_where($row->file_id,'id','vn','other_charge_pml');
 					$cost_total			= $cost_tata_charge + $cost_tata_freight + $cost_pml_handling + $cost_pml_charge;
 
 					$profit 			= $in_total - $cost_total;

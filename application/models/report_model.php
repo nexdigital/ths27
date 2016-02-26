@@ -272,7 +272,7 @@ class Report_model extends CI_Model {
 		$this->db->join('manifest_file_table','manifest_file_table.file_id = manifest_data_table.file_id');
 		$this->db->where('LEFT(manifest_file_table.created_date,10)',$date);
 		$this->db->where_in('LOWER(manifest_data_table.status)',array('valid','finish'));
-		$this->db->where_in('LOWER(manifest_file_table.flight_from)',strtolower($country));
+		$this->db->where_in('LOWER(manifest_file_table.flight_from)',$country);
 		$this->db->group_by('manifest_data_table.file_id');
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
