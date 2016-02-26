@@ -398,12 +398,12 @@ class Report extends MY_Controller {
 						$gw_total				= $gw_hc + $gw_ftz;
 
 						#INCOME
-						$in_pp 					= $pibk_row->prepaid;
-						$in_cc					= $pibk_row->collect;
+						$in_pp 					= $other_country_row->prepaid;
+						$in_cc					= $other_country_row->collect;
 						$in_total				= $in_pp + $in_cc;
 
 						#COST
-						$cost_pml_charge 		= $pibk_row->other_charge_pml;
+						$cost_pml_charge 		= $other_country_row->other_charge_pml;
 
 						if(strtolower($other_country_row->country) == 'china') {
 							if($gw_total <= 45) {
@@ -424,7 +424,7 @@ class Report extends MY_Controller {
 
 						$cost_tata_hc			= $gw_hc * 192;
 						$cost_tata_ftz			= ($gw_ftz * 16) + (640 * $gw_docftz);
-						$cost_tata_charge 		= $pibk_row->other_charge_tata;
+						$cost_tata_charge 		= $other_country_row->other_charge_tata;
 						$cost_total				= $cost_pml_charge + $cost_pml_freight + $cost_tata_hc + $cost_tata_ftz + $cost_tata_charge;
 
 						$profit 				= $in_total - $cost_total;

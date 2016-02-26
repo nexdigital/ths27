@@ -1,3 +1,6 @@
+<?php
+$getcountry = $this->db->query("select country from customer_table group by country");
+?>
 <div class="col-lg-12">
     <div class="form-group">
         <label>Select Date</label>
@@ -6,21 +9,25 @@
 </div>
 <div class="col-lg-6">
     <div class="form-group">
-        <label>Snow Type</label>
+        <label>From</label>
         <select class="form-control" name="from" required>
-            <option value="taiwan">Taiwan</option>
-            <option value="vietnam">Vietnam</option>
-            <option value="jakarta">Jakarta</option>
+            <?php
+            foreach($getcountry->result() as $row){
+                echo '<option value="'.$row->country.'">'.$row->country.'</option>';
+            }
+            ?>
         </select>
     </div>
 </div>
 <div class="col-lg-6">
     <div class="form-group">
-        <label>Snow Type</label>
+        <label>To</label>
         <select class="form-control" name="to" required>
-            <option value="jakarta">Jakarta</option>
-            <option value="vietnam">Vietnam</option>
-            <option value="taiwan">Taiwan</option>
+            <?php
+            foreach($getcountry->result() as $row){
+                echo '<option value="'.$row->country.'">'.$row->country.'</option>';
+            }
+            ?>
         </select>
     </div>
 </div>

@@ -259,7 +259,7 @@ class Report_model extends CI_Model {
 	function manifest_from_vietnam($file_id) {
 		$this->db->select('manifest_data_table.*');
 		$this->db->join('customer_table','manifest_data_table.shipper = customer_table.reference_id');
-		$this->db->where('LOWER(customer_table.country)','vietnam');
+		$this->db->where('LOWER(customer_table.country)','vn');
 		$this->db->where('manifest_data_table.file_id',$file_id);
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
@@ -272,7 +272,7 @@ class Report_model extends CI_Model {
 		$this->db->join('manifest_file_table','manifest_file_table.file_id = manifest_data_table.file_id');
 		$this->db->where('LEFT(manifest_file_table.created_date,10)',$date);
 		$this->db->where_in('LOWER(manifest_data_table.status)',array('valid','finish'));
-		$this->db->where_in('LOWER(manifest_file_table.flight_from)',$country);
+		$this->db->where_in('LOWER(manifest_file_table.flight_from)',strtolower($country));
 		$this->db->group_by('manifest_data_table.file_id');
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
@@ -284,8 +284,8 @@ class Report_model extends CI_Model {
 		$this->db->join('manifest_file_table','manifest_file_table.file_id = manifest_data_table.file_id');
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
 		$this->db->where('LEFT(manifest_data_table.created_date,10)',$date);
-		$this->db->where('LOWER(manifest_file_table.flight_from) !=',$country);
-		$this->db->where('LOWER(customer_table.country)',$country);
+		$this->db->where('LOWER(manifest_file_table.flight_from) !=',strtolower($country));
+		$this->db->where('LOWER(customer_table.country)',strtolower($country));
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
 		else return false;
@@ -295,7 +295,7 @@ class Report_model extends CI_Model {
 		$this->db->select('manifest_data_table.*');
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
 		$this->db->where('file_id',$file_id);
-		$this->db->where('LOWER(country)',$country);
+		$this->db->where('LOWER(country)',strtolower($country));
 		$this->db->like('LOWER(mawb_type)',strtolower($type));
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
@@ -305,7 +305,7 @@ class Report_model extends CI_Model {
 	function get_total($field, $file_id, $country) {
 		$this->db->select('SUM('.$field.') AS total');
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
-		$this->db->where('LOWER(country)',$country);
+		$this->db->where('LOWER(country)',strtolower($country));
 		$this->db->where('file_id',$file_id);
 		$this->db->where_in('mawb_type',array('ftz','hc'));
 		$get = $this->db->get('manifest_data_table');
@@ -316,7 +316,7 @@ class Report_model extends CI_Model {
 	function get_total_where($field, $file_id, $where, $value, $country) {
 		$this->db->select('SUM('.$field.') AS total');
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
-		$this->db->where('LOWER(country)',$country);
+		$this->db->where('LOWER(country)',strtolower($country));
 		$this->db->where('file_id',$file_id);
 		$this->db->where_in($where,$value);
 		$get = $this->db->get('manifest_data_table');
@@ -325,7 +325,7 @@ class Report_model extends CI_Model {
 	function get_total_where_by_hawb($field, $hawb_no, $where, $value, $country = false){
 		$this->db->select('SUM('.$field.') AS total');
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
-		if($country) $this->db->where('LOWER(country)',$country);
+		if($country) $this->db->where('LOWER(country)',strtolower($country));
 		$this->db->where('hawb_no',$hawb_no);
 		$this->db->where_in($where,$value);
 		$get = $this->db->get('manifest_data_table');
@@ -334,14 +334,14 @@ class Report_model extends CI_Model {
 	function get_count_where($file_id, $where, $value, $country) {
 		$this->db->where('file_id',$file_id);
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
-		$this->db->where('LOWER(country)',$country);
+		$this->db->where('LOWER(country)',strtolower($country));
 		$this->db->where_in($where,$value);
 		$get = $this->db->get('manifest_data_table');
 		return $get->num_rows();
 	}
 	function get_count_where_by_hawb($hawb_no, $where, $value, $country = false) {
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
-		if($country) $this->db->where('LOWER(country)',$country);
+		if($country) $this->db->where('LOWER(country)',strtolower($country));
 		$this->db->where('hawb_no',$hawb_no);
 		$this->db->where_in($where,$value);
 		$get = $this->db->get('manifest_data_table');
@@ -352,7 +352,7 @@ class Report_model extends CI_Model {
 
 		$this->db->select('manifest_file_table.*');
 		$this->db->where('LOWER(flight_from)','indonesia');
-		$this->db->where('LOWER(flight_to)',$country);
+		$this->db->where('LOWER(flight_to)',strtolower($country));
 		$this->db->where('LEFT(created_date,10)',$date);
 		$get = $this->db->get('manifest_file_table');
 		if($get->num_rows() > 0) return $get->result();
@@ -367,12 +367,12 @@ class Report_model extends CI_Model {
 			SELECT
 				manifest_data_table.*,
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.shipper
 				) as 'city_shipper',
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.consignee
 				) as 'city_consignee'
@@ -391,18 +391,18 @@ class Report_model extends CI_Model {
 			SELECT
 				manifest_data_table.*,
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.shipper
 				) as 'city_shipper',
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.consignee
 				) as 'city_consignee'
 			FROM manifest_data_table
 			WHERE manifest_data_table.file_id = '".$file_id."'
-		) MANIFEST where city_shipper = 'jakarta' and LOWER(city_consignee) != '".$country."'
+		) MANIFEST where city_shipper = 'ID' and LOWER(city_consignee) != '".$country."'
 		";
 		$get = $this->db->query($query);
 		if($get->num_rows() > 0) return $get->result();
@@ -416,18 +416,18 @@ class Report_model extends CI_Model {
 			SELECT
 				manifest_data_table.*,
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.shipper
 				) as 'city_shipper',
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.consignee
 				) as 'city_consignee'
 			FROM manifest_data_table
 			WHERE manifest_data_table.file_id = '".$file_id."'
-		) MANIFEST where LOWER(city_shipper) = '".$from."' and LOWER(city_consignee) = '".$to."'
+		) MANIFEST where LOWER(city_shipper) = '".strtolower($from)."' and LOWER(city_consignee) = '".strtolower($to)."'
 		";
 		$get = $this->db->query($query);
 		if($get->num_rows() > 0) return $get->result();
@@ -441,18 +441,18 @@ class Report_model extends CI_Model {
 			SELECT
 				manifest_data_table.*,
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.shipper
 				) as 'city_shipper',
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.consignee
 				) as 'city_consignee'
 			FROM manifest_data_table
 			WHERE manifest_data_table.file_id = '".$file_id."'
-		) MANIFEST where LOWER(city_shipper) = '".$from."' and LOWER(city_consignee) = '".$to."'
+		) MANIFEST where LOWER(city_shipper) = '".strtolower($from)."' and LOWER(city_consignee) = '".strtolower($to)."'
 		";
 		$get = $this->db->query($query);
 		return $get->row()->total;
@@ -465,18 +465,18 @@ class Report_model extends CI_Model {
 			SELECT
 				manifest_data_table.*,
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.shipper
 				) as 'city_shipper',
 				(
-					SELECT customer_table.city
+					SELECT customer_table.country
 					FROM customer_table
 					WHERE customer_table.reference_id = manifest_data_table.consignee
 				) as 'city_consignee'
 			FROM manifest_data_table
 			WHERE manifest_data_table.file_id = '".$file_id."'
-		) MANIFEST where LOWER(city_shipper) = '".$from."' and LOWER(city_consignee) = '".$to."' AND MANIFEST.collect != ''
+		) MANIFEST where LOWER(city_shipper) = '".strtolower($from)."' and LOWER(city_consignee) = '".strtolower($to)."' AND MANIFEST.collect != ''
 		";
 		$get = $this->db->query($query);
 		return $get->row()->total;
@@ -485,8 +485,8 @@ class Report_model extends CI_Model {
 	function get_data_by_other_country($file_id,$country) {
 		$this->db->select('manifest_data_table.*, customer_table.country');
 		$this->db->join('customer_table','customer_table.reference_id = manifest_data_table.shipper');
-		$this->db->where('LOWER(country) !=',$country);
-		if($country == 'taiwan') $this->db->where('LOWER(country) !=','vietnam');
+		$this->db->where('LOWER(country) !=',strtolower($country));
+		if(strtolower($country) == 'tw') $this->db->where('LOWER(country) !=','vn');
 		$this->db->where('file_id',$file_id);
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
