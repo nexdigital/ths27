@@ -195,7 +195,8 @@ class Manifest_model extends CI_Model {
 		$subtotal = 0;
 		switch ($type) {
 			case 'all':
-				$normal = $this->subtotal($data->hawb_no,'normal');
+				return $this->subtotal($data->hawb_no,'normal');
+				//$normal = $this->subtotal($data->hawb_no,'normal');
 				$discount = $this->subtotal($data->hawb_no,'discount');
 				$charge = $this->subtotal($data->hawb_no,'charge');
 
@@ -257,6 +258,7 @@ class Manifest_model extends CI_Model {
 				$subtotal += $data->other_charge_pml;
 				
 				$subtotal = $subtotal * $data->exchange_rate;
+				error_log("$subtotal: " . $subtotal);
 				return $subtotal;
 			break;
 

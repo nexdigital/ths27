@@ -274,6 +274,7 @@ class Manifest extends MY_Controller {
 						$data['rate']			= $_POST['rate'];
 
 						$amount = preg_replace( '/[^0-9]/', '', $_POST['amount']);
+						$amount = ($amount / $this->master_currency->get_exchange_rate_value($_POST['currency']));
 
 						$data['collect']		= ($_POST['type_payment'] == 'collect') ? $amount : null;
 						$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? $amount : null;
@@ -321,8 +322,11 @@ class Manifest extends MY_Controller {
 				$data['kg']				= $_POST['kg'];
 				$data['rate']			= $_POST['rate'];
 
-				$data['collect']		= ($_POST['type_payment'] == 'collect') ? str_ireplace(',','',$_POST['amount']) : null;
-				$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? str_ireplace(',','',$_POST['amount']) : null;
+				$amount = preg_replace( '/[^0-9]/', '', $_POST['amount']);
+				$amount = ($amount / $this->master_currency->get_exchange_rate_value($_POST['currency']));
+
+				$data['collect']		= ($_POST['type_payment'] == 'collect') ? $amount : null;
+				$data['prepaid']		= ($_POST['type_payment'] == 'prepaid') ? $amount : null;
 
 				$data['description']	= $_POST['description'];
 				$data['remarks']		= $_POST['remarks'];
