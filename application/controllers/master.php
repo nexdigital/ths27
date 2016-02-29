@@ -239,7 +239,7 @@ class Master extends MY_Controller {
 
 					case 'check_available_country':
 						$country_name = $_GET['country_name'];
-						$get = $this->db->query("select * from master_country_table where country_name = '".strtolower($country_name)."'");
+						$get = $this->db->query("select * from master_country_table where country_name = '".strtolower($country_name)."' and is_active = 'active'");
 						if($get->num_rows() == 0) echo "true";
 						else echo "false";
 					break;
@@ -270,9 +270,9 @@ class Master extends MY_Controller {
 
 							$currency_name = $_POST['currency_name'];
 							$check_currency = $this->master_currency->check_currency( $currency_name );
-
+/*
 							if(!$check_currency)
-							{
+							{*/
 								$this->db->set('exchange_rate_name',$_POST['currency_name']);
 								$this->db->set('exchange_rate_value',$_POST['rate']);
 								$this->db->set('entry_date',date('Y-m-d h:i:s'));
@@ -281,12 +281,12 @@ class Master extends MY_Controller {
 								$this->db->insert('master_exchange_rate_table');
 								$status  = 'success'; 
 								$message = 'New currency has been added';
-							}
+						/*	}
 							else
 							{
 								$status  = 'warning'; 
 								$message = 'Currency Name Has been created before';
-							}
+							}*/
 							
 
 
@@ -296,6 +296,7 @@ class Master extends MY_Controller {
 						$this->db->where("exchange_rate_id",$_POST['exchange_rate_id']);
 						$this->db->set('exchange_rate_name',$_POST['exchange_rate_name']);
 						$this->db->set('exchange_rate_value',$_POST['exchange_rate_value']);
+					//	$this->db->set('status',$_POST['status']);
 						$this->db->set('update_date',date('Y-m-d h:i:s'));
 						$this->db->set('update_by',$this->session->userdata('username'));
 						$this->db->update('master_exchange_rate_table');
@@ -354,7 +355,7 @@ class Master extends MY_Controller {
 						$tax_id  			= str_replace(' ', '', $_POST['tax_id']);
 						$tax_name  			= $_POST['tax_name'];
 						$description  		= $_POST['description'];
-						$tax_base_amount  	= $_POST['tax_base_amount'];
+					//	$tax_base_amount  	= $_POST['tax_base_amount'];
 						$tax_rate  			= $_POST['tax_rate'];
 						$check_tax          = $this->master_tax->check_tax($tax_id);
 
@@ -378,7 +379,7 @@ class Master extends MY_Controller {
 										 			   'tax_id' 			=> $tax_id, 
 													   'tax_name' 			=> $tax_name, 
 													   'description'		=> $description,
-													   'tax_base_amount'	=> $tax_base_amount,
+													 //  'tax_base_amount'	=> $tax_base_amount,
 													   'is_active'			=> $v_isActive,
 													   'tax_rate'			=> $tax_rate,
 													   'created_by'			=> $this->session->userdata("username")
@@ -410,7 +411,7 @@ class Master extends MY_Controller {
 						$id 				= $_POST['tax_id'];
 						$tax_name  			= $_POST['tax_name'];
 						$description  		= $_POST['description'];
-						$tax_base_amount  	= $_POST['tax_base_amount'];
+						//$tax_base_amount  	= $_POST['tax_base_amount'];
 						$tax_rate  			= $_POST['tax_rate'];
 
 						$check_tax          = $this->master_tax->check_tax_name($id,$tax_name);
@@ -434,7 +435,7 @@ class Master extends MY_Controller {
 								if (preg_match($regex, $tax_name)) {
 										$component = array('tax_name' 		=> $tax_name, 
 													   'description'		=> $description,
-													   'tax_base_amount'	=> $tax_base_amount,
+													//   'tax_base_amount'	=> $tax_base_amount,
 													   'tax_rate'			=> $tax_rate,
 													   'update_by'			=> $this->session->userdata("username"),
 													   'is_active'			=> $v_isActive,

@@ -13,12 +13,12 @@
                       
       </div>
 
-            <div class="form-group">
+           <!--  <div class="form-group">
             <label>Tax base amount <label class="required-filed">*</label></label>
                       
           <input type="text" name="tax_base_amount" class="form-control" id="tax_base_amount" value=" <?php echo $get_tax_row->tax_base_amount?>" required>
                        
-          </div>
+          </div> -->
 
           <div class="form-group">
                         <label >Tax rate <label class="required-filed">*</label></label>

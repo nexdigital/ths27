@@ -36,8 +36,8 @@
 </table>
 
 <a href="#" onClick="setPage('<?php echo base_url('master/add_user_role/add_form')?>')"><button class="btn btn-primary">Add Role</button></a> 
-<button class="btn btn-primary">Print CSV</button>
-
+<!-- <button class="btn btn-primary">Print CSV</button>
+ -->
 <script>	
 
 	$("#table_user_role").dataTable();

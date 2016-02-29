@@ -2,7 +2,7 @@
   <thead>
      <th>ID</th>
      <th>Tax Name</th>
-     <th>Tax base amount</th>
+    
      <th>Tax rate</th>
      <th>Created by</th>
      <th>Created date</th>
@@ -19,7 +19,7 @@
                   <tr>
                       <td><a href="javascript:;" onClick="setPage(\''.base_url('master/tax/edit_tax/'.$value->tax_id.'').'\')">'.$value->tax_id.'</a></td>
                       <td>'.$value->tax_name.'</td>
-                      <td>'.$value->tax_base_amount.'</td>
+                  
                       <td>'.$value->tax_rate.'</td>
                       <td>'.$value->created_by.'</td>
                       <td>'.$value->created_date.'</td>
@@ -41,8 +41,8 @@
 </table>
 
 <a href="#" onClick="setPage('<?php echo base_url('master/tax/add_tax')?>')"><button class="btn btn-primary">Add Tax</button></a> 
-<button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
-
+<!-- <button class="btn btn-primary"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print to CSV</button>
+ -->
 <script>
   $('#table_tax').DataTable();
 
