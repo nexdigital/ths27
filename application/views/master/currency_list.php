@@ -23,8 +23,8 @@
 		}
 		echo '
 			<tr>
-				<!--<td><a href="javascript:;" onClick="setPage(\''.base_url().'master/view/currency/edit/'.$row->exchange_rate_id.'\')">'.$row->exchange_rate_name.'</a></td>-->
-				<td>'.$row->exchange_rate_name.'</td>
+				<td><a href="javascript:;" onClick="setPage(\''.base_url().'master/view/currency/edit/'.$row->exchange_rate_id.'\')">'.$row->exchange_rate_name.'</a></td>
+				<!--<td>'.$row->exchange_rate_name.'</td>-->
 				<td>Rp.'.number_format($row->exchange_rate_value).'</td>
 				<td>'.$row->entry_by.'</td>
 				<td>'.$row->entry_date.'</td>

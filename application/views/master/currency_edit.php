@@ -13,7 +13,7 @@
 	<div class="form-group">
 		<button type="submit" class="btn btn-success submit" data-loading-text="Saving...">Update</button>
 		<!-- <button type="button" class="btn btn-success delete" exchange_rate_id="<?php echo $data->exchange_rate_id ?>">Delete</button> -->
-		 <button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/currency/delete/<?php echo $data->exchange_rate_id ?>')">Delete</button>
+		 <!--<button type="reset" class="btn btn-success btn-submit"  onclick="setPage('<?php echo base_url() ?>master/view/currency/delete/<?php echo $data->exchange_rate_id ?>')">Delete</button>-->
 		<button type="button" class="btn btn-danger" onClick="setPage('<?php echo base_url('master/view/currency/index')?>')">Cancel</button>
 		<label class="alert-form" ></label>
 	</div>
